@@ -1940,21 +1940,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         var componentData = {
-            path: '/',
+            uri: '/',
             items: [{ name: 'name1' }, { name: 'name2' }],
-            getData: function getData() {
+            getData: function getData(name) {
                 jQuery.ajax('/dir/list', {
-                    data: { path: componentData.path },
+                    data: { uri: componentData.uri + (name ? '/' + name : '') },
                     method: 'GET',
                     success: function success(data) {
-                        componentData.path = data.path;
+                        componentData.uri = data.uri;
                         componentData.items = data.items;
                     }
                 });
-            },
-            click: function click() {
-                componentData.getData();
-                return false;
             }
         };
         componentData.getData();
@@ -31859,7 +31855,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "panel panel-default"
   }, [_c('div', {
     staticClass: "panel-heading"
-  }, [_vm._v("Путь: " + _vm._s(_vm.path))]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Путь: " + _vm._s(_vm.uri))]), _vm._v(" "), _c('div', {
     staticClass: "panel-body"
   }, _vm._l((_vm.items), function(item) {
     return _c('div', {
@@ -31869,7 +31865,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "href": "#"
       },
       on: {
-        "click": _vm.click
+        "click": function($event) {
+          _vm.getData(item.name)
+        }
       }
     }, [_vm._v("\n                            " + _vm._s(item.name) + "\n                        ")])])
   }))])])])])

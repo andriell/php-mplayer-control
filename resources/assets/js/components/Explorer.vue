@@ -3,10 +3,10 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Путь: {{path}}</div>
+                    <div class="panel-heading">Путь: {{uri}}</div>
                     <div class="panel-body">
                         <div class="item" v-for="item in items">
-                            <a href="#" v-on:click="click">
+                            <a href="#" v-on:click="getData(item.name)">
                                 {{ item.name }}
                             </a>
                         </div>
@@ -21,24 +21,20 @@
     export default {
         data: function() {
             var componentData = {
-                path: '/',
+                uri: '/',
                 items: [
                     {name: 'name1'},
                     {name: 'name2'}
                 ],
-                getData: function() {
+                getData: function(name) {
                     jQuery.ajax('/dir/list', {
-                        data: {path: componentData.path},
+                        data: {uri: componentData.uri + (name ? '/' + name : '')},
                         method: 'GET',
                         success: function(data) {
-                            componentData.path = data.path;
+                            componentData.uri = data.uri;
                             componentData.items = data.items;
                         }
                     });
-                },
-                click: function() {
-                    componentData.getData();
-                    return false;
                 }
             };
             componentData.getData();

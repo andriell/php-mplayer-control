@@ -9,6 +9,8 @@
 namespace App\Http\Controllers;
 
 
+use Illuminate\Support\Facades\Input;
+
 class DirController extends Controller
 {
     function index() {
@@ -16,16 +18,31 @@ class DirController extends Controller
     }
 
     function getList() {
-        $dir = config('my.media_dir');
+        $uri = '/' . trim(Input::get('uri', ''), '/');
+        $dir = realpath(config('my.media_dir') . $uri);
         $r = [
-            'path' => '/',
+            'uri' => $uri,
             'items' => []
         ];
-        if ($handle = opendir($dir)) {
-            while (false !== ($entry = readdir($handle))) {
-                $r['items'][] = array('name' => $entry);
+        if (strpos($dir, config('my.media_dir')) != 0) {
+            return response()->json($r);
+        }
+        foreach ([true, false] as $isDir) {
+            if ($handle = opendir($dir)) {
+                while (false !== ($entry = readdir($handle))) {
+                    if ($entry == '.' || $entry == '..') {
+                        continue;
+                    }
+                    if ($isDir xor is_dir($dir . '\\' . $entry)) {
+                        continue;
+                    }
+                    $r['items'][] = array(
+                        'name' => $entry,
+                        'is_dir' => $isDir,
+                    );
+                }
+                closedir($handle);
             }
-            closedir($handle);
         }
         return response()->json($r);
     }
