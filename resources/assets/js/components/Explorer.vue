@@ -4,9 +4,11 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">Example Component</div>
-
                     <div class="panel-body">
-                        I'm an example component!11
+                        <div class="item">
+                            100500
+                        </div>
+                        I'm an example component!
                     </div>
                 </div>
             </div>
@@ -17,7 +19,17 @@
 <script>
     export default {
         mounted() {
-            console.log('Component mounted.10')
+            console.log('Component mounted.')
         }
     }
 </script>
+
+
+<style>
+    .item {
+        display: inline-block;
+        vertical-align: bottom;
+        height: 140px;
+        width: 128px;
+    }
+</style>
