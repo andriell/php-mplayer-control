@@ -11,12 +11,16 @@
 |
 */
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', function () {
     return view('welcome');
 });
 
 Route::get('/dir/{path}', 'DirController@index')
     ->where(['path' => '[\s\S]+']);
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
