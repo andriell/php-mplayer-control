@@ -1033,7 +1033,15 @@ Vue.component('example', __webpack_require__(36));
 Vue.component('explorer', __webpack_require__(37));
 
 var app = new Vue({
-  el: '#app'
+    el: '#app',
+    data: {
+        torrent: {},
+        data_explorer: {
+            path: '/',
+            items: []
+        },
+        rc: {}
+    }
 });
 
 /***/ }),
@@ -1907,9 +1915,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log('Component mounted.10');
-    }
+    mounted: function mounted() {}
 });
 
 /***/ }),
@@ -1935,12 +1941,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log('Component mounted.');
-    }
+    data: function data() {
+        return {
+            path: '/',
+            items: [{ name: 'name1' }, { name: 'name2' }]
+        };
+    },
+    mounted: function mounted() {}
 });
 
 /***/ }),
@@ -31829,8 +31838,6 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "container"
   }, [_c('div', {
@@ -31841,12 +31848,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "panel panel-default"
   }, [_c('div', {
     staticClass: "panel-heading"
-  }, [_vm._v("Example Component")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Путь: " + _vm._s(_vm.path))]), _vm._v(" "), _c('div', {
     staticClass: "panel-body"
-  }, [_c('div', {
-    staticClass: "item"
-  }, [_vm._v("\n                        100500\n                    ")]), _vm._v("\n                    I'm an example component!\n                ")])])])])])
-}]}
+  }, _vm._l((_vm.items), function(item) {
+    return _c('div', {
+      staticClass: "item"
+    }, [_vm._v("\n                        " + _vm._s(item.name) + "\n                    ")])
+  }))])])])])
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()

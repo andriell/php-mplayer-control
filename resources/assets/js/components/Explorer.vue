@@ -3,12 +3,11 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Example Component</div>
+                    <div class="panel-heading">Путь: {{path}}</div>
                     <div class="panel-body">
-                        <div class="item">
-                            100500
+                        <div class="item" v-for="item in items">
+                            {{ item.name }}
                         </div>
-                        I'm an example component!
                     </div>
                 </div>
             </div>
@@ -18,9 +17,16 @@
 
 <script>
     export default {
-        mounted() {
-            console.log('Component mounted.')
-        }
+        data: function() {
+            return {
+                path: '/',
+                items: [
+                    {name: 'name1'},
+                    {name: 'name2'}
+                ]
+            }
+        },
+        mounted() {}
     }
 </script>
 

@@ -19,5 +19,15 @@ Vue.component('example', require('./components/Example.vue'));
 Vue.component('explorer', require('./components/Explorer.vue'));
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    data: {
+        torrent: {},
+        data_explorer: {
+            path: '/',
+            items: []
+        },
+        rc: {
+
+        }
+    }
 });
