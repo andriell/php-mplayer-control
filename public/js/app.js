@@ -41349,7 +41349,7 @@ module.exports = function() {
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(44)();
-exports.push([module.i, "\n.item {\n    display: inline-block;\n    vertical-align: bottom;\n    height: 140px;\n    width: 128px;\n    padding: 10px;\n    text-align: center;\n    overflow: hidden;\n}\n", ""]);
+exports.push([module.i, "\n.item {\n    display: inline-block;\n    vertical-align: bottom;\n    height: 140px;\n    width: 128px;\n    padding: 2px;\n    text-align: center;\n    overflow: hidden;\n}\n", ""]);
 
 /***/ }),
 /* 52 */

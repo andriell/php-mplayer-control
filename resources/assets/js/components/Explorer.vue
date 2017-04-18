@@ -64,7 +64,7 @@
         vertical-align: bottom;
         height: 140px;
         width: 128px;
-        margin: 8px;
+        padding: 2px;
         text-align: center;
         overflow: hidden;
     }
