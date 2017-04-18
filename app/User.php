@@ -7,24 +7,24 @@ use Illuminate\Contracts\Auth\Authenticatable;
 class User implements Authenticatable
 {
 
-    private $authIdentifier = null;
-    private $authPassword = null;
-    private $rememberToken = null;
+    public $name = null;
+    private $password = null;
+    private $token = null;
 
     /**
      * @param null $authIdentifier
      */
     public function setAuthIdentifier($authIdentifier)
     {
-        $this->authIdentifier = $authIdentifier;
+        $this->name = $authIdentifier;
     }
 
     /**
-     * @param null $authPassword
+     * @param null $password
      */
-    public function setAuthPassword($authPassword)
+    public function setAuthPassword($password)
     {
-        $this->authPassword = $authPassword;
+        $this->password = $password;
     }
 
     /**
@@ -44,7 +44,7 @@ class User implements Authenticatable
      */
     public function getAuthIdentifier()
     {
-        return $this->authIdentifier;
+        return $this->name;
     }
 
     /**
@@ -54,7 +54,7 @@ class User implements Authenticatable
      */
     public function getAuthPassword()
     {
-        return $this->authPassword;
+        return $this->password;
     }
 
     /**
@@ -64,7 +64,7 @@ class User implements Authenticatable
      */
     public function getRememberToken()
     {
-        return $this->rememberToken;
+        return $this->token;
     }
 
     /**
@@ -75,7 +75,7 @@ class User implements Authenticatable
      */
     public function setRememberToken($value)
     {
-        $this->rememberToken = $value;
+        $this->token = $value;
     }
 
     /**

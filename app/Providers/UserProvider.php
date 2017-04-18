@@ -23,9 +23,12 @@ class UserProvider implements IlluminateUserProvider
      */
     public function retrieveById($identifier)
     {
-        var_dump($identifier);
         echo 'retrieveById';
-        exit();
+        var_dump($identifier);
+        //exit();
+        $user = new User();
+        $user->setAuthIdentifier($identifier);
+        return $user;
     }
 
     /**
@@ -37,9 +40,9 @@ class UserProvider implements IlluminateUserProvider
      */
     public function retrieveByToken($identifier, $token)
     {
+        echo 'retrieveByToken';
         var_dump($identifier);
         var_dump($token);
-        echo 'retrieveByToken';
         exit();
     }
 
@@ -52,14 +55,16 @@ class UserProvider implements IlluminateUserProvider
      */
     public function updateRememberToken(Authenticatable $user, $token)
     {
+        echo 'updateRememberToken';
         var_dump($user);
         var_dump($token);
-        echo 'updateRememberToken';
-        exit();
+        $user->setRememberToken($token);
+
+        //exit();
     }
 
     /**
-     * Retrieve a user by the given credentials.
+     * 1 Retrieve a user by the given credentials.
      *
      * @param  array $credentials
      * @return \Illuminate\Contracts\Auth\Authenticatable|null
@@ -69,7 +74,9 @@ class UserProvider implements IlluminateUserProvider
         echo 'retrieveByCredentials';
         var_dump($credentials);
         //exit();
-        return new User();
+        $user = new User();
+        $user->setAuthIdentifier($credentials['email']);
+        return $user;
     }
 
     /**
@@ -84,6 +91,6 @@ class UserProvider implements IlluminateUserProvider
         echo 'validateCredentials';
         var_dump($user);
         var_dump($credentials);
-        return true;
+        return ($user instanceof User);
     }
 }
