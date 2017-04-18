@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'HomeController@index');
 
-Route::get('/dir/{path}', 'DirController@index')
+Route::get('/dir/{path?}', 'DirController@index')
     ->where(['path' => '[\s\S]+']);
 
 Auth::routes();
