@@ -24,7 +24,7 @@ class DirController extends Controller
             'uri' => $uri,
             'items' => []
         ];
-        if (strpos($dir, config('my.media_dir')) != 0) {
+        if (strpos($dir, config('my.media_dir')) !== 0) {
             return response()->json($r);
         }
         foreach ([true, false] as $isDir) {
