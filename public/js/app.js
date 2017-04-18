@@ -1941,6 +1941,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -1948,7 +1954,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             uri: '/',
             items: [],
             getData: function getData(name) {
-                jQuery.ajax('/dir/list', {
+                jQuery.ajax('/dir-list', {
                     data: { uri: componentData.uri + (name ? '/' + name : '') },
                     method: 'GET',
                     success: function success(data) {
@@ -1956,6 +1962,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         componentData.items = data.items;
                     }
                 });
+                return false;
+            },
+            download: function download(name) {
+                window.location.href = '/dir-download/?uri=' + componentData.uri + (name ? '/' + name : '');
                 return false;
             }
         };
@@ -31875,7 +31885,28 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           _vm.getData(item.name)
         }
       }
-    }, [_vm._v("\n                                " + _vm._s(item.name) + "\n                            ")])] : [_vm._v("\n                            " + _vm._s(item.name) + "\n                        ")]], 2)
+    }, [_c('img', {
+      attrs: {
+        "src": "/img/dir.png"
+      }
+    }), _c('br'), _vm._v("\n                                " + _vm._s(item.name) + "\n                            ")])] : [_c('a', {
+      attrs: {
+        "href": "#"
+      }
+    }, [_c('a', {
+      attrs: {
+        "href": "#"
+      },
+      on: {
+        "click": function($event) {
+          _vm.download(item.name)
+        }
+      }
+    }, [_c('img', {
+      attrs: {
+        "src": "/img/file.png"
+      }
+    }), _c('br'), _vm._v("\n                                    " + _vm._s(item.name) + "\n                                ")])])]], 2)
   }))])])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
@@ -41318,7 +41349,7 @@ module.exports = function() {
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(44)();
-exports.push([module.i, "\n.item {\n    display: inline-block;\n    vertical-align: bottom;\n    height: 140px;\n    width: 128px;\n}\n", ""]);
+exports.push([module.i, "\n.item {\n    display: inline-block;\n    vertical-align: bottom;\n    height: 140px;\n    width: 128px;\n    padding: 10px;\n    text-align: center;\n    overflow: hidden;\n}\n", ""]);
 
 /***/ }),
 /* 52 */

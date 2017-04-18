@@ -17,7 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'HomeController@index');
 
 Route::get('/dir', 'DirController@index')->name('dir');
-Route::get('/dir/list', 'DirController@getList')->name('dir_list');
+Route::get('/dir-list', 'DirController@getList')->name('dir_list');
+Route::get('/dir-download', 'DirController@download')->name('dir_list');
 
 Auth::routes();
 Route::any('register', 'HomeController@index');
