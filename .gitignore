@@ -5,6 +5,7 @@
 /vendor
 /.idea
 /.vagrant
+artisan.bat
 composer.bat
 composer.phar
 Homestead.json
