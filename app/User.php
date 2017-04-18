@@ -2,28 +2,89 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Contracts\Auth\Authenticatable;
 
-class User extends Authenticatable
+class User implements Authenticatable
 {
-    use Notifiable;
+
+    private $authIdentifier = null;
+    private $authPassword = null;
+    private $rememberToken = null;
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
+     * @param null $authIdentifier
      */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
+    public function setAuthIdentifier($authIdentifier)
+    {
+        $this->authIdentifier = $authIdentifier;
+    }
 
     /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
+     * @param null $authPassword
      */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+    public function setAuthPassword($authPassword)
+    {
+        $this->authPassword = $authPassword;
+    }
+
+    /**
+     * Get the name of the unique identifier for the user.
+     *
+     * @return string
+     */
+    public function getAuthIdentifierName()
+    {
+        return 'aid';
+    }
+
+    /**
+     * Get the unique identifier for the user.
+     *
+     * @return mixed
+     */
+    public function getAuthIdentifier()
+    {
+        return $this->authIdentifier;
+    }
+
+    /**
+     * Get the password for the user.
+     *
+     * @return string
+     */
+    public function getAuthPassword()
+    {
+        return $this->authPassword;
+    }
+
+    /**
+     * Get the token value for the "remember me" session.
+     *
+     * @return string
+     */
+    public function getRememberToken()
+    {
+        return $this->rememberToken;
+    }
+
+    /**
+     * Set the token value for the "remember me" session.
+     *
+     * @param  string $value
+     * @return void
+     */
+    public function setRememberToken($value)
+    {
+        $this->rememberToken = $value;
+    }
+
+    /**
+     * Get the column name for the "remember me" token.
+     *
+     * @return string
+     */
+    public function getRememberTokenName()
+    {
+        return 'token';
+    }
 }
