@@ -11,7 +11,7 @@ namespace App\Http\Controllers;
 
 class DirController extends Controller
 {
-    function run() {
+    function index() {
         return 123;
     }
 }

@@ -14,13 +14,14 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index');
 
 Route::get('/dir/{path}', 'DirController@index')
     ->where(['path' => '[\s\S]+']);
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index');
+Route::any('register', 'HomeController@index');
+Route::any('password/reset', 'HomeController@index');
+Route::any('password/email', 'HomeController@index');
+Route::any('password/reset/{token}', 'HomeController@index');
+Route::any('password/reset', 'HomeController@index');
