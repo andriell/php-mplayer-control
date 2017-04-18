@@ -1936,12 +1936,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         var componentData = {
             uri: '/',
-            items: [{ name: 'name1' }, { name: 'name2' }],
+            items: [],
             getData: function getData(name) {
                 jQuery.ajax('/dir/list', {
                     data: { uri: componentData.uri + (name ? '/' + name : '') },

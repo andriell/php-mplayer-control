@@ -27,10 +27,7 @@
         data: function() {
             var componentData = {
                 uri: '/',
-                items: [
-                    {name: 'name1'},
-                    {name: 'name2'}
-                ],
+                items: [],
                 getData: function(name) {
                     jQuery.ajax('/dir/list', {
                         data: {uri: componentData.uri + (name ? '/' + name : '')},
