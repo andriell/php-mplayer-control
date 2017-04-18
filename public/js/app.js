@@ -1033,15 +1033,8 @@ Vue.component('example', __webpack_require__(36));
 Vue.component('explorer', __webpack_require__(37));
 
 var app = new Vue({
-    el: '#app',
-    data: {
-        torrent: {},
-        data_explorer: {
-            path: '/',
-            items: []
-        },
-        rc: {}
-    }
+  el: '#app',
+  data: {}
 });
 
 /***/ }),
@@ -1941,13 +1934,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
-        return {
+        var componentData = {
             path: '/',
-            items: [{ name: 'name1' }, { name: 'name2' }]
+            items: [{ name: 'name1' }, { name: 'name2' }],
+            getData: function getData() {
+                jQuery.ajax('/dir/list', {
+                    data: { path: componentData.path },
+                    method: 'GET',
+                    success: function success(data) {
+                        componentData.path = data.path;
+                        componentData.items = data.items;
+                    }
+                });
+            },
+            click: function click() {
+                componentData.getData();
+                return false;
+            }
         };
+        componentData.getData();
+        return componentData;
     },
     mounted: function mounted() {}
 });
@@ -31853,7 +31864,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, _vm._l((_vm.items), function(item) {
     return _c('div', {
       staticClass: "item"
-    }, [_vm._v("\n                        " + _vm._s(item.name) + "\n                    ")])
+    }, [_c('a', {
+      attrs: {
+        "href": "#"
+      },
+      on: {
+        "click": _vm.click
+      }
+    }, [_vm._v("\n                            " + _vm._s(item.name) + "\n                        ")])])
   }))])])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true

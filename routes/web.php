@@ -16,8 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'HomeController@index');
 
-Route::get('/dir/{path?}', 'DirController@index')
-    ->where(['path' => '[\s\S]+'])->name('dir');
+Route::get('/dir', 'DirController@index')->name('dir');
+Route::get('/dir/list', 'DirController@getList')->name('dir_list');
 
 Auth::routes();
 Route::any('register', 'HomeController@index');

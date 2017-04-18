@@ -12,16 +12,21 @@ namespace App\Http\Controllers;
 class DirController extends Controller
 {
     function index() {
+        return view('dir');
+    }
+
+    function getList() {
         $dir = config('my.media_dir');
-        $files = [];
+        $r = [
+            'path' => '/',
+            'items' => []
+        ];
         if ($handle = opendir($dir)) {
             while (false !== ($entry = readdir($handle))) {
-                $files[] = array('name' => $entry);
+                $r['items'][] = array('name' => $entry);
             }
             closedir($handle);
         }
-        return view('dir', [
-            'files' => $files,
-        ]);
+        return response()->json($r);
     }
 }

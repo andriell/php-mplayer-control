@@ -20,14 +20,5 @@ Vue.component('explorer', require('./components/Explorer.vue'));
 
 const app = new Vue({
     el: '#app',
-    data: {
-        torrent: {},
-        data_explorer: {
-            path: '/',
-            items: []
-        },
-        rc: {
-
-        }
-    }
+    data: {}
 });
