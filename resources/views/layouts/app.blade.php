@@ -43,7 +43,21 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        &nbsp;
+                        <li class="dropdown">
+                            <a href="#">
+                                Torrent
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="{{ url('dir') }}">
+                                Files
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#">
+                                RC
+                            </a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
