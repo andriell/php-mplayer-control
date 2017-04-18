@@ -1951,6 +1951,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         componentData.items = data.items;
                     }
                 });
+                return false;
             }
         };
         componentData.getData();
@@ -31860,7 +31861,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, _vm._l((_vm.items), function(item) {
     return _c('div', {
       staticClass: "item"
-    }, [_c('a', {
+    }, [(item.is_dir) ? [_c('a', {
       attrs: {
         "href": "#"
       },
@@ -31869,7 +31870,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           _vm.getData(item.name)
         }
       }
-    }, [_vm._v("\n                            " + _vm._s(item.name) + "\n                        ")])])
+    }, [_vm._v("\n                                " + _vm._s(item.name) + "\n                            ")])] : [_vm._v("\n                            " + _vm._s(item.name) + "\n                        ")]], 2)
   }))])])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true

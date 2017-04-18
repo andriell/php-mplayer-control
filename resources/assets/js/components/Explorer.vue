@@ -6,9 +6,14 @@
                     <div class="panel-heading">Путь: {{uri}}</div>
                     <div class="panel-body">
                         <div class="item" v-for="item in items">
-                            <a href="#" v-on:click="getData(item.name)">
+                            <template v-if="item.is_dir">
+                                <a href="#" v-on:click="getData(item.name)">
+                                    {{ item.name }}
+                                </a>
+                            </template>
+                            <template v-else>
                                 {{ item.name }}
-                            </a>
+                            </template>
                         </div>
                     </div>
                 </div>
@@ -35,6 +40,7 @@
                             componentData.items = data.items;
                         }
                     });
+                    return false;
                 }
             };
             componentData.getData();
