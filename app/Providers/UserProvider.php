@@ -15,6 +15,23 @@ use Illuminate\Contracts\Auth\UserProvider as IlluminateUserProvider;
 class UserProvider implements IlluminateUserProvider
 {
 
+    /** @var \Illuminate\Cache\CacheManager */
+    protected $cache;
+    /** @var  array */
+    protected $users;
+
+    /**
+     * UserProvider constructor.
+     * @param \Illuminate\Cache\CacheManager $cache
+     * @param array $users
+     */
+    public function __construct($cache, $users)
+    {
+        $this->cache = $cache;
+        $this->users = $users;
+    }
+
+
     /**
      * Retrieve a user by their unique identifier.
      *
@@ -23,11 +40,12 @@ class UserProvider implements IlluminateUserProvider
      */
     public function retrieveById($identifier)
     {
-        echo 'retrieveById';
-        var_dump($identifier);
-        //exit();
+        if (!isset($this->users[$identifier])) {
+            return null;
+        }
         $user = new User();
         $user->setAuthIdentifier($identifier);
+        $user->setName($this->users[$identifier]['name']);
         return $user;
     }
 
@@ -40,10 +58,7 @@ class UserProvider implements IlluminateUserProvider
      */
     public function retrieveByToken($identifier, $token)
     {
-        echo 'retrieveByToken';
-        var_dump($identifier);
-        var_dump($token);
-        exit();
+        return $this->cache->get('user_' . $identifier . '_token_' . $token, NULL);
     }
 
     /**
@@ -55,12 +70,7 @@ class UserProvider implements IlluminateUserProvider
      */
     public function updateRememberToken(Authenticatable $user, $token)
     {
-        echo 'updateRememberToken';
-        var_dump($user);
-        var_dump($token);
-        $user->setRememberToken($token);
-
-        //exit();
+        $this->cache->put('user_' . $user->getAuthIdentifier() . '_token_' . $token, $user, 60 * 24);
     }
 
     /**
@@ -71,11 +81,9 @@ class UserProvider implements IlluminateUserProvider
      */
     public function retrieveByCredentials(array $credentials)
     {
-        echo 'retrieveByCredentials';
-        var_dump($credentials);
-        //exit();
         $user = new User();
         $user->setAuthIdentifier($credentials['email']);
+        $user->setName($this->users[$credentials['email']]['name']);
         return $user;
     }
 
@@ -88,9 +96,9 @@ class UserProvider implements IlluminateUserProvider
      */
     public function validateCredentials(Authenticatable $user, array $credentials)
     {
-        echo 'validateCredentials';
-        var_dump($user);
-        var_dump($credentials);
-        return ($user instanceof User);
+        if (!($user instanceof User)) {
+            return false;
+        }
+        return $this->users[$credentials['email']]['password'] == $credentials['password'];
     }
 }

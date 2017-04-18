@@ -8,15 +8,32 @@ class User implements Authenticatable
 {
 
     public $name = null;
-    private $password = null;
-    private $token = null;
+    private $authIdentifier = null;
+    private $authPassword = null;
+    private $rememberToken = null;
+
+    /**
+     * @return null
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param null $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
 
     /**
      * @param null $authIdentifier
      */
     public function setAuthIdentifier($authIdentifier)
     {
-        $this->name = $authIdentifier;
+        $this->authIdentifier = $authIdentifier;
     }
 
     /**
@@ -24,7 +41,7 @@ class User implements Authenticatable
      */
     public function setAuthPassword($password)
     {
-        $this->password = $password;
+        $this->authPassword = $password;
     }
 
     /**
@@ -44,7 +61,7 @@ class User implements Authenticatable
      */
     public function getAuthIdentifier()
     {
-        return $this->name;
+        return $this->authIdentifier;
     }
 
     /**
@@ -54,7 +71,7 @@ class User implements Authenticatable
      */
     public function getAuthPassword()
     {
-        return $this->password;
+        return $this->authPassword;
     }
 
     /**
@@ -64,7 +81,7 @@ class User implements Authenticatable
      */
     public function getRememberToken()
     {
-        return $this->token;
+        return $this->rememberToken;
     }
 
     /**
@@ -75,7 +92,7 @@ class User implements Authenticatable
      */
     public function setRememberToken($value)
     {
-        $this->token = $value;
+        $this->rememberToken = $value;
     }
 
     /**
