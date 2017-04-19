@@ -26,7 +26,7 @@ class FileSystemOverride
     public function fileperms($str)
     {
         if (empty($this->fileSystemEncoding)) {
-            fileperms($str);
+            return fileperms($str);
         }
         return fileperms(iconv('UTF-8', $this->fileSystemEncoding, $str));
     }
@@ -34,7 +34,7 @@ class FileSystemOverride
     public function realpath($str)
     {
         if (empty($this->fileSystemEncoding)) {
-            realpath($str);
+            return realpath($str);
         }
         return iconv($this->fileSystemEncoding, 'UTF-8', realpath(iconv('UTF-8', $this->fileSystemEncoding, $str)));
     }
@@ -42,7 +42,7 @@ class FileSystemOverride
     public function is_dir($str)
     {
         if (empty($this->fileSystemEncoding)) {
-            is_dir($str);
+            return is_dir($str);
         }
         return is_dir(iconv('UTF-8', $this->fileSystemEncoding, $str));
     }
@@ -50,7 +50,7 @@ class FileSystemOverride
     public function filemtime($str)
     {
         if (empty($this->fileSystemEncoding)) {
-            filemtime($str);
+            return filemtime($str);
         }
         return filemtime(iconv('UTF-8', $this->fileSystemEncoding, $str));
     }
@@ -58,7 +58,7 @@ class FileSystemOverride
     public function filesize($str)
     {
         if (empty($this->fileSystemEncoding)) {
-            filesize($str);
+            return filesize($str);
         }
         return filesize(iconv('UTF-8', $this->fileSystemEncoding, $str));
     }
@@ -66,7 +66,7 @@ class FileSystemOverride
     public function opendir($str)
     {
         if (empty($this->fileSystemEncoding)) {
-            opendir($str);
+            return opendir($str);
         }
         return opendir(iconv('UTF-8', $this->fileSystemEncoding, $str));
     }
@@ -74,7 +74,7 @@ class FileSystemOverride
     public function readdir($str)
     {
         if (empty($this->fileSystemEncoding)) {
-            readdir($str);
+            return readdir($str);
         }
         $r = readdir($str);
         return is_bool($r) ? $r : iconv($this->fileSystemEncoding, 'UTF-8', $r);
@@ -83,7 +83,7 @@ class FileSystemOverride
     public function imagecreatefromjpeg($str)
     {
         if (empty($this->fileSystemEncoding)) {
-            imagecreatefromjpeg($str);
+            return imagecreatefromjpeg($str);
         }
         return imagecreatefromjpeg(iconv('UTF-8', $this->fileSystemEncoding, $str));
     }
@@ -91,7 +91,7 @@ class FileSystemOverride
     public function imagecreatefrompng($str)
     {
         if (empty($this->fileSystemEncoding)) {
-            imagecreatefrompng($str);
+            return imagecreatefrompng($str);
         }
         return imagecreatefrompng(iconv('UTF-8', $this->fileSystemEncoding, $str));
     }
@@ -99,7 +99,7 @@ class FileSystemOverride
     public function imagecreatefromgif($str)
     {
         if (empty($this->fileSystemEncoding)) {
-            imagecreatefromgif($str);
+            return imagecreatefromgif($str);
         }
         return imagecreatefromgif(iconv('UTF-8', $this->fileSystemEncoding, $str));
     }
@@ -107,7 +107,7 @@ class FileSystemOverride
     public function imagecreatefrombmp($str)
     {
         if (empty($this->fileSystemEncoding)) {
-            imagecreatefrombmp($str);
+            return imagecreatefrombmp($str);
         }
         return imagecreatefrombmp(iconv('UTF-8', $this->fileSystemEncoding, $str));
     }
@@ -115,7 +115,7 @@ class FileSystemOverride
     public function getimagesize($str)
     {
         if (empty($this->fileSystemEncoding)) {
-            getimagesize($str);
+            return getimagesize($str);
         }
         return getimagesize(iconv('UTF-8', $this->fileSystemEncoding, $str));
     }
