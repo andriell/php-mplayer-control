@@ -1959,12 +1959,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         var componentData = {
             uri: '/',
             items: [],
+            itemsChecked: [],
             getData: function getData(name) {
                 jQuery.ajax('/dir-list/' + componentData.uri + (name ? '/' + name : ''), {
                     data: {},
@@ -4420,7 +4432,7 @@ if (typeof jQuery === 'undefined') {
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(35)();
-exports.push([module.i, "\n.explorer-item {\n    display: inline-block;\n    vertical-align: bottom;\n    height: 140px;\n    width: 128px;\n    padding: 2px;\n    text-align: center;\n    overflow: hidden;\n}\n.explorer-img-box {\n    display: block;\n    margin: auto;\n    width: 100px;\n    height: 100px;\n    overflow: hidden;\n    text-align: center;\n}\n.explorer-img-box img {\n    display: block;\n    margin: auto;\n}\n", ""]);
+exports.push([module.i, "\n.explorer-item {\n    display: inline-block;\n    vertical-align: bottom;\n    height: 140px;\n    width: 128px;\n    margin: 2px;\n    overflow: hidden;\n}\n.explorer-item .select {\n    position: absolute;\n    margin-top: 5px;\n    margin-left: 5px;\n}\n.explorer-item .text {\n    display: block;\n    text-align: center;\n    font-size: 12px;\n    color: black;\n    font-family: Arial, sans-serif;\n}\n.explorer-img-box {\n    display: block;\n    margin: auto;\n    width: 100px;\n    height: 100px;\n    overflow: hidden;\n}\n.explorer-img-box img {\n    display: block;\n    margin: auto;\n}\n", ""]);
 
 /***/ }),
 /* 35 */
@@ -31941,17 +31953,51 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "row"
   }, [_c('div', {
-    staticClass: "col-md-8 col-md-offset-2"
+    staticClass: "col-md-9"
   }, [_c('div', {
     staticClass: "panel panel-default"
   }, [_c('div', {
     staticClass: "panel-heading"
   }, [_vm._v("Путь: " + _vm._s(_vm.uri))]), _vm._v(" "), _c('div', {
     staticClass: "panel-body"
-  }, _vm._l((_vm.items), function(item) {
+  }, _vm._l((_vm.items), function(item, itemId) {
     return _c('div', {
-      staticClass: "explorer-item"
-    }, [(item.type == 'dir') ? [_vm._m(0, true), _vm._v(" "), _c('a', {
+      staticClass: "explorer-item thumbnail"
+    }, [_c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: (_vm.itemsChecked),
+        expression: "itemsChecked"
+      }],
+      staticClass: "select",
+      attrs: {
+        "type": "checkbox"
+      },
+      domProps: {
+        "value": item,
+        "checked": Array.isArray(_vm.itemsChecked) ? _vm._i(_vm.itemsChecked, item) > -1 : (_vm.itemsChecked)
+      },
+      on: {
+        "__c": function($event) {
+          var $$a = _vm.itemsChecked,
+            $$el = $event.target,
+            $$c = $$el.checked ? (true) : (false);
+          if (Array.isArray($$a)) {
+            var $$v = item,
+              $$i = _vm._i($$a, $$v);
+            if ($$c) {
+              $$i < 0 && (_vm.itemsChecked = $$a.concat($$v))
+            } else {
+              $$i > -1 && (_vm.itemsChecked = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
+            }
+          } else {
+            _vm.itemsChecked = $$c
+          }
+        }
+      }
+    }), _vm._v(" "), (item.type == 'dir') ? [_vm._m(0, true), _vm._v(" "), _c('a', {
+      staticClass: "text",
       attrs: {
         "href": "#"
       },
@@ -31969,6 +32015,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "height": "100"
       }
     })]), _vm._v(" "), _c('a', {
+      staticClass: "text",
       attrs: {
         "href": "#"
       },
@@ -31988,6 +32035,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "href": "#"
       }
     }, [_c('a', {
+      staticClass: "text",
       attrs: {
         "href": "#"
       },
@@ -31997,7 +32045,32 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     }, [_vm._v("\n                                    " + _vm._s(item.name) + "\n                                ")])])]], 2)
-  }))])])])])
+  }))])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-3"
+  }, [_c('div', {
+    staticClass: "panel panel-default"
+  }, [_c('div', {
+    staticClass: "panel-heading"
+  }, [_vm._v("Инфо:")]), _vm._v(" "), _c('div', {
+    staticClass: "panel-body"
+  }, [_c('div', {
+    staticClass: "list-group"
+  }, [_c('a', {
+    staticClass: "list-group-item",
+    attrs: {
+      "href": "#"
+    }
+  }, [_vm._v(_vm._s(_vm.itemsChecked))]), _vm._v(" "), _c('a', {
+    staticClass: "list-group-item",
+    attrs: {
+      "href": "#"
+    }
+  }, [_vm._v("Second item")]), _vm._v(" "), _c('a', {
+    staticClass: "list-group-item",
+    attrs: {
+      "href": "#"
+    }
+  }, [_vm._v("Third item")])])])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "explorer-img-box"

@@ -5,12 +5,13 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Путь: {{uri}}</div>
                     <div class="panel-body">
-                        <div class="explorer-item" v-for="item in items">
+                        <div class="explorer-item thumbnail" v-for="(item, itemId) in items">
+                            <input type="checkbox" class="select" v-model="itemsChecked" :value="item">
                             <template v-if="item.type == 'dir'">
                                 <div class="explorer-img-box">
                                     <img src="/img/dir.png">
                                 </div>
-                                <a href="#" v-on:click="getData(item.name)">
+                                <a href="#" v-on:click="getData(item.name)" class="text">
                                      {{ item.name }}
                                 </a>
                             </template>
@@ -18,7 +19,7 @@
                                 <div class="explorer-img-box">
                                     <img :src="'/dir-img-100x100/' + uri + '/' + item.name" width="100" height="100">
                                 </div>
-                                <a href="#" v-on:click="download(item.name)">
+                                <a href="#" v-on:click="download(item.name)" class="text">
                                     {{ item.name }}
                                 </a>
                             </template>
@@ -27,7 +28,7 @@
                                     <img src="/img/file.png"><br>
                                 </div>
                                 <a href="#">
-                                    <a href="#" v-on:click="download(item.name)">
+                                    <a href="#" v-on:click="download(item.name)" class="text">
                                         {{ item.name }}
                                     </a>
                                 </a>
@@ -40,7 +41,7 @@
                 <div class="panel-heading">Инфо:</div>
                 <div class="panel-body">
                     <div class="list-group">
-                        <a href="#" class="list-group-item">First item</a>
+                        <a href="#" class="list-group-item">{{itemsChecked}}</a>
                         <a href="#" class="list-group-item">Second item</a>
                         <a href="#" class="list-group-item">Third item</a>
                     </div>
@@ -56,6 +57,7 @@
             var componentData = {
                 uri: '/',
                 items: [],
+                itemsChecked: [],
                 getData: function(name) {
                     jQuery.ajax('/dir-list/' + componentData.uri +  (name ? '/' + name : ''), {
                         data: {},
@@ -86,9 +88,20 @@
         vertical-align: bottom;
         height: 140px;
         width: 128px;
-        padding: 2px;
-        text-align: center;
+        margin: 2px;
         overflow: hidden;
+    }
+    .explorer-item .select {
+        position: absolute;
+        margin-top: 5px;
+        margin-left: 5px;
+    }
+    .explorer-item .text {
+        display: block;
+        text-align: center;
+        font-size: 12px;
+        color: black;
+        font-family: Arial, sans-serif;
     }
     .explorer-img-box {
         display: block;
@@ -96,7 +109,6 @@
         width: 100px;
         height: 100px;
         overflow: hidden;
-        text-align: center;
     }
     .explorer-img-box img {
         display: block;
