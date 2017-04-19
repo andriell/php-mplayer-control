@@ -77,6 +77,7 @@
                         success: function(data) {
                             componentData.uri = data.uri;
                             componentData.items = data.items;
+                            componentData.itemsChecked = [];
                         }
                     });
                     return false;
