@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-9">
                 <div class="panel panel-default">
                     <div class="panel-heading">Путь: {{uri}}</div>
                     <div class="panel-body">
@@ -36,6 +36,16 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-3"><div class="panel panel-default">
+                <div class="panel-heading">Инфо:</div>
+                <div class="panel-body">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item">First item</a>
+                        <a href="#" class="list-group-item">Second item</a>
+                        <a href="#" class="list-group-item">Third item</a>
+                    </div>
+                </div>
+            </div></div>
         </div>
     </div>
 </template>
