@@ -29,7 +29,7 @@ class FileSystem
      */
     public function __construct($mediaDir, FileSystemOverride $override)
     {
-        $this->mediaDir = rtrim(preg_replace('#[\\/]+#', '/', $mediaDir), '\\/');
+        $this->mediaDir = rtrim(preg_replace('#[\\\\/]+#', '/', $mediaDir), '\\/');
         $this->override = $override;
     }
 
@@ -41,7 +41,7 @@ class FileSystem
      */
     private function normalizeUri($uri)
     {
-        $uri = trim(preg_replace('#[\\/]+#', '/', $uri), '/');
+        $uri = trim(preg_replace('#[\\\\/]+#', '/', $uri), '/');
         if (empty($uri)) {
             return '';
         }
