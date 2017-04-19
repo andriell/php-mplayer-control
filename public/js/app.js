@@ -1996,6 +1996,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     success: function success(data) {
                         componentData.uri = data.uri;
                         componentData.items = data.items;
+                        componentData.itemsChecked = [];
                     }
                 });
                 return false;
