@@ -178,7 +178,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         // My lib
-        App\Providers\FileSystemProvider::class,
+        App\Providers\LibProvider::class,
     ],
 
     /*

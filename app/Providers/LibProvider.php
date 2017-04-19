@@ -11,9 +11,10 @@ namespace App\Providers;
 
 use App\Lib\FileSystem;
 use App\Lib\FileSystemOverride;
+use App\Lib\MPlayer;
 use Illuminate\Support\ServiceProvider;
 
-class FileSystemProvider extends ServiceProvider
+class LibProvider extends ServiceProvider
 {
 
     /**
@@ -25,6 +26,9 @@ class FileSystemProvider extends ServiceProvider
     {
         $this->app->singleton(FileSystem::class, function ($app) {
             return new FileSystem(config('nas.media_dir'), new FileSystemOverride(config('nas.file_system_encoding')));
+        });
+        $this->app->singleton(MPlayer::class, function ($app) {
+            return new MPlayer(new FileSystem(config('nas.media_dir'), new FileSystemOverride(config('nas.file_system_encoding'))));
         });
     }
 }
