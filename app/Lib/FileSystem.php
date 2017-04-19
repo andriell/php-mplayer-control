@@ -12,6 +12,7 @@ namespace App\Lib;
 class FileSystem
 {
     private $mediaDir = '';
+    private $fileSystemEncoding = '';
 
     private static $fileTypes = [
         'image' => array('png', 'jpg', 'gif', 'jpeg', 'bmp', 'svg'),
@@ -25,9 +26,10 @@ class FileSystem
      * Uri constructor.
      * @param string $mediaDir
      */
-    public function __construct($mediaDir)
+    public function __construct($mediaDir, $fileSystemEncoding)
     {
-        $this->mediaDir = rtrim(preg_replace('#[\\/]+#', '/', $mediaDir), '/');
+        $this->mediaDir = rtrim(preg_replace('#[\\/]+#', '/', $mediaDir), '\\/');
+        $this->fileSystemEncoding = $fileSystemEncoding;
     }
 
     /**
@@ -55,7 +57,7 @@ class FileSystem
      * @param $uri
      * @return bool|string
      */
-    private function realPath($uri)
+    public function realPath($uri)
     {
         $uri = $this->normalizeUri($uri);
         if ($uri === false) {
@@ -73,7 +75,7 @@ class FileSystem
             'type' => false,
             'ext' => false,
             'size' => 0,
-            'time' => date('Y-m-d H:i:s', filemtime($realPathFile)),
+            'date' => date('Y-m-d H:i:s', filemtime($realPathFile)),
         ];
         if (is_dir($realPathFile)) {
             $r['type'] = 'dir';
@@ -90,7 +92,7 @@ class FileSystem
         return $r;
     }
 
-    public function readDir($uri)
+    public function readDir($uri, $order = ['dir', 'name'])
     {
         $uri = $this->normalizeUri($uri);
         $r = [
@@ -110,15 +112,97 @@ class FileSystem
                 if ($entry == '.' || $entry == '..') {
                     continue;
                 }
-                $entry = iconv('CP1251', 'UTF-8', $entry);
                 $realPathItem = $realPath . '/' . $entry;
                 $item = $this->fileInfo($realPathItem);
-                $item['name'] = $entry;
+                $item['name'] = iconv($this->fileSystemEncoding, 'UTF-8', $entry);
                 $r['items'][] = $item;
             }
             closedir($handle);
         }
-
+        usort($r['items'], function($a, $b) use($order) {
+            foreach ($order as $o) {
+                $r = 0;
+                if ($o == 'dir') {
+                    if ($a['type'] == 'dir') {
+                        if ($b['type'] != 'dir') {
+                            $r = -1;
+                        }
+                    } elseif ($b['type'] == 'dir') {
+                        $r = 1;
+                    }
+                } elseif ($o == 'dir_desc') {
+                    if ($a['type'] == 'dir') {
+                        if ($b['type'] != 'dir') {
+                            $r = 1;
+                        }
+                    } elseif ($b['type'] == 'dir') {
+                        $r = -1;
+                    }
+                } elseif ($o == 'name') {
+                    $r = strcasecmp($a['name'], $b['name']);
+                } elseif ($o == 'name_desc') {
+                    $r = strcasecmp($b['name'], $a['name']);
+                } elseif ($o == 'date') {
+                    $r = strcasecmp($a['date'], $b['date']);
+                } elseif ($o == 'date_desc') {
+                    $r = strcasecmp($b['date'], $a['date']);
+                } elseif ($o == 'ext') {
+                    $r = strcasecmp($a['ext'], $b['ext']);
+                } elseif ($o == 'ext_desc') {
+                    return strcasecmp($b['ext'], $a['ext']);
+                } elseif ($o == 'size') {
+                    $r = ($a['size'] < $b['size']) ? -1 : 1;
+                } elseif ($o == 'size_desc') {
+                    $r = ($a['size'] < $b['size']) ? 1 : -1;
+                }
+                if ($r !== 0) {
+                    return $r;
+                }
+            }
+            return 0;
+        });
         return $r;
+    }
+
+    public function resizeImage($uri, $newSize = [100, 100]) {
+        // файл и новый размер
+        $realPathFile = $this->realPath($uri);
+
+        $ext = strtolower(substr($realPathFile, strrpos($realPathFile, '.') + 1));
+        if ($ext == 'jpg' || $ext == 'jpeg') {
+            $img1 = imagecreatefromjpeg($realPathFile);
+        } elseif ($ext == 'png') {
+            $img1 = imagecreatefrompng($realPathFile);
+        } elseif ($ext == 'gif') {
+            $img1 = imagecreatefromgif($realPathFile);
+        } elseif ($ext == 'bmp') {
+            $img1 = imagecreatefrombmp($realPathFile);
+        } else {
+            return false;
+        }
+
+        // получение нового размера
+        list($w1, $h1) = getimagesize($realPathFile);
+
+        if ($w1 > $h1) {
+            $p = $newSize[0] / $w1;
+        } else {
+            $p = $newSize[1] / $h1;
+        }
+        $w2 = $w1 * $p;
+        $h2 = $h1 * $p;
+
+        // загрузка
+        $img2 = imagecreatetruecolor($w2, $h2);
+
+        // изменение размера
+        imagecopyresized($img2, $img1, 0, 0, 0, 0, $w2, $h2, $w1, $h1);
+
+
+
+        $fp = fopen('php://memory', 'r+');
+        imagejpeg($img2);
+        rewind($fp);
+        return stream_get_contents($fp);
     }
 }

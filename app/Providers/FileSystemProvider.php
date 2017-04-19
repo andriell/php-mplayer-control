@@ -23,7 +23,7 @@ class FileSystemProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton(FileSystem::class, function ($app) {
-            return new FileSystem(config('nas.media_dir'));
+            return new FileSystem(config('nas.media_dir'), config('nas.file_system_encoding'));
         });
     }
 }

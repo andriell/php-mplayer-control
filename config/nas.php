@@ -7,5 +7,6 @@
  */
 
 return [
-    'media_dir' => 'C:\server',
+    'media_dir' => 'C:\data',
+    'file_system_encoding' => 'CP1251',
 ];

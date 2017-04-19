@@ -6,9 +6,15 @@
                     <div class="panel-heading">Путь: {{uri}}</div>
                     <div class="panel-body">
                         <div class="item" v-for="item in items">
-                            <template v-if="item.is_dir">
+                            <template v-if="item.type == 'dir'">
                                 <a href="#" v-on:click="getData(item.name)">
                                     <img src="/img/dir.png"><br>
+                                    {{ item.name }}
+                                </a>
+                            </template>
+                            <template v-else-if="item.type == 'image'">
+                                <a href="#" v-on:click="download(item.name)">
+                                    <img :src="'/dir-img/?uri=' + uri + '/' + item.name"><br>
                                     {{ item.name }}
                                 </a>
                             </template>
