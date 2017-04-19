@@ -50,7 +50,7 @@ class FileSystem
             $r = str_replace(DIRECTORY_SEPARATOR, '/', $r);
         }
         if (strpos($r, $this->mediaDir) === 0) {
-            return substr($r, strlen($this->mediaDir));
+            return substr($r, strlen($this->mediaDir) + 1);
         }
         return false;
     }
