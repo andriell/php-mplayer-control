@@ -1,0 +1,4 @@
+NPM - сборка JS и CSS
+npm run watch
+npm run dev
+npm run production
