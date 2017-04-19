@@ -8,5 +8,5 @@
 
 return [
     'media_dir' => env('NAS_MEDIA_DIR', '/data'),
-    'file_system_encoding' => env('NAS_FILE_SYSTEM_ENCODING', 'UTF-8'),
+    'file_system_encoding' => env('NAS_FILE_SYSTEM_ENCODING', false),
 ];
