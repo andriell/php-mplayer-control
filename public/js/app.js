@@ -1994,15 +1994,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     data: {},
                     method: 'GET',
                     success: function success(data) {
+                        for (var i in data.items) {
+                            data.items[i].uri = data.uri ? data.uri + '/' + data.items[i].name : data.items[i].name;
+                        }
                         componentData.uri = data.uri;
                         componentData.items = data.items;
-                        componentData.itemsChecked = [];
                     }
                 });
                 return false;
             },
             download: function download(name) {
                 window.location.href = '/dir-download/' + componentData.uri + (name ? '/' + name : '');
+                return false;
+            },
+            playFile: function playFile(name) {
+                var files = [];
+                for (var i in componentData.itemsChecked) {
+                    files.push(componentData.itemsChecked[i].uri);
+                }
+                jQuery.ajax('/player-play/', {
+                    method: 'POST',
+                    data: { files: files },
+                    success: function success(data) {}
+                });
                 return false;
             }
         };
@@ -32068,7 +32082,21 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "panel-body"
   }, [(_vm.itemsChecked.length > 0) ? [(_vm.itemsChecked.length == 1) ? [_vm._l((_vm.itemsChecked), function(item) {
     return [_c('h4', [_vm._v(_vm._s(item.name))]), _vm._v(" "), _c('p', [_vm._v("Размер: " + _vm._s(item.size))]), _vm._v(" "), _c('p', [_vm._v("Изменен: " + _vm._s(item.date))]), _vm._v(" "), _c('p', [_vm._v("Права: " + _vm._s(item.perms))])]
-  })] : _vm._e(), _vm._v(" "), _vm._m(1)] : _vm._e()], 2)])])])])
+  })] : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "list-group"
+  }, [_c('a', {
+    staticClass: "list-group-item",
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": function($event) {
+        _vm.playFile()
+      }
+    }
+  }, [_c('span', {
+    staticClass: "glyphicon glyphicon-film"
+  }), _vm._v("  Воспроизвести")]), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2), _vm._v(" "), _vm._m(3), _vm._v(" "), _vm._m(4)])] : _vm._e()], 2)])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "explorer-img-box"
@@ -32078,44 +32106,41 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "list-group"
-  }, [_c('a', {
-    staticClass: "list-group-item",
-    attrs: {
-      "href": "#"
-    }
-  }, [_c('span', {
-    staticClass: "glyphicon glyphicon-film"
-  }), _vm._v("  Воспроизвести")]), _vm._v(" "), _c('a', {
+  return _c('a', {
     staticClass: "list-group-item",
     attrs: {
       "href": "#"
     }
   }, [_c('span', {
     staticClass: "glyphicon glyphicon-arrow-right"
-  }), _vm._v("  Переместить")]), _vm._v(" "), _c('a', {
+  }), _vm._v("  Переместить")])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('a', {
     staticClass: "list-group-item",
     attrs: {
       "href": "#"
     }
   }, [_c('span', {
     staticClass: "glyphicon glyphicon-duplicate"
-  }), _vm._v("  Копировать")]), _vm._v(" "), _c('a', {
+  }), _vm._v("  Копировать")])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('a', {
     staticClass: "list-group-item",
     attrs: {
       "href": "#"
     }
   }, [_c('span', {
     staticClass: "glyphicon glyphicon-folder-open"
-  }), _vm._v("  В новую папку")]), _vm._v(" "), _c('a', {
+  }), _vm._v("  В новую папку")])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('a', {
     staticClass: "list-group-item",
     attrs: {
       "href": "#"
     }
   }, [_c('span', {
     staticClass: "glyphicon glyphicon-remove"
-  }), _vm._v("  Удалить")])])
+  }), _vm._v("  Удалить")])
 }]}
 module.exports.render._withStripped = true
 if (false) {

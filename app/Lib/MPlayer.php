@@ -14,6 +14,15 @@ class MPlayer
     /** @var FileSystem */
     private $fs;
 
+    /**
+     * MPlayer constructor.
+     * @param FileSystem $fs
+     */
+    public function __construct(FileSystem $fs)
+    {
+        $this->fs = $fs;
+    }
+
     function playFile($uri) {
         $file = $this->fs->realPath($uri);
         if (empty($file)) {

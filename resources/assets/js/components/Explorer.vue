@@ -50,7 +50,7 @@
                             </template>
                         </template>
                         <div class="list-group">
-                            <a href="#" class="list-group-item"><span class="glyphicon glyphicon-film"></span>&nbsp;&nbsp;Воспроизвести</a>
+                            <a href="#" class="list-group-item" v-on:click="playFile()"><span class="glyphicon glyphicon-film"></span>&nbsp;&nbsp;Воспроизвести</a>
                             <a href="#" class="list-group-item"><span class="glyphicon glyphicon-arrow-right"></span>&nbsp;&nbsp;Переместить</a>
                             <a href="#" class="list-group-item"><span class="glyphicon glyphicon-duplicate"></span>&nbsp;&nbsp;Копировать</a>
                             <a href="#" class="list-group-item"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;В новую папку</a>
@@ -75,15 +75,29 @@
                         data: {},
                         method: 'GET',
                         success: function(data) {
+                            for (var i in data.items) {
+                                data.items[i].uri = data.uri ? data.uri + '/' + data.items[i].name : data.items[i].name;
+                            }
                             componentData.uri = data.uri;
                             componentData.items = data.items;
-                            componentData.itemsChecked = [];
                         }
                     });
                     return false;
                 },
                 download: function(name) {
                     window.location.href = '/dir-download/' + componentData.uri + (name ? '/' + name : '');
+                    return false;
+                },
+                playFile: function(name) {
+                    var files = [];
+                    for (var i in componentData.itemsChecked) {
+                        files.push(componentData.itemsChecked[i].uri);
+                    }
+                    jQuery.ajax('/player-play/', {
+                        method: 'POST',
+                        data: {files: files},
+                        success: function(data) {}
+                    });
                     return false;
                 }
             };

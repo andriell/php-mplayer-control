@@ -21,6 +21,8 @@ Route::get('/dir-list/{uri?}', 'DirController@getList')->where(['uri' => '[\s\S]
 Route::get('/dir-img-100x100/{uri}', 'DirController@img')->where(['uri' => '[\s\S]+'])->name('dir_img');
 Route::get('/dir-download/{uri}', 'DirController@download')->where(['uri' => '[\s\S]+'])->name('dir_download');
 
+Route::get('/player-play-file/{uri}', 'MPlayerController@playFile')->where(['uri' => '[\s\S]+'])->name('player_play_file');
+
 Auth::routes();
 Route::any('register', 'HomeController@index');
 Route::any('password/reset', 'HomeController@index');
