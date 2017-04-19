@@ -50,11 +50,11 @@
                             </template>
                         </template>
                         <div class="list-group">
-                            <a href="#" class="list-group-item"><span class="glyphicon glyphicon-film"></span> Воспроизвести</a>
-                            <a href="#" class="list-group-item"><span class="glyphicon glyphicon-arrow-right"></span> Переместить</a>
-                            <a href="#" class="list-group-item"><span class="glyphicon glyphicon-duplicate"></span> Копировать</a>
-                            <a href="#" class="list-group-item"><span class="glyphicon glyphicon-folder-open"></span> В новую папку</a>
-                            <a href="#" class="list-group-item"><span class="glyphicon glyphicon-remove"></span> Удалить</a>
+                            <a href="#" class="list-group-item"><span class="glyphicon glyphicon-film"></span>&nbsp;&nbsp;Воспроизвести</a>
+                            <a href="#" class="list-group-item"><span class="glyphicon glyphicon-arrow-right"></span>&nbsp;&nbsp;Переместить</a>
+                            <a href="#" class="list-group-item"><span class="glyphicon glyphicon-duplicate"></span>&nbsp;&nbsp;Копировать</a>
+                            <a href="#" class="list-group-item"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;В новую папку</a>
+                            <a href="#" class="list-group-item"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Удалить</a>
                         </div>
                     </template>
                 </div>

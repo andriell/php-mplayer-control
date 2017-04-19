@@ -32086,35 +32086,35 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     staticClass: "glyphicon glyphicon-film"
-  }), _vm._v(" Воспроизвести")]), _vm._v(" "), _c('a', {
+  }), _vm._v("  Воспроизвести")]), _vm._v(" "), _c('a', {
     staticClass: "list-group-item",
     attrs: {
       "href": "#"
     }
   }, [_c('span', {
     staticClass: "glyphicon glyphicon-arrow-right"
-  }), _vm._v(" Переместить")]), _vm._v(" "), _c('a', {
+  }), _vm._v("  Переместить")]), _vm._v(" "), _c('a', {
     staticClass: "list-group-item",
     attrs: {
       "href": "#"
     }
   }, [_c('span', {
     staticClass: "glyphicon glyphicon-duplicate"
-  }), _vm._v(" Копировать")]), _vm._v(" "), _c('a', {
+  }), _vm._v("  Копировать")]), _vm._v(" "), _c('a', {
     staticClass: "list-group-item",
     attrs: {
       "href": "#"
     }
   }, [_c('span', {
     staticClass: "glyphicon glyphicon-folder-open"
-  }), _vm._v(" В новую папку")]), _vm._v(" "), _c('a', {
+  }), _vm._v("  В новую папку")]), _vm._v(" "), _c('a', {
     staticClass: "list-group-item",
     attrs: {
       "href": "#"
     }
   }, [_c('span', {
     staticClass: "glyphicon glyphicon-remove"
-  }), _vm._v(" Удалить")])])
+  }), _vm._v("  Удалить")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
