@@ -29,9 +29,19 @@ class MPlayerController extends Controller
         $this->middleware('auth');
     }
 
-    public function playFile(Request $request, $uri = '')
+    public function playFile()
     {
         $files = $_POST['files'];
         $this->player->playFile($files[0]);
+    }
+
+    public function pause()
+    {
+        $this->player->pause();
+    }
+
+    public function quit()
+    {
+        $this->player->quit();
     }
 }

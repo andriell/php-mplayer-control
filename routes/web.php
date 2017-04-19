@@ -22,6 +22,8 @@ Route::get('/dir-img-100x100/{uri}', 'DirController@img')->where(['uri' => '[\s\
 Route::get('/dir-download/{uri}', 'DirController@download')->where(['uri' => '[\s\S]+'])->name('dir_download');
 
 Route::post('/player-play/', 'MPlayerController@playFile')->name('player_play');
+Route::post('/player-pause/', 'MPlayerController@pause')->name('player_pause');
+Route::post('/player-quit/', 'MPlayerController@quit')->name('player_quit');
 
 Auth::routes();
 Route::any('register', 'HomeController@index');

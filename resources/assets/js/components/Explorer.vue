@@ -51,6 +51,8 @@
                         </template>
                         <div class="list-group">
                             <a href="#" class="list-group-item" v-on:click="playFile()"><span class="glyphicon glyphicon-film"></span>&nbsp;&nbsp;Воспроизвести</a>
+                            <a href="#" class="list-group-item" v-on:click="pause()"><span class="glyphicon glyphicon-film"></span>&nbsp;&nbsp;pause</a>
+                            <a href="#" class="list-group-item" v-on:click="quit()"><span class="glyphicon glyphicon-film"></span>&nbsp;&nbsp;quit</a>
                             <a href="#" class="list-group-item"><span class="glyphicon glyphicon-arrow-right"></span>&nbsp;&nbsp;Переместить</a>
                             <a href="#" class="list-group-item"><span class="glyphicon glyphicon-duplicate"></span>&nbsp;&nbsp;Копировать</a>
                             <a href="#" class="list-group-item"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;В новую папку</a>
@@ -99,7 +101,16 @@
                        success: function(data) {}
                     });
                     return false;
+                },
+                pause: function(name) {
+                    jQuery.ajax('/player-pause/', {method: 'POST'});
+                    return false;
+                },
+                quit: function(name) {
+                    jQuery.ajax('/player-quit/', {method: 'POST'});
+                    return false;
                 }
+
             };
             componentData.getData('');
             return componentData;

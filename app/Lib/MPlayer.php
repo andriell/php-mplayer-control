@@ -32,4 +32,20 @@ class MPlayer
         $str = 'export DISPLAY=:0.0 && mplayer -really-quiet -noconsolecontrols -fs -slave -input file=/tmp/mplayer-fifo ' . $file . '  > /dev/null &';
         shell_exec($str);
     }
+
+    function isRun() {
+        return (bool) shell_exec('pidof mplayer');
+    }
+
+    function command($str) {
+        return shell_exec('echo "' . $str . '\n" > /tmp/mplayer-fifo');
+    }
+
+    function pause() {
+        $this->command('pause');
+    }
+
+    function quit() {
+        $this->command('quit');
+    }
 }

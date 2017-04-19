@@ -1982,6 +1982,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -2018,7 +2020,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     success: function success(data) {}
                 });
                 return false;
+            },
+            pause: function pause(name) {
+                jQuery.ajax('/player-pause/', { method: 'POST' });
+                return false;
+            },
+            quit: function quit(name) {
+                jQuery.ajax('/player-quit/', { method: 'POST' });
+                return false;
             }
+
         };
         componentData.getData('');
         return componentData;
@@ -32098,7 +32109,31 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     staticClass: "glyphicon glyphicon-film"
-  }), _vm._v("  Воспроизвести")]), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2), _vm._v(" "), _vm._m(3), _vm._v(" "), _vm._m(4)])] : _vm._e()], 2)])])])])
+  }), _vm._v("  Воспроизвести")]), _vm._v(" "), _c('a', {
+    staticClass: "list-group-item",
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": function($event) {
+        _vm.pause()
+      }
+    }
+  }, [_c('span', {
+    staticClass: "glyphicon glyphicon-film"
+  }), _vm._v("  pause")]), _vm._v(" "), _c('a', {
+    staticClass: "list-group-item",
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": function($event) {
+        _vm.quit()
+      }
+    }
+  }, [_c('span', {
+    staticClass: "glyphicon glyphicon-film"
+  }), _vm._v("  quit")]), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2), _vm._v(" "), _vm._m(3), _vm._v(" "), _vm._m(4)])] : _vm._e()], 2)])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "explorer-img-box"
