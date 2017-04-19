@@ -10,6 +10,7 @@ namespace App\Http\Controllers;
 
 
 use App\Lib\FileSystem;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 
 class DirController extends Controller
@@ -24,6 +25,7 @@ class DirController extends Controller
     public function __construct(FileSystem $fs)
     {
         $this->fs = $fs;
+        $this->middleware('auth');
     }
 
     function index()
@@ -46,10 +48,10 @@ class DirController extends Controller
         return response()->json($this->fs->readDir(Input::get('uri')));
     }
 
-    function img()
+    function img(Request $request, $uri)
     {
-        return response()->stream(function() {
-            $this->fs->resizeImage(Input::get('uri'));
+        return response()->stream(function() use($uri) {
+            $this->fs->resizeImage($uri);
         }, 200, [
             'Content-Type' => 'image/jpeg'
         ]);

@@ -4420,7 +4420,7 @@ if (typeof jQuery === 'undefined') {
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(35)();
-exports.push([module.i, "\n.explorer-item {\n    display: inline-block;\n    vertical-align: bottom;\n    height: 140px;\n    width: 128px;\n    padding: 2px;\n    text-align: center;\n    overflow: hidden;\n}\n.explorer-img-box {\n    width: 100px;\n    height: 100px;\n    overflow: hidden;\n    text-align: center;\n}\n", ""]);
+exports.push([module.i, "\n.explorer-item {\n    display: inline-block;\n    vertical-align: bottom;\n    height: 140px;\n    width: 128px;\n    padding: 2px;\n    text-align: center;\n    overflow: hidden;\n}\n.explorer-img-box {\n    display: block;\n    margin: auto;\n    width: 100px;\n    height: 100px;\n    overflow: hidden;\n    text-align: center;\n}\n.explorer-img-box img {\n    display: block;\n    margin: auto;\n}\n", ""]);
 
 /***/ }),
 /* 35 */
@@ -31964,7 +31964,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "explorer-img-box"
     }, [_c('img', {
       attrs: {
-        "src": '/dir-img/?uri=' + _vm.uri + '/' + item.name
+        "src": '/dir-img-100x100/' + _vm.uri + '/' + item.name,
+        "width": "100",
+        "height": "100"
       }
     })]), _vm._v(" "), _c('a', {
       attrs: {

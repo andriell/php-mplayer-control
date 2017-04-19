@@ -16,7 +16,7 @@
                             </template>
                             <template v-else-if="item.type == 'image'">
                                 <div class="explorer-img-box">
-                                    <img :src="'/dir-img/?uri=' + uri + '/' + item.name">
+                                    <img :src="'/dir-img-100x100/' + uri + '/' + item.name" width="100" height="100">
                                 </div>
                                 <a href="#" v-on:click="download(item.name)">
                                     {{ item.name }}
@@ -81,9 +81,15 @@
         overflow: hidden;
     }
     .explorer-img-box {
+        display: block;
+        margin: auto;
         width: 100px;
         height: 100px;
         overflow: hidden;
         text-align: center;
+    }
+    .explorer-img-box img {
+        display: block;
+        margin: auto;
     }
 </style>
