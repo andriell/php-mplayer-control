@@ -10,6 +10,7 @@ namespace App\Providers;
 
 
 use App\Lib\FileSystem;
+use App\Lib\FileSystemOverride;
 use Illuminate\Support\ServiceProvider;
 
 class FileSystemProvider extends ServiceProvider
@@ -23,7 +24,7 @@ class FileSystemProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton(FileSystem::class, function ($app) {
-            return new FileSystem(config('nas.media_dir'), config('nas.file_system_encoding'));
+            return new FileSystem(config('nas.media_dir'), new FileSystemOverride(config('nas.file_system_encoding')));
         });
     }
 }

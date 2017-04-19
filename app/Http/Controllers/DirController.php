@@ -33,19 +33,10 @@ class DirController extends Controller
         return view('dir');
     }
 
-    private function realPath()
-    {
-        $uri = '/' . trim(Input::get('uri', ''), '/');
-        $dir = realpath(config('nas.media_dir') . $uri);
-        if (strpos($dir, config('nas.media_dir')) === 0) {
-            return [$dir, $uri];
-        }
-        return false;
-    }
 
-    function getList()
+    function getList(Request $request, $uri = '')
     {
-        return response()->json($this->fs->readDir(Input::get('uri')));
+        return response()->json($this->fs->readDir($uri));
     }
 
     function img(Request $request, $uri)
@@ -57,9 +48,9 @@ class DirController extends Controller
         ]);
     }
 
-    function download()
+    function download(Request $request, $uri)
     {
-        $file = $this->fs->realPath(Input::get('uri'));
+        $file = $this->fs->realPath($uri);
         return response()->download($file);
     }
 }

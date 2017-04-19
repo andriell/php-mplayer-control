@@ -47,8 +47,8 @@
                 uri: '/',
                 items: [],
                 getData: function(name) {
-                    jQuery.ajax('/dir-list', {
-                        data: {uri: componentData.uri + (name ? '/' + name : '')},
+                    jQuery.ajax('/dir-list/' + componentData.uri +  (name ? '/' + name : ''), {
+                        data: {},
                         method: 'GET',
                         success: function(data) {
                             componentData.uri = data.uri;
@@ -58,7 +58,7 @@
                     return false;
                 },
                 download: function(name) {
-                    window.location.href = '/dir-download/?uri=' + componentData.uri + (name ? '/' + name : '');
+                    window.location.href = '/dir-download/' + componentData.uri + (name ? '/' + name : '');
                     return false;
                 }
             };

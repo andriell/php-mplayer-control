@@ -1966,8 +1966,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             uri: '/',
             items: [],
             getData: function getData(name) {
-                jQuery.ajax('/dir-list', {
-                    data: { uri: componentData.uri + (name ? '/' + name : '') },
+                jQuery.ajax('/dir-list/' + componentData.uri + (name ? '/' + name : ''), {
+                    data: {},
                     method: 'GET',
                     success: function success(data) {
                         componentData.uri = data.uri;
@@ -1977,7 +1977,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 return false;
             },
             download: function download(name) {
-                window.location.href = '/dir-download/?uri=' + componentData.uri + (name ? '/' + name : '');
+                window.location.href = '/dir-download/' + componentData.uri + (name ? '/' + name : '');
                 return false;
             }
         };

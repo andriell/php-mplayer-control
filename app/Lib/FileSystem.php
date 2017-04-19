@@ -12,7 +12,7 @@ namespace App\Lib;
 class FileSystem
 {
     private $mediaDir = '';
-    private $fileSystemEncoding = '';
+    private $override = '';
 
     private static $fileTypes = [
         'image' => array('png', 'jpg', 'gif', 'jpeg', 'bmp', 'svg'),
@@ -25,11 +25,12 @@ class FileSystem
     /**
      * Uri constructor.
      * @param string $mediaDir
+     * @param FileSystemOverride $override
      */
-    public function __construct($mediaDir, $fileSystemEncoding)
+    public function __construct($mediaDir, FileSystemOverride $override)
     {
         $this->mediaDir = rtrim(preg_replace('#[\\/]+#', '/', $mediaDir), '\\/');
-        $this->fileSystemEncoding = $fileSystemEncoding;
+        $this->override = $override;
     }
 
     /**
@@ -44,7 +45,7 @@ class FileSystem
         if (empty($uri)) {
             return '';
         }
-        $r = realpath($this->mediaDir . '/' . $uri);
+        $r = $this->override->realpath($this->mediaDir . '/' . $uri);
         if (strpos($r, $this->mediaDir) === 0) {
             return substr($r, strlen($this->mediaDir));
         }
@@ -75,15 +76,15 @@ class FileSystem
             'type' => false,
             'ext' => false,
             'size' => 0,
-            'date' => date('Y-m-d H:i:s', filemtime($realPathFile)),
+            'date' => date('Y-m-d H:i:s', $this->override->filemtime($realPathFile)),
         ];
-        if (is_dir($realPathFile)) {
+        if ($this->override->is_dir($realPathFile)) {
             $r['type'] = 'dir';
             return $r;
         }
         $r['type'] = 'file';
         $r['ext'] = strtolower(substr($realPathFile, strrpos($realPathFile, '.') + 1));
-        $r['size'] = filesize($realPathFile);
+        $r['size'] = $this->override->filesize($realPathFile);
         foreach (static::$fileTypes as $type => &$ext) {
             if (in_array($r['ext'], $ext)) {
                 $r['type'] = $type;
@@ -103,18 +104,17 @@ class FileSystem
             return $r;
         }
         $realPath = $this->mediaDir . '/' . $uri;
-        if (!is_dir($realPath)) {
+        if (!$this->override->is_dir($realPath)) {
             return $r;
         }
 
-        if ($handle = opendir($realPath)) {
-            while (false !== ($entry = readdir($handle))) {
+        if ($handle = $this->override->opendir($realPath)) {
+            while (false !== ($entry = $this->override->readdir($handle))) {
                 if ($entry == '.' || $entry == '..') {
                     continue;
                 }
-                $realPathItem = $realPath . '/' . $entry;
-                $item = $this->fileInfo($realPathItem);
-                $item['name'] = iconv($this->fileSystemEncoding, 'UTF-8', $entry);
+                $item = $this->fileInfo($realPath . '/' . $entry);
+                $item['name'] = $entry;
                 $r['items'][] = $item;
             }
             closedir($handle);
@@ -165,24 +165,22 @@ class FileSystem
     }
 
     public function resizeImage($uri, $newSize = [100, 100]) {
-        // файл и новый размер
-        $uri = iconv('UTF-8', $this->fileSystemEncoding, $uri);
         $realPathFile = $this->realPath($uri);
 
         $ext = strtolower(substr($realPathFile, strrpos($realPathFile, '.') + 1));
         if ($ext == 'jpg' || $ext == 'jpeg') {
-            $img1 = imagecreatefromjpeg($realPathFile);
+            $img1 = $this->override->imagecreatefromjpeg($realPathFile);
         } elseif ($ext == 'png') {
-            $img1 = imagecreatefrompng($realPathFile);
+            $img1 = $this->override->imagecreatefrompng($realPathFile);
         } elseif ($ext == 'gif') {
-            $img1 = imagecreatefromgif($realPathFile);
+            $img1 = $this->override->imagecreatefromgif($realPathFile);
         } elseif ($ext == 'bmp') {
-            $img1 = imagecreatefrombmp($realPathFile);
+            $img1 = $this->override->imagecreatefrombmp($realPathFile);
         } else {
             return;
         }
 
-        list($w1, $h1) = getimagesize($realPathFile);
+        list($w1, $h1) = $this->override->getimagesize($realPathFile);
         if ($w1 < $h1) {
             $p = $newSize[0] / $w1;
         } else {
