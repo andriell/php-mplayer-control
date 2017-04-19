@@ -9,51 +9,38 @@
 namespace App\Http\Controllers;
 
 
+use App\Lib\FileSystem;
 use Illuminate\Support\Facades\Input;
 
 class DirController extends Controller
 {
+
+    private $fs;
+
+    /**
+     * DirController constructor.
+     * @param FileSystem $fs
+     */
+    public function __construct(FileSystem $fs)
+    {
+        $this->fs = $fs;
+    }
+
     function index() {
         return view('dir');
     }
 
     private function realPath() {
         $uri = '/' . trim(Input::get('uri', ''), '/');
-        $dir = realpath(config('my.media_dir') . $uri);
-        if (strpos($dir, config('my.media_dir')) === 0) {
+        $dir = realpath(config('nas.media_dir') . $uri);
+        if (strpos($dir, config('nas.media_dir')) === 0) {
             return [$dir, $uri];
         }
         return false;
     }
 
     function getList() {
-        $dir = $this->realPath();
-        $r = [
-            'uri' => '/',
-            'items' => []
-        ];
-        if (!$dir || !is_dir($dir[0])) {
-            return response()->json($r);
-        }
-        $r['uri'] = $dir[1];
-        foreach ([true, false] as $isDir) {
-            if ($handle = opendir($dir[0])) {
-                while (false !== ($entry = readdir($handle))) {
-                    if ($entry == '.' || $entry == '..') {
-                        continue;
-                    }
-                    if ($isDir xor is_dir($dir[0] . '\\' . $entry)) {
-                        continue;
-                    }
-                    $r['items'][] = array(
-                        'name' => $entry,
-                        'is_dir' => $isDir,
-                    );
-                }
-                closedir($handle);
-            }
-        }
-        return response()->json($r);
+        return response()->json($this->fs->readDir(Input::get('uri', '')));
     }
 
     function download() {
