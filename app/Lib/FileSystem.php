@@ -77,6 +77,7 @@ class FileSystem
             'ext' => false,
             'size' => 0,
             'date' => date('Y-m-d H:i:s', $this->override->filemtime($realPathFile)),
+            'perms' => $this->override->fileperms($realPathFile),
         ];
         if ($this->override->is_dir($realPathFile)) {
             $r['type'] = 'dir';

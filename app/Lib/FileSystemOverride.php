@@ -23,6 +23,11 @@ class FileSystemOverride
     }
 
 
+    public function fileperms($str)
+    {
+        return fileperms(iconv('UTF-8', $this->fileSystemEncoding, $str));
+    }
+
     public function realpath($str)
     {
         return iconv($this->fileSystemEncoding, 'UTF-8', realpath(iconv('UTF-8', $this->fileSystemEncoding, $str)));

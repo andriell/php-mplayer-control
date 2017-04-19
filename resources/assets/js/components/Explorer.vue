@@ -38,13 +38,25 @@
                 </div>
             </div>
             <div class="col-md-3"><div class="panel panel-default">
-                <div class="panel-heading">Инфо:</div>
+                <div class="panel-heading">Объектов: {{itemsChecked.length}}</div>
                 <div class="panel-body">
-                    <div class="list-group">
-                        <a href="#" class="list-group-item">{{itemsChecked}}</a>
-                        <a href="#" class="list-group-item">Second item</a>
-                        <a href="#" class="list-group-item">Third item</a>
-                    </div>
+                    <template v-if="itemsChecked.length > 0">
+                        <template v-if="itemsChecked.length == 1">
+                            <template v-for="item in itemsChecked">
+                                <h4>{{item.name}}</h4>
+                                <p>Размер: {{item.size}}</p>
+                                <p>Изменен: {{item.date}}</p>
+                                <p>Права: {{item.perms}}</p>
+                            </template>
+                        </template>
+                        <div class="list-group">
+                            <a href="#" class="list-group-item"><span class="glyphicon glyphicon-film"></span> Воспроизвести</a>
+                            <a href="#" class="list-group-item"><span class="glyphicon glyphicon-arrow-right"></span> Переместить</a>
+                            <a href="#" class="list-group-item"><span class="glyphicon glyphicon-duplicate"></span> Копировать</a>
+                            <a href="#" class="list-group-item"><span class="glyphicon glyphicon-folder-open"></span> В новую папку</a>
+                            <a href="#" class="list-group-item"><span class="glyphicon glyphicon-remove"></span> Удалить</a>
+                        </div>
+                    </template>
                 </div>
             </div></div>
         </div>

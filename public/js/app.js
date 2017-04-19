@@ -1970,6 +1970,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -32051,26 +32063,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "panel panel-default"
   }, [_c('div', {
     staticClass: "panel-heading"
-  }, [_vm._v("Инфо:")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Объектов: " + _vm._s(_vm.itemsChecked.length))]), _vm._v(" "), _c('div', {
     staticClass: "panel-body"
-  }, [_c('div', {
-    staticClass: "list-group"
-  }, [_c('a', {
-    staticClass: "list-group-item",
-    attrs: {
-      "href": "#"
-    }
-  }, [_vm._v(_vm._s(_vm.itemsChecked))]), _vm._v(" "), _c('a', {
-    staticClass: "list-group-item",
-    attrs: {
-      "href": "#"
-    }
-  }, [_vm._v("Second item")]), _vm._v(" "), _c('a', {
-    staticClass: "list-group-item",
-    attrs: {
-      "href": "#"
-    }
-  }, [_vm._v("Third item")])])])])])])])
+  }, [(_vm.itemsChecked.length > 0) ? [(_vm.itemsChecked.length == 1) ? [_vm._l((_vm.itemsChecked), function(item) {
+    return [_c('h4', [_vm._v(_vm._s(item.name))]), _vm._v(" "), _c('p', [_vm._v("Размер: " + _vm._s(item.size))]), _vm._v(" "), _c('p', [_vm._v("Изменен: " + _vm._s(item.date))]), _vm._v(" "), _c('p', [_vm._v("Права: " + _vm._s(item.perms))])]
+  })] : _vm._e(), _vm._v(" "), _vm._m(1)] : _vm._e()], 2)])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "explorer-img-box"
@@ -32079,6 +32076,45 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "src": "/img/dir.png"
     }
   })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "list-group"
+  }, [_c('a', {
+    staticClass: "list-group-item",
+    attrs: {
+      "href": "#"
+    }
+  }, [_c('span', {
+    staticClass: "glyphicon glyphicon-film"
+  }), _vm._v(" Воспроизвести")]), _vm._v(" "), _c('a', {
+    staticClass: "list-group-item",
+    attrs: {
+      "href": "#"
+    }
+  }, [_c('span', {
+    staticClass: "glyphicon glyphicon-arrow-right"
+  }), _vm._v(" Переместить")]), _vm._v(" "), _c('a', {
+    staticClass: "list-group-item",
+    attrs: {
+      "href": "#"
+    }
+  }, [_c('span', {
+    staticClass: "glyphicon glyphicon-duplicate"
+  }), _vm._v(" Копировать")]), _vm._v(" "), _c('a', {
+    staticClass: "list-group-item",
+    attrs: {
+      "href": "#"
+    }
+  }, [_c('span', {
+    staticClass: "glyphicon glyphicon-folder-open"
+  }), _vm._v(" В новую папку")]), _vm._v(" "), _c('a', {
+    staticClass: "list-group-item",
+    attrs: {
+      "href": "#"
+    }
+  }, [_c('span', {
+    staticClass: "glyphicon glyphicon-remove"
+  }), _vm._v(" Удалить")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
