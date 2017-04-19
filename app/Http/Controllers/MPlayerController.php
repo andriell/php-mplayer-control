@@ -31,6 +31,7 @@ class MPlayerController extends Controller
 
     public function playFile(Request $request, $uri = '')
     {
-        $this->player->playFile($uri);
+        $files = $_POST['files'];
+        $this->player->playFile($files[0]);
     }
 }

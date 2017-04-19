@@ -11,7 +11,7 @@
                                 <div class="explorer-img-box">
                                     <img src="/img/dir.png">
                                 </div>
-                                <a href="#" v-on:click="getData(item.name)" class="text">
+                                <a href="#" v-on:click="getData(item.uri)" class="text">
                                      {{ item.name }}
                                 </a>
                             </template>
@@ -19,7 +19,7 @@
                                 <div class="explorer-img-box">
                                     <img :src="'/dir-img-100x100/' + uri + '/' + item.name" width="100" height="100">
                                 </div>
-                                <a href="#" v-on:click="download(item.name)" class="text">
+                                <a href="#" v-on:click="download(item.uri)" class="text">
                                     {{ item.name }}
                                 </a>
                             </template>
@@ -28,7 +28,7 @@
                                     <img src="/img/file.png"><br>
                                 </div>
                                 <a href="#">
-                                    <a href="#" v-on:click="download(item.name)" class="text">
+                                    <a href="#" v-on:click="download(item.uri)" class="text">
                                         {{ item.name }}
                                     </a>
                                 </a>
@@ -70,8 +70,8 @@
                 uri: '/',
                 items: [],
                 itemsChecked: [],
-                getData: function(name) {
-                    jQuery.ajax('/dir-list/' + componentData.uri +  (name ? '/' + name : ''), {
+                getData: function(uri) {
+                    jQuery.ajax('/dir-list/' + uri, {
                         data: {},
                         method: 'GET',
                         success: function(data) {
@@ -84,8 +84,8 @@
                     });
                     return false;
                 },
-                download: function(name) {
-                    window.location.href = '/dir-download/' + componentData.uri + (name ? '/' + name : '');
+                download: function(uri) {
+                    window.location.href = '/dir-download/' +uri;
                     return false;
                 },
                 playFile: function(name) {
@@ -96,12 +96,12 @@
                     jQuery.ajax('/player-play/', {
                         method: 'POST',
                         data: {files: files},
-                        success: function(data) {}
+                       success: function(data) {}
                     });
                     return false;
                 }
             };
-            componentData.getData();
+            componentData.getData('');
             return componentData;
         },
         mounted() {}

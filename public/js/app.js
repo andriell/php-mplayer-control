@@ -1989,8 +1989,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             uri: '/',
             items: [],
             itemsChecked: [],
-            getData: function getData(name) {
-                jQuery.ajax('/dir-list/' + componentData.uri + (name ? '/' + name : ''), {
+            getData: function getData(uri) {
+                jQuery.ajax('/dir-list/' + uri, {
                     data: {},
                     method: 'GET',
                     success: function success(data) {
@@ -2003,8 +2003,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 });
                 return false;
             },
-            download: function download(name) {
-                window.location.href = '/dir-download/' + componentData.uri + (name ? '/' + name : '');
+            download: function download(uri) {
+                window.location.href = '/dir-download/' + uri;
                 return false;
             },
             playFile: function playFile(name) {
@@ -2020,7 +2020,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 return false;
             }
         };
-        componentData.getData();
+        componentData.getData('');
         return componentData;
     },
     mounted: function mounted() {}
@@ -2041,6 +2041,8 @@ window._ = __webpack_require__(37);
 
 try {
   window.$ = window.jQuery = __webpack_require__(36);
+
+  window.jQuery.ajaxSetup({ headers: { 'X-CSRF-TOKEN': window.Laravel.csrfToken } });
 
   __webpack_require__(33);
 } catch (e) {}
@@ -32030,7 +32032,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       on: {
         "click": function($event) {
-          _vm.getData(item.name)
+          _vm.getData(item.uri)
         }
       }
     }, [_vm._v("\n                                 " + _vm._s(item.name) + "\n                            ")])] : (item.type == 'image') ? [_c('div', {
@@ -32048,7 +32050,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       on: {
         "click": function($event) {
-          _vm.download(item.name)
+          _vm.download(item.uri)
         }
       }
     }, [_vm._v("\n                                " + _vm._s(item.name) + "\n                            ")])] : [_c('div', {
@@ -32068,7 +32070,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       on: {
         "click": function($event) {
-          _vm.download(item.name)
+          _vm.download(item.uri)
         }
       }
     }, [_vm._v("\n                                    " + _vm._s(item.name) + "\n                                ")])])]], 2)

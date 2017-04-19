@@ -10,6 +10,8 @@ window._ = require('lodash');
 try {
     window.$ = window.jQuery = require('jquery');
 
+    window.jQuery.ajaxSetup({headers: {'X-CSRF-TOKEN': window.Laravel.csrfToken}});
+
     require('bootstrap-sass');
 } catch (e) {}
 
