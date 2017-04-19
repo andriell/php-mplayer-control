@@ -48,24 +48,16 @@ class DirController extends Controller
 
     function img()
     {
-        // тип содержимого
-        header('Content-Type: image/jpeg');
-
-        return $this->fs->resizeImage(Input::get('uri'));
+        return response()->stream(function() {
+            $this->fs->resizeImage(Input::get('uri'));
+        }, 200, [
+            'Content-Type' => 'image/jpeg'
+        ]);
     }
 
     function download()
     {
-        $file = $this->realPath();
-        if ($file && file_exists($file[0])) {
-            header('Content-Description: File Transfer');
-            header('Content-Type: application/octet-stream');
-            header('Content-Disposition: attachment; filename="' . basename($file[0]) . '"');
-            header('Expires: 0');
-            header('Cache-Control: must-revalidate');
-            header('Pragma: public');
-            header('Content-Length: ' . filesize($file[0]));
-            readfile($file[0]);
-        }
+        $file = $this->fs->realPath(Input::get('uri'));
+        return response()->download($file);
     }
 }

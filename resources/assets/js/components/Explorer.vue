@@ -5,23 +5,29 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Путь: {{uri}}</div>
                     <div class="panel-body">
-                        <div class="item" v-for="item in items">
+                        <div class="explorer-item" v-for="item in items">
                             <template v-if="item.type == 'dir'">
+                                <div class="explorer-img-box">
+                                    <img src="/img/dir.png">
+                                </div>
                                 <a href="#" v-on:click="getData(item.name)">
-                                    <img src="/img/dir.png"><br>
-                                    {{ item.name }}
+                                     {{ item.name }}
                                 </a>
                             </template>
                             <template v-else-if="item.type == 'image'">
+                                <div class="explorer-img-box">
+                                    <img :src="'/dir-img/?uri=' + uri + '/' + item.name">
+                                </div>
                                 <a href="#" v-on:click="download(item.name)">
-                                    <img :src="'/dir-img/?uri=' + uri + '/' + item.name"><br>
                                     {{ item.name }}
                                 </a>
                             </template>
                             <template v-else>
+                                <div class="explorer-img-box">
+                                    <img src="/img/file.png"><br>
+                                </div>
                                 <a href="#">
                                     <a href="#" v-on:click="download(item.name)">
-                                        <img src="/img/file.png"><br>
                                         {{ item.name }}
                                     </a>
                                 </a>
@@ -65,7 +71,7 @@
 
 
 <style>
-    .item {
+    .explorer-item {
         display: inline-block;
         vertical-align: bottom;
         height: 140px;
@@ -73,5 +79,11 @@
         padding: 2px;
         text-align: center;
         overflow: hidden;
+    }
+    .explorer-img-box {
+        width: 100px;
+        height: 100px;
+        overflow: hidden;
+        text-align: center;
     }
 </style>

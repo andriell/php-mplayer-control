@@ -166,6 +166,7 @@ class FileSystem
 
     public function resizeImage($uri, $newSize = [100, 100]) {
         // файл и новый размер
+        $uri = iconv('UTF-8', $this->fileSystemEncoding, $uri);
         $realPathFile = $this->realPath($uri);
 
         $ext = strtolower(substr($realPathFile, strrpos($realPathFile, '.') + 1));
@@ -178,13 +179,12 @@ class FileSystem
         } elseif ($ext == 'bmp') {
             $img1 = imagecreatefrombmp($realPathFile);
         } else {
-            return false;
+            return;
         }
 
-        // получение нового размера
         list($w1, $h1) = getimagesize($realPathFile);
 
-        if ($w1 > $h1) {
+        if ($w1 < $h1) {
             $p = $newSize[0] / $w1;
         } else {
             $p = $newSize[1] / $h1;
@@ -192,17 +192,10 @@ class FileSystem
         $w2 = $w1 * $p;
         $h2 = $h1 * $p;
 
-        // загрузка
         $img2 = imagecreatetruecolor($w2, $h2);
 
-        // изменение размера
         imagecopyresized($img2, $img1, 0, 0, 0, 0, $w2, $h2, $w1, $h1);
 
-
-
-        $fp = fopen('php://memory', 'r+');
         imagejpeg($img2);
-        rewind($fp);
-        return stream_get_contents($fp);
     }
 }
