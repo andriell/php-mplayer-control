@@ -46,6 +46,9 @@ class FileSystem
             return '';
         }
         $r = $this->override->realpath($this->mediaDir . '/' . $uri);
+        if (DIRECTORY_SEPARATOR != '/') {
+            $r = str_replace(DIRECTORY_SEPARATOR, '/', $r);
+        }
         if (strpos($r, $this->mediaDir) === 0) {
             return substr($r, strlen($this->mediaDir));
         }
