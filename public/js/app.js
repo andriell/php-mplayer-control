@@ -1318,18 +1318,19 @@ window.appData = {
                 }
             });
         },
-        setVolume: function setVolume(volume) {
-            jQuery.ajax('/player-set-volume/' + volume);
+        setVolume: function setVolume() {
+            jQuery.ajax('/player-set-volume/' + window.appData.rc.volume);
         },
         getTimePos: function getTimePos() {
             jQuery.ajax('/player-get-time-pos/', {
                 success: function success(data) {
                     window.appData.rc.timePos = data.time_pos;
+                    window.appData.rc.length = data.length;
                 }
             });
         },
-        setTimePos: function setTimePos(timePos) {
-            jQuery.ajax('/player-set-time-pos/' + timePos);
+        setTimePos: function setTimePos() {
+            jQuery.ajax('/player-set-time-pos/' + window.appData.rc.volume);
         },
         getLength: function getLength() {
             jQuery.ajax('/player-get-length/', {
@@ -32362,7 +32363,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     on: {
       "click": function($event) {
-        _vm.switchMute()
+        _vm.getVolume()
       }
     }
   }, [_c('span', {
@@ -32386,6 +32387,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "value": (_vm.volume)
     },
     on: {
+      "change": function($event) {
+        _vm.setVolume()
+      },
       "__r": function($event) {
         _vm.volume = $event.target.value
       }
@@ -32401,7 +32405,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     on: {
       "click": function($event) {
-        _vm.switchMute()
+        _vm.getTimePos()
       }
     }
   }, [_c('span', {
@@ -32418,13 +32422,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "range",
       "min": "0",
-      "max": "5400",
+      "max": _vm.length,
       "step": "1"
     },
     domProps: {
       "value": (_vm.timePos)
     },
     on: {
+      "change": function($event) {
+        _vm.setTimePos()
+      },
       "__r": function($event) {
         _vm.timePos = $event.target.value
       }

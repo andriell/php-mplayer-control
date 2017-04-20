@@ -27,18 +27,19 @@ window.appData = {
                 }
             });
         },
-        setVolume: function (volume) {
-            jQuery.ajax('/player-set-volume/' + volume);
+        setVolume: function () {
+            jQuery.ajax('/player-set-volume/' + window.appData.rc.volume);
         },
         getTimePos: function () {
             jQuery.ajax('/player-get-time-pos/', {
                 success: function (data) {
                     window.appData.rc.timePos = data.time_pos;
+                    window.appData.rc.length = data.length;
                 }
             });
         },
-        setTimePos: function (timePos) {
-            jQuery.ajax('/player-set-time-pos/' + timePos);
+        setTimePos: function () {
+            jQuery.ajax('/player-set-time-pos/' + window.appData.rc.volume);
         },
         getLength: function () {
             jQuery.ajax('/player-get-length/', {

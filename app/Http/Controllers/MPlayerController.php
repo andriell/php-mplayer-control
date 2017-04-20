@@ -61,7 +61,10 @@ class MPlayerController extends Controller
 
     public function getTimePos()
     {
-        return response()->json(['time_pos' => $this->player->getTimePos()]);
+        return response()->json([
+            'time_pos' => $this->player->getTimePos(),
+            'length' => $this->player->getLength(),
+        ]);
     }
 
     public function setTimePos($timePos)

@@ -18,18 +18,18 @@
                     </div>
                     <div class="row rc-row-sound">
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                            <button type="button" class="btn btn-default rc-btn-sound" v-on:click="switchMute()"><span class="glyphicon glyphicon-volume-up"></span> Звук</button>
+                            <button type="button" class="btn btn-default rc-btn-sound" v-on:click="getVolume()"><span class="glyphicon glyphicon-volume-up"></span> Звук</button>
                         </div>
                         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                            <input type="range" min="0" max="100" step="1" v-model="volume" />
+                            <input type="range" min="0" max="100" step="1" v-model="volume" v-on:change="setVolume()" />
                         </div>
                     </div>
                     <div class="row rc-row-time">
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                            <button type="button" class="btn btn-default rc-btn-time" v-on:click="switchMute()"><span class="glyphicon glyphicon-time"></span> Время</button>
+                            <button type="button" class="btn btn-default rc-btn-time" v-on:click="getTimePos()"><span class="glyphicon glyphicon-time"></span> Время</button>
                         </div>
                         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                            <input type="range" min="0" max="5400" step="1" v-model="timePos" />
+                            <input type="range" min="0" :max="length" step="1" v-model="timePos" v-on:change="setTimePos()" />
                         </div>
                     </div>
                     <div class="row text-center">
