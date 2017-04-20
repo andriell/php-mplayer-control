@@ -2,7 +2,8 @@ window.appData = {
     rc: {
         length: 0,
         timePos: 0,
-        volume: 0,
+        timeP: 0,
+        volume: 100,
         mute: false,
         show: function() {
             jQuery('#tvModal').modal('show');
@@ -35,16 +36,17 @@ window.appData = {
                 success: function (data) {
                     window.appData.rc.timePos = data.time_pos;
                     window.appData.rc.length = data.length;
+                    window.appData.rc.timeP = Math.round((data.time_pos / data.length) * 1000000);
                 }
             });
         },
         setTimePos: function () {
-            jQuery.ajax('/player-set-time-pos/' + window.appData.rc.timePos);
-        },
-        getLength: function () {
-            jQuery.ajax('/player-get-length/', {
+            jQuery.ajax('/player-get-time-pos/', {
                 success: function (data) {
+                    window.appData.rc.timePos = data.time_pos;
                     window.appData.rc.length = data.length;
+
+                    jQuery.ajax('/player-set-time-pos/' + Math.round((window.appData.rc.timeP / 1000000) * data.length));
                 }
             });
         },

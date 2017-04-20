@@ -1293,7 +1293,8 @@ window.appData = {
     rc: {
         length: 0,
         timePos: 0,
-        volume: 0,
+        timeP: 0,
+        volume: 100,
         mute: false,
         show: function show() {
             jQuery('#tvModal').modal('show');
@@ -1326,16 +1327,17 @@ window.appData = {
                 success: function success(data) {
                     window.appData.rc.timePos = data.time_pos;
                     window.appData.rc.length = data.length;
+                    window.appData.rc.timeP = Math.round(data.time_pos / data.length * 1000000);
                 }
             });
         },
         setTimePos: function setTimePos() {
-            jQuery.ajax('/player-set-time-pos/' + window.appData.rc.timePos);
-        },
-        getLength: function getLength() {
-            jQuery.ajax('/player-get-length/', {
+            jQuery.ajax('/player-get-time-pos/', {
                 success: function success(data) {
+                    window.appData.rc.timePos = data.time_pos;
                     window.appData.rc.length = data.length;
+
+                    jQuery.ajax('/player-set-time-pos/' + Math.round(window.appData.rc.timeP / 1000000 * data.length));
                 }
             });
         },
@@ -32416,24 +32418,24 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.timePos),
-      expression: "timePos"
+      value: (_vm.timeP),
+      expression: "timeP"
     }],
     attrs: {
       "type": "range",
       "min": "0",
-      "max": _vm.length,
+      "max": "1000000",
       "step": "1"
     },
     domProps: {
-      "value": (_vm.timePos)
+      "value": (_vm.timeP)
     },
     on: {
       "change": function($event) {
         _vm.setTimePos()
       },
       "__r": function($event) {
-        _vm.timePos = $event.target.value
+        _vm.timeP = $event.target.value
       }
     }
   })])]), _vm._v(" "), _vm._m(1)])])])])
