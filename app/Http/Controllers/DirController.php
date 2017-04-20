@@ -42,7 +42,14 @@ class DirController extends Controller
     function img(Request $request, $uri)
     {
         return response()->stream(function() use($uri) {
-            $this->fs->resizeImage($uri);
+            try {
+                $this->fs->resizeImage($uri);
+            } catch (\Exception $e) {
+                $filename = public_path() . '/img/error_img.jpg';
+                $handle = fopen($filename, "r");
+                echo fread($handle, filesize($filename));
+                fclose($handle);
+            }
         }, 200, [
             'Content-Type' => 'image/jpeg'
         ]);
