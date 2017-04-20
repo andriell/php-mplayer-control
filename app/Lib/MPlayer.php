@@ -52,11 +52,11 @@ class MPlayer
         shell_exec('echo "' . $str . '\n" > ' . $this->fileFifo);
         $r = '';
         for ($i = 0; $i < 10; $i++) {
-            $r = trim(file_get_contents($this->fileOut));
+            $r = shell_exec('cat ' . $this->fileOut);
             if ($r) {
                 break;
             }
-            sleep(100);
+            usleep(200000);
         }
         return $r;
     }
