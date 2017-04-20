@@ -1,7 +1,7 @@
 window.appData = {
     rc: {
         length: 0,
-        timeP: 0,
+        timePos: 0,
         volume: 0,
         mute: false,
         show: function() {
@@ -33,18 +33,18 @@ window.appData = {
         getTimePos: function () {
             jQuery.ajax('/player-get-time-pos/', {
                 success: function (data) {
+                    window.appData.rc.timePos = data.time_pos;
                     window.appData.rc.length = data.length;
-                    window.appData.rc.timeP = (data.time_pos / data.length) * 1000000;
                 }
             });
         },
         setTimePos: function () {
-            jQuery.ajax('/player-set-time-pos/' + Math.round((window.appData.rc.time_pos / 1000000) * window.appData.rc.length));
+            jQuery.ajax('/player-set-time-pos/' + window.appData.rc.volume);
         },
         getLength: function () {
             jQuery.ajax('/player-get-length/', {
                 success: function (data) {
-                    window.appData.rc.length = data.length;
+                    window.appData.rc.length = data.timePos;
                 }
             });
         },

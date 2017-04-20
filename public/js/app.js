@@ -1292,7 +1292,7 @@ module.exports = g;
 window.appData = {
     rc: {
         length: 0,
-        timeP: 0,
+        timePos: 0,
         volume: 0,
         mute: false,
         show: function show() {
@@ -1324,18 +1324,18 @@ window.appData = {
         getTimePos: function getTimePos() {
             jQuery.ajax('/player-get-time-pos/', {
                 success: function success(data) {
+                    window.appData.rc.timePos = data.time_pos;
                     window.appData.rc.length = data.length;
-                    window.appData.rc.timeP = data.time_pos / data.length * 1000000;
                 }
             });
         },
         setTimePos: function setTimePos() {
-            jQuery.ajax('/player-set-time-pos/' + Math.round(window.appData.rc.time_pos / 1000000 * window.appData.rc.length));
+            jQuery.ajax('/player-set-time-pos/' + window.appData.rc.volume);
         },
         getLength: function getLength() {
             jQuery.ajax('/player-get-length/', {
                 success: function success(data) {
-                    window.appData.rc.length = data.length;
+                    window.appData.rc.length = data.timePos;
                 }
             });
         },
@@ -32422,7 +32422,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "range",
       "min": "0",
-      "max": "1000000",
+      "max": "length",
       "step": "1"
     },
     domProps: {
