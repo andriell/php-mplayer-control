@@ -29,6 +29,13 @@ class MPlayerController extends Controller
         $this->middleware('auth');
     }
 
+    public function callAction($method, $parameters)
+    {
+        set_time_limit(5);
+        return parent::callAction($method, $parameters);
+    }
+
+
     public function playVideo($uri)
     {
         $this->player->playVideo($uri);
