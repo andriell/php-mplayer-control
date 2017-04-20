@@ -2,4 +2,5 @@
 
 @section('content')
 <explorer></explorer>
+<rc></rc>
 @endsection

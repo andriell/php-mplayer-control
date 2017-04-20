@@ -68,12 +68,8 @@
                                 </template>
                             </template>
                             <div class="list-group">
-                                <a href="#" class="list-group-item" v-on:click="playFile()"><span
+                                <a href="#" class="list-group-item" v-on:click="playChecked()"><span
                                         class="glyphicon glyphicon-film"></span>&nbsp;&nbsp;Воспроизвести</a>
-                                <a href="#" class="list-group-item" v-on:click="pause()"><span
-                                        class="glyphicon glyphicon-film"></span>&nbsp;&nbsp;pause</a>
-                                <a href="#" class="list-group-item" v-on:click="quit()"><span
-                                        class="glyphicon glyphicon-film"></span>&nbsp;&nbsp;quit</a>
                                 <a href="#" class="list-group-item"><span
                                         class="glyphicon glyphicon-arrow-right"></span>&nbsp;&nbsp;Переместить</a>
                                 <a href="#" class="list-group-item"><span class="glyphicon glyphicon-duplicate"></span>&nbsp;&nbsp;Копировать</a>
@@ -92,54 +88,8 @@
 <script>
     export default {
         data: function () {
-            var componentData = {
-                uri: '/',
-                items: [],
-                itemsChecked: [],
-                getData: function (uri) {
-                    jQuery.ajax('/dir-list/' + uri, {
-                        data: {},
-                        method: 'GET',
-                        success: function (data) {
-                            for (var i in data.items) {
-                                data.items[i].uri = data.uri ? data.uri + '/' + data.items[i].name : data.items[i].name;
-                            }
-                            componentData.uri = data.uri;
-                            componentData.items = data.items;
-                        }
-                    });
-                    return false;
-                },
-                download: function (uri) {
-                    window.location.href = '/dir-download/' + uri;
-                    return false;
-                },
-                playFile: function (name) {
-                    var files = [];
-                    for (var i in componentData.itemsChecked) {
-                        files.push(componentData.itemsChecked[i].uri);
-                    }
-                    jQuery.ajax('/player-play/', {
-                        method: 'POST',
-                        data: {files: files},
-                        success: function (data) {
-                            jQuery('#tvModal').modal('show');
-                        }
-                    });
-                    return false;
-                },
-                pause: function (name) {
-                    jQuery.ajax('/player-pause/', {method: 'POST'});
-                    return false;
-                },
-                quit: function (name) {
-                    jQuery.ajax('/player-quit/', {method: 'POST'});
-                    return false;
-                }
-
-            };
-            componentData.getData('');
-            return componentData;
+            window.appData.explorer.getData('');
+            return window.appData.explorer;
         },
         mounted() {
         }

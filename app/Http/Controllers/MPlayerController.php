@@ -32,7 +32,9 @@ class MPlayerController extends Controller
     public function playFile()
     {
         $files = $_POST['files'];
-        $this->player->playFile($files[0]);
+        return response()->json([
+            'info' => $this->player->playFile($files[0]),
+        ]);
     }
 
     public function pause()
