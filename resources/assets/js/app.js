@@ -52,7 +52,7 @@ window.appData = {
         },
         switchMute: function () {
             window.appData.rc.mute = !window.appData.rc.mute;
-            jQuery.ajax('/player-set-mute/' + window.appData.rc.mute ? 't' : 'f');
+            jQuery.ajax('/player-set-mute/' + (window.appData.rc.mute ? 't' : 'f'));
         },
         switchAudio: function () {
             jQuery.ajax('/player-switch-audio/');
