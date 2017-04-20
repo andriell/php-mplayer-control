@@ -39,12 +39,12 @@ window.appData = {
             });
         },
         setTimePos: function () {
-            jQuery.ajax('/player-set-time-pos/' + window.appData.rc.volume);
+            jQuery.ajax('/player-set-time-pos/' + window.appData.rc.timePos);
         },
         getLength: function () {
             jQuery.ajax('/player-get-length/', {
                 success: function (data) {
-                    window.appData.rc.length = data.timePos;
+                    window.appData.rc.length = data.length;
                 }
             });
         },
