@@ -39,7 +39,7 @@ window.appData = {
             });
         },
         setTimePos: function () {
-            jQuery.ajax('/player-set-time-pos/' + Math.round((window.appData.rc.time_pos / 1000000) * data.length));
+            jQuery.ajax('/player-set-time-pos/' + Math.round((window.appData.rc.time_pos / 1000000) * window.appData.rc.length));
         },
         getLength: function () {
             jQuery.ajax('/player-get-length/', {
