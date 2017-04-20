@@ -1291,7 +1291,8 @@ module.exports = g;
 
 window.appData = {
     rc: {
-        lenght: 0,
+        length: 0,
+        volume: 0,
 
         show: function show() {
             jQuery('#tvModal').modal('show');

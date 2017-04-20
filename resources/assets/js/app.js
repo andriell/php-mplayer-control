@@ -1,6 +1,7 @@
 window.appData = {
     rc: {
-        lenght: 0,
+        length: 0,
+        volume: 0,
 
         show: function() {
             jQuery('#tvModal').modal('show');

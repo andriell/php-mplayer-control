@@ -25,7 +25,7 @@ class MPlayer
         $this->fs = $fs;
     }
 
-    function playFile($uri)
+    function playVideo($uri)
     {
         $file = $this->fs->realPath($uri);
         if (empty($file)) {
@@ -38,11 +38,6 @@ class MPlayer
         //$str = 'export DISPLAY=:0.0 && mplayer -really-quiet -noconsolecontrols -fs -slave -input file=' . $this->fileFifo . ' ' . $file . '  > ' . $this->fileOut . ' 2> /dev/null &';
         shell_exec($str);
         shell_exec('chmod 0644 ' . $this->fileOut);
-
-        return [
-            'length' => $this->getLength(),
-            'volume' => $this->getVolume(),
-        ];
     }
 
     function isRun()

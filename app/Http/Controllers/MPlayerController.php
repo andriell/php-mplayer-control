@@ -31,9 +31,7 @@ class MPlayerController extends Controller
 
     public function playVideo($uri)
     {
-        return response()->json([
-            'info' => $this->player->playFile($uri),
-        ]);
+        $this->player->playVideo($uri);
     }
 
     public function pause()
