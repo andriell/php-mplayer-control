@@ -1330,12 +1330,12 @@ window.appData = {
             });
         },
         setTimePos: function setTimePos() {
-            jQuery.ajax('/player-set-time-pos/' + window.appData.rc.volume);
+            jQuery.ajax('/player-set-time-pos/' + window.appData.rc.timePos);
         },
         getLength: function getLength() {
             jQuery.ajax('/player-get-length/', {
                 success: function success(data) {
-                    window.appData.rc.length = data.timePos;
+                    window.appData.rc.length = data.length;
                 }
             });
         },
