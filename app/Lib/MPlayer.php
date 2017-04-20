@@ -52,7 +52,7 @@ class MPlayer
         shell_exec('echo "' . $str . '\n" > ' . $this->fileFifo);
         $r = '';
         for ($i = 0; $i < 10; $i++) {
-            $r = shell_exec('cat ' . $this->fileOut);
+            $r = shell_exec('cat ' . $this->fileOut . ' | tr -d " \t\n\r\0"');
             if ($r) {
                 break;
             }
