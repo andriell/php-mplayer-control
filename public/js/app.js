@@ -32422,7 +32422,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "range",
       "min": "0",
-      "max": "length",
+      "max": _vm.length,
       "step": "1"
     },
     domProps: {

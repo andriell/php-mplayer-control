@@ -29,7 +29,7 @@
                             <button type="button" class="btn btn-default rc-btn-time" v-on:click="getTimePos()"><span class="glyphicon glyphicon-time"></span> Время</button>
                         </div>
                         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                            <input type="range" min="0" max="1000000" step="1" v-model="timePos" v-on:change="setTimePos()" />
+                            <input type="range" min="0" :max="length" step="1" v-model="timePos" v-on:change="setTimePos()" />
                         </div>
                     </div>
                     <div class="row text-center">
