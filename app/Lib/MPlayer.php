@@ -65,6 +65,32 @@ class MPlayer
         return $r;
     }
 
+    function setProperty($p, $keepPause = true)
+    {
+        if ($keepPause) {
+            $this->command('pausing_keep set_property ' . $p);
+        } else {
+            $this->command('set_property ' . $p);
+        }
+    }
+
+    function getProperty($p, $keepPause = true)
+    {
+        if ($keepPause) {
+            $resp = $this->commandGet('pausing_keep get_property ' . $p);
+        } else {
+            $resp = $this->commandGet('get_property ' . $p);
+        }
+        if (empty($resp)) {
+            return false;
+        }
+        $resp = explode('=', $resp, 2);
+        if ($resp[0] != 'ANS_' . $p) {
+            return false;
+        }
+        return $resp[1];
+    }
+
     function getAllProperty()
     {
         $prop = [
@@ -81,7 +107,7 @@ class MPlayer
         ];
         $r = [];
         foreach ($prop as $p) {
-            $r[$p] = $this->commandGet('get_property ' . $p);
+            $r[$p] = $this->getProperty($p);
         }
         return $r;
     }
@@ -94,5 +120,18 @@ class MPlayer
     function quit()
     {
         $this->command('quit');
+    }
+
+    function getLength()
+    {
+        return (int) $this->getProperty('length');
+    }
+
+    /**
+     * @param int $p 0 - 100
+     */
+    function setVolume($p)
+    {
+        $this->setProperty('volume ' . $p);
     }
 }
