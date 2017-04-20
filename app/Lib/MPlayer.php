@@ -43,9 +43,21 @@ class MPlayer
     }
 
     function command($str) {
+        shell_exec('echo "' . $str . '\n" > ' . $this->fileFifo);
+    }
+
+    function commandGet($str) {
         shell_exec('> ' . $this->fileOut);
         shell_exec('echo "' . $str . '\n" > ' . $this->fileFifo);
-        return trim(file_get_contents($this->fileOut));
+        $r = '';
+        for ($i = 0; $i < 10; $i++) {
+            $r = trim(file_get_contents($this->fileOut));
+            if ($r) {
+                break;
+            }
+            sleep(100);
+        }
+        return $r;
     }
 
     function pause() {

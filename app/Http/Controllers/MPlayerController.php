@@ -46,6 +46,6 @@ class MPlayerController extends Controller
     }
 
     public function command() {
-        return response()->json(['resp' => $this->player->command($_GET['exec'])]);
+        return response()->json(['resp' => $this->player->commandGet($_GET['exec'])]);
     }
 }
