@@ -1,24 +1,61 @@
 window.appData = {
     rc: {
         length: 0,
+        timePos: 0,
         volume: 0,
-
+        mute: false,
         show: function() {
             jQuery('#tvModal').modal('show');
         },
         playVideo: function (uri) {
             jQuery.ajax('/player-play-video/' + uri, {
-                method: 'GET',
                 success: function (data) {
                     window.appData.rc.show();
                 }
             });
         },
-        pause: function (name) {
-            jQuery.ajax('/player-pause/', {method: 'GET'});
+        pause: function () {
+            jQuery.ajax('/player-pause/');
         },
-        quit: function (name) {
-            jQuery.ajax('/player-quit/', {method: 'GET'});
+        quit: function () {
+            jQuery.ajax('/player-quit/');
+        },
+        getVolume: function () {
+            jQuery.ajax('/player-get-volume/', {
+                success: function (data) {
+                    window.appData.rc.volume = data.volume;
+                }
+            });
+        },
+        setVolume: function (volume) {
+            jQuery.ajax('/player-set-volume/' + volume);
+        },
+        getTimePos: function () {
+            jQuery.ajax('/player-get-time-pos/', {
+                success: function (data) {
+                    window.appData.rc.timePos = data.time_pos;
+                }
+            });
+        },
+        setTimePos: function (timePos) {
+            jQuery.ajax('/player-set-time-pos/' + timePos);
+        },
+        getLength: function () {
+            jQuery.ajax('/player-get-length/', {
+                success: function (data) {
+                    window.appData.rc.length = data.length;
+                }
+            });
+        },
+        switchMute: function () {
+            window.appData.rc.mute = !window.appData.rc.mute;
+            jQuery.ajax('/player-set-mute/' + window.appData.rc.mute ? 't' : 'f');
+        },
+        switchAudio: function () {
+            jQuery.ajax('/player-switch-audio/');
+        },
+        switchVideo: function () {
+            jQuery.ajax('/player-switch-video/');
         }
     },
     explorer: {
@@ -28,7 +65,6 @@ window.appData = {
         getData: function (uri) {
             jQuery.ajax('/dir-list/' + uri, {
                 data: {},
-                method: 'GET',
                 success: function (data) {
                     for (var i in data.items) {
                         data.items[i].uri = data.uri ? data.uri + '/' + data.items[i].name : data.items[i].name;

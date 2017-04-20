@@ -54,6 +54,11 @@ class MPlayerController extends Controller
         $this->player->setVolume($volume);
     }
 
+    public function getLength()
+    {
+        return response()->json(['length' => $this->player->getLength()]);
+    }
+
     public function getTimePos()
     {
         return response()->json(['time_pos' => $this->player->getTimePos()]);
