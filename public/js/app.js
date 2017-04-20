@@ -1330,7 +1330,7 @@ window.appData = {
             });
         },
         setTimePos: function setTimePos() {
-            jQuery.ajax('/player-set-time-pos/' + Math.round(window.appData.rc.time_pos / 1000000 * data.length));
+            jQuery.ajax('/player-set-time-pos/' + Math.round(window.appData.rc.time_pos / 1000000 * window.appData.rc.length));
         },
         getLength: function getLength() {
             jQuery.ajax('/player-get-length/', {
