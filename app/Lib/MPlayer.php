@@ -190,4 +190,14 @@ class MPlayer
     {
         return (int) $this->getProperty('time_pos');
     }
+
+    function switchAudio()
+    {
+        $this->command('switch_audio');
+    }
+
+    function switchVideo()
+    {
+        $this->command('switch_video');
+    }
 }
