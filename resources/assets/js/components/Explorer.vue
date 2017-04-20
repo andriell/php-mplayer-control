@@ -68,7 +68,7 @@
                                 </template>
                             </template>
                             <div class="list-group">
-                                <a href="#" class="list-group-item" v-on:click="playChecked()"><span
+                                <a href="#" class="list-group-item" v-on:click="playVideo()"><span
                                         class="glyphicon glyphicon-film"></span>&nbsp;&nbsp;Воспроизвести</a>
                                 <a href="#" class="list-group-item"><span
                                         class="glyphicon glyphicon-arrow-right"></span>&nbsp;&nbsp;Переместить</a>

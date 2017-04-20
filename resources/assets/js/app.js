@@ -1,22 +1,23 @@
 window.appData = {
     rc: {
+        lenght: 0,
+
         show: function() {
             jQuery('#tvModal').modal('show');
         },
-        playFiles: function (files) {
-            jQuery.ajax('/player-play/', {
-                method: 'POST',
-                data: {files: files},
+        playVideo: function (uri) {
+            jQuery.ajax('/player-play-video/' + uri, {
+                method: 'GET',
                 success: function (data) {
                     window.appData.rc.show();
                 }
             });
         },
         pause: function (name) {
-            jQuery.ajax('/player-pause/', {method: 'POST'});
+            jQuery.ajax('/player-pause/', {method: 'GET'});
         },
         quit: function (name) {
-            jQuery.ajax('/player-quit/', {method: 'POST'});
+            jQuery.ajax('/player-quit/', {method: 'GET'});
         }
     },
     explorer: {
@@ -40,12 +41,8 @@ window.appData = {
             window.location.href = '/dir-download/' + uri;
             return false;
         },
-        playChecked: function () {
-            var files = [];
-            for (var i in window.appData.explorer.itemsChecked) {
-                files.push(window.appData.explorer.itemsChecked[i].uri);
-            }
-            window.appData.rc.playFiles(files);
+        playVideo: function () {
+            window.appData.rc.playVideo(window.appData.explorer.itemsChecked[0].uri);
         }
     }
 };

@@ -1291,23 +1291,24 @@ module.exports = g;
 
 window.appData = {
     rc: {
+        lenght: 0,
+
         show: function show() {
             jQuery('#tvModal').modal('show');
         },
-        playFiles: function playFiles(files) {
-            jQuery.ajax('/player-play/', {
-                method: 'POST',
-                data: { files: files },
+        playVideo: function playVideo(uri) {
+            jQuery.ajax('/player-play-video/' + uri, {
+                method: 'GET',
                 success: function success(data) {
                     window.appData.rc.show();
                 }
             });
         },
         pause: function pause(name) {
-            jQuery.ajax('/player-pause/', { method: 'POST' });
+            jQuery.ajax('/player-pause/', { method: 'GET' });
         },
         quit: function quit(name) {
-            jQuery.ajax('/player-quit/', { method: 'POST' });
+            jQuery.ajax('/player-quit/', { method: 'GET' });
         }
     },
     explorer: {
@@ -1331,12 +1332,8 @@ window.appData = {
             window.location.href = '/dir-download/' + uri;
             return false;
         },
-        playChecked: function playChecked() {
-            var files = [];
-            for (var i in window.appData.explorer.itemsChecked) {
-                files.push(window.appData.explorer.itemsChecked[i].uri);
-            }
-            window.appData.rc.playFiles(files);
+        playVideo: function playVideo() {
+            window.appData.rc.playVideo(window.appData.explorer.itemsChecked[0].uri);
         }
     }
 };
@@ -32420,7 +32417,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     on: {
       "click": function($event) {
-        _vm.playChecked()
+        _vm.playVideo()
       }
     }
   }, [_c('span', {

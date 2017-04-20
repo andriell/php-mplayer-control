@@ -29,11 +29,10 @@ class MPlayerController extends Controller
         $this->middleware('auth');
     }
 
-    public function playFile()
+    public function playVideo($uri)
     {
-        $files = $_POST['files'];
         return response()->json([
-            'info' => $this->player->playFile($files[0]),
+            'info' => $this->player->playFile($uri),
         ]);
     }
 
