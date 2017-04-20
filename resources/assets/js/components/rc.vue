@@ -9,12 +9,8 @@
                 </div>
                 <div class="modal-body">
                     <div class="row text-center">
-                        <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-backward"></span>
-                        </button>
-                        <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-play"></span>
-                        </button>
-                        <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-forward"></span>
-                        </button>
+                        <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-play"></span></button>
+                        <button type="button" class="btn btn-default">MUTE</button>
                     </div>
                 </div>
             </div>

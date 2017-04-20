@@ -42,17 +42,18 @@
                     <div class="panel-heading">Объектов: {{itemsChecked.length}}</div>
                     <div class="panel-body">
                         <template v-if="itemsChecked.length > 0">
+                            <div class="list-group">
                             <template v-if="itemsChecked.length == 1">
                                 <template v-for="item in itemsChecked">
                                     <h4>{{item.name}}</h4>
                                     <p>Размер: {{item.size}}</p>
                                     <p>Изменен: {{item.date}}</p>
                                     <p>Права: {{item.perms}}</p>
+                                    <a href="#" class="list-group-item" v-on:click="playVideo()" v-if="item.type == 'movie'">
+                                        <span class="glyphicon glyphicon-film"></span>&nbsp;&nbsp;Воспроизвести
+                                    </a>
                                 </template>
                             </template>
-                            <div class="list-group">
-                                <a href="#" class="list-group-item" v-on:click="playVideo()"><span
-                                        class="glyphicon glyphicon-film"></span>&nbsp;&nbsp;Воспроизвести</a>
                                 <a href="#" class="list-group-item"><span
                                         class="glyphicon glyphicon-arrow-right"></span>&nbsp;&nbsp;Переместить</a>
                                 <a href="#" class="list-group-item"><span class="glyphicon glyphicon-duplicate"></span>&nbsp;&nbsp;Копировать</a>
