@@ -1984,6 +1984,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -2017,7 +2041,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 jQuery.ajax('/player-play/', {
                     method: 'POST',
                     data: { files: files },
-                    success: function success(data) {}
+                    success: function success(data) {
+                        jQuery('#tvModal').modal('show');
+                    }
                 });
                 return false;
             },
@@ -31992,8 +32018,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "container"
   }, [_c('div', {
     staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-9"
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "col-lg-9 col-md-9 col-sm-9 col-xs-9"
   }, [_c('div', {
     staticClass: "panel panel-default"
   }, [_c('div', {
@@ -32036,7 +32062,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           }
         }
       }
-    }), _vm._v(" "), (item.type == 'dir') ? [_vm._m(0, true), _vm._v(" "), _c('a', {
+    }), _vm._v(" "), (item.type == 'dir') ? [_vm._m(1, true), _vm._v(" "), _c('a', {
       staticClass: "text",
       attrs: {
         "href": "#"
@@ -32046,7 +32072,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           _vm.getData(item.uri)
         }
       }
-    }, [_vm._v("\n                                 " + _vm._s(item.name) + "\n                            ")])] : (item.type == 'image') ? [_c('div', {
+    }, [_vm._v("\n                                " + _vm._s(item.name) + "\n                            ")])] : (item.type == 'image') ? [_c('div', {
       staticClass: "explorer-img-box"
     }, [_c('img', {
       attrs: {
@@ -32086,7 +32112,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_vm._v("\n                                    " + _vm._s(item.name) + "\n                                ")])])]], 2)
   }))])]), _vm._v(" "), _c('div', {
-    staticClass: "col-md-3"
+    staticClass: "col-lg-3 col-md-3 col-sm-3 col-xs-3"
   }, [_c('div', {
     staticClass: "panel panel-default"
   }, [_c('div', {
@@ -32133,8 +32159,68 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     staticClass: "glyphicon glyphicon-film"
-  }), _vm._v("  quit")]), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2), _vm._v(" "), _vm._m(3), _vm._v(" "), _vm._m(4)])] : _vm._e()], 2)])])])])
+  }), _vm._v("  quit")]), _vm._v(" "), _vm._m(2), _vm._v(" "), _vm._m(3), _vm._v(" "), _vm._m(4), _vm._v(" "), _vm._m(5)])] : _vm._e()], 2)])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal fade",
+    attrs: {
+      "id": "tvModal",
+      "tabindex": "-1",
+      "role": "dialog",
+      "aria-labelledby": "myModalLabel"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog",
+    attrs: {
+      "role": "document"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content"
+  }, [_c('div', {
+    staticClass: "modal-header"
+  }, [_c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal",
+      "aria-label": "Close"
+    }
+  }, [_c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])]), _vm._v(" "), _c('h4', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "myModalLabel"
+    }
+  }, [_vm._v("TV")])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-body"
+  }, [_c('div', {
+    staticClass: "row text-center"
+  }, [_c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "type": "button"
+    }
+  }, [_c('span', {
+    staticClass: "glyphicon glyphicon-backward"
+  })]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "type": "button"
+    }
+  }, [_c('span', {
+    staticClass: "glyphicon glyphicon-play"
+  })]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "type": "button"
+    }
+  }, [_c('span', {
+    staticClass: "glyphicon glyphicon-forward"
+  })])])])])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "explorer-img-box"
   }, [_c('img', {
@@ -32176,7 +32262,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "href": "#"
     }
   }, [_c('span', {
-    staticClass: "glyphicon glyphicon-remove"
+    staticClass: "glyphicon glyphicon-trash"
   }), _vm._v("  Удалить")])
 }]}
 module.exports.render._withStripped = true
