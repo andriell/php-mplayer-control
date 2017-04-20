@@ -37,7 +37,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col col-lg-3 col-md-3 col-sm-3 col-xs-3">
+            <div class="explorer-info col col-lg-3 col-md-3 col-sm-3 col-xs-3">
                 <div class="panel panel-default">
                     <div class="panel-heading">Объектов: {{itemsChecked.length}}</div>
                     <div class="panel-body">
@@ -86,15 +86,19 @@
         margin-left: 0;
         margin-right: 0;
     }
-    .explorer .row .col {
+    .explorer .col {
         padding-left: 1px;
         padding-right: 1px;
+    }
+    .explorer .explorer-info {
+        position: fixed;
+        right: 0;
     }
     .explorer-item {
         display: inline-block;
         vertical-align: bottom;
-        height: 140px;
-        width: 128px;
+        width: 110px;
+        height: 125px;
         margin: 2px;
         overflow: hidden;
     }

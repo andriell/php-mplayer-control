@@ -9,11 +9,16 @@
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
 .app {
-  min-width: 1000px;
   nav {
+    width: 100%;
+    position: fixed;
     margin-bottom: 2px;
+
     .container {
       width: auto;
     }
+  }
+  .content {
+    padding-top: 55px;
   }
 }

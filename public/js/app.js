@@ -4834,7 +4834,7 @@ exports.push([module.i, "\n.rc .modal-content {\n    width: 550px;\n}\n.rc .row 
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(8)();
-exports.push([module.i, "\n.explorer .row {\n    margin-left: 0;\n    margin-right: 0;\n}\n.explorer .row .col {\n    padding-left: 1px;\n    padding-right: 1px;\n}\n.explorer-item {\n    display: inline-block;\n    vertical-align: bottom;\n    height: 140px;\n    width: 128px;\n    margin: 2px;\n    overflow: hidden;\n}\n.explorer-item .select {\n    position: absolute;\n    margin-top: 5px;\n    margin-left: 5px;\n}\n.explorer-item .text {\n    display: block;\n    text-align: center;\n    font-size: 12px;\n    color: black;\n    font-family: Arial, sans-serif;\n}\n.explorer-img-box {\n    display: block;\n    margin: auto;\n    width: 100px;\n    height: 100px;\n    overflow: hidden;\n}\n.explorer-img-box img {\n    display: block;\n    margin: auto;\n}\n", ""]);
+exports.push([module.i, "\n.explorer .row {\n    margin-left: 0;\n    margin-right: 0;\n}\n.explorer .col {\n    padding-left: 1px;\n    padding-right: 1px;\n}\n.explorer .explorer-info {\n    position: fixed;\n    right: 0;\n}\n.explorer-item {\n    display: inline-block;\n    vertical-align: bottom;\n    width: 110px;\n    height: 125px;\n    margin: 2px;\n    overflow: hidden;\n}\n.explorer-item .select {\n    position: absolute;\n    margin-top: 5px;\n    margin-left: 5px;\n}\n.explorer-item .text {\n    display: block;\n    text-align: center;\n    font-size: 12px;\n    color: black;\n    font-family: Arial, sans-serif;\n}\n.explorer-img-box {\n    display: block;\n    margin: auto;\n    width: 100px;\n    height: 100px;\n    overflow: hidden;\n}\n.explorer-img-box img {\n    display: block;\n    margin: auto;\n}\n", ""]);
 
 /***/ }),
 /* 38 */
@@ -32580,7 +32580,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_vm._v("\n                                    " + _vm._s(item.name) + "\n                                ")])])]], 2)
   }))])]), _vm._v(" "), _c('div', {
-    staticClass: "col col-lg-3 col-md-3 col-sm-3 col-xs-3"
+    staticClass: "explorer-info col col-lg-3 col-md-3 col-sm-3 col-xs-3"
   }, [_c('div', {
     staticClass: "panel panel-default"
   }, [_c('div', {
