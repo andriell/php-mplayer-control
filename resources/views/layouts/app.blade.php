@@ -54,7 +54,7 @@
                             </a>
                         </li>
                         <li class="dropdown">
-                            <a href="#">
+                            <a href="#" v-on:click="rc.show()">
                                 RC
                             </a>
                         </li>

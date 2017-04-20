@@ -105,5 +105,5 @@ Vue.component('rc', require('./components/Rc.vue'));
 
 const app = new Vue({
     el: '#app',
-    data: {}
+    data: window.appData
 });
