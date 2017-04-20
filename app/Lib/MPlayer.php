@@ -160,6 +160,22 @@ class MPlayer
     }
 
     /**
+     * @param boolean $p
+     */
+    function setMute($p)
+    {
+        $this->setProperty('mute ' . $p ? '1' : '0');
+    }
+
+    /**
+     * @return boolean
+     */
+    function getMute()
+    {
+        return $this->getProperty('mute') == 'yes';
+    }
+
+    /**
      * @param int $p
      */
     function setTimePos($p)
