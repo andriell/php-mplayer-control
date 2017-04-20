@@ -159,4 +159,19 @@ class MPlayer
         return $this->getProperty('loop') == '1';
     }
 
+    /**
+     * @param int $p
+     */
+    function setTimePos($p)
+    {
+        $this->setProperty('time_pos ' . $p);
+    }
+
+    /**
+     * @return int time_pos
+     */
+    function getTimePos()
+    {
+        return (int) $this->getProperty('time_pos');
+    }
 }
