@@ -13,6 +13,8 @@ class MPlayer
 {
     /** @var FileSystem */
     private $fs;
+    private $fileFifo = '/dev/shm/mplayer-fifo';
+    private $fileOut = '/dev/shm/mplayer-out';
 
     /**
      * MPlayer constructor.
@@ -29,9 +31,9 @@ class MPlayer
             return;
         }
         shell_exec('killall mplayer');
-        shell_exec('rm /tmp/mplayer-fifo');
-        shell_exec('mkfifo /tmp/mplayer-fifo');
-        $str = 'export DISPLAY=:0.0 && mplayer -really-quiet -noconsolecontrols -fs -slave -input file=/tmp/mplayer-fifo ' . $file . '  > /dev/null &';
+        shell_exec('rm ' . $this->fileFifo);
+        shell_exec('mkfifo ' . $this->fileFifo . ' -m 0644');
+        $str = 'export DISPLAY=:0.0 && mplayer -really-quiet -noconsolecontrols -fs -slave -input file=' . $this->fileFifo . ' ' . $file . '  1> ' . $this->fileOut . ' 2> /dev/null &';
         shell_exec($str);
     }
 
@@ -40,7 +42,9 @@ class MPlayer
     }
 
     function command($str) {
-        return shell_exec('echo "' . $str . '\n" > /tmp/mplayer-fifo');
+        shell_exec('> ' . $this->fileOut);
+        shell_exec('echo "' . $str . '\n" > ' . $this->fileFifo);
+        return trim(file_get_contents($this->fileOut));
     }
 
     function pause() {
