@@ -17,7 +17,7 @@
                             </template>
                             <template v-else-if="item.type == 'image'">
                                 <div class="explorer-img-box">
-                                    <img src="/img/file.png" :data-original="'/dir-img-100x100/' + uri + '/' + item.name" width="100" height="100" class="lazy">
+                                    <img src="/img/file.png" :data-original="'/dir-img-100x100/' + item.uri" width="100" height="100" class="lazy">
                                 </div>
                                 <a href="#" v-on:click="download(item.uri)" class="text">
                                     {{ item.name }}
@@ -72,12 +72,13 @@
 <script>
     export default {
         data: function () {
+            setInterval(function() {
+                jQuery("img.lazy").lazyload();
+            }, 1000);
             window.appData.explorer.getData('');
             return window.appData.explorer;
         },
-        mounted() {
-            jQuery("img.lazy").lazyload();
-        }
+        mounted() {}
     }
 </script>
 

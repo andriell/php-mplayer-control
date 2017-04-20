@@ -2329,12 +2329,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
+        setInterval(function () {
+            jQuery("img.lazy").lazyload();
+        }, 1000);
         window.appData.explorer.getData('');
         return window.appData.explorer;
     },
-    mounted: function mounted() {
-        jQuery("img.lazy").lazyload();
-    }
+    mounted: function mounted() {}
 });
 
 /***/ }),
@@ -32797,7 +32798,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "lazy",
       attrs: {
         "src": "/img/file.png",
-        "data-original": '/dir-img-100x100/' + _vm.uri + '/' + item.name,
+        "data-original": '/dir-img-100x100/' + item.uri,
         "width": "100",
         "height": "100"
       }
