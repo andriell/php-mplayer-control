@@ -2358,10 +2358,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
-        return window.appData;
+        return window.appData.rc;
     },
     mounted: function mounted() {}
 });
@@ -4801,7 +4824,7 @@ if (typeof jQuery === 'undefined') {
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(8)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n.rc .modal-content {\n    width: 550px;\n}\n.rc .row {\n    padding: 5px;\n}\n.rc .rc-btn-sound,\n.rc .rc-btn-time {\n    width: 100px;\n}\n", ""]);
 
 /***/ }),
 /* 37 */
@@ -32243,10 +32266,8 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "modal fade",
+    staticClass: "modal fade rc",
     attrs: {
       "id": "tvModal",
       "tabindex": "-1",
@@ -32260,7 +32281,157 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', {
     staticClass: "modal-content"
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "modal-body"
   }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-lg-12 col-md-12 col-sm-12 col-xs-12"
+  }, [_c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": function($event) {
+        _vm.pause()
+      }
+    }
+  }, [_c('span', {
+    staticClass: "glyphicon glyphicon-pause"
+  }), _c('span', {
+    staticClass: "glyphicon glyphicon-play"
+  })]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": function($event) {
+        _vm.switchMute()
+      }
+    }
+  }, [(!_vm.mute) ? _c('span', {
+    staticClass: "glyphicon glyphicon-volume-off"
+  }) : _vm._e(), (_vm.mute) ? _c('span', {
+    staticClass: "glyphicon glyphicon-volume-up"
+  }) : _vm._e()]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": function($event) {
+        _vm.switchAudio()
+      }
+    }
+  }, [_c('span', {
+    staticClass: "glyphicon glyphicon-music"
+  }), _vm._v(" Переключить звук")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": function($event) {
+        _vm.switchVideo()
+      }
+    }
+  }, [_c('span', {
+    staticClass: "glyphicon glyphicon-facetime-video"
+  }), _vm._v(" Переключить видео")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": function($event) {
+        _vm.quit()
+      }
+    }
+  }, [_c('span', {
+    staticClass: "glyphicon glyphicon-off"
+  })])])]), _vm._v(" "), _c('div', {
+    staticClass: "row rc-row-sound"
+  }, [_c('div', {
+    staticClass: "col-lg-3 col-md-3 col-sm-3 col-xs-3"
+  }, [_c('button', {
+    staticClass: "btn btn-default rc-btn-sound",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": function($event) {
+        _vm.switchMute()
+      }
+    }
+  }, [_c('span', {
+    staticClass: "glyphicon glyphicon-volume-up"
+  }), _vm._v(" Звук")])]), _vm._v(" "), _c('div', {
+    staticClass: "col-lg-9 col-md-9 col-sm-9 col-xs-9"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.volume),
+      expression: "volume"
+    }],
+    attrs: {
+      "type": "range",
+      "min": "0",
+      "max": "100",
+      "step": "1"
+    },
+    domProps: {
+      "value": (_vm.volume)
+    },
+    on: {
+      "__r": function($event) {
+        _vm.volume = $event.target.value
+      }
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "row rc-row-time"
+  }, [_c('div', {
+    staticClass: "col-lg-3 col-md-3 col-sm-3 col-xs-3"
+  }, [_c('button', {
+    staticClass: "btn btn-default rc-btn-time",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": function($event) {
+        _vm.switchMute()
+      }
+    }
+  }, [_c('span', {
+    staticClass: "glyphicon glyphicon-time"
+  }), _vm._v(" Время")])]), _vm._v(" "), _c('div', {
+    staticClass: "col-lg-9 col-md-9 col-sm-9 col-xs-9"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.timePos),
+      expression: "timePos"
+    }],
+    attrs: {
+      "type": "range",
+      "min": "0",
+      "max": "5400",
+      "step": "1"
+    },
+    domProps: {
+      "value": (_vm.timePos)
+    },
+    on: {
+      "__r": function($event) {
+        _vm.timePos = $event.target.value
+      }
+    }
+  })])]), _vm._v(" "), _vm._m(1)])])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
     staticClass: "modal-header"
   }, [_c('button', {
     staticClass: "close",
@@ -32270,31 +32441,24 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "aria-label": "Close"
     }
   }, [_c('span', {
-    attrs: {
-      "aria-hidden": "true"
-    }
-  }, [_vm._v("×")])]), _vm._v(" "), _c('h4', {
+    staticClass: "glyphicon glyphicon-remove"
+  })]), _vm._v(" "), _c('h4', {
     staticClass: "modal-title",
     attrs: {
       "id": "myModalLabel"
     }
-  }, [_vm._v("TV")])]), _vm._v(" "), _c('div', {
-    staticClass: "modal-body"
-  }, [_c('div', {
+  }, [_vm._v("TV")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
     staticClass: "row text-center"
-  }, [_c('button', {
-    staticClass: "btn btn-default",
+  }, [_c('div', {
+    staticStyle: {
+      "width": "200px"
+    },
     attrs: {
-      "type": "button"
+      "id": "progress-slider"
     }
-  }, [_c('span', {
-    staticClass: "glyphicon glyphicon-play"
-  })]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-default",
-    attrs: {
-      "type": "button"
-    }
-  }, [_vm._v("MUTE")])])])])])])
+  })])
 }]}
 module.exports.render._withStripped = true
 if (false) {
