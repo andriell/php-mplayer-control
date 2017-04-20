@@ -17,7 +17,7 @@
                             </template>
                             <template v-else-if="item.type == 'image'">
                                 <div class="explorer-img-box">
-                                    <img :src="'/dir-img-100x100/' + uri + '/' + item.name" width="100" height="100">
+                                    <img src="/img/file.png" :data-original="'/dir-img-100x100/' + uri + '/' + item.name" width="100" height="100" class="lazy">
                                 </div>
                                 <a href="#" v-on:click="download(item.uri)" class="text">
                                     {{ item.name }}
