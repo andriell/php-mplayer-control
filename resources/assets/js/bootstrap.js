@@ -13,7 +13,7 @@ try {
     window.jQuery.ajaxSetup({headers: {'X-CSRF-TOKEN': window.Laravel.csrfToken}});
 
     require('bootstrap-sass');
-    require('lazyload');
+    require('jquery-lazyload');
 } catch (e) {}
 
 /**

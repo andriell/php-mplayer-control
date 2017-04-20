@@ -76,6 +76,7 @@
             return window.appData.explorer;
         },
         mounted() {
+            jQuery("img.lazy").lazyload();
         }
     }
 </script>

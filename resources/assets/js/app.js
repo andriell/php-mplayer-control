@@ -74,7 +74,6 @@ window.appData = {
                     }
                     window.appData.explorer.uri = data.uri;
                     window.appData.explorer.items = data.items;
-                    jQuery("img.lazy").lazyload();
                 }
             });
         },
