@@ -132,7 +132,7 @@ class MPlayer
      */
     function setVolume($p)
     {
-        $this->setProperty('volume ' . $p);
+        $this->setProperty('volume ' . intval($p));
     }
 
     /**
@@ -180,7 +180,7 @@ class MPlayer
      */
     function setTimePos($p)
     {
-        $this->setProperty('time_pos ' . $p);
+        $this->setProperty('time_pos ' . intval($p));
     }
 
     /**

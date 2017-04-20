@@ -44,11 +44,47 @@ class MPlayerController extends Controller
         $this->player->quit();
     }
 
+    public function getVolume()
+    {
+        return response()->json(['volume' => $this->player->getVolume()]);
+    }
+
+    public function setVolume($volume)
+    {
+        $this->player->setVolume($volume);
+    }
+
+    public function getTimePos()
+    {
+        return response()->json(['time_pos' => $this->player->getTimePos()]);
+    }
+
+    public function setTimePos($timePos)
+    {
+        $this->player->setTimePos($timePos);
+    }
+
+    public function setMute($mute)
+    {
+        $this->player->setMute($mute == 't');
+    }
+
+    public function switchAudio()
+    {
+        $this->player->switchAudio();
+    }
+
+    public function switchVideo()
+    {
+        $this->player->switchVideo();
+    }
+
+    /*
     public function command() {
         return response()->json(['resp' => $this->player->commandGet($_GET['exec'])]);
     }
 
     public function getAllProperty() {
         return response()->json(['resp' => $this->player->getAllProperty()]);
-    }
+    }*/
 }
