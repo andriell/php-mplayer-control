@@ -134,4 +134,29 @@ class MPlayer
     {
         $this->setProperty('volume ' . $p);
     }
+
+    /**
+     * @return int 0 - 100
+     */
+    function getVolume()
+    {
+        return (int) $this->getProperty('volume');
+    }
+
+    /**
+     * @param boolean $p
+     */
+    function setLoop($p)
+    {
+        $this->setProperty('loop ' . $p ? '1' : '-1');
+    }
+
+    /**
+     * @return boolean
+     */
+    function getLoop()
+    {
+        return $this->getProperty('loop') == '1';
+    }
+
 }
