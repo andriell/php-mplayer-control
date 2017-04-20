@@ -2,3 +2,6 @@ NPM - сборка JS и CSS
 npm run watch
 npm run dev
 npm run production
+
+sudo service nginx restart
+sudo service php7.0-fpm restart
