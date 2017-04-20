@@ -35,6 +35,7 @@ class MPlayer
         shell_exec('mkfifo ' . $this->fileFifo . ' -m 0644');
         $str = 'export DISPLAY=:0.0 && mplayer -really-quiet -noconsolecontrols -fs -slave -input file=' . $this->fileFifo . ' ' . $file . '  1> ' . $this->fileOut . ' 2> /dev/null &';
         shell_exec($str);
+        shell_exec('chmod 0644 ' . $this->fileOut);
     }
 
     function isRun() {
