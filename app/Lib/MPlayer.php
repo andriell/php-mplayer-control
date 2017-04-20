@@ -30,10 +30,8 @@ class MPlayer
         }
         shell_exec('killall mplayer');
         shell_exec('rm /tmp/mplayer-fifo');
-        shell_exec('rm /tmp/mplayer-fifo-output');
         shell_exec('mkfifo /tmp/mplayer-fifo');
-        //shell_exec('mkfifo /tmp/mplayer-fifo-output');
-        $str = 'export DISPLAY=:0.0 && mplayer -really-quiet -noconsolecontrols -fs -slave -input file=/tmp/mplayer-fifo ' . $file . '  > /tmp/mplayer-fifo-output &';
+        $str = 'export DISPLAY=:0.0 && mplayer -really-quiet -noconsolecontrols -fs -slave -input file=/tmp/mplayer-fifo ' . $file . '  > /dev/null &';
         shell_exec($str);
     }
 
