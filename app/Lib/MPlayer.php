@@ -164,7 +164,7 @@ class MPlayer
      */
     function setMute($p)
     {
-        $this->setProperty('mute ' . $p ? '1' : '0');
+        $this->setProperty('mute ' . ($p ? '1' : '0'));
     }
 
     /**
