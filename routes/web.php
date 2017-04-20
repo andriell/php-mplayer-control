@@ -25,6 +25,7 @@ Route::post('/player-play/', 'MPlayerController@playFile')->name('player_play');
 Route::post('/player-pause/', 'MPlayerController@pause')->name('player_pause');
 Route::post('/player-quit/', 'MPlayerController@quit')->name('player_quit');
 Route::get('/player-command/', 'MPlayerController@command')->name('player_command');
+Route::get('/player-all-property/', 'MPlayerController@getAllProperty');
 
 Auth::routes();
 Route::any('register', 'HomeController@index');
