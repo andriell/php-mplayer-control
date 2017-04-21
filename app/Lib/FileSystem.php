@@ -230,12 +230,13 @@ class FileSystem
     }
 
     /**
-     * Переместить, но не заменять если указанная папка или файл уже существуют
+     * Переместить или переименовать.
+     * Если целевой файл уже существует, то к его названию в конце будет добавлен номер .~n~
      * @param string[]|string $uriFrom
      * @param string $uriTo
      * @return bool
      */
-    function mvn($uriFrom, $uriTo)
+    function mvBackupNumbered($uriFrom, $uriTo)
     {
         $to = $this->realPath($uriTo);
         if (empty($to)) {
@@ -244,8 +245,8 @@ class FileSystem
         $uriFrom = is_array($uriFrom) ? $uriFrom : [$uriFrom];
         foreach ($uriFrom as $uri) {
             $from = $this->realPath($uri);
-            // -n не заменять если есть совпадения
-            shell_exec('mv -n ' . $from . ' ' . $to);
+            // --backup=numbered при совпадении имен нумеровать
+            shell_exec('mv --backup=numbered ' . $from . ' ' . $to);
         }
         return true;
     }
