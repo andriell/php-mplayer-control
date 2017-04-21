@@ -8,7 +8,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="renameModalFileName">Файл:</label>
+                        <label for="renameModalFileName">Файл: {{oldName}}</label>
                         <input type="text" class="form-control" id="renameModalFileName" v-model="newName">
                     </div>
                     <div class="form-group">{{status}}</div>

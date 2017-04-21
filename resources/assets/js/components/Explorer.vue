@@ -74,7 +74,7 @@
                                            v-if="item.type == 'movie'">
                                             <span class="glyphicon glyphicon-film"></span>&nbsp;&nbsp;Воспроизвести
                                         </a>
-                                        <a href="#" class="list-group-item" v-on:click="fileRename()"><span class="glyphicon glyphicon-arrow-right"></span>&nbsp;&nbsp;Переименовать</a>
+                                        <a href="#" class="list-group-item" v-on:click="fileRename()"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Переименовать</a>
                                     </template>
                                 </template>
                                 <a href="#" class="list-group-item" v-on:click="fileRename()"><span class="glyphicon glyphicon-arrow-right"></span>&nbsp;&nbsp;Переместить</a>

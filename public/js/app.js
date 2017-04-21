@@ -1173,8 +1173,8 @@ window.appData = {
         show: function show() {
             jQuery('#renameModal').modal('show');
         },
-        close: function close() {
-            jQuery('#renameModal').modal('close');
+        hide: function hide() {
+            jQuery('#renameModal').modal('hide');
         },
         fileRename: function fileRename() {
             jQuery.ajax('/dir-mv/', {
@@ -1185,8 +1185,9 @@ window.appData = {
                     'new_name': window.appData.rename.newName
                 },
                 success: function success(data) {
-                    setTimeout(window.appData.rename.close, 2000);
+                    setTimeout(window.appData.rename.hide, 2000);
                     if (data.status) {
+                        window.appData.rename.oldName = window.appData.rename.newName;
                         window.appData.rename.status = 'Переименовано.';
                     } else {
                         window.appData.rename.status = 'Ошибка.';
@@ -32986,7 +32987,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     }, [_c('span', {
-      staticClass: "glyphicon glyphicon-arrow-right"
+      staticClass: "glyphicon glyphicon-pencil"
     }), _vm._v("  Переименовать")])]
   })] : _vm._e(), _vm._v(" "), _c('a', {
     staticClass: "list-group-item",
@@ -42577,7 +42578,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "for": "renameModalFileName"
     }
-  }, [_vm._v("Файл:")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("Файл: " + _vm._s(_vm.oldName))]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",

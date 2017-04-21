@@ -69,8 +69,8 @@ window.appData = {
         show: function () {
             jQuery('#renameModal').modal('show');
         },
-        close: function () {
-            jQuery('#renameModal').modal('close');
+        hide: function () {
+            jQuery('#renameModal').modal('hide');
         },
         fileRename: function () {
             jQuery.ajax('/dir-mv/', {
@@ -81,8 +81,9 @@ window.appData = {
                     'new_name': window.appData.rename.newName
                 },
                 success: function (data) {
-                    setTimeout(window.appData.rename.close, 2000);
+                    setTimeout(window.appData.rename.hide, 2000);
                     if (data.status) {
+                        window.appData.rename.oldName = window.appData.rename.newName;
                         window.appData.rename.status = 'Переименовано.';
                     } else {
                         window.appData.rename.status = 'Ошибка.';

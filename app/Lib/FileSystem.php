@@ -243,7 +243,7 @@ class FileSystem
         if (empty($realPathDir)) {
             return false;
         }
-        $realPathFile = $this->realPath($realPathDir . '/' . $oldFileName);
+        $realPathFile = $this->realPath($uriDir . '/' . $oldFileName);
         if (empty($realPathFile)) {
             return false;
         }
