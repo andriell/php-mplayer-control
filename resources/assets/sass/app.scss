@@ -10,6 +10,7 @@
 
 $navH: 50px;
 $tap: 5px;
+
 .app {
   nav {
     width: 100%;
@@ -44,6 +45,7 @@ $tap: 5px;
     width: 100%;
     height: $explorerPathH;
     padding-right: $explorerInfoW + $tap;
+
     .panel {
       height: $explorerPathH;
       margin: 0;
