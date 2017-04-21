@@ -84,7 +84,7 @@ window.appData = {
                     if (data.count > 0) {
                         window.appData.rename.status = 'Переименовано ' + data.count + ' шт.';
                     } else {
-                        window.appData.rename.status = 'Ошибка. Переименовано ' + data.count + ' шт.';
+                        window.appData.rename.status = 'Ошибка.';
                     }
                 }
             });
