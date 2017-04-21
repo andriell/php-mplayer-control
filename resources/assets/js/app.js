@@ -81,7 +81,10 @@ window.appData = {
                     'new_name': window.appData.rename.newName
                 },
                 success: function (data) {
-                    setTimeout(window.appData.rename.hide, 2000);
+                    setTimeout(function() {
+                        window.appData.rename.hide();
+                        window.appData.explorer.reload();
+                    }, 2000);
                     if (data.status) {
                         window.appData.rename.oldName = window.appData.rename.newName;
                         window.appData.rename.status = 'Переименовано.';
@@ -93,9 +96,13 @@ window.appData = {
         }
     },
     explorer: {
+        uri: '',
         path: [],
         items: [],
         itemsChecked: [],
+        reload: function () {
+            window.appData.explorer.getData(window.appData.explorer.uri);
+        },
         getData: function (uri) {
             jQuery.ajax('/dir-list/' + uri, {
                 data: {},
@@ -106,6 +113,7 @@ window.appData = {
                         data.items[i].dir = data.uri;
                     }
                     window.appData.explorer.items = data.items;
+                    window.appData.explorer.uri = data.uri;
 
                     var path = [], uriTmp = '', uriArr = data.uri.split('/');
                     for (i in uriArr) {
