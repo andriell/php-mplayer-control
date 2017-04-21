@@ -1166,18 +1166,34 @@ window.appData = {
         }
     },
     explorer: {
-        uri: '/',
+        path: [],
         items: [],
         itemsChecked: [],
         getData: function getData(uri) {
             jQuery.ajax('/dir-list/' + uri, {
                 data: {},
                 success: function success(data) {
-                    for (var i in data.items) {
+                    var i;
+                    for (i in data.items) {
                         data.items[i].uri = data.uri ? data.uri + '/' + data.items[i].name : data.items[i].name;
                     }
-                    window.appData.explorer.uri = data.uri;
                     window.appData.explorer.items = data.items;
+
+                    var path = [],
+                        uriTmp = '',
+                        uriArr = data.uri.split('/');
+                    for (i in uriArr) {
+                        if (uriArr[i] == '') {
+                            continue;
+                        }
+                        uriTmp += '' + uriArr[i];
+                        path.push({
+                            name: uriArr[i],
+                            uri: uriTmp
+                        });
+                        uriTmp += '/';
+                    }
+                    window.appData.explorer.path = path;
                 }
             });
         },
@@ -2068,6 +2084,19 @@ module.exports = function spread(callback) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -32749,7 +32778,27 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "explorer-path"
   }, [_c('div', {
     staticClass: "panel panel-default panel-heading"
-  }, [_vm._v("\n                Путь: " + _vm._s(_vm.uri) + "\n            ")])]), _vm._v(" "), _c('div', {
+  }, [(_vm.path.length == 0) ? [_c('span', [_vm._v("Диск")]), _vm._v(" /\n                ")] : [_c('a', {
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": function($event) {
+        _vm.getData('')
+      }
+    }
+  }, [_vm._v("Диск")]), _vm._v(" /\n                ")], _vm._v(" "), _vm._l((_vm.path), function(p, i) {
+    return [(_vm.path.length == i + 1) ? [_c('span', [_vm._v(_vm._s(p.name))]), _vm._v(" /\n                    ")] : [_c('a', {
+      attrs: {
+        "href": "#"
+      },
+      on: {
+        "click": function($event) {
+          _vm.getData(p.uri)
+        }
+      }
+    }, [_vm._v(_vm._s(p.name))]), _vm._v(" /\n                    ")]]
+  })], 2)]), _vm._v(" "), _c('div', {
     staticClass: "col explorer-items"
   }, [_c('div', {
     staticClass: "panel panel-default"

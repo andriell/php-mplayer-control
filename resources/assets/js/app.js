@@ -5,7 +5,7 @@ window.appData = {
         timeP: 0,
         volume: 100,
         mute: false,
-        show: function() {
+        show: function () {
             jQuery('#tvModal').modal('show');
         },
         playVideo: function (uri) {
@@ -62,18 +62,32 @@ window.appData = {
         }
     },
     explorer: {
-        uri: '/',
+        path: [],
         items: [],
         itemsChecked: [],
         getData: function (uri) {
             jQuery.ajax('/dir-list/' + uri, {
                 data: {},
                 success: function (data) {
-                    for (var i in data.items) {
+                    var i;
+                    for (i in data.items) {
                         data.items[i].uri = data.uri ? data.uri + '/' + data.items[i].name : data.items[i].name;
                     }
-                    window.appData.explorer.uri = data.uri;
                     window.appData.explorer.items = data.items;
+
+                    var path = [], uriTmp = '', uriArr = data.uri.split('/');
+                    for (i in uriArr) {
+                        if (uriArr[i] == '') {
+                            continue;
+                        }
+                        uriTmp += '' + uriArr[i];
+                        path.push({
+                            name: uriArr[i],
+                            uri: uriTmp
+                        });
+                        uriTmp += '/';
+                    }
+                    window.appData.explorer.path = path;
                 }
             });
         },

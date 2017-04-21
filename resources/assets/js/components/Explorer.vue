@@ -3,8 +3,21 @@
         <div class="row">
             <div class="explorer-path">
                 <div class="panel panel-default panel-heading">
-                    Путь: {{uri}}
-                </div>
+                    <template v-if="path.length == 0">
+                        <span>Диск</span> /
+                    </template>
+                    <template v-else="">
+                        <a href="#" v-on:click="getData('')">Диск</a> /
+                    </template>
+                    <template v-for="(p, i) in path">
+                        <template v-if="path.length == i + 1">
+                            <span>{{p.name}}</span> /
+                        </template>
+                        <template v-else="">
+                            <a href="#" v-on:click="getData(p.uri)">{{p.name}}</a> /
+                        </template>
+                    </template>
+                  </div>
             </div>
             <div class="col explorer-items">
                 <div class="panel panel-default">
