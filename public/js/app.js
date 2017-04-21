@@ -2143,16 +2143,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
-        setInterval(function () {
-            jQuery("img.lazy").lazyload();
-        }, 1000);
         window.appData.explorer.getData('');
         return window.appData.explorer;
     },
-    mounted: function mounted() {}
+    mounted: function mounted() {},
+
+    watch: {
+        items: function items() {
+            var i = 0;
+            var interval = setInterval(function () {
+                jQuery('.lazy-new').lazyload();
+                if (i++ >= 3) {
+                    clearInterval(interval);
+                }
+            }, 1000);
+        }
+    }
 });
 
 /***/ }),
@@ -32851,7 +32862,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('span', {
       staticClass: "glyphicon glyphicon-film"
-    }), _vm._v("  Воспроизвести\n                                ")]) : _vm._e()]
+    }), _vm._v("  Воспроизвести\n                                    ")]) : _vm._e()]
   })] : _vm._e(), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2), _vm._v(" "), _vm._m(3), _vm._v(" "), _vm._m(4)], 2)] : _vm._e()], 2)])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {

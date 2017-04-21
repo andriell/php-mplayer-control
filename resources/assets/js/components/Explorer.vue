@@ -8,7 +8,7 @@
             </div>
             <div class="col explorer-items">
                 <div class="panel panel-default">
-                   <div class="panel-body">
+                    <div class="panel-body">
                         <div class="explorer-item thumbnail" v-for="(item, itemId) in items">
                             <input type="checkbox" class="select" v-model="itemsChecked" :value="item">
                             <template v-if="item.type == 'dir'">
@@ -21,7 +21,8 @@
                             </template>
                             <template v-else-if="item.type == 'image'">
                                 <div class="explorer-img-box">
-                                    <img src="/img/file.png" :data-original="'/dir-img-100x100/' + item.uri" width="100" height="100" class="lazy">
+                                    <img src="/img/file.png" :data-original="'/dir-img-100x100/' + item.uri" width="100"
+                                         height="100" class="lazy">
                                 </div>
                                 <a href="#" v-on:click="download(item.uri)" class="text">
                                     {{ item.name }}
@@ -47,17 +48,18 @@
                     <div class="panel-body">
                         <template v-if="itemsChecked.length > 0">
                             <div class="list-group">
-                            <template v-if="itemsChecked.length == 1">
-                                <template v-for="item in itemsChecked">
-                                    <h4>{{item.name}}</h4>
-                                    <p>Размер: {{item.size}}</p>
-                                    <p>Изменен: {{item.date}}</p>
-                                    <p>Права: {{item.perms}}</p>
-                                    <a href="#" class="list-group-item" v-on:click="playVideo()" v-if="item.type == 'movie'">
-                                        <span class="glyphicon glyphicon-film"></span>&nbsp;&nbsp;Воспроизвести
-                                    </a>
+                                <template v-if="itemsChecked.length == 1">
+                                    <template v-for="item in itemsChecked">
+                                        <h4>{{item.name}}</h4>
+                                        <p>Размер: {{item.size}}</p>
+                                        <p>Изменен: {{item.date}}</p>
+                                        <p>Права: {{item.perms}}</p>
+                                        <a href="#" class="list-group-item" v-on:click="playVideo()"
+                                           v-if="item.type == 'movie'">
+                                            <span class="glyphicon glyphicon-film"></span>&nbsp;&nbsp;Воспроизвести
+                                        </a>
+                                    </template>
                                 </template>
-                            </template>
                                 <a href="#" class="list-group-item"><span
                                         class="glyphicon glyphicon-arrow-right"></span>&nbsp;&nbsp;Переместить</a>
                                 <a href="#" class="list-group-item"><span class="glyphicon glyphicon-duplicate"></span>&nbsp;&nbsp;Копировать</a>
@@ -76,12 +78,21 @@
 <script>
     export default {
         data: function () {
-            setInterval(function() {
-                jQuery("img.lazy").lazyload();
-            }, 1000);
             window.appData.explorer.getData('');
             return window.appData.explorer;
         },
-        mounted() {}
+        mounted() {
+        },
+        watch: {
+            items: function () {
+                var i = 0;
+                var interval = setInterval(function() {
+                    jQuery('.lazy-new').lazyload();
+                    if (i++ >= 3) {
+                        clearInterval(interval);
+                    }
+                }, 1000);
+            }
+        }
     }
 </script>
