@@ -1234,6 +1234,7 @@ window.appData = {
                         uriTmp += '/';
                     }
                     window.appData.explorer.path = path;
+                    window.appData.explorer.unchecked();
                 }
             });
         },
