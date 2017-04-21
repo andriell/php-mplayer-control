@@ -57,7 +57,10 @@
             </div>
             <div class="explorer-info col">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Объектов: {{itemsChecked.length}}</div>
+                    <div class="panel-heading">
+                        Объектов: {{itemsChecked.length}}
+                        <button type="button" class="btn btn-default btn-xs pull-right" v-on:click="unchecked()"><span class="glyphicon glyphicon-remove-circle"></span> Отменить</button>
+                    </div>
                     <div class="panel-body">
                         <template v-if="itemsChecked.length > 0">
                             <div class="list-group">
@@ -73,11 +76,9 @@
                                         </a>
                                     </template>
                                 </template>
-                                <a href="#" class="list-group-item"><span
-                                        class="glyphicon glyphicon-arrow-right"></span>&nbsp;&nbsp;Переместить</a>
+                                <a href="#" class="list-group-item"><span class="glyphicon glyphicon-arrow-right"></span>&nbsp;&nbsp;Переместить</a>
                                 <a href="#" class="list-group-item"><span class="glyphicon glyphicon-duplicate"></span>&nbsp;&nbsp;Копировать</a>
-                                <a href="#" class="list-group-item"><span
-                                        class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;В новую папку</a>
+                                <a href="#" class="list-group-item"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;В новую папку</a>
                                 <a href="#" class="list-group-item"><span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;Удалить</a>
                             </div>
                         </template>

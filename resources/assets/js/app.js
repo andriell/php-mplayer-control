@@ -97,6 +97,9 @@ window.appData = {
         },
         playVideo: function () {
             window.appData.rc.playVideo(window.appData.explorer.itemsChecked[0].uri);
+        },
+        unchecked: function() {
+            window.appData.explorer.itemsChecked = [];
         }
     }
 };

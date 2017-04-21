@@ -1203,6 +1203,9 @@ window.appData = {
         },
         playVideo: function playVideo() {
             window.appData.rc.playVideo(window.appData.explorer.itemsChecked[0].uri);
+        },
+        unchecked: function unchecked() {
+            window.appData.explorer.itemsChecked = [];
         }
     }
 };
@@ -2084,6 +2087,7 @@ module.exports = function spread(callback) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
 //
 //
 //
@@ -32896,7 +32900,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "panel panel-default"
   }, [_c('div', {
     staticClass: "panel-heading"
-  }, [_vm._v("Объектов: " + _vm._s(_vm.itemsChecked.length))]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                    Объектов: " + _vm._s(_vm.itemsChecked.length) + "\n                    "), _c('button', {
+    staticClass: "btn btn-default btn-xs pull-right",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": function($event) {
+        _vm.unchecked()
+      }
+    }
+  }, [_c('span', {
+    staticClass: "glyphicon glyphicon-remove-circle"
+  }), _vm._v(" Отменить")])]), _vm._v(" "), _c('div', {
     staticClass: "panel-body"
   }, [(_vm.itemsChecked.length > 0) ? [_c('div', {
     staticClass: "list-group"

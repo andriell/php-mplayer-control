@@ -73,7 +73,8 @@ class FileSystem
         return $this->mediaDir . '/' . $uri;
     }
 
-    public function fileMTime($uri) {
+    public function fileMTime($uri)
+    {
         $realPathFile = $this->realPath($uri);
         if (empty($realPathFile)) {
             return false;
@@ -131,7 +132,7 @@ class FileSystem
             }
             closedir($handle);
         }
-        usort($r['items'], function($a, $b) use($order) {
+        usort($r['items'], function ($a, $b) use ($order) {
             foreach ($order as $o) {
                 $r = 0;
                 if ($o == 'dir') {
@@ -176,7 +177,8 @@ class FileSystem
         return $r;
     }
 
-    public function resizeImage($uri, $newSize = [100, 100]) {
+    public function resizeImage($uri, $newSize = [100, 100])
+    {
         try {
             $realPathFile = $this->realPath($uri);
 
@@ -225,5 +227,26 @@ class FileSystem
             imagejpeg($im);
             imagedestroy($im);
         }
+    }
+
+    /**
+     * Переместить, но не заменять если указанная папка или файл уже существуют
+     * @param string[]|string $uriFrom
+     * @param string $uriTo
+     * @return bool
+     */
+    function mvn($uriFrom, $uriTo)
+    {
+        $to = $this->realPath($uriTo);
+        if (empty($to)) {
+            return false;
+        }
+        $uriFrom = is_array($uriFrom) ? $uriFrom : [$uriFrom];
+        foreach ($uriFrom as $uri) {
+            $from = $this->realPath($uri);
+            // -n не заменять если есть совпадения
+            shell_exec('mv -n ' . $from . ' ' . $to);
+        }
+        return true;
     }
 }
