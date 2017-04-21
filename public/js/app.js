@@ -2157,8 +2157,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         items: function items() {
             var i = 0;
             var interval = setInterval(function () {
-                jQuery('.lazy-new').lazyload();
-                if (i++ >= 3) {
+                jQuery('.lazy').lazyload({
+                    effect: "fadeIn"
+                });
+                if (i++ >= 0) {
                     clearInterval(interval);
                 }
             }, 1000);
