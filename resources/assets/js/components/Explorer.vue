@@ -101,10 +101,9 @@
                 var i = 0;
                 var interval = setInterval(function() {
                     jQuery('.lazy').lazyload({
-                        effect : "fadeIn",
                         threshold : 200
                     });
-                    if (i++ >= 0) {
+                    if (i++ >= 3) {
                         clearInterval(interval);
                     }
                 }, 1000);
