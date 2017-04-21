@@ -76,13 +76,14 @@ window.appData = {
             jQuery.ajax('/dir-mv/', {
                 method: 'POST',
                 data: {
-                    'uri_from': window.appData.rename.dir + '/' + window.appData.rename.oldName,
-                    'uri_to': window.appData.rename.dir + '/' + window.appData.rename.newName
+                    'uri_dir':  window.appData.rename.dir,
+                    'old_name': window.appData.rename.oldName,
+                    'new_name': window.appData.rename.newName
                 },
                 success: function (data) {
                     setTimeout(window.appData.rename.close, 2000);
-                    if (data.count > 0) {
-                        window.appData.rename.status = 'Переименовано ' + data.count + ' шт.';
+                    if (data.status) {
+                        window.appData.rename.status = 'Переименовано.';
                     } else {
                         window.appData.rename.status = 'Ошибка.';
                     }

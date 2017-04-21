@@ -230,6 +230,32 @@ class FileSystem
     }
 
     /**
+     * Rename
+     * Если целевой файл уже существует, то к его названию в конце будет добавлен номер .~n~
+     * @param string $uriDir
+     * @param string $oldFileName
+     * @param string $newFileName
+     * @return bool
+     */
+    function fileRename($uriDir, $oldFileName, $newFileName)
+    {
+        $realPathDir = $this->realPath($uriDir);
+        if (empty($realPathDir)) {
+            return false;
+        }
+        $realPathFile = $this->realPath($realPathDir . '/' . $oldFileName);
+        if (empty($realPathFile)) {
+            return false;
+        }
+        $newFileName = preg_replace('#\\\\/#', '-', $newFileName);
+
+        // --backup=numbered при совпадении имен нумеровать
+        shell_exec('mv --backup=numbered ' . $realPathFile . ' ' . $realPathDir . '/' . $newFileName);
+
+        return true;
+    }
+
+    /**
      * Переместить или переименовать.
      * Если целевой файл уже существует, то к его названию в конце будет добавлен номер .~n~
      * @param string[]|string $uriFrom

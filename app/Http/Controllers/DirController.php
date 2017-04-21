@@ -68,6 +68,6 @@ class DirController extends Controller
 
     function mv()
     {
-        return response()->json(['count' => $this->fs->mvBackupNumbered($_POST['uri_from'], $_POST['uri_to'])]);
+        return response()->json(['status' => $this->fs->fileRename($_POST['uri_dir'], $_POST['old_name'], $_POST['new_name'])]);
     }
 }
