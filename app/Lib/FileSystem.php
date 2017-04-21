@@ -73,6 +73,14 @@ class FileSystem
         return $this->mediaDir . '/' . $uri;
     }
 
+    public function fileMTime($uri) {
+        $realPathFile = $this->realPath($uri);
+        if (empty($realPathFile)) {
+            return false;
+        }
+        return $this->override->filemtime($realPathFile);
+    }
+
     private function fileInfo($realPathFile)
     {
         $r = [
