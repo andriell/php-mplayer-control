@@ -250,7 +250,7 @@ class FileSystem
         $newFileName = preg_replace('#\\\\/#', '-', $newFileName);
 
         // --backup=numbered при совпадении имен нумеровать
-        shell_exec('mv --backup=numbered ' . $realPathFile . ' ' . $realPathDir . '/' . $newFileName);
+        shell_exec('mv --backup=numbered "' . $realPathFile . '" "' . $realPathDir . '/' . $newFileName . '"');
 
         return true;
     }
