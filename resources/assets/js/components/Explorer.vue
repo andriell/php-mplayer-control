@@ -1,7 +1,7 @@
 <template>
     <div class="explorer">
         <div class="row">
-            <div class="col col-lg-9 col-md-9 col-sm-9 col-xs-9">
+            <div class="col explorer-items">
                 <div class="panel panel-default">
                     <div class="panel-heading">Путь: {{uri}}</div>
                     <div class="panel-body">
@@ -37,7 +37,7 @@
                     </div>
                 </div>
             </div>
-            <div class="explorer-info col col-lg-3 col-md-3 col-sm-3 col-xs-3">
+            <div class="explorer-info col">
                 <div class="panel panel-default">
                     <div class="panel-heading">Объектов: {{itemsChecked.length}}</div>
                     <div class="panel-body">
@@ -95,6 +95,13 @@
     .explorer .explorer-info {
         position: fixed;
         right: 0;
+        width: 275px;
+    }
+    .explorer .explorer-items {
+        position: fixed;
+        right: 0;
+        padding-right: 278px;
+        width: 100%;
     }
     .explorer-item {
         display: inline-block;
