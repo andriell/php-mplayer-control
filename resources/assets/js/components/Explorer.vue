@@ -74,9 +74,10 @@
                                            v-if="item.type == 'movie'">
                                             <span class="glyphicon glyphicon-film"></span>&nbsp;&nbsp;Воспроизвести
                                         </a>
+                                        <a href="#" class="list-group-item" v-on:click="fileRename()"><span class="glyphicon glyphicon-arrow-right"></span>&nbsp;&nbsp;Переименовать</a>
                                     </template>
                                 </template>
-                                <a href="#" class="list-group-item"><span class="glyphicon glyphicon-arrow-right"></span>&nbsp;&nbsp;Переместить</a>
+                                <a href="#" class="list-group-item" v-on:click="fileRename()"><span class="glyphicon glyphicon-arrow-right"></span>&nbsp;&nbsp;Переместить</a>
                                 <a href="#" class="list-group-item"><span class="glyphicon glyphicon-duplicate"></span>&nbsp;&nbsp;Копировать</a>
                                 <a href="#" class="list-group-item"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;В новую папку</a>
                                 <a href="#" class="list-group-item"><span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;Удалить</a>

@@ -9,12 +9,13 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="renameModalFileName">Файл:</label>
-                        <input type="text" class="form-control" id="renameModalFileName">
+                        <input type="text" class="form-control" id="renameModalFileName" v-model="newName">
                     </div>
+                    <div class="form-group">{{status}}</div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Отменить</button>
-                    <button type="button" class="btn btn-primary">Сохранить</button>
+                    <button type="button" class="btn btn-primary" v-on:click="fileRename()">Сохранить</button>
                 </div>
             </div>
         </div>
@@ -24,7 +25,7 @@
 <script>
     export default {
         data: function () {
-            return window.appData.mv;
+            return window.appData.rename;
         },
         mounted() {
         }

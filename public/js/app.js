@@ -1165,6 +1165,35 @@ window.appData = {
             jQuery.ajax('/player-switch-video/');
         }
     },
+    rename: {
+        dir: '',
+        oldName: '',
+        newName: '',
+        status: '',
+        show: function show() {
+            jQuery('#renameModal').modal('show');
+        },
+        close: function close() {
+            jQuery('#renameModal').modal('close');
+        },
+        fileRename: function fileRename() {
+            jQuery.ajax('/dir-mv/', {
+                method: 'POST',
+                data: {
+                    'uri_from': window.appData.rename.dir + '/' + window.appData.rename.oldName,
+                    'uri_to': window.appData.rename.dir + '/' + window.appData.rename.newName
+                },
+                success: function success(data) {
+                    setTimeout(window.appData.rename.close, 2000);
+                    if (data.count > 0) {
+                        window.appData.rename.status = 'Переименовано ' + data.count + ' шт.';
+                    } else {
+                        window.appData.rename.status = 'Ошибка. Переименовано ' + data.count + ' шт.';
+                    }
+                }
+            });
+        }
+    },
     explorer: {
         path: [],
         items: [],
@@ -1207,29 +1236,19 @@ window.appData = {
         },
         unchecked: function unchecked() {
             window.appData.explorer.itemsChecked = [];
-        }
-    },
-    mv: {
-        dir: '',
-        oldName: '',
-        newName: '',
-        show: function show() {
-            jQuery('#renameModal').modal('show');
-        },
-        close: function close() {
-            jQuery('#renameModal').modal('close');
         },
         fileRename: function fileRename() {
-            jQuery.ajax('/dir-mv/', {
-                method: 'POST',
-                data: {
-                    'uri_from': window.appData.mv.dir + '/' + window.appData.mv.oldName,
-                    'uri_to': window.appData.mv.dir + '/' + window.appData.mv.newName
-                },
-                success: function success(data) {
-                    window.appData.mv.close();
-                }
-            });
+            if (window.appData.explorer.itemsChecked.length != 1) {
+                window.appData.rename.status = 'Не знаю как переименовывать ' + window.appData.explorer.itemsChecked.length + ' файлов.';
+                window.appData.rename.show();
+                return;
+            }
+            window.appData.rename.status = '';
+            var item = window.appData.explorer.itemsChecked[0];
+            window.appData.rename.oldName = item.name;
+            window.appData.rename.newName = item.name;
+            window.appData.rename.dir = item.dir;
+            window.appData.rename.show();
         }
     }
 };
@@ -1252,7 +1271,7 @@ window.Vue = __webpack_require__(48);
 
 Vue.component('explorer', __webpack_require__(41));
 Vue.component('rc', __webpack_require__(42));
-Vue.component('mv', __webpack_require__(60));
+Vue.component('rename', __webpack_require__(60));
 
 var app = new Vue({
     el: '#app',
@@ -2112,6 +2131,7 @@ module.exports = function spread(callback) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
 //
 //
 //
@@ -32954,8 +32974,32 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('span', {
       staticClass: "glyphicon glyphicon-film"
-    }), _vm._v("  Воспроизвести\n                                    ")]) : _vm._e()]
-  })] : _vm._e(), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2), _vm._v(" "), _vm._m(3), _vm._v(" "), _vm._m(4)], 2)] : _vm._e()], 2)])])])])
+    }), _vm._v("  Воспроизвести\n                                    ")]) : _vm._e(), _vm._v(" "), _c('a', {
+      staticClass: "list-group-item",
+      attrs: {
+        "href": "#"
+      },
+      on: {
+        "click": function($event) {
+          _vm.fileRename()
+        }
+      }
+    }, [_c('span', {
+      staticClass: "glyphicon glyphicon-arrow-right"
+    }), _vm._v("  Переименовать")])]
+  })] : _vm._e(), _vm._v(" "), _c('a', {
+    staticClass: "list-group-item",
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": function($event) {
+        _vm.fileRename()
+      }
+    }
+  }, [_c('span', {
+    staticClass: "glyphicon glyphicon-arrow-right"
+  }), _vm._v("  Переместить")]), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2), _vm._v(" "), _vm._m(3)], 2)] : _vm._e()], 2)])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "explorer-img-box"
@@ -32964,15 +33008,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "src": "/img/dir.png"
     }
   })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('a', {
-    staticClass: "list-group-item",
-    attrs: {
-      "href": "#"
-    }
-  }, [_c('span', {
-    staticClass: "glyphicon glyphicon-arrow-right"
-  }), _vm._v("  Переместить")])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('a', {
     staticClass: "list-group-item",
@@ -42469,10 +42504,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
-        return window.appData.mv;
+        return window.appData.rename;
     },
     mounted: function mounted() {}
 });
@@ -42517,8 +42553,6 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "modal fade rc",
     attrs: {
@@ -42534,7 +42568,58 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', {
     staticClass: "modal-content"
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "modal-body"
   }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "renameModalFileName"
+    }
+  }, [_vm._v("Файл:")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.newName),
+      expression: "newName"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "id": "renameModalFileName"
+    },
+    domProps: {
+      "value": (_vm.newName)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.newName = $event.target.value
+      }
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_vm._v(_vm._s(_vm.status))])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal"
+    }
+  }, [_vm._v("Отменить")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-primary",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": function($event) {
+        _vm.fileRename()
+      }
+    }
+  }, [_vm._v("Сохранить")])])])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
     staticClass: "modal-header"
   }, [_c('button', {
     staticClass: "close",
@@ -42550,34 +42635,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "myModalLabel"
     }
-  }, [_vm._v("Переименовать")])]), _vm._v(" "), _c('div', {
-    staticClass: "modal-body"
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "renameModalFileName"
-    }
-  }, [_vm._v("Файл:")]), _vm._v(" "), _c('input', {
-    staticClass: "form-control",
-    attrs: {
-      "type": "text",
-      "id": "renameModalFileName"
-    }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "modal-footer"
-  }, [_c('button', {
-    staticClass: "btn btn-default",
-    attrs: {
-      "type": "button",
-      "data-dismiss": "modal"
-    }
-  }, [_vm._v("Отменить")]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-primary",
-    attrs: {
-      "type": "button"
-    }
-  }, [_vm._v("Сохранить")])])])])])
+  }, [_vm._v("Переименовать")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {

@@ -234,7 +234,7 @@ class FileSystem
      * Если целевой файл уже существует, то к его названию в конце будет добавлен номер .~n~
      * @param string[]|string $uriFrom
      * @param string $uriTo
-     * @return bool
+     * @return bool|int
      */
     function mvBackupNumbered($uriFrom, $uriTo)
     {
@@ -243,6 +243,7 @@ class FileSystem
             return false;
         }
         $uriFrom = is_array($uriFrom) ? $uriFrom : [$uriFrom];
+        $i = 0;
         foreach ($uriFrom as $uri) {
             $from = $this->realPath($uri);
             if (empty($from)) {
@@ -250,8 +251,9 @@ class FileSystem
             }
             // --backup=numbered при совпадении имен нумеровать
             shell_exec('mv --backup=numbered ' . $from . ' ' . $to);
+            $i++;
         }
-        return true;
+        return $i;
     }
 
     /**
@@ -259,7 +261,7 @@ class FileSystem
      * Если целевой файл уже существует, то к его названию в конце будет добавлен номер .~n~
      * @param string[]|string $uriFrom
      * @param string $uriTo
-     * @return bool
+     * @return bool|int
      */
     function cpBackupNumbered($uriFrom, $uriTo)
     {
@@ -268,11 +270,13 @@ class FileSystem
             return false;
         }
         $uriFrom = is_array($uriFrom) ? $uriFrom : [$uriFrom];
+        $i = 0;
         foreach ($uriFrom as $uri) {
             $from = $this->realPath($uri);
             // --backup=numbered при совпадении имен нумеровать
             shell_exec('cp -r --backup=numbered ' . $from . ' ' . $to);
+            $i++;
         }
-        return true;
+        return $i;
     }
 }

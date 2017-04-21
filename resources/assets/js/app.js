@@ -61,6 +61,35 @@ window.appData = {
             jQuery.ajax('/player-switch-video/');
         }
     },
+    rename: {
+        dir: '',
+        oldName: '',
+        newName: '',
+        status: '',
+        show: function () {
+            jQuery('#renameModal').modal('show');
+        },
+        close: function () {
+            jQuery('#renameModal').modal('close');
+        },
+        fileRename: function () {
+            jQuery.ajax('/dir-mv/', {
+                method: 'POST',
+                data: {
+                    'uri_from': window.appData.rename.dir + '/' + window.appData.rename.oldName,
+                    'uri_to': window.appData.rename.dir + '/' + window.appData.rename.newName
+                },
+                success: function (data) {
+                    setTimeout(window.appData.rename.close, 2000);
+                    if (data.count > 0) {
+                        window.appData.rename.status = 'Переименовано ' + data.count + ' шт.';
+                    } else {
+                        window.appData.rename.status = 'Ошибка. Переименовано ' + data.count + ' шт.';
+                    }
+                }
+            });
+        }
+    },
     explorer: {
         path: [],
         items: [],
@@ -101,29 +130,19 @@ window.appData = {
         },
         unchecked: function() {
             window.appData.explorer.itemsChecked = [];
-        }
-    },
-    mv: {
-        dir: '',
-        oldName: '',
-        newName: '',
-        show: function () {
-            jQuery('#renameModal').modal('show');
         },
-        close: function () {
-            jQuery('#renameModal').modal('close');
-        },
-        fileRename: function () {
-            jQuery.ajax('/dir-mv/', {
-                method: 'POST',
-                data: {
-                    'uri_from': window.appData.mv.dir + '/' + window.appData.mv.oldName,
-                    'uri_to': window.appData.mv.dir + '/' + window.appData.mv.newName
-                },
-                success: function (data) {
-                    window.appData.mv.close();
-                }
-            });
+        fileRename: function() {
+            if (window.appData.explorer.itemsChecked.length != 1) {
+                window.appData.rename.status = 'Не знаю как переименовывать ' + window.appData.explorer.itemsChecked.length + ' файлов.';
+                window.appData.rename.show();
+                return;
+            }
+            window.appData.rename.status = '';
+            var item = window.appData.explorer.itemsChecked[0];
+            window.appData.rename.oldName = item.name;
+            window.appData.rename.newName = item.name;
+            window.appData.rename.dir = item.dir;
+            window.appData.rename.show();
         }
     }
 };
@@ -146,7 +165,7 @@ window.Vue = require('vue');
 
 Vue.component('explorer', require('./components/Explorer.vue'));
 Vue.component('rc', require('./components/Rc.vue'));
-Vue.component('mv', require('./components/Rename.vue'));
+Vue.component('rename', require('./components/Rename.vue'));
 
 const app = new Vue({
     el: '#app',
