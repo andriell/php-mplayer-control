@@ -20,6 +20,7 @@ Route::get('/dir', 'DirController@index')->name('dir');
 Route::get('/dir-list/{uri?}', 'DirController@getList')->where(['uri' => '[\s\S]+']);
 Route::get('/dir-img-100x100/{uri}', 'DirController@img')->where(['uri' => '[\s\S]+']);
 Route::get('/dir-download/{uri}', 'DirController@download')->where(['uri' => '[\s\S]+']);
+Route::post('/dir-mv/', 'DirController@rm');
 
 Route::get('/player-play-video/{uri}', 'MPlayerController@playVideo')->where(['uri' => '[\s\S]+']);
 Route::get('/player-pause/', 'MPlayerController@pause');

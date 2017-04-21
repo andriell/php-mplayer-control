@@ -245,6 +245,9 @@ class FileSystem
         $uriFrom = is_array($uriFrom) ? $uriFrom : [$uriFrom];
         foreach ($uriFrom as $uri) {
             $from = $this->realPath($uri);
+            if (empty($from)) {
+                continue;
+            }
             // --backup=numbered при совпадении имен нумеровать
             shell_exec('mv --backup=numbered ' . $from . ' ' . $to);
         }

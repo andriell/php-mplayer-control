@@ -65,4 +65,9 @@ class DirController extends Controller
         $file = $this->fs->realPath($uri);
         return response()->download($file);
     }
+
+    function mv()
+    {
+        $this->fs->mvBackupNumbered();
+    }
 }

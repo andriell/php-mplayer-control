@@ -72,6 +72,7 @@ window.appData = {
                     var i;
                     for (i in data.items) {
                         data.items[i].uri = data.uri ? data.uri + '/' + data.items[i].name : data.items[i].name;
+                        data.items[i].dir = data.uri;
                     }
                     window.appData.explorer.items = data.items;
 
@@ -101,6 +102,29 @@ window.appData = {
         unchecked: function() {
             window.appData.explorer.itemsChecked = [];
         }
+    },
+    mv: {
+        dir: '',
+        oldName: '',
+        newName: '',
+        show: function () {
+            jQuery('#renameModal').modal('show');
+        },
+        close: function () {
+            jQuery('#renameModal').modal('close');
+        },
+        fileRename: function () {
+            jQuery.ajax('/dir-mv/', {
+                method: 'POST',
+                data: {
+                    'uri_from': window.appData.mv.dir + '/' + window.appData.mv.oldName,
+                    'uri_to': window.appData.mv.dir + '/' + window.appData.mv.newName
+                },
+                success: function (data) {
+                    window.appData.mv.close();
+                }
+            });
+        }
     }
 };
 
@@ -122,6 +146,7 @@ window.Vue = require('vue');
 
 Vue.component('explorer', require('./components/Explorer.vue'));
 Vue.component('rc', require('./components/Rc.vue'));
+Vue.component('mv', require('./components/Rename.vue'));
 
 const app = new Vue({
     el: '#app',

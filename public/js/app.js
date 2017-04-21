@@ -1176,6 +1176,7 @@ window.appData = {
                     var i;
                     for (i in data.items) {
                         data.items[i].uri = data.uri ? data.uri + '/' + data.items[i].name : data.items[i].name;
+                        data.items[i].dir = data.uri;
                     }
                     window.appData.explorer.items = data.items;
 
@@ -1207,6 +1208,29 @@ window.appData = {
         unchecked: function unchecked() {
             window.appData.explorer.itemsChecked = [];
         }
+    },
+    mv: {
+        dir: '',
+        oldName: '',
+        newName: '',
+        show: function show() {
+            jQuery('#renameModal').modal('show');
+        },
+        close: function close() {
+            jQuery('#renameModal').modal('close');
+        },
+        fileRename: function fileRename() {
+            jQuery.ajax('/dir-mv/', {
+                method: 'POST',
+                data: {
+                    'uri_from': window.appData.mv.dir + '/' + window.appData.mv.oldName,
+                    'uri_to': window.appData.mv.dir + '/' + window.appData.mv.newName
+                },
+                success: function success(data) {
+                    window.appData.mv.close();
+                }
+            });
+        }
     }
 };
 
@@ -1228,6 +1252,7 @@ window.Vue = __webpack_require__(48);
 
 Vue.component('explorer', __webpack_require__(41));
 Vue.component('rc', __webpack_require__(42));
+Vue.component('mv', __webpack_require__(60));
 
 var app = new Vue({
     el: '#app',
@@ -42407,6 +42432,160 @@ module.exports = function(module) {
 __webpack_require__(11);
 module.exports = __webpack_require__(12);
 
+
+/***/ }),
+/* 51 */,
+/* 52 */,
+/* 53 */,
+/* 54 */,
+/* 55 */,
+/* 56 */,
+/* 57 */,
+/* 58 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return window.appData.mv;
+    },
+    mounted: function mounted() {}
+});
+
+/***/ }),
+/* 59 */,
+/* 60 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(8)(
+  /* script */
+  __webpack_require__(58),
+  /* template */
+  __webpack_require__(61),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "C:\\server\\www\\php-mplayer-control\\resources\\assets\\js\\components\\Rename.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Rename.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-4c1c9b6f", Component.options)
+  } else {
+    hotAPI.reload("data-v-4c1c9b6f", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 61 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _vm._m(0)
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal fade rc",
+    attrs: {
+      "id": "renameModal",
+      "tabindex": "-1",
+      "role": "dialog",
+      "aria-labelledby": "myModalLabel"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog",
+    attrs: {
+      "role": "document"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content"
+  }, [_c('div', {
+    staticClass: "modal-header"
+  }, [_c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal",
+      "aria-label": "Close"
+    }
+  }, [_c('span', {
+    staticClass: "glyphicon glyphicon-remove"
+  })]), _vm._v(" "), _c('h4', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "myModalLabel"
+    }
+  }, [_vm._v("Переименовать")])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-body"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "renameModalFileName"
+    }
+  }, [_vm._v("Файл:")]), _vm._v(" "), _c('input', {
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "id": "renameModalFileName"
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal"
+    }
+  }, [_vm._v("Отменить")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-primary",
+    attrs: {
+      "type": "button"
+    }
+  }, [_vm._v("Сохранить")])])])])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-4c1c9b6f", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
