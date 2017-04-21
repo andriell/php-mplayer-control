@@ -8,9 +8,12 @@
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
+$navH: 50px;
+$tap: 5px;
 .app {
   nav {
     width: 100%;
+    height: $navH;
     position: fixed;
     margin-bottom: 2px;
 
@@ -19,6 +22,73 @@
     }
   }
   .content {
-    padding-top: 55px;
+    padding-top: $navH + $tap;
+  }
+}
+
+.explorer {
+  $explorerInfoW: 275px;
+  $explorerPathH: 45px;
+
+  .row {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .col {
+    padding-left: 1px;
+    padding-right: 1px;
+  }
+  .explorer-path {
+    position: fixed;
+    top: $navH + $tap;
+    width: 100%;
+    height: $explorerPathH;
+    padding-right: $explorerInfoW + $tap;
+    .panel {
+      height: $explorerPathH;
+      margin: 0;
+    }
+  }
+  .explorer-info {
+    position: fixed;
+    top: $navH + $tap;
+    right: 0;
+    width: $explorerInfoW;
+  }
+  .explorer-items {
+    padding-top: $explorerPathH - 1px;
+    padding-right: $explorerInfoW + $tap;
+    width: 100%;
+  }
+  .explorer-item {
+    display: inline-block;
+    vertical-align: bottom;
+    width: 110px;
+    height: 125px;
+    margin: 2px;
+    overflow: hidden;
+  }
+  .explorer-item .select {
+    position: absolute;
+    margin-top: 5px;
+    margin-left: 5px;
+  }
+  .explorer-item .text {
+    display: block;
+    text-align: center;
+    font-size: 12px;
+    color: black;
+    font-family: Arial, sans-serif;
+  }
+  .explorer-img-box {
+    display: block;
+    margin: auto;
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+  }
+  .explorer-img-box img {
+    display: block;
+    margin: auto;
   }
 }

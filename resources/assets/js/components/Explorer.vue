@@ -1,10 +1,14 @@
 <template>
     <div class="explorer">
         <div class="row">
+            <div class="explorer-path">
+                <div class="panel panel-default panel-heading">
+                    Путь: {{uri}}
+                </div>
+            </div>
             <div class="col explorer-items">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Путь: {{uri}}</div>
-                    <div class="panel-body">
+                   <div class="panel-body">
                         <div class="explorer-item thumbnail" v-for="(item, itemId) in items">
                             <input type="checkbox" class="select" v-model="itemsChecked" :value="item">
                             <template v-if="item.type == 'dir'">
@@ -81,61 +85,3 @@
         mounted() {}
     }
 </script>
-
-
-<style>
-    .explorer .row {
-        margin-left: 0;
-        margin-right: 0;
-    }
-    .explorer .col {
-        padding-left: 1px;
-        padding-right: 1px;
-    }
-    .explorer .explorer-info {
-        position: fixed;
-        right: 0;
-        width: 275px;
-    }
-    .explorer .explorer-items {
-        position: fixed;
-        right: 0;
-        padding-right: 278px;
-        width: 100%;
-    }
-    .explorer-item {
-        display: inline-block;
-        vertical-align: bottom;
-        width: 110px;
-        height: 125px;
-        margin: 2px;
-        overflow: hidden;
-    }
-
-    .explorer-item .select {
-        position: absolute;
-        margin-top: 5px;
-        margin-left: 5px;
-    }
-
-    .explorer-item .text {
-        display: block;
-        text-align: center;
-        font-size: 12px;
-        color: black;
-        font-family: Arial, sans-serif;
-    }
-
-    .explorer-img-box {
-        display: block;
-        margin: auto;
-        width: 100px;
-        height: 100px;
-        overflow: hidden;
-    }
-
-    .explorer-img-box img {
-        display: block;
-        margin: auto;
-    }
-</style>

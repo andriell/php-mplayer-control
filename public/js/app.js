@@ -2139,6 +2139,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -4647,13 +4651,7 @@ exports = module.exports = __webpack_require__(7)();
 exports.push([module.i, "\n.rc .modal-content {\n    width: 550px;\n}\n.rc .row {\n    padding: 5px;\n}\n.rc .rc-btn-sound,\n.rc .rc-btn-time {\n    width: 100px;\n}\n", ""]);
 
 /***/ }),
-/* 36 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(7)();
-exports.push([module.i, "\n.explorer .row {\n    margin-left: 0;\n    margin-right: 0;\n}\n.explorer .col {\n    padding-left: 1px;\n    padding-right: 1px;\n}\n.explorer .explorer-info {\n    position: fixed;\n    right: 0;\n    width: 275px;\n}\n.explorer .explorer-items {\n    position: fixed;\n    right: 0;\n    padding-right: 278px;\n    width: 100%;\n}\n.explorer-item {\n    display: inline-block;\n    vertical-align: bottom;\n    width: 110px;\n    height: 125px;\n    margin: 2px;\n    overflow: hidden;\n}\n.explorer-item .select {\n    position: absolute;\n    margin-top: 5px;\n    margin-left: 5px;\n}\n.explorer-item .text {\n    display: block;\n    text-align: center;\n    font-size: 12px;\n    color: black;\n    font-family: Arial, sans-serif;\n}\n.explorer-img-box {\n    display: block;\n    margin: auto;\n    width: 100px;\n    height: 100px;\n    overflow: hidden;\n}\n.explorer-img-box img {\n    display: block;\n    margin: auto;\n}\n", ""]);
-
-/***/ }),
+/* 36 */,
 /* 37 */
 /***/ (function(module, exports) {
 
@@ -32443,10 +32441,6 @@ process.umask = function() { return 0; };
 /* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
-
-/* styles */
-__webpack_require__(46)
-
 var Component = __webpack_require__(8)(
   /* script */
   __webpack_require__(31),
@@ -32738,12 +32732,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "row"
   }, [_c('div', {
+    staticClass: "explorer-path"
+  }, [_c('div', {
+    staticClass: "panel panel-default panel-heading"
+  }, [_vm._v("\n                Путь: " + _vm._s(_vm.uri) + "\n            ")])]), _vm._v(" "), _c('div', {
     staticClass: "col explorer-items"
   }, [_c('div', {
     staticClass: "panel panel-default"
   }, [_c('div', {
-    staticClass: "panel-heading"
-  }, [_vm._v("Путь: " + _vm._s(_vm.uri))]), _vm._v(" "), _c('div', {
     staticClass: "panel-body"
   }, _vm._l((_vm.items), function(item, itemId) {
     return _c('div', {
@@ -32937,32 +32933,7 @@ if(false) {
 }
 
 /***/ }),
-/* 46 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(36);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(9)("9381be66", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-f65edca0\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Explorer.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-f65edca0\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Explorer.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
+/* 46 */,
 /* 47 */
 /***/ (function(module, exports) {
 
