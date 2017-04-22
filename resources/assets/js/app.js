@@ -166,6 +166,9 @@ window.appData = {
 
 require('./bootstrap');
 
+require('jquery-lazyload');
+require('fuelux/js/tree.js');
+
 window.Vue = require('vue');
 
 /**
