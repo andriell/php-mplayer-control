@@ -11,6 +11,10 @@
 $navH: 50px;
 $tap: 5px;
 
+body {
+  min-width: 560px;
+}
+
 .app {
   nav {
     width: 100%;
@@ -20,6 +24,9 @@ $tap: 5px;
 
     .container {
       width: auto;
+    }
+    .navbar-collapse {
+      background-color: #FFFFFF;
     }
   }
   .content {
