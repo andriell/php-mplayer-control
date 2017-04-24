@@ -11269,26 +11269,11 @@ window.Vue = __webpack_require__(50);
 Vue.component('explorer', __webpack_require__(41));
 Vue.component('rc', __webpack_require__(42));
 Vue.component('rename', __webpack_require__(43));
+Vue.component('copy', __webpack_require__(61));
 
 var app = new Vue({
     el: '#app',
     data: window.appData
-});
-
-function staticDataSource(openedParentData, callback) {
-    childNodesArray = [{ "name": "Ascending and Descending", "type": "folder" }, { "name": "Sky and Water I", "type": "item" }, { "name": "Drawing Hands", "type": "folder" }, { "name": "waterfall", "type": "item" }, { "name": "Belvedere", "type": "folder" }, { "name": "Relativity", "type": "item" }, { "name": "House of Stairs", "type": "folder" }, { "name": "Convex and Concave", "type": "item" }];
-
-    callback({
-        data: childNodesArray
-    });
-}
-
-$(function () {
-    $('#myTree').tree({
-        dataSource: staticDataSource,
-        multiSelect: false,
-        folderSelect: true
-    });
 });
 
 /***/ }),
@@ -43289,6 +43274,161 @@ module.exports = function(module) {
 __webpack_require__(10);
 module.exports = __webpack_require__(11);
 
+
+/***/ }),
+/* 53 */,
+/* 54 */,
+/* 55 */,
+/* 56 */,
+/* 57 */,
+/* 58 */,
+/* 59 */,
+/* 60 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return window.appData.rename;
+    },
+    mounted: function mounted() {
+        function staticDataSource(openedParentData, callback) {
+            var childNodesArray = [{ "name": "Ascending and Descending", "type": "folder" }, { "name": "Sky and Water I", "type": "item" }, { "name": "Drawing Hands", "type": "folder" }, { "name": "waterfall", "type": "item" }, { "name": "Belvedere", "type": "folder" }, { "name": "Relativity", "type": "item" }, { "name": "House of Stairs", "type": "folder" }, { "name": "Convex and Concave", "type": "item" }];
+
+            callback({
+                data: childNodesArray
+            });
+        }
+
+        $(function () {
+            $('#copyTree').tree({
+                dataSource: staticDataSource,
+                multiSelect: false,
+                folderSelect: true
+            });
+        });
+    }
+});
+
+/***/ }),
+/* 61 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(2)(
+  /* script */
+  __webpack_require__(60),
+  /* template */
+  __webpack_require__(62),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "C:\\server\\www\\php-mplayer-control\\resources\\assets\\js\\components\\Copy.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Copy.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-7cb47266", Component.options)
+  } else {
+    hotAPI.reload("data-v-7cb47266", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 62 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _vm._m(0)
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('ul', {
+    staticClass: "list-group tree",
+    attrs: {
+      "role": "tree",
+      "id": "copyTree"
+    }
+  }, [_c('li', {
+    staticClass: "list-group-item tree-branch hide",
+    attrs: {
+      "data-template": "treebranch",
+      "role": "treeitem",
+      "aria-expanded": "false"
+    }
+  }, [_c('div', {
+    staticClass: "tree-branch-header"
+  }, [_c('span', {
+    staticClass: "tree-branch-name"
+  }, [_c('span', {
+    staticClass: "glyphicon icon-caret glyphicon-play"
+  }), _vm._v(" "), _c('span', {
+    staticClass: "glyphicon icon-folder glyphicon-folder-close"
+  }), _vm._v(" "), _c('span', {
+    staticClass: "tree-label"
+  })])]), _vm._v(" "), _c('ul', {
+    staticClass: "tree-branch-children",
+    attrs: {
+      "role": "group"
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "tree-loader",
+    attrs: {
+      "role": "alert"
+    }
+  }, [_vm._v("Loading...")])]), _vm._v(" "), _c('li', {
+    staticClass: "list-group-item tree-item hide",
+    attrs: {
+      "data-template": "treeitem",
+      "role": "treeitem"
+    }
+  }, [_c('span', {
+    staticClass: "tree-item-name"
+  }, [_c('span', {
+    staticClass: "glyphicon icon-item fueluxicon-bullet"
+  }), _vm._v(" "), _c('span', {
+    staticClass: "tree-label"
+  })])])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-7cb47266", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

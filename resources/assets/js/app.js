@@ -180,34 +180,9 @@ window.Vue = require('vue');
 Vue.component('explorer', require('./components/Explorer.vue'));
 Vue.component('rc', require('./components/Rc.vue'));
 Vue.component('rename', require('./components/Rename.vue'));
+Vue.component('copy', require('./components/Copy.vue'));
 
 const app = new Vue({
     el: '#app',
     data: window.appData
-});
-
-
-function staticDataSource(openedParentData, callback) {
-    childNodesArray = [
-        { "name": "Ascending and Descending", "type": "folder" },
-        { "name": "Sky and Water I", "type": "item" },
-        { "name": "Drawing Hands", "type": "folder" },
-        { "name": "waterfall", "type": "item" },
-        { "name": "Belvedere", "type": "folder" },
-        { "name": "Relativity", "type": "item" },
-        { "name": "House of Stairs", "type": "folder" },
-        { "name": "Convex and Concave", "type": "item" }
-    ];
-
-    callback({
-        data: childNodesArray
-    });
-}
-
-$(function() {
-    $('#myTree').tree({
-        dataSource: staticDataSource,
-        multiSelect: false,
-        folderSelect: true
-    });
 });
