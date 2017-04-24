@@ -32,7 +32,8 @@ class MPlayer
             return;
         }
         shell_exec('killall mplayer');
-        shell_exec('rm ' . $this->fileFifo);
+        shell_exec('rm -rf ' . $this->fileOut);
+        shell_exec('rm -rf ' . $this->fileFifo);
         shell_exec('mkfifo ' . $this->fileFifo . ' -m 0644');
         $str = 'export DISPLAY=:0.0 && mplayer -quiet -fs -slave -input file=' . $this->fileFifo . ' ' . $file . '  > ' . $this->fileOut . ' 2> /dev/null &';
         //$str = 'export DISPLAY=:0.0 && mplayer -really-quiet -noconsolecontrols -fs -slave -input file=' . $this->fileFifo . ' ' . $file . '  > ' . $this->fileOut . ' 2> /dev/null &';
@@ -47,13 +48,13 @@ class MPlayer
 
     function command($str)
     {
-        shell_exec('echo "' . $str . '\n" > ' . $this->fileFifo);
+        shell_exec('printf "' . $str . '\n" > ' . $this->fileFifo);
     }
 
     function commandGet($str)
     {
         shell_exec('> ' . $this->fileOut);
-        shell_exec('echo "' . $str . '\n" > ' . $this->fileFifo);
+        shell_exec('printf "' . $str . '\n" > ' . $this->fileFifo);
         $r = '';
         for ($i = 0; $i < 20; $i++) {
             $r = shell_exec('cat ' . $this->fileOut . ' | tr -d " \t\n\r\0"');
