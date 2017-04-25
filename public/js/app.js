@@ -12165,7 +12165,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             },
             show: function show() {
                 localData.run = false;
-                localData.newDirName = '';
+                localData.verification = '';
                 jQuery('#deleteModal').modal('show');
             },
             hide: function hide() {
@@ -12177,7 +12177,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
                 localData.run = true;
                 localData.status = 'Обработка...';
-                jQuery.ajax('/dir-new-folder/', {
+                jQuery.ajax('/dir-delete/', {
                     method: 'POST',
                     data: {
                         'items': localData.items
@@ -12192,7 +12192,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     complete: function complete(jqXHR, textStatus) {
                         setTimeout(function () {
                             localData.run = false;
-                            localData.newDirName = '';
+                            localData.verification = '';
                             localData.hide();
                             window.appData.explorer.reload();
                         }, 2000);

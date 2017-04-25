@@ -38,7 +38,7 @@
                 },
                 show: function () {
                     localData.run = false;
-                    localData.newDirName = '';
+                    localData.verification = '';
                     jQuery('#deleteModal').modal('show');
                 },
                 hide: function () {
@@ -50,7 +50,7 @@
                     }
                     localData.run = true;
                     localData.status = 'Обработка...';
-                    jQuery.ajax('/dir-new-folder/', {
+                    jQuery.ajax('/dir-delete/', {
                         method: 'POST',
                         data: {
                             'items': localData.items
@@ -65,7 +65,7 @@
                         complete: function(jqXHR, textStatus ) {
                             setTimeout(function() {
                                 localData.run = false;
-                                localData.newDirName = '';
+                                localData.verification = '';
                                 localData.hide();
                                 window.appData.explorer.reload();
                             }, 2000);
