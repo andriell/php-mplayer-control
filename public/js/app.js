@@ -12350,7 +12350,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 localData.action('/dir-copy/');
             },
             action: function action(url) {
-                if (localData.selectedUri == false) {
+                if (localData.selectedUri === false) {
                     return;
                 }
                 localData.run = true;
@@ -43684,12 +43684,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         var localData = window.appData.folder = {
             currentDir: '',
-            name: '',
+            newDirName: '',
             items: [],
             status: '',
             run: false,
             available: function available() {
-                return !localData.run && localData.name;
+                return !localData.run && localData.newDirName && localData.items.length > 1;
             },
             show: function show() {
                 localData.run = false;
@@ -43699,13 +43699,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 jQuery('#folderModal').modal('hide');
             },
             newFolder: function newFolder() {
+                if (!localData.available()) {
+                    return;
+                }
                 localData.run = true;
                 localData.status = 'Обработка...';
                 jQuery.ajax('/dir-cut/', {
                     method: 'POST',
                     data: {
                         'uri_from': localData.items,
-                        'uri_to': localData.currentDir + '/' + localData.name
+                        'uri_to': localData.currentDir + '/' + localData.newDirName
                     },
                     success: function success(data) {
                         if (data.status) {
@@ -43795,8 +43798,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.name),
-      expression: "name"
+      value: (_vm.newDirName),
+      expression: "newDirName"
     }],
     staticClass: "form-control",
     attrs: {
@@ -43804,12 +43807,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "id": "renameModalFileName"
     },
     domProps: {
-      "value": (_vm.name)
+      "value": (_vm.newDirName)
     },
     on: {
       "input": function($event) {
         if ($event.target.composing) { return; }
-        _vm.name = $event.target.value
+        _vm.newDirName = $event.target.value
       }
     }
   })]), _vm._v(" "), _c('div', {

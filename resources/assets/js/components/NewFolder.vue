@@ -9,7 +9,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="renameModalFileName">Папка:</label>
-                        <input type="text" class="form-control" id="renameModalFileName" v-model="name">
+                        <input type="text" class="form-control" id="renameModalFileName" v-model="newDirName">
                     </div>
                     <div class="form-group">{{status}}</div>
                 </div>
@@ -27,12 +27,12 @@
         data: function () {
             var localData = window.appData.folder = {
                 currentDir: '',
-                name: '',
+                newDirName: '',
                 items: [],
                 status: '',
                 run: false,
                 available: function() {
-                    return !localData.run && localData.name;
+                    return !localData.run && localData.newDirName && localData.items.length > 1;
                 },
                 show: function () {
                     localData.run = false;
@@ -42,13 +42,16 @@
                     jQuery('#folderModal').modal('hide');
                 },
                 newFolder: function () {
+                    if (!localData.available()) {
+                        return;
+                    }
                     localData.run = true;
                     localData.status = 'Обработка...';
                     jQuery.ajax('/dir-cut/', {
                         method: 'POST',
                         data: {
                             'uri_from': localData.items,
-                            'uri_to': localData.currentDir + '/' + localData.name
+                            'uri_to': localData.currentDir + '/' + localData.newDirName
                         },
                         success: function (data) {
                             if (data.status) {

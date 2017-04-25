@@ -95,7 +95,7 @@
                     localData.action('/dir-copy/');
                 },
                 action: function(url) {
-                    if (localData.selectedUri == false) {
+                    if (localData.selectedUri === false) {
                         return;
                     }
                     localData.run = true;
