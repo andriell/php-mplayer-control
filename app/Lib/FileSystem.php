@@ -41,7 +41,7 @@ class FileSystem
      */
     private function normalizeUri($uri)
     {
-        $uri = preg_replace('#[\\\\/]+#', '/', $uri);
+        $uri = preg_replace('#[\\\\/"\']+#', '/', $uri);
         $uri = preg_replace('#/[\\.]+/#', '/', $uri);
         return ltrim($uri, '/');
     }
@@ -248,7 +248,7 @@ class FileSystem
      */
     function mvBackupNumbered($uriFrom, $uriTo)
     {
-        $to = $this->escapePath($uriTo);
+        $to = $this->normalizeUri($uriTo);
         if (empty($to)) {
             return false;
         }
@@ -260,7 +260,7 @@ class FileSystem
                 continue;
             }
             // --backup=numbered при совпадении имен нумеровать
-            shell_exec('mv --backup=numbered ' . $from . ' ' . $to);
+            shell_exec('mv --backup=numbered "' . $from . '" "' . $to . '"');
             $i++;
         }
         return $i;
@@ -275,7 +275,7 @@ class FileSystem
      */
     function cpBackupNumbered($uriFrom, $uriTo)
     {
-        $to = $this->escapePath($uriTo);
+        $to = $this->normalizeUri($uriTo);
         if (empty($to)) {
             return false;
         }
@@ -284,7 +284,7 @@ class FileSystem
         foreach ($uriFrom as $uri) {
             $from = $this->realPath($uri);
             // --backup=numbered при совпадении имен нумеровать
-            shell_exec('cp -r --backup=numbered ' . $from . ' ' . $to);
+            shell_exec('cp -r --backup=numbered "' . $from . '" "' . $to . '"');
             $i++;
         }
         return $i;
