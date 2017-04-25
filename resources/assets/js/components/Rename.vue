@@ -15,7 +15,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Отменить</button>
-                    <button type="button" class="btn btn-primary" v-on:click="fileRename()">Сохранить</button>
+                    <button type="button" class="btn btn-primary" v-if="available()" v-on:click="fileRename()">Сохранить</button>
                 </div>
             </div>
         </div>
@@ -27,16 +27,23 @@
         data: function () {
             var localData = window.appData.rename = {
                 dir: '',
-                        oldName: '',
-                        newName: '',
-                        status: '',
-                        show: function () {
+                oldName: '',
+                newName: '',
+                status: '',
+                run: false,
+                available: function() {
+                    return !localData.run && localData.oldName && localData.newName && localData.oldName != localData.newName;
+                },
+                show: function () {
+                    localData.run = false;
                     jQuery('#renameModal').modal('show');
                 },
                 hide: function () {
                     jQuery('#renameModal').modal('hide');
                 },
                 fileRename: function () {
+                    localData.run = true;
+                    localData.status = 'Обработка...';
                     jQuery.ajax('/dir-mv/', {
                         method: 'POST',
                         data: {
@@ -51,10 +58,13 @@
                             }, 2000);
                             if (data.status) {
                                 localData.oldName = localData.newName;
-                                localData.status = 'Переименовано.';
+                                localData.status = 'Переименовано';
                             } else {
-                                localData.status = 'Ошибка.';
+                                localData.status = 'Ошибка';
                             }
+                        },
+                        complete: function(jqXHR, textStatus ) {
+                            localData.run = false;
                         }
                     });
                 }

@@ -12727,13 +12727,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             oldName: '',
             newName: '',
             status: '',
+            run: false,
+            available: function available() {
+                return !localData.run && localData.oldName && localData.newName && localData.oldName != localData.newName;
+            },
             show: function show() {
+                localData.run = false;
                 jQuery('#renameModal').modal('show');
             },
             hide: function hide() {
                 jQuery('#renameModal').modal('hide');
             },
             fileRename: function fileRename() {
+                localData.run = true;
+                localData.status = 'Обработка...';
                 jQuery.ajax('/dir-mv/', {
                     method: 'POST',
                     data: {
@@ -12748,10 +12755,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         }, 2000);
                         if (data.status) {
                             localData.oldName = localData.newName;
-                            localData.status = 'Переименовано.';
+                            localData.status = 'Переименовано';
                         } else {
-                            localData.status = 'Ошибка.';
+                            localData.status = 'Ошибка';
                         }
+                    },
+                    complete: function complete(jqXHR, textStatus) {
+                        localData.run = false;
                     }
                 });
             }
@@ -33550,7 +33560,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "button",
       "data-dismiss": "modal"
     }
-  }, [_vm._v("Отменить")]), _vm._v(" "), _c('button', {
+  }, [_vm._v("Отменить")]), _vm._v(" "), (_vm.available()) ? _c('button', {
     staticClass: "btn btn-primary",
     attrs: {
       "type": "button"
@@ -33560,7 +33570,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.fileRename()
       }
     }
-  }, [_vm._v("Сохранить")])])])])])
+  }, [_vm._v("Сохранить")]) : _vm._e()])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "modal-header"
