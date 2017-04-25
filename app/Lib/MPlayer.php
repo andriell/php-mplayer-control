@@ -36,7 +36,7 @@ class MPlayer
 
     function isRun()
     {
-        return Shell::exec(base_path('shell/mplayer_pid.sh'));
+        return strtolower(trim(Shell::exec(base_path('shell/mplayer_pid.sh')))) == 'running';
     }
 
     function command($str)
@@ -110,9 +110,9 @@ class MPlayer
     {
         $r = [];
         $r['run'] = $this->isRun();
-        //if (!$r['run']) {
+        if (!$r['run']) {
             return $r;
-        //}
+        }
         Shell::exec('> ' . $this->fileOut);
         $lastCommand = '';
         foreach ($prop as $p) {
