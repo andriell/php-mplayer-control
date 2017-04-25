@@ -12292,10 +12292,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
-        window.appData.copy = {
+        var localData = window.appData.copy = {
             items: [],
             selectedUri: false,
             status: false,
+            available: function available() {
+                return localData.selectedUri && localData.items.length > 0;
+            },
             getData: function getData(openedParentData, callback) {
                 var uri = typeof openedParentData['uri'] == 'undefined' ? '' : openedParentData.uri;
                 jQuery.ajax('/dir-only-dir/' + uri, {
@@ -12320,25 +12323,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             hide: function hide() {
                 jQuery('#copyModal').modal('hide');
             },
-            copy: function copy() {
-                if (window.appData.copy.selectedUri == false) {
+            cut: function cut() {},
+            copy: function copy() {},
+            action: function action(url) {
+                if (localData.selectedUri == false) {
                     return;
                 }
-                jQuery.ajax('/dir-copy/', {
+                jQuery.ajax(url, {
                     method: 'POST',
                     data: {
-                        'uri_from': window.appData.copy.selectedUri,
-                        'uri_to': window.appData.copy.items
+                        'uri_from': localData.selectedUri,
+                        'uri_to': localData.items
                     },
                     success: function success(data) {
                         setTimeout(function () {
-                            window.appData.copy.hide();
+                            localData.hide();
                             window.appData.explorer.reload();
                         }, 2000);
                         if (data.status) {
-                            window.appData.copy.status = 'Сделано.';
+                            localData.status = 'Сделано.';
                         } else {
-                            window.appData.copy.status = 'Ошибка.';
+                            localData.status = 'Ошибка.';
                         }
                     }
                 });
@@ -12346,16 +12351,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
         jQuery(function () {
             jQuery('#copyTree').tree({
-                dataSource: window.appData.copy.getData,
+                dataSource: localData.getData,
                 multiSelect: false,
                 folderSelect: true
             }).on('selected.fu.tree', function (event, data) {
-                window.appData.copy.selectedUri = data.selected[0].uri;
+                localData.selectedUri = data.selected[0].uri;
             }).on('deselected.fu.tree', function (event, data) {
-                window.appData.copy.selectedUri = false;
+                localData.selectedUri = false;
             });
         });
-        return window.appData.copy;
+        return localData;
     },
     mounted: function mounted() {}
 });
@@ -12457,17 +12462,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
-        window.appData.explorer = {
+        var localData = window.appData.explorer = {
             uri: '',
             path: [],
             items: [],
             itemsChecked: [],
             reload: function reload() {
-                window.appData.explorer.getData(window.appData.explorer.uri);
+                localData.getData(localData.uri);
             },
             getData: function getData(uri) {
                 jQuery.ajax('/dir-list/' + uri, {
@@ -12478,8 +12482,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                             data.items[i].uri = data.uri ? data.uri + '/' + data.items[i].name : data.items[i].name;
                             data.items[i].dir = data.uri;
                         }
-                        window.appData.explorer.items = data.items;
-                        window.appData.explorer.uri = data.uri;
+                        localData.items = data.items;
+                        localData.uri = data.uri;
 
                         var path = [],
                             uriTmp = '',
@@ -12495,8 +12499,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                             });
                             uriTmp += '/';
                         }
-                        window.appData.explorer.path = path;
-                        window.appData.explorer.unchecked();
+                        localData.path = path;
+                        localData.unchecked();
                     }
                 });
             },
@@ -12505,30 +12509,38 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 return false;
             },
             playVideo: function playVideo() {
-                window.appData.rc.playVideo(window.appData.explorer.itemsChecked[0].uri);
+                window.appData.rc.playVideo(localData.itemsChecked[0].uri);
             },
             unchecked: function unchecked() {
-                window.appData.explorer.itemsChecked = [];
+                localData.itemsChecked = [];
             },
             fileRename: function fileRename() {
-                if (window.appData.explorer.itemsChecked.length != 1) {
-                    window.appData.rename.status = 'Не знаю как переименовывать ' + window.appData.explorer.itemsChecked.length + ' файлов.';
+                if (localData.itemsChecked.length != 1) {
+                    window.appData.rename.status = 'Не знаю как переименовывать ' + localData.itemsChecked.length + ' файлов.';
                     window.appData.rename.show();
                     return;
                 }
                 window.appData.rename.status = '';
-                var item = window.appData.explorer.itemsChecked[0];
+                var item = localData.itemsChecked[0];
                 window.appData.rename.oldName = item.name;
                 window.appData.rename.newName = item.name;
                 window.appData.rename.dir = item.dir;
                 window.appData.rename.show();
             },
             fileCopy: function fileCopy() {
+                if (localData.itemsChecked.length <= 0) {
+                    return;
+                }
+                window.appData.copy.status = '';
+                window.appData.copy.items = [];
+                for (var i in localData.itemsChecked) {
+                    window.appData.copy.items.push(localData.itemsChecked[i].uri);
+                }
                 window.appData.copy.show();
             }
         };
-        window.appData.explorer.getData('');
-        return window.appData.explorer;
+        localData.getData('');
+        return localData;
     },
     mounted: function mounted() {},
 
@@ -12599,7 +12611,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
-        window.appData.rc = {
+        var localData = window.appData.rc = {
             length: 0,
             timePos: 0,
             timeP: 0,
@@ -12611,7 +12623,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             playVideo: function playVideo(uri) {
                 jQuery.ajax('/player-play-video/' + uri, {
                     success: function success(data) {
-                        window.appData.rc.show();
+                        localData.show();
                     }
                 });
             },
@@ -12624,35 +12636,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             getVolume: function getVolume() {
                 jQuery.ajax('/player-get-volume/', {
                     success: function success(data) {
-                        window.appData.rc.volume = data.volume;
+                        localData.volume = data.volume;
                     }
                 });
             },
             setVolume: function setVolume() {
-                jQuery.ajax('/player-set-volume/' + window.appData.rc.volume);
+                jQuery.ajax('/player-set-volume/' + localData.volume);
             },
             getTimePos: function getTimePos() {
                 jQuery.ajax('/player-get-time-pos/', {
                     success: function success(data) {
-                        window.appData.rc.timePos = data.time_pos;
-                        window.appData.rc.length = data.length;
-                        window.appData.rc.timeP = Math.round(data.time_pos / data.length * 1000000);
+                        localData.timePos = data.time_pos;
+                        localData.length = data.length;
+                        localData.timeP = Math.round(data.time_pos / data.length * 1000000);
                     }
                 });
             },
             setTimePos: function setTimePos() {
                 jQuery.ajax('/player-get-time-pos/', {
                     success: function success(data) {
-                        window.appData.rc.timePos = data.time_pos;
-                        window.appData.rc.length = data.length;
+                        localData.timePos = data.time_pos;
+                        localData.length = data.length;
 
-                        jQuery.ajax('/player-set-time-pos/' + Math.round(window.appData.rc.timeP / 1000000 * data.length));
+                        jQuery.ajax('/player-set-time-pos/' + Math.round(localData.timeP / 1000000 * data.length));
                     }
                 });
             },
             switchMute: function switchMute() {
-                window.appData.rc.mute = !window.appData.rc.mute;
-                jQuery.ajax('/player-set-mute/' + (window.appData.rc.mute ? 't' : 'f'));
+                localData.mute = !localData.mute;
+                jQuery.ajax('/player-set-mute/' + (localData.mute ? 't' : 'f'));
             },
             switchAudio: function switchAudio() {
                 jQuery.ajax('/player-switch-audio/');
@@ -12661,7 +12673,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 jQuery.ajax('/player-switch-video/');
             }
         };
-        return window.appData.rc;
+        return localData;
     },
     mounted: function mounted() {}
 });
@@ -12699,7 +12711,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
-        window.appData.rename = {
+        var localData = window.appData.rename = {
             dir: '',
             oldName: '',
             newName: '',
@@ -12714,26 +12726,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 jQuery.ajax('/dir-mv/', {
                     method: 'POST',
                     data: {
-                        'uri_dir': window.appData.rename.dir,
-                        'old_name': window.appData.rename.oldName,
-                        'new_name': window.appData.rename.newName
+                        'uri_dir': localData.dir,
+                        'old_name': localData.oldName,
+                        'new_name': localData.newName
                     },
                     success: function success(data) {
                         setTimeout(function () {
-                            window.appData.rename.hide();
+                            localData.hide();
                             window.appData.explorer.reload();
                         }, 2000);
                         if (data.status) {
-                            window.appData.rename.oldName = window.appData.rename.newName;
-                            window.appData.rename.status = 'Переименовано.';
+                            localData.oldName = localData.newName;
+                            localData.status = 'Переименовано.';
                         } else {
-                            window.appData.rename.status = 'Ошибка.';
+                            localData.status = 'Ошибка.';
                         }
                     }
                 });
             }
         };
-        return window.appData.rename;
+        return localData;
     },
     mounted: function mounted() {}
 });
@@ -33581,7 +33593,7 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "modal fade rc",
+    staticClass: "modal fade copy",
     attrs: {
       "id": "copyModal",
       "tabindex": "-1",
@@ -33599,9 +33611,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "modal-body"
   }, [_vm._m(1), _vm._v(" "), _c('div', {
     staticClass: "form-group"
-  }, [_vm._v("Элементов: " + _vm._s(_vm.items.length))]), _vm._v(" "), (_vm.selectedUri) ? _c('div', {
+  }, [_vm._v("Элементов: " + _vm._s(_vm.items.length))]), _vm._v(" "), _c('div', {
     staticClass: "form-group"
-  }, [_vm._v("Переместить в: " + _vm._s(_vm.selectedUri))]) : _vm._e(), _vm._v(" "), _c('div', {
+  }, [_vm._v("Переместить в: "), (_vm.selectedUri) ? [_vm._v(_vm._s(_vm.selectedUri))] : _vm._e()], 2), _vm._v(" "), _c('div', {
     staticClass: "form-group"
   }, [_vm._v(_vm._s(_vm.status))])]), _vm._v(" "), _c('div', {
     staticClass: "modal-footer"
@@ -33611,19 +33623,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "button",
       "data-dismiss": "modal"
     }
-  }, [_vm._v("Отменить")]), _vm._v(" "), (_vm.selectedUri & _vm.items.length > 0) ? _c('button', {
+  }, [_vm._v("Отменить")]), _vm._v(" "), (_vm.available()) ? _c('button', {
     staticClass: "btn btn-primary",
     attrs: {
       "type": "button"
     },
     on: {
       "click": function($event) {
-        _vm.fileRename()
+        _vm.cut()
       }
     }
   }, [_c('span', {
     staticClass: "glyphicon glyphicon-arrow-right"
-  }), _vm._v(" Переместить")]) : _vm._e(), _vm._v(" "), (_vm.selectedUri & _vm.items.length > 0) ? _c('button', {
+  }), _vm._v(" Переместить")]) : _vm._e(), _vm._v(" "), (_vm.available()) ? _c('button', {
     staticClass: "btn btn-primary",
     attrs: {
       "type": "button"
@@ -34109,19 +34121,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     staticClass: "glyphicon glyphicon-arrow-right"
-  }), _vm._v("  Переместить")]), _vm._v(" "), _c('a', {
-    staticClass: "list-group-item",
-    attrs: {
-      "href": "#"
-    },
-    on: {
-      "click": function($event) {
-        _vm.fileCopy()
-      }
-    }
-  }, [_c('span', {
-    staticClass: "glyphicon glyphicon-duplicate"
-  }), _vm._v("  Копировать")]), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2)], 2)] : _vm._e()], 2)])])])])
+  }), _vm._v("  Переместить")]), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2)], 2)] : _vm._e()], 2)])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "explorer-img-box"

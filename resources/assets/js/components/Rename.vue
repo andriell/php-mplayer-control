@@ -25,7 +25,7 @@
 <script>
     export default {
         data: function () {
-            window.appData.rename = {
+            var localData = window.appData.rename = {
                 dir: '',
                         oldName: '',
                         newName: '',
@@ -40,26 +40,26 @@
                     jQuery.ajax('/dir-mv/', {
                         method: 'POST',
                         data: {
-                            'uri_dir':  window.appData.rename.dir,
-                            'old_name': window.appData.rename.oldName,
-                            'new_name': window.appData.rename.newName
+                            'uri_dir':  localData.dir,
+                            'old_name': localData.oldName,
+                            'new_name': localData.newName
                         },
                         success: function (data) {
                             setTimeout(function() {
-                                window.appData.rename.hide();
+                                localData.hide();
                                 window.appData.explorer.reload();
                             }, 2000);
                             if (data.status) {
-                                window.appData.rename.oldName = window.appData.rename.newName;
-                                window.appData.rename.status = 'Переименовано.';
+                                localData.oldName = localData.newName;
+                                localData.status = 'Переименовано.';
                             } else {
-                                window.appData.rename.status = 'Ошибка.';
+                                localData.status = 'Ошибка.';
                             }
                         }
                     });
                 }
             };
-            return window.appData.rename;
+            return localData;
         },
         mounted() {
         }

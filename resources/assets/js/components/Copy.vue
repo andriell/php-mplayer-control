@@ -1,5 +1,5 @@
 <template>
-    <div class="modal fade rc" id="copyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal fade copy" id="copyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -28,13 +28,13 @@
                         </li>
                     </ul>
                     <div class="form-group">Элементов: {{items.length}}</div>
-                    <div v-if="selectedUri" class="form-group">Переместить в: {{selectedUri}}</div>
+                    <div class="form-group">Переместить в: <template v-if="selectedUri">{{selectedUri}}</template></div>
                     <div class="form-group">{{status}}</div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Отменить</button>
-                    <button type="button" class="btn btn-primary" v-if="selectedUri & items.length > 0" v-on:click="fileRename()"><span class="glyphicon glyphicon-arrow-right"></span> Переместить</button>
-                    <button type="button" class="btn btn-primary" v-if="selectedUri & items.length > 0" v-on:click="copy()"><span class="glyphicon glyphicon-duplicate"></span> Копировать</button>
+                    <button type="button" class="btn btn-primary" v-if="available()" v-on:click="cut()"><span class="glyphicon glyphicon-arrow-right"></span> Переместить</button>
+                    <button type="button" class="btn btn-primary" v-if="available()" v-on:click="copy()"><span class="glyphicon glyphicon-duplicate"></span> Копировать</button>
                 </div>
             </div>
         </div>
@@ -44,10 +44,13 @@
 <script>
     export default {
         data: function () {
-            window.appData.copy = {
+            var localData = window.appData.copy = {
                 items: [],
                 selectedUri: false,
                 status: false,
+                available: function() {
+                    return localData.selectedUri && localData.items.length > 0;
+                },
                 getData: function (openedParentData, callback) {
                     var uri = (typeof openedParentData['uri'] == 'undefined') ? '' : openedParentData.uri;
                     jQuery.ajax('/dir-only-dir/' + uri, {
@@ -72,25 +75,31 @@
                 hide: function () {
                     jQuery('#copyModal').modal('hide');
                 },
+                cut: function() {
+
+                },
                 copy: function() {
-                    if (window.appData.copy.selectedUri == false) {
+
+                },
+                action: function(url) {
+                    if (localData.selectedUri == false) {
                         return;
                     }
-                    jQuery.ajax('/dir-copy/', {
+                    jQuery.ajax(url, {
                         method: 'POST',
                         data: {
-                            'uri_from': window.appData.copy.selectedUri,
-                            'uri_to': window.appData.copy.items
+                            'uri_from': localData.selectedUri,
+                            'uri_to': localData.items
                         },
                         success: function (data) {
                             setTimeout(function() {
-                                window.appData.copy.hide();
+                                localData.hide();
                                 window.appData.explorer.reload();
                             }, 2000);
                             if (data.status) {
-                                window.appData.copy.status = 'Сделано.';
+                                localData.status = 'Сделано.';
                             } else {
-                                window.appData.copy.status = 'Ошибка.';
+                                localData.status = 'Ошибка.';
                             }
                         }
                     });
@@ -98,16 +107,16 @@
             };
             jQuery(function () {
                 jQuery('#copyTree').tree({
-                    dataSource: window.appData.copy.getData,
+                    dataSource: localData.getData,
                     multiSelect: false,
                     folderSelect: true
                 }).on('selected.fu.tree', function (event, data) {
-                    window.appData.copy.selectedUri = data.selected[0].uri;
+                    localData.selectedUri = data.selected[0].uri;
                 }).on('deselected.fu.tree', function (event, data) {
-                    window.appData.copy.selectedUri = false;
+                    localData.selectedUri = false;
                 });
             });
-            return window.appData.copy;
+            return localData;
         },
         mounted() {
         }

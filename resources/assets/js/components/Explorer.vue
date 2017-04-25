@@ -78,7 +78,6 @@
                                     </template>
                                 </template>
                                 <a href="#" class="list-group-item" v-on:click="fileCopy()"><span class="glyphicon glyphicon-arrow-right"></span>&nbsp;&nbsp;Переместить</a>
-                                <a href="#" class="list-group-item" v-on:click="fileCopy()"><span class="glyphicon glyphicon-duplicate"></span>&nbsp;&nbsp;Копировать</a>
                                 <a href="#" class="list-group-item"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;В новую папку</a>
                                 <a href="#" class="list-group-item"><span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;Удалить</a>
                             </div>
@@ -93,13 +92,13 @@
 <script>
     export default {
         data: function () {
-            window.appData.explorer = {
+            var localData = window.appData.explorer = {
                 uri: '',
                         path: [],
                         items: [],
                         itemsChecked: [],
                         reload: function () {
-                    window.appData.explorer.getData(window.appData.explorer.uri);
+                    localData.getData(localData.uri);
                 },
                 getData: function (uri) {
                     jQuery.ajax('/dir-list/' + uri, {
@@ -110,8 +109,8 @@
                                 data.items[i].uri = data.uri ? data.uri + '/' + data.items[i].name : data.items[i].name;
                                 data.items[i].dir = data.uri;
                             }
-                            window.appData.explorer.items = data.items;
-                            window.appData.explorer.uri = data.uri;
+                            localData.items = data.items;
+                            localData.uri = data.uri;
 
                             var path = [], uriTmp = '', uriArr = data.uri.split('/');
                             for (i in uriArr) {
@@ -125,8 +124,8 @@
                                 });
                                 uriTmp += '/';
                             }
-                            window.appData.explorer.path = path;
-                            window.appData.explorer.unchecked();
+                            localData.path = path;
+                            localData.unchecked();
                         }
                     });
                 },
@@ -135,30 +134,38 @@
                     return false;
                 },
                 playVideo: function () {
-                    window.appData.rc.playVideo(window.appData.explorer.itemsChecked[0].uri);
+                    window.appData.rc.playVideo(localData.itemsChecked[0].uri);
                 },
                 unchecked: function() {
-                    window.appData.explorer.itemsChecked = [];
+                    localData.itemsChecked = [];
                 },
                 fileRename: function() {
-                    if (window.appData.explorer.itemsChecked.length != 1) {
-                        window.appData.rename.status = 'Не знаю как переименовывать ' + window.appData.explorer.itemsChecked.length + ' файлов.';
+                    if (localData.itemsChecked.length != 1) {
+                        window.appData.rename.status = 'Не знаю как переименовывать ' + localData.itemsChecked.length + ' файлов.';
                         window.appData.rename.show();
                         return;
                     }
                     window.appData.rename.status = '';
-                    var item = window.appData.explorer.itemsChecked[0];
+                    var item = localData.itemsChecked[0];
                     window.appData.rename.oldName = item.name;
                     window.appData.rename.newName = item.name;
                     window.appData.rename.dir = item.dir;
                     window.appData.rename.show();
                 },
                 fileCopy: function() {
+                    if (localData.itemsChecked.length <= 0) {
+                        return;
+                    }
+                    window.appData.copy.status = '';
+                    window.appData.copy.items = [];
+                    for(var i in localData.itemsChecked) {
+                        window.appData.copy.items.push(localData.itemsChecked[i].uri);
+                    }
                     window.appData.copy.show();
                 }
             };
-            window.appData.explorer.getData('');
-            return window.appData.explorer;
+            localData.getData('');
+            return localData;
         },
         mounted() {
         },
