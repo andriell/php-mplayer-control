@@ -32,7 +32,7 @@
                 status: '',
                 run: false,
                 available: function() {
-                    return !localData.run && localData.newDirName && localData.items.length > 1;
+                    return !localData.run && localData.newDirName && localData.items.length > 0;
                 },
                 show: function () {
                     localData.run = false;
@@ -47,7 +47,7 @@
                     }
                     localData.run = true;
                     localData.status = 'Обработка...';
-                    jQuery.ajax('/dir-cut/', {
+                    jQuery.ajax('/dir-new-folder/', {
                         method: 'POST',
                         data: {
                             'uri_from': localData.items,

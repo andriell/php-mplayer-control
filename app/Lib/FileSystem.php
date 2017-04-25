@@ -239,6 +239,13 @@ class FileSystem
         return $this->mvBackupNumbered($uriDir . '/' . $oldFileName, $uriDir . '/' . $newFileName);
     }
 
+    function newFolder($uriFrom, $uriTo)
+    {
+        $to = $this->realPath($uriTo);
+        Shell::exec('mkdir -p 0664 "' . str_replace('"', '', $to) . '"');
+        return $this->mvBackupNumbered($uriFrom, $uriTo);
+    }
+
     /**
      * Переместить или переименовать.
      * Если целевой файл уже существует, то к его названию в конце будет добавлен номер .~n~

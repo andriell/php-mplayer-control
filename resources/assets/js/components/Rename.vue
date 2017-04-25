@@ -42,6 +42,9 @@
                     jQuery('#renameModal').modal('hide');
                 },
                 fileRename: function () {
+                    if (!localData.available()) {
+                        return;
+                    }
                     localData.run = true;
                     localData.status = 'Обработка...';
                     jQuery.ajax('/dir-mv/', {

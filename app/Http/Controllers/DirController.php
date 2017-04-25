@@ -76,6 +76,11 @@ class DirController extends Controller
         return response()->json(['status' => $this->fs->mvBackupNumbered($_POST['uri_from'], $_POST['uri_to'])]);
     }
 
+    function newFolder()
+    {
+        return response()->json(['status' => $this->fs->newFolder($_POST['uri_from'], $_POST['uri_to'])]);
+    }
+
     function copy()
     {
         return response()->json(['status' => $this->fs->cpBackupNumbered($_POST['uri_from'], $_POST['uri_to'])]);
