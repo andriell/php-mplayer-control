@@ -12484,29 +12484,44 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         var localData = window.appData.explorer = {
             uri: '',
+            dirName: 'Диск',
             path: [],
             items: [],
             itemsChecked: [],
+            itemsSize: 0,
             reload: function reload() {
                 localData.getData(localData.uri);
+            },
+            bytesToSize: function bytesToSize(bytes) {
+                var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+                if (bytes == 0) return '0 Byte';
+                var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+                return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
             },
             getData: function getData(uri) {
                 jQuery.ajax('/dir-list/' + uri, {
                     data: {},
                     success: function success(data) {
                         var i;
+                        localData.itemsSize = 0;
                         for (i in data.items) {
                             data.items[i].uri = data.uri ? data.uri + '/' + data.items[i].name : data.items[i].name;
                             data.items[i].dir = data.uri;
+                            localData.itemsSize += data.items[i].size;
                         }
                         localData.items = data.items;
                         localData.uri = data.uri;
-
+                        localData.dirName = 'Диск';
                         var path = [],
                             uriTmp = '',
                             uriArr = data.uri.split('/');
@@ -12520,6 +12535,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                                 uri: uriTmp
                             });
                             uriTmp += '/';
+                            localData.dirName = uriArr[i];
                         }
                         localData.path = path;
                         localData.unchecked();
@@ -34107,7 +34123,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [(_vm.itemsChecked.length > 0) ? [_c('div', {
     staticClass: "list-group"
   }, [(_vm.itemsChecked.length == 1) ? [_vm._l((_vm.itemsChecked), function(item) {
-    return [_c('h4', [_vm._v(_vm._s(item.name))]), _vm._v(" "), _c('p', [_vm._v("Размер: " + _vm._s(item.size))]), _vm._v(" "), _c('p', [_vm._v("Изменен: " + _vm._s(item.date))]), _vm._v(" "), _c('p', [_vm._v("Права: " + _vm._s(item.perms))]), _vm._v(" "), (item.type == 'movie') ? _c('a', {
+    return [_c('h4', [_vm._v(_vm._s(item.name))]), _vm._v(" "), _c('p', [_vm._v("Размер: " + _vm._s(_vm.bytesToSize(item.size)))]), _vm._v(" "), _c('p', [_vm._v("Изменен: " + _vm._s(item.date))]), _vm._v(" "), _c('p', [_vm._v("Права: " + _vm._s(item.perms))]), _vm._v(" "), (item.type == 'movie') ? _c('a', {
       staticClass: "list-group-item",
       attrs: {
         "href": "#"
@@ -34144,7 +34160,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     staticClass: "glyphicon glyphicon-arrow-right"
-  }), _vm._v("  Переместить")]), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2)], 2)] : _vm._e()], 2)])])])])
+  }), _vm._v("  Переместить")]), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2)], 2)] : [_c('h4', [_vm._v(_vm._s(_vm.dirName))]), _vm._v(" "), _c('p', [_vm._v("Файлов: " + _vm._s(_vm.items.length))]), _vm._v(" "), _c('p', [_vm._v("Общий размер: " + _vm._s(_vm.bytesToSize(_vm.itemsSize)))])]], 2)])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "explorer-img-box"

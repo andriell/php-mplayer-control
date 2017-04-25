@@ -67,7 +67,7 @@
                                 <template v-if="itemsChecked.length == 1">
                                     <template v-for="item in itemsChecked">
                                         <h4>{{item.name}}</h4>
-                                        <p>Размер: {{item.size}}</p>
+                                        <p>Размер: {{bytesToSize(item.size)}}</p>
                                         <p>Изменен: {{item.date}}</p>
                                         <p>Права: {{item.perms}}</p>
                                         <a href="#" class="list-group-item" v-on:click="playVideo()"
@@ -82,6 +82,11 @@
                                 <a href="#" class="list-group-item"><span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;Удалить</a>
                             </div>
                         </template>
+                        <template v-else="">
+                            <h4>{{dirName}}</h4>
+                            <p>Файлов: {{items.length}}</p>
+                            <p>Общий размер: {{bytesToSize(itemsSize)}}</p>
+                        </template>
                     </div>
                 </div>
             </div>
@@ -94,24 +99,34 @@
         data: function () {
             var localData = window.appData.explorer = {
                 uri: '',
-                        path: [],
-                        items: [],
-                        itemsChecked: [],
-                        reload: function () {
+                dirName: 'Диск',
+                path: [],
+                items: [],
+                itemsChecked: [],
+                itemsSize: 0,
+                reload: function () {
                     localData.getData(localData.uri);
+                },
+                bytesToSize: function(bytes) {
+                    var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+                    if (bytes == 0) return '0 Byte';
+                    var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+                    return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
                 },
                 getData: function (uri) {
                     jQuery.ajax('/dir-list/' + uri, {
                         data: {},
                         success: function (data) {
                             var i;
+                            localData.itemsSize = 0;
                             for (i in data.items) {
                                 data.items[i].uri = data.uri ? data.uri + '/' + data.items[i].name : data.items[i].name;
                                 data.items[i].dir = data.uri;
+                                localData.itemsSize += data.items[i].size;
                             }
                             localData.items = data.items;
                             localData.uri = data.uri;
-
+                            localData.dirName = 'Диск';
                             var path = [], uriTmp = '', uriArr = data.uri.split('/');
                             for (i in uriArr) {
                                 if (uriArr[i] == '') {
@@ -123,6 +138,7 @@
                                     uri: uriTmp
                                 });
                                 uriTmp += '/';
+                                localData.dirName = uriArr[i];
                             }
                             localData.path = path;
                             localData.unchecked();
