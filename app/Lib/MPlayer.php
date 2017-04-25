@@ -43,7 +43,7 @@ class MPlayer
 
     function isRun()
     {
-        return Shell::system('bash ' . base_path('shell/mplayer_pid.sh'));
+        return Shell::system(base_path('shell/mplayer_pid.sh'));
     }
 
     function command($str)
