@@ -116,6 +116,10 @@ class MPlayer
     function getInfo($prop)
     {
         $r = [];
+        $r['run'] = $this->isRun();
+        if (!$r['run']) {
+            return $r['run'];
+        }
         Shell::exec('> ' . $this->fileOut);
         $lastCommand = '';
         foreach ($prop as $p) {

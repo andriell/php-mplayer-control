@@ -12577,16 +12577,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         var localData = window.appData.rc = {
             length: 0,
+            filename: '',
             timePos: 0,
             timeP: 0,
             volume: 100,
             mute: false,
+            run: false,
             show: function show() {
+                localData.update();
                 jQuery('#tvModal').modal('show');
             },
             playVideo: function playVideo(uri) {
@@ -12602,24 +12609,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             quit: function quit() {
                 jQuery.ajax('/player-quit/');
             },
-            getVolume: function getVolume() {
-                jQuery.ajax('/player-get-volume/', {
+            update: function update() {
+                jQuery.ajax('/player-get-info/', {
                     success: function success(data) {
-                        localData.volume = data.volume;
+                        if (data.run) {
+                            localData.volume = data.filename;
+                            localData.length = data.length;
+                            localData.mute = data.mute == 'yes';
+                            localData.timePos = data.time_pos;
+                            localData.volume = data.volume;
+                            localData.timeP = Math.round(data.time_pos / data.length * 1000000);
+                        } else {
+                            localData.volume = '';
+                            localData.length = 0;
+                            localData.mute = false;
+                            localData.timePos = 0;
+                            localData.volume = 100;
+                            localData.timeP = 0;
+                        }
                     }
                 });
             },
             setVolume: function setVolume() {
                 jQuery.ajax('/player-set-volume/' + localData.volume);
-            },
-            getTimePos: function getTimePos() {
-                jQuery.ajax('/player-get-time-pos/', {
-                    success: function success(data) {
-                        localData.timePos = data.time_pos;
-                        localData.length = data.length;
-                        localData.timeP = Math.round(data.time_pos / data.length * 1000000);
-                    }
-                });
             },
             setTimePos: function setTimePos() {
                 jQuery.ajax('/player-get-time-pos/', {
@@ -12642,6 +12654,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 jQuery.ajax('/player-switch-video/');
             }
         };
+        setInterval(function () {
+            localData.update();
+        }, 60000);
         return localData;
     },
     mounted: function mounted() {}
@@ -34244,7 +34259,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', {
     staticClass: "modal-content"
-  }, [_vm._m(0), _vm._v(" "), _c('div', {
+  }, [_c('div', {
+    staticClass: "modal-header"
+  }, [_vm._m(0), _vm._v(" "), _c('h4', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "myModalLabel"
+    }
+  }, [_vm._v("TV " + _vm._s(_vm.filename))])]), _vm._v(" "), _c('div', {
     staticClass: "modal-body"
   }, [_c('div', {
     staticClass: "row"
@@ -34262,23 +34284,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     staticClass: "glyphicon glyphicon-pause"
-  }), _c('span', {
+  }), _vm._v("/"), _c('span', {
     staticClass: "glyphicon glyphicon-play"
-  })]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-default",
-    attrs: {
-      "type": "button"
-    },
-    on: {
-      "click": function($event) {
-        _vm.switchMute()
-      }
-    }
-  }, [(!_vm.mute) ? _c('span', {
-    staticClass: "glyphicon glyphicon-volume-off"
-  }) : _vm._e(), (_vm.mute) ? _c('span', {
-    staticClass: "glyphicon glyphicon-volume-up"
-  }) : _vm._e()]), _vm._v(" "), _c('button', {
+  })])])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-lg-12 col-md-12 col-sm-12 col-xs-12"
+  }, [_c('button', {
     staticClass: "btn btn-default",
     attrs: {
       "type": "button"
@@ -34325,12 +34337,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     on: {
       "click": function($event) {
-        _vm.getVolume()
+        _vm.switchMute()
       }
     }
-  }, [_c('span', {
+  }, [(!_vm.mute) ? _c('span', {
+    staticClass: "glyphicon glyphicon-volume-off"
+  }) : _vm._e(), _vm._v(" "), (_vm.mute) ? _c('span', {
     staticClass: "glyphicon glyphicon-volume-up"
-  }), _vm._v(" Звук")])]), _vm._v(" "), _c('div', {
+  }) : _vm._e(), _vm._v("\n                            Звук\n                        ")])]), _vm._v(" "), _c('div', {
     staticClass: "col-lg-9 col-md-9 col-sm-9 col-xs-9"
   }, [_c('input', {
     directives: [{
@@ -34359,21 +34373,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })])]), _vm._v(" "), _c('div', {
     staticClass: "row rc-row-time"
   }, [_c('div', {
-    staticClass: "col-lg-3 col-md-3 col-sm-3 col-xs-3"
-  }, [_c('button', {
-    staticClass: "btn btn-default rc-btn-time",
-    attrs: {
-      "type": "button"
-    },
-    on: {
-      "click": function($event) {
-        _vm.getTimePos()
-      }
-    }
-  }, [_c('span', {
-    staticClass: "glyphicon glyphicon-time"
-  }), _vm._v(" Время")])]), _vm._v(" "), _c('div', {
-    staticClass: "col-lg-9 col-md-9 col-sm-9 col-xs-9"
+    staticClass: "col-lg-12 col-md-12 col-sm-12 col-xs-12"
   }, [_c('input', {
     directives: [{
       name: "model",
@@ -34400,9 +34400,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })])]), _vm._v(" "), _vm._m(1)])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "modal-header"
-  }, [_c('button', {
+  return _c('button', {
     staticClass: "close",
     attrs: {
       "type": "button",
@@ -34411,12 +34409,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     staticClass: "glyphicon glyphicon-remove"
-  })]), _vm._v(" "), _c('h4', {
-    staticClass: "modal-title",
-    attrs: {
-      "id": "myModalLabel"
-    }
-  }, [_vm._v("TV")])])
+  })])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "row text-center"

@@ -51,27 +51,18 @@ class MPlayerController extends Controller
         $this->player->quit();
     }
 
-    public function getVolume()
-    {
-        return response()->json(['volume' => $this->player->getVolume()]);
-    }
-
     public function setVolume($volume)
     {
         $this->player->setVolume($volume);
     }
 
-    public function getLength()
-    {
-        return response()->json(['length' => $this->player->getLength()]);
-    }
 
     public function getTimePos()
     {
-        return response()->json([
-            'time_pos' => $this->player->getTimePos(),
-            'length' => $this->player->getLength(),
-        ]);
+        return response()->json($this->player->getInfo([
+            'length',
+            'time_pos',
+        ]));
     }
 
     public function setTimePos($timePos)
@@ -106,12 +97,12 @@ class MPlayerController extends Controller
 
     public function getInfo()
     {
-        return response()->json(['resp' => $this->player->getInfo([
+        return response()->json($this->player->getInfo([
             'filename',
             'length',
             'mute',
             'time_pos',
             'volume',
-        ])]);
+        ]));
     }
 }
