@@ -303,7 +303,7 @@ class FileSystem
         $uri = is_array($uri) ? $uri : [$uri];
         $i = 0;
         foreach ($uri as $u) {
-            $realPath = $this->realPath($uri);
+            $realPath = $this->realPath($u);
             Shell::exec('rm -rv "' . str_replace('"', '', $realPath) . '"');
             $i++;
         }
