@@ -126,10 +126,22 @@ class MPlayer
             'volume',
             'mute',
         ];
-        $r = [];
+
+        Shell::exec('> ' . $this->fileOut);
         foreach ($prop as $p) {
-            $r[$p] = $this->getProperty($p);
+            Shell::exec('printf "pausing_keep get_property ' . $p . '\n" > ' . $this->fileFifo);
         }
+
+        $r = '';
+        for ($i = 0; $i < 20; $i++) {
+            $r = Shell::exec('cat ' . $this->fileOut . ' | tr -d " \t\n\r\0"');
+            if ($r) {
+                break;
+            }
+            usleep(100000);
+        }
+
+        return $r;
     }
 
     function pause()

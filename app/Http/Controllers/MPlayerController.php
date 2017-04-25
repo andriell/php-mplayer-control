@@ -101,4 +101,8 @@ class MPlayerController extends Controller
     public function getAllProperty() {
         return response()->json(['resp' => $this->player->getAllProperty()]);
     }
+
+    public function getInfo() {
+        return response()->json(['resp' => $this->player->getInfo()]);
+    }
 }
