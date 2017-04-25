@@ -51,7 +51,7 @@
                 status: false,
                 run: false,
                 available: function() {
-                    return !localData.run && localData.selectedUri && localData.items.length > 0 && localData.selectedUri != localData.currentDir;
+                    return !localData.run && localData.selectedUri !== false && localData.items.length > 0 && localData.selectedUri != localData.currentDir;
                 },
                 getData: function (openedParentData, callback) {
                     if (typeof openedParentData['uri'] == 'undefined') {
