@@ -41,7 +41,7 @@ class FileSystem
      */
     private function normalizeUri($uri)
     {
-        $uri = preg_replace('#[\\\\/"\']+#', '/', $uri);
+        $uri = preg_replace('#[\\\\/]+#', '/', $uri);
         $uri = preg_replace('#/[\\.]+/#', '/', $uri);
         return ltrim($uri, '/');
     }
