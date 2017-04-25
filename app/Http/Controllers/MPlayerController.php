@@ -109,12 +109,10 @@ class MPlayerController extends Controller
         return response()->json(['resp' => $this->player->getInfo([
             'pause',
             'filename',
-            'stream_pos',
-            'stream_start',
             'length',
+            'mute',
             'time_pos',
             'volume',
-            'mute',
         ])]);
     }
 }
