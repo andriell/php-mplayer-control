@@ -12296,8 +12296,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             items: [],
             selectedUri: false,
             status: false,
+            run: false,
             available: function available() {
-                return localData.selectedUri && localData.items.length > 0;
+                return !localData.run && localData.selectedUri && localData.items.length > 0;
             },
             getData: function getData(openedParentData, callback) {
                 var uri = typeof openedParentData['uri'] == 'undefined' ? '' : openedParentData.uri;
@@ -12318,6 +12319,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 });
             },
             show: function show() {
+                localData.run = false;
                 jQuery('#copyModal').modal('show');
             },
             hide: function hide() {
@@ -12333,6 +12335,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 if (localData.selectedUri == false) {
                     return;
                 }
+                localData.run = true;
+                localData.status = 'Обработка...';
                 jQuery.ajax(url, {
                     method: 'POST',
                     data: {
@@ -12345,10 +12349,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                             window.appData.explorer.reload();
                         }, 2000);
                         if (data.status) {
-                            localData.status = 'Сделано.';
+                            localData.status = 'Сделано';
                         } else {
-                            localData.status = 'Ошибка.';
+                            localData.status = 'Ошибка';
                         }
+                    },
+                    complete: function complete(jqXHR, textStatus) {
+                        localData.run = false;
                     }
                 });
             }
@@ -15185,13 +15192,7 @@ if (typeof jQuery === 'undefined') {
 
 
 /***/ }),
-/* 38 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(8)();
-exports.push([module.i, "\n.tree-selected > .tree-branch-header {\n    color: #FFFFFF;\n    background-color: #428bca;\n}\n", ""]);
-
-/***/ }),
+/* 38 */,
 /* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -33354,10 +33355,6 @@ process.umask = function() { return 0; };
 /* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
-
-/* styles */
-__webpack_require__(52)
-
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(32),
@@ -34162,32 +34159,7 @@ if (false) {
 }
 
 /***/ }),
-/* 52 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(38);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(10)("0a63d9cc", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-7cb47266\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Copy.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-7cb47266\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Copy.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
+/* 52 */,
 /* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 

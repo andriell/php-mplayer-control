@@ -48,8 +48,9 @@
                 items: [],
                 selectedUri: false,
                 status: false,
+                run: false,
                 available: function() {
-                    return localData.selectedUri && localData.items.length > 0;
+                    return !localData.run && localData.selectedUri && localData.items.length > 0;
                 },
                 getData: function (openedParentData, callback) {
                     var uri = (typeof openedParentData['uri'] == 'undefined') ? '' : openedParentData.uri;
@@ -70,6 +71,7 @@
                     });
                 },
                 show: function () {
+                    localData.run = false;
                     jQuery('#copyModal').modal('show');
                 },
                 hide: function () {
@@ -85,6 +87,8 @@
                     if (localData.selectedUri == false) {
                         return;
                     }
+                    localData.run = true;
+                    localData.status = 'Обработка...';
                     jQuery.ajax(url, {
                         method: 'POST',
                         data: {
@@ -97,10 +101,13 @@
                                 window.appData.explorer.reload();
                             }, 2000);
                             if (data.status) {
-                                localData.status = 'Сделано.';
+                                localData.status = 'Сделано';
                             } else {
-                                localData.status = 'Ошибка.';
+                                localData.status = 'Ошибка';
                             }
+                        },
+                        complete: function(jqXHR, textStatus ) {
+                            localData.run = false;
                         }
                     });
                 }
@@ -122,10 +129,5 @@
         }
     }
 </script>
-<style>
-    .tree-selected > .tree-branch-header {
-        color: #FFFFFF;
-        background-color: #428bca;
-    }
-</style>
+
 

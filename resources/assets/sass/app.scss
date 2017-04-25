@@ -101,3 +101,10 @@ body {
     margin: auto;
   }
 }
+
+.copy {
+  .tree-selected > .tree-branch-header {
+    color: #FFFFFF;
+    background-color: #428bca;
+  }
+}
