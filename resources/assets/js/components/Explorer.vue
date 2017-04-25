@@ -156,6 +156,7 @@
                     if (localData.itemsChecked.length <= 0) {
                         return;
                     }
+                    window.appData.copy.currentDir = localData.uri;
                     window.appData.copy.status = '';
                     window.appData.copy.items = [];
                     for(var i in localData.itemsChecked) {

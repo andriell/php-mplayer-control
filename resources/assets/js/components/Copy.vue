@@ -45,15 +45,26 @@
     export default {
         data: function () {
             var localData = window.appData.copy = {
+                currentDir: '',
                 items: [],
                 selectedUri: false,
                 status: false,
                 run: false,
                 available: function() {
-                    return !localData.run && localData.selectedUri && localData.items.length > 0;
+                    return !localData.run && localData.selectedUri && localData.items.length > 0 && localData.selectedUri != localData.currentDir;
                 },
                 getData: function (openedParentData, callback) {
-                    var uri = (typeof openedParentData['uri'] == 'undefined') ? '' : openedParentData.uri;
+                    if (typeof openedParentData['uri'] == 'undefined') {
+                        callback({
+                            data: [{
+                                'name': 'Диск',
+                                'type': 'folder',
+                                'uri': ''
+                            }]
+                        });
+                        return;
+                    }
+                    var uri = openedParentData.uri;
                     jQuery.ajax('/dir-only-dir/' + uri, {
                         success: function (data) {
                             var r = [];
@@ -96,10 +107,6 @@
                             'uri_to': localData.selectedUri
                         },
                         success: function (data) {
-                            setTimeout(function() {
-                                localData.hide();
-                                window.appData.explorer.reload();
-                            }, 2000);
                             if (data.status) {
                                 localData.status = 'Сделано';
                             } else {
@@ -107,7 +114,11 @@
                             }
                         },
                         complete: function(jqXHR, textStatus ) {
-                            localData.run = false;
+                            setTimeout(function() {
+                                localData.run = false;
+                                localData.hide();
+                                window.appData.explorer.reload();
+                            }, 2000);
                         }
                     });
                 }

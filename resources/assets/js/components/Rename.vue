@@ -52,10 +52,6 @@
                             'new_name': localData.newName
                         },
                         success: function (data) {
-                            setTimeout(function() {
-                                localData.hide();
-                                window.appData.explorer.reload();
-                            }, 2000);
                             if (data.status) {
                                 localData.oldName = localData.newName;
                                 localData.status = 'Переименовано';
@@ -64,7 +60,11 @@
                             }
                         },
                         complete: function(jqXHR, textStatus ) {
-                            localData.run = false;
+                            setTimeout(function() {
+                                localData.run = false;
+                                localData.hide();
+                                window.appData.explorer.reload();
+                            }, 2000);
                         }
                     });
                 }
