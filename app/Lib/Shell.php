@@ -13,8 +13,8 @@ class Shell
 {
     static function execR($str) {
         self::log($str);
-        exec($str, $r);
-        return $r;
+        exec($str, $r, $r2);
+        return [$r, $r2];
     }
 
     static function exec($str) {
