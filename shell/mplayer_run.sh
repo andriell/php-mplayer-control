@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 killall mplayer
 rm -rf "$3"
