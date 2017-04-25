@@ -35,7 +35,7 @@ class MPlayer
         Shell::exec('rm -rf ' . $this->fileOut);
         Shell::exec('rm -rf ' . $this->fileFifo);
         Shell::exec('mkfifo ' . $this->fileFifo . ' -m 0644');
-        $str = 'export DISPLAY=:0.0 && mplayer -quiet -fs -slave -input file=' . $this->fileFifo . ' "' . str_replace('"', '', $file) . '"  > ' . $this->fileOut . ' 2> /dev/null &';
+        $str = 'export DISPLAY=:0.0 && mplayer -ao alsa:device=hw=0.3 -quiet -fs -slave -input file=' . $this->fileFifo . ' "' . str_replace('"', '', $file) . '"  > ' . $this->fileOut . ' 2> /dev/null &';
         //$str = 'export DISPLAY=:0.0 && mplayer -really-quiet -noconsolecontrols -fs -slave -input file=' . $this->fileFifo . ' ' . $file . '  > ' . $this->fileOut . ' 2> /dev/null &';
         Shell::exec($str);
         Shell::exec('chmod 0644 ' . $this->fileOut);
