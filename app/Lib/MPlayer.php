@@ -113,34 +113,31 @@ class MPlayer
         return $r;
     }
 
-    function getInfo() {
-        $prop = [
-            'pause',
-            'filename',
-            'path',
-            'demuxer',
-            'stream_pos',
-            'stream_start',
-            'length',
-            'time_pos',
-            'volume',
-            'mute',
-        ];
-
+    function getInfo($prop)
+    {
         Shell::exec('> ' . $this->fileOut);
+        $lastCommand = '';
         foreach ($prop as $p) {
-            Shell::exec('printf "pausing_keep get_property ' . $p . '\n" > ' . $this->fileFifo);
+            Shell::exec('printf "pausing_keep get_property ' . str_replace('"', '', $p) . '\n" > ' . $this->fileFifo);
+            $lastCommand = $p;
         }
 
-        $r = '';
+        $resp = '';
         for ($i = 0; $i < 20; $i++) {
-            $r = Shell::exec('cat ' . $this->fileOut . ' | tr -d " \t\n\r\0"');
-            if ($r) {
+            $resp = Shell::exec('cat ' . $this->fileOut . ' | tr -d " \t\n\r\0"');
+            if (strpos($resp, 'ANS_' . $lastCommand)) {
                 break;
             }
             usleep(100000);
         }
 
+        $nameValueStr = explode('ANS_', $resp);
+
+        $r = [];
+        foreach ($nameValueStr as $nv) {
+            list($name, $value) = explode('=', $nv, 2);
+            $r[$name] = $value;
+        }
         return $r;
     }
 
@@ -156,7 +153,7 @@ class MPlayer
 
     function getLength()
     {
-        return (int) $this->getProperty('length');
+        return (int)$this->getProperty('length');
     }
 
     /**
@@ -172,7 +169,7 @@ class MPlayer
      */
     function getVolume()
     {
-        return (int) $this->getProperty('volume');
+        return (int)$this->getProperty('volume');
     }
 
     /**
@@ -220,7 +217,7 @@ class MPlayer
      */
     function getTimePos()
     {
-        return (int) $this->getProperty('time_pos');
+        return (int)$this->getProperty('time_pos');
     }
 
     function switchAudio()

@@ -94,15 +94,29 @@ class MPlayerController extends Controller
         $this->player->switchVideo();
     }
 
-    public function command() {
+    public function command()
+    {
         return response()->json(['resp' => $this->player->commandGet($_GET['exec'])]);
     }
 
-    public function getAllProperty() {
+    public function getAllProperty()
+    {
         return response()->json(['resp' => $this->player->getAllProperty()]);
     }
 
-    public function getInfo() {
-        return response()->json(['resp' => $this->player->getInfo()]);
+    public function getInfo()
+    {
+        return response()->json(['resp' => $this->player->getInfo([
+            'pause',
+            'filename',
+            'path',
+            'demuxer',
+            'stream_pos',
+            'stream_start',
+            'length',
+            'time_pos',
+            'volume',
+            'mute',
+        ])]);
     }
 }
