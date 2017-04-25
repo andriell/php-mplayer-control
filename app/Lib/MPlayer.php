@@ -115,10 +115,12 @@ class MPlayer
 
     function getInfo($prop)
     {
+        $r = [];
         Shell::exec('> ' . $this->fileOut);
         $lastCommand = '';
         foreach ($prop as $p) {
             Shell::exec('printf "pausing_keep get_property ' . str_replace('"', '', $p) . '\n" > ' . $this->fileFifo);
+            $r[$p] = '';
             $lastCommand = $p;
         }
 
@@ -133,7 +135,6 @@ class MPlayer
 
         $nameValueStr = explode('ANS_', $resp);
 
-        $r = [];
         foreach ($nameValueStr as $nv) {
             $nv = explode('=', $nv, 2);
             if (!is_array($nv)) {
@@ -141,12 +142,11 @@ class MPlayer
             }
             if (count($nv) == 2) {
                 $r[$nv[0]] = $nv[1];
-            } elseif (count($nv) == 1) {
+            } elseif (count($nv) == 1 && $nv[0]) {
                 $r[$nv[0]] = false;
             }
-
         }
-        return [$nameValueStr, $resp, $r];
+        return $r;
     }
 
     function pause()
