@@ -243,6 +243,9 @@ class FileSystem
     {
         $to = $this->realPath($uriTo);
         Shell::exec('mkdir -p 0664 "' . str_replace('"', '', $to) . '"');
+        if (empty($uriFrom)) {
+            return true;
+        }
         return $this->mvBackupNumbered($uriFrom, $uriTo);
     }
 

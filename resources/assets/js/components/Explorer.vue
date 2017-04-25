@@ -78,7 +78,7 @@
                                     </template>
                                 </template>
                                 <a href="#" class="list-group-item" v-on:click="fileCopy()"><span class="glyphicon glyphicon-arrow-right"></span>&nbsp;&nbsp;Переместить</a>
-                                <a href="#" class="list-group-item" v-on:click="newFolder()"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;В новую папку</a>
+                                <a href="#" class="list-group-item" v-on:click="toNewFolder()"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;В новую папку</a>
                                 <a href="#" class="list-group-item"><span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;Удалить</a>
                             </div>
                         </template>
@@ -86,6 +86,9 @@
                             <h4>{{dirName}}</h4>
                             <p>Файлов: {{items.length}}</p>
                             <p>Общий размер: {{bytesToSize(itemsSize)}}</p>
+                            <div class="list-group">
+                                <a href="#" class="list-group-item" v-on:click="newFolder()"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;Новая папка</a>
+                            </div>
                         </template>
                     </div>
                 </div>
@@ -180,17 +183,20 @@
                     }
                     window.appData.copy.show();
                 },
-                newFolder: function() {
+                toNewFolder: function() {
                     if (localData.itemsChecked.length <= 0) {
                         return;
                     }
-                    window.appData.folder.currentDir = localData.uri;
-                    window.appData.folder.status = '';
-                    window.appData.folder.items = [];
+                    window.appData.toNewFolder.currentDir = localData.uri;
+                    window.appData.toNewFolder.status = '';
+                    window.appData.toNewFolder.items = [];
                     for(var i in localData.itemsChecked) {
-                        window.appData.folder.items.push(localData.itemsChecked[i].uri);
+                        window.appData.toNewFolder.items.push(localData.itemsChecked[i].uri);
                     }
-                    window.appData.folder.show();
+                    window.appData.toNewFolder.show();
+                },
+                newFolder: function() {
+                    window.appData.newFolder.show();
                 }
             };
             localData.getData('');

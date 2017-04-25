@@ -1,13 +1,14 @@
 <template>
-    <div class="modal fade new-folder" id="newFolderModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal fade new-folder" id="toNewFolderModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove"></span></button>
-                    <h4 class="modal-title" id="myModalLabel">Новая папка</h4>
+                    <h4 class="modal-title" id="myModalLabel">Поместить в новую папку</h4>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
+                        <label for="renameModalFileName">Папка:</label>
                         <input type="text" class="form-control" id="renameModalFileName" v-model="newDirName">
                     </div>
                     <div class="form-group">{{status}}</div>
@@ -24,21 +25,21 @@
 <script>
     export default {
         data: function () {
-            var localData = window.appData.newFolder = {
+            var localData = window.appData.toNewFolder = {
                 currentDir: '',
                 newDirName: '',
+                items: [],
                 status: '',
                 run: false,
                 available: function() {
-                    return !localData.run && localData.newDirName;
+                    return !localData.run && localData.newDirName && localData.items.length > 0;
                 },
                 show: function () {
                     localData.run = false;
-                    localData.newDirName = '';
-                    jQuery('#newFolderModal').modal('show');
+                    jQuery('#toNewFolderModal').modal('show');
                 },
                 hide: function () {
-                    jQuery('#newFolderModal').modal('hide');
+                    jQuery('#toNewFolderModal').modal('hide');
                 },
                 newFolder: function () {
                     if (!localData.available()) {
@@ -49,7 +50,7 @@
                     jQuery.ajax('/dir-new-folder/', {
                         method: 'POST',
                         data: {
-                            'uri_from': false,
+                            'uri_from': localData.items,
                             'uri_to': localData.currentDir + '/' + localData.newDirName
                         },
                         success: function (data) {
