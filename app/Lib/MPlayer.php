@@ -43,7 +43,7 @@ class MPlayer
 
     function isRun()
     {
-        return (bool)Shell::exec('pidof mplayer');
+        return (bool) Shell::exec('pidof mplayer');
     }
 
     function command($str)
@@ -118,7 +118,7 @@ class MPlayer
         $r = [];
         $r['run'] = $this->isRun();
         if (!$r['run']) {
-            return $r['run'];
+            return $r;
         }
         Shell::exec('> ' . $this->fileOut);
         $lastCommand = '';
