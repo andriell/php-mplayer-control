@@ -43720,6 +43720,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     complete: function complete(jqXHR, textStatus) {
                         setTimeout(function () {
                             localData.run = false;
+                            localData.newDirName = '';
                             localData.hide();
                             window.appData.explorer.reload();
                         }, 2000);

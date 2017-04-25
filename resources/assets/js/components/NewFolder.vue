@@ -63,6 +63,7 @@
                         complete: function(jqXHR, textStatus ) {
                             setTimeout(function() {
                                 localData.run = false;
+                                localData.newDirName = '';
                                 localData.hide();
                                 window.appData.explorer.reload();
                             }, 2000);
