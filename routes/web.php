@@ -38,8 +38,7 @@ Route::get('/player-set-time-pos/{timePos}', 'MPlayerController@setTimePos')->wh
 Route::get('/player-set-mute/{mute}', 'MPlayerController@setMute')->where(['mute' => '[tf]']);
 Route::get('/player-switch-audio/', 'MPlayerController@switchAudio');
 Route::get('/player-switch-video/', 'MPlayerController@switchVideo');
-//Route::get('/player-command/', 'MPlayerController@command')->name('player_command');
-//Route::get('/player-command-get/', 'MPlayerController@command')->name('player_command');
+Route::get('/player-command/', 'MPlayerController@command');
 Route::get('/player-all-property/', 'MPlayerController@getAllProperty');
 
 Auth::routes();

@@ -113,6 +113,25 @@ class MPlayer
         return $r;
     }
 
+    function getInfo() {
+        $prop = [
+            'pause',
+            'filename',
+            'path',
+            'demuxer',
+            'stream_pos',
+            'stream_start',
+            'length',
+            'time_pos',
+            'volume',
+            'mute',
+        ];
+        $r = [];
+        foreach ($prop as $p) {
+            $r[$p] = $this->getProperty($p);
+        }
+    }
+
     function pause()
     {
         $this->command('pause');
