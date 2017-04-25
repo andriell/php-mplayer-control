@@ -80,14 +80,6 @@ class FileSystemOverride
         return $info;
     }
 
-    public function realpath($str)
-    {
-        if (empty($this->fileSystemEncoding)) {
-            return realpath($str);
-        }
-        return iconv($this->fileSystemEncoding, 'UTF-8', realpath(iconv('UTF-8', $this->fileSystemEncoding, $str)));
-    }
-
     public function is_dir($str)
     {
         if (empty($this->fileSystemEncoding)) {

@@ -41,19 +41,11 @@ class FileSystem
      */
     private function normalizeUri($uri)
     {
-        $uri = trim(preg_replace('#[\\\\/]+#', '/', $uri), '/');
-        if (empty($uri)) {
-            return '';
-        }
-        $r = $this->override->realpath($this->mediaDir . '/' . $uri);
-        if (DIRECTORY_SEPARATOR != '/') {
-            $r = str_replace(DIRECTORY_SEPARATOR, '/', $r);
-        }
-        if (strpos($r, $this->mediaDir) === 0) {
-            return substr($r, strlen($this->mediaDir) + 1);
-        }
-        return false;
+        $uri = preg_replace('#[\\\\/]+#', '/', $uri);
+        $uri = preg_replace('#/[\\.]+/#', '/', $uri);
+        return ltrim($uri, '/');
     }
+
 
     /**
      * Возвращает нормальзованный абсолютный путь удаляя из него /../.
@@ -244,20 +236,7 @@ class FileSystem
      */
     function fileRename($uriDir, $oldFileName, $newFileName)
     {
-        $realPathDir = $this->realPath($uriDir);
-        if (empty($realPathDir)) {
-            return false;
-        }
-        $realPathFile = $this->realPath($uriDir . '/' . $oldFileName);
-        if (empty($realPathFile)) {
-            return false;
-        }
-        $newFileName = preg_replace('#\\\\/#', '-', $newFileName);
-
-        // --backup=numbered при совпадении имен нумеровать
-        shell_exec('mv --backup=numbered "' . $realPathFile . '" "' . $realPathDir . '/' . $newFileName . '"');
-
-        return true;
+        return $this->mvBackupNumbered($uriDir . '/' . $oldFileName, $uriDir . '/' . $newFileName);
     }
 
     /**
@@ -269,7 +248,7 @@ class FileSystem
      */
     function mvBackupNumbered($uriFrom, $uriTo)
     {
-        $to = $this->realPath($uriTo);
+        $to = $this->escapePath($uriTo);
         if (empty($to)) {
             return false;
         }
@@ -296,7 +275,7 @@ class FileSystem
      */
     function cpBackupNumbered($uriFrom, $uriTo)
     {
-        $to = $this->realPath($uriTo);
+        $to = $this->escapePath($uriTo);
         if (empty($to)) {
             return false;
         }
