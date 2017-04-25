@@ -71,6 +71,16 @@ class DirController extends Controller
         return response()->json(['status' => $this->fs->fileRename($_POST['uri_dir'], $_POST['old_name'], $_POST['new_name'])]);
     }
 
+    function cut()
+    {
+        return response()->json(['status' => $this->fs->mvBackupNumbered($_POST['uri_from'], $_POST['uri_to'])]);
+    }
+
+    function copy()
+    {
+        return response()->json(['status' => $this->fs->cpBackupNumbered($_POST['uri_from'], $_POST['uri_to'])]);
+    }
+
     function onlyDir(Request $request, $uri = '') {
         $r = [];
         $list = $this->fs->readDir($uri, ['name'], ['only_dir' => true]);

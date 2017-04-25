@@ -12323,8 +12323,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             hide: function hide() {
                 jQuery('#copyModal').modal('hide');
             },
-            cut: function cut() {},
-            copy: function copy() {},
+            cut: function cut() {
+                localData.action('/dir-cut/');
+            },
+            copy: function copy() {
+                localData.action('/dir-copy/');
+            },
             action: function action(url) {
                 if (localData.selectedUri == false) {
                     return;
@@ -12332,8 +12336,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 jQuery.ajax(url, {
                     method: 'POST',
                     data: {
-                        'uri_from': localData.selectedUri,
-                        'uri_to': localData.items
+                        'uri_from': localData.items,
+                        'uri_to': localData.selectedUri
                     },
                     success: function success(data) {
                         setTimeout(function () {

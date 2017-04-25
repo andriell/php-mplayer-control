@@ -22,6 +22,8 @@ Route::get('/dir-img-100x100/{uri}', 'DirController@img')->where(['uri' => '[\s\
 Route::get('/dir-download/{uri}', 'DirController@download')->where(['uri' => '[\s\S]+']);
 Route::get('/dir-only-dir/{uri?}', 'DirController@onlyDir')->where(['uri' => '[\s\S]+']);
 Route::post('/dir-mv/', 'DirController@mv');
+Route::post('/dir-cut/', 'DirController@cut');
+Route::post('/dir-copy/', 'DirController@copy');
 
 Route::get('/player-play-video/{uri}', 'MPlayerController@playVideo')->where(['uri' => '[\s\S]+']);
 Route::get('/player-pause/', 'MPlayerController@pause');

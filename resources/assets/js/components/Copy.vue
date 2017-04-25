@@ -76,10 +76,10 @@
                     jQuery('#copyModal').modal('hide');
                 },
                 cut: function() {
-
+                    localData.action('/dir-cut/');
                 },
                 copy: function() {
-
+                    localData.action('/dir-copy/');
                 },
                 action: function(url) {
                     if (localData.selectedUri == false) {
@@ -88,8 +88,8 @@
                     jQuery.ajax(url, {
                         method: 'POST',
                         data: {
-                            'uri_from': localData.selectedUri,
-                            'uri_to': localData.items
+                            'uri_from': localData.items,
+                            'uri_to': localData.selectedUri
                         },
                         success: function (data) {
                             setTimeout(function() {
