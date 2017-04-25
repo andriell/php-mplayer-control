@@ -146,7 +146,7 @@ class MPlayer
             }
 
         }
-        return $r;
+        return [$nameValueStr, $resp, $r];
     }
 
     function pause()
