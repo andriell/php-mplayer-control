@@ -7,12 +7,12 @@
                     <h4 class="modal-title" id="myModalLabel">TV {{filename}}</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="row">
+                    <div class="row rc-row-play">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <button type="button" class="btn btn-default" v-on:click="pause()"><span class="glyphicon glyphicon-pause"></span>/<span class="glyphicon glyphicon-play"></span></button>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row rc-row-button1">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <button type="button" class="btn btn-default" v-on:click="switchAudio()"><span class="glyphicon glyphicon-music"></span> Переключить звук</button>
                             <button type="button" class="btn btn-default" v-on:click="switchVideo()"><span class="glyphicon glyphicon-facetime-video"></span> Переключить видео</button>
@@ -127,17 +127,3 @@
         }
     }
 </script>
-
-
-<style>
-    .rc .modal-content {
-        width: 550px;
-    }
-    .rc .row {
-        padding: 5px;
-    }
-    .rc .rc-btn-sound,
-    .rc .rc-btn-time {
-        width: 100px;
-    }
-</style>

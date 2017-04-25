@@ -102,9 +102,35 @@ body {
   }
 }
 
+.rc {
+  .modal-content {
+    width: 440px;
+  }
+  .row {
+    padding: 5px;
+  }
+  .rc-row-play button {
+    font-size: 50px;
+  }
+  .rc-row-play div {
+    text-align: center;
+  }
+  .rc-btn-sound,
+  .rc-btn-time {
+    width: 100px;
+  }
+  .rc-row-sound input {
+    margin: 8px 0;
+  }
+  .rc-row-sound div {
+    height: 36px;
+  }
+}
+
 .copy {
   .tree-selected > .tree-branch-header {
     color: #FFFFFF;
     background-color: #428bca;
   }
 }
+
