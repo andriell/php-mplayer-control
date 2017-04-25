@@ -135,8 +135,16 @@ class MPlayer
 
         $r = [];
         foreach ($nameValueStr as $nv) {
-            list($name, $value) = explode('=', $nv, 2);
-            $r[$name] = $value;
+            $nv = explode('=', $nv, 2);
+            if (!is_array($nv)) {
+                continue;
+            }
+            if (count($nv) == 2) {
+                $r[$nv[0]] = $nv[1];
+            } elseif (count($nv) == 1) {
+                $r[$nv[0]] = false;
+            }
+
         }
         return $r;
     }
