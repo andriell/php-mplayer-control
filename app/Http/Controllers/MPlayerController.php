@@ -107,7 +107,6 @@ class MPlayerController extends Controller
     public function getInfo()
     {
         return response()->json(['resp' => $this->player->getInfo([
-            'pause',
             'filename',
             'length',
             'mute',
