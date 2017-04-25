@@ -44,7 +44,7 @@
 <script>
     export default {
         data: function () {
-            window.appData.rc = {
+            var localData = window.appData.rc = {
                 length: 0,
                         timePos: 0,
                         timeP: 0,
@@ -56,7 +56,7 @@
                 playVideo: function (uri) {
                     jQuery.ajax('/player-play-video/' + uri, {
                         success: function (data) {
-                            window.appData.rc.show();
+                            localData.show();
                         }
                     });
                 },
@@ -69,35 +69,35 @@
                 getVolume: function () {
                     jQuery.ajax('/player-get-volume/', {
                         success: function (data) {
-                            window.appData.rc.volume = data.volume;
+                            localData.volume = data.volume;
                         }
                     });
                 },
                 setVolume: function () {
-                    jQuery.ajax('/player-set-volume/' + window.appData.rc.volume);
+                    jQuery.ajax('/player-set-volume/' + localData.volume);
                 },
                 getTimePos: function () {
                     jQuery.ajax('/player-get-time-pos/', {
                         success: function (data) {
-                            window.appData.rc.timePos = data.time_pos;
-                            window.appData.rc.length = data.length;
-                            window.appData.rc.timeP = Math.round((data.time_pos / data.length) * 1000000);
+                            localData.timePos = data.time_pos;
+                            localData.length = data.length;
+                            localData.timeP = Math.round((data.time_pos / data.length) * 1000000);
                         }
                     });
                 },
                 setTimePos: function () {
                     jQuery.ajax('/player-get-time-pos/', {
                         success: function (data) {
-                            window.appData.rc.timePos = data.time_pos;
-                            window.appData.rc.length = data.length;
+                            localData.timePos = data.time_pos;
+                            localData.length = data.length;
 
-                            jQuery.ajax('/player-set-time-pos/' + Math.round((window.appData.rc.timeP / 1000000) * data.length));
+                            jQuery.ajax('/player-set-time-pos/' + Math.round((localData.timeP / 1000000) * data.length));
                         }
                     });
                 },
                 switchMute: function () {
-                    window.appData.rc.mute = !window.appData.rc.mute;
-                    jQuery.ajax('/player-set-mute/' + (window.appData.rc.mute ? 't' : 'f'));
+                    localData.mute = !localData.mute;
+                    jQuery.ajax('/player-set-mute/' + (localData.mute ? 't' : 'f'));
                 },
                 switchAudio: function () {
                     jQuery.ajax('/player-switch-audio/');
@@ -106,7 +106,7 @@
                     jQuery.ajax('/player-switch-video/');
                 }
             };
-            return window.appData.rc;
+            return localData;
         },
         mounted() {
         }
