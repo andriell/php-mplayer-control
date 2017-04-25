@@ -97,4 +97,8 @@ class DirController extends Controller
         }
         return response()->json($r);
     }
+
+    function doDelete() {
+        return response()->json(['status' => $this->fs->rm($_POST['items'])]);
+    }
 }

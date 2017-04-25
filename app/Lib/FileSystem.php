@@ -298,4 +298,15 @@ class FileSystem
         }
         return $i;
     }
+
+    function rm($uri) {
+        $uri = is_array($uri) ? $uri : [$uri];
+        $i = 0;
+        foreach ($uri as $u) {
+            $realPath = $this->realPath($uri);
+            Shell::exec('rm -rv "' . str_replace('"', '', $realPath) . '"');
+            $i++;
+        }
+        return $i;
+    }
 }
