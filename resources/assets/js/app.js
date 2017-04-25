@@ -29,6 +29,7 @@ Vue.component('explorer', require('./components/Explorer.vue'));
 Vue.component('rc', require('./components/Rc.vue'));
 Vue.component('rename', require('./components/Rename.vue'));
 Vue.component('copy', require('./components/Copy.vue'));
+Vue.component('folder', require('./components/NewFolder.vue'));
 
 const app = new Vue({
     el: '#app',

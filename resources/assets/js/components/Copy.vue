@@ -48,7 +48,7 @@
                 currentDir: '',
                 items: [],
                 selectedUri: false,
-                status: false,
+                status: '',
                 run: false,
                 available: function() {
                     return !localData.run && localData.selectedUri !== false && localData.items.length > 0 && localData.selectedUri != localData.currentDir;

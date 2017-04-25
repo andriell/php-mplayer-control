@@ -11393,6 +11393,7 @@ Vue.component('explorer', __webpack_require__(45));
 Vue.component('rc', __webpack_require__(46));
 Vue.component('rename', __webpack_require__(47));
 Vue.component('copy', __webpack_require__(44));
+Vue.component('folder', __webpack_require__(66));
 
 var app = new Vue({
     el: '#app',
@@ -12302,10 +12303,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             currentDir: '',
             items: [],
             selectedUri: false,
-            status: false,
+            status: '',
             run: false,
             available: function available() {
-                return !localData.run && localData.selectedUri && localData.items.length > 0 && localData.selectedUri != localData.currentDir;
+                return !localData.run && localData.selectedUri !== false && localData.items.length > 0 && localData.selectedUri != localData.currentDir;
             },
             getData: function getData(openedParentData, callback) {
                 if (typeof openedParentData['uri'] == 'undefined') {
@@ -12582,6 +12583,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     window.appData.copy.items.push(localData.itemsChecked[i].uri);
                 }
                 window.appData.copy.show();
+            },
+            newFolder: function newFolder() {
+                if (localData.itemsChecked.length <= 0) {
+                    return;
+                }
+                window.appData.folder.currentDir = localData.uri;
+                window.appData.folder.status = '';
+                window.appData.folder.items = [];
+                for (var i in localData.itemsChecked) {
+                    window.appData.folder.items.push(localData.itemsChecked[i].uri);
+                }
+                window.appData.folder.show();
             }
         };
         localData.getData('');
@@ -34166,7 +34179,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     staticClass: "glyphicon glyphicon-arrow-right"
-  }), _vm._v("  Переместить")]), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2)], 2)] : [_c('h4', [_vm._v(_vm._s(_vm.dirName))]), _vm._v(" "), _c('p', [_vm._v("Файлов: " + _vm._s(_vm.items.length))]), _vm._v(" "), _c('p', [_vm._v("Общий размер: " + _vm._s(_vm.bytesToSize(_vm.itemsSize)))])]], 2)])])])])
+  }), _vm._v("  Переместить")]), _vm._v(" "), _c('a', {
+    staticClass: "list-group-item",
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": function($event) {
+        _vm.newFolder()
+      }
+    }
+  }, [_c('span', {
+    staticClass: "glyphicon glyphicon-folder-open"
+  }), _vm._v("  В новую папку")]), _vm._v(" "), _vm._m(1)], 2)] : [_c('h4', [_vm._v(_vm._s(_vm.dirName))]), _vm._v(" "), _c('p', [_vm._v("Файлов: " + _vm._s(_vm.items.length))]), _vm._v(" "), _c('p', [_vm._v("Общий размер: " + _vm._s(_vm.bytesToSize(_vm.itemsSize)))])]], 2)])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "explorer-img-box"
@@ -34175,15 +34200,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "src": "/img/dir.png"
     }
   })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('a', {
-    staticClass: "list-group-item",
-    attrs: {
-      "href": "#"
-    }
-  }, [_c('span', {
-    staticClass: "glyphicon glyphicon-folder-open"
-  }), _vm._v("  В новую папку")])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('a', {
     staticClass: "list-group-item",
@@ -43625,6 +43641,224 @@ module.exports = function(module) {
 __webpack_require__(12);
 module.exports = __webpack_require__(13);
 
+
+/***/ }),
+/* 58 */,
+/* 59 */,
+/* 60 */,
+/* 61 */,
+/* 62 */,
+/* 63 */,
+/* 64 */,
+/* 65 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        var localData = window.appData.folder = {
+            currentDir: '',
+            name: '',
+            items: [],
+            status: '',
+            run: false,
+            available: function available() {
+                return !localData.run && localData.name;
+            },
+            show: function show() {
+                localData.run = false;
+                jQuery('#folderModal').modal('show');
+            },
+            hide: function hide() {
+                jQuery('#folderModal').modal('hide');
+            },
+            newFolder: function newFolder() {
+                localData.run = true;
+                localData.status = 'Обработка...';
+                jQuery.ajax('/dir-cut/', {
+                    method: 'POST',
+                    data: {
+                        'uri_from': localData.items,
+                        'uri_to': localData.currentDir + '/' + localData.name
+                    },
+                    success: function success(data) {
+                        if (data.status) {
+                            localData.status = 'Готово';
+                        } else {
+                            localData.status = 'Ошибка';
+                        }
+                    },
+                    complete: function complete(jqXHR, textStatus) {
+                        setTimeout(function () {
+                            localData.run = false;
+                            localData.hide();
+                            window.appData.explorer.reload();
+                        }, 2000);
+                    }
+                });
+            }
+        };
+        return localData;
+    },
+    mounted: function mounted() {}
+});
+
+/***/ }),
+/* 66 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(65),
+  /* template */
+  __webpack_require__(67),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "C:\\server\\www\\php-mplayer-control\\resources\\assets\\js\\components\\NewFolder.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] NewFolder.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-036e1ae6", Component.options)
+  } else {
+    hotAPI.reload("data-v-036e1ae6", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 67 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal fade new-folder",
+    attrs: {
+      "id": "folderModal",
+      "tabindex": "-1",
+      "role": "dialog",
+      "aria-labelledby": "myModalLabel"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog",
+    attrs: {
+      "role": "document"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content"
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "modal-body"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "renameModalFileName"
+    }
+  }, [_vm._v("Папка:")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.name),
+      expression: "name"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "id": "renameModalFileName"
+    },
+    domProps: {
+      "value": (_vm.name)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.name = $event.target.value
+      }
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_vm._v(_vm._s(_vm.status))])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal"
+    }
+  }, [_vm._v("Отменить")]), _vm._v(" "), (_vm.available()) ? _c('button', {
+    staticClass: "btn btn-primary",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": function($event) {
+        _vm.newFolder()
+      }
+    }
+  }, [_vm._v("Сохранить")]) : _vm._e()])])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-header"
+  }, [_c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal",
+      "aria-label": "Close"
+    }
+  }, [_c('span', {
+    staticClass: "glyphicon glyphicon-remove"
+  })]), _vm._v(" "), _c('h4', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "myModalLabel"
+    }
+  }, [_vm._v("Поместить в новую папку")])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-036e1ae6", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

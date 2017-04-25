@@ -5,5 +5,6 @@
 <rc></rc>
 <rename></rename>
 <copy></copy>
+<folder></folder>
 @endsection
 
