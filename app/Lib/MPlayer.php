@@ -31,7 +31,7 @@ class MPlayer
         if (empty($file)) {
             return;
         }
-        Shell::exec(base_path('shell/mplayer_run.sh') . ' "' . str_replace('"', '', $file) . '" "' . str_replace('"', '', $this->fileFifo) . '" "' . str_replace('"', '', $this->fileOut) . '"');
+        Shell::exec(base_path('shell/mplayer_run.sh') . ' "' . str_replace('"', '', $file) . '" "' . str_replace('"', '', $this->fileFifo) . '" "' . str_replace('"', '', $this->fileOut) . '" > /dev/null 2>&1 &');
     }
 
     function isRun()
