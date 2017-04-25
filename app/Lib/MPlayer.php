@@ -36,7 +36,7 @@ class MPlayer
 
     function isRun()
     {
-        return Shell::exec(base_path('shell/mplayer_pid.sh')) == 'Running';
+        return Shell::exec(base_path('shell/mplayer_pid.sh'));
     }
 
     function command($str)
