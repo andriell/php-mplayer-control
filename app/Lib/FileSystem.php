@@ -248,7 +248,7 @@ class FileSystem
      */
     function mvBackupNumbered($uriFrom, $uriTo)
     {
-        $to = $this->normalizeUri($uriTo);
+        $to = $this->realPath($uriTo);
         if (empty($to)) {
             return false;
         }
@@ -275,7 +275,7 @@ class FileSystem
      */
     function cpBackupNumbered($uriFrom, $uriTo)
     {
-        $to = $this->normalizeUri($uriTo);
+        $to = $this->realPath($uriTo);
         if (empty($to)) {
             return false;
         }
