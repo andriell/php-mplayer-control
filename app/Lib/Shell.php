@@ -14,7 +14,7 @@ class Shell
     static function system($str) {
         self::log($str);
         $r = system($str, $o);
-        return [$r, $o];
+        return [$str, $r, $o];
     }
 
     static function exec($str) {
