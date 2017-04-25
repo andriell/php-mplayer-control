@@ -1,4 +1,10 @@
-window.appData = {};
+window.appData = {
+    app: {
+        rcShow: function() {
+            window.appData.rc.show();
+        }
+    }
+};
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -26,5 +32,5 @@ Vue.component('copy', require('./components/Copy.vue'));
 
 const app = new Vue({
     el: '#app',
-    data: window.appData
+    data: window.appData.app
 });

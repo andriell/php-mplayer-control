@@ -11362,7 +11362,13 @@ module.exports = g;
 /* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
-window.appData = {};
+window.appData = {
+    app: {
+        rcShow: function rcShow() {
+            window.appData.rc.show();
+        }
+    }
+};
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -11389,8 +11395,8 @@ Vue.component('rename', __webpack_require__(47));
 Vue.component('copy', __webpack_require__(44));
 
 var app = new Vue({
-  el: '#app',
-  data: window.appData
+    el: '#app',
+    data: window.appData.app
 });
 
 /***/ }),
