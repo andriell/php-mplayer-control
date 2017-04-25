@@ -31,19 +31,12 @@ class MPlayer
         if (empty($file)) {
             return;
         }
-        Shell::exec('killall mplayer');
-        Shell::exec('rm -rf ' . $this->fileOut);
-        Shell::exec('rm -rf ' . $this->fileFifo);
-        Shell::exec('mkfifo ' . $this->fileFifo . ' -m 0644');
-        $str = 'export DISPLAY=:0.0 && mplayer -ao alsa:device=hw=0.3 -quiet -fs -slave -input file=' . $this->fileFifo . ' "' . str_replace('"', '', $file) . '"  > ' . $this->fileOut . ' 2> /dev/null &';
-        //$str = 'export DISPLAY=:0.0 && mplayer -really-quiet -noconsolecontrols -fs -slave -input file=' . $this->fileFifo . ' ' . $file . '  > ' . $this->fileOut . ' 2> /dev/null &';
-        Shell::exec($str);
-        Shell::exec('chmod 0644 ' . $this->fileOut);
+        Shell::exec(base_path('shell/mplayer_run.sh') . ' "' . str_replace('"', '', $file) . '" "' . str_replace('"', '', $this->fileFifo) . '" "' . str_replace('"', '', $this->fileOut) . '"');
     }
 
     function isRun()
     {
-        return Shell::exec(base_path('shell/mplayer_pid.sh'));
+        return Shell::execR(base_path('shell/mplayer_pid.sh'));
     }
 
     function command($str)

@@ -11,9 +11,9 @@ namespace App\Lib;
 
 class Shell
 {
-    static function system($str) {
+    static function execR($str) {
         self::log($str);
-        $r = system($str, $o);
+        $r = exec($str, $o);
         return [$str, $r, $o];
     }
 
