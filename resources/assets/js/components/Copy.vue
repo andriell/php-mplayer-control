@@ -27,6 +27,14 @@
                             </span>
                         </li>
                     </ul>
+                    <div class="form-group">Элементов: {{items.length}}</div>
+                    <div v-if="selectedUri" class="form-group">Переместить в: {{selectedUri}}</div>
+                    <div class="form-group">{{status}}</div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Отменить</button>
+                    <button type="button" class="btn btn-primary" v-if="selectedUri & items.length > 0" v-on:click="fileRename()"><span class="glyphicon glyphicon-arrow-right"></span> Переместить</button>
+                    <button type="button" class="btn btn-primary" v-if="selectedUri & items.length > 0" v-on:click="copy()"><span class="glyphicon glyphicon-duplicate"></span> Копировать</button>
                 </div>
             </div>
         </div>
@@ -37,6 +45,9 @@
     export default {
         data: function () {
             window.appData.copy = {
+                items: [],
+                selectedUri: false,
+                status: false,
                 getData: function (openedParentData, callback) {
                     var uri = (typeof openedParentData['uri'] == 'undefined') ? '' : openedParentData.uri;
                     jQuery.ajax('/dir-only-dir/' + uri, {
@@ -60,6 +71,29 @@
                 },
                 hide: function () {
                     jQuery('#copyModal').modal('hide');
+                },
+                copy: function() {
+                    if (window.appData.copy.selectedUri == false) {
+                        return;
+                    }
+                    jQuery.ajax('/dir-copy/', {
+                        method: 'POST',
+                        data: {
+                            'uri_from': window.appData.copy.selectedUri,
+                            'uri_to': window.appData.copy.items
+                        },
+                        success: function (data) {
+                            setTimeout(function() {
+                                window.appData.copy.hide();
+                                window.appData.explorer.reload();
+                            }, 2000);
+                            if (data.status) {
+                                window.appData.copy.status = 'Сделано.';
+                            } else {
+                                window.appData.copy.status = 'Ошибка.';
+                            }
+                        }
+                    });
                 }
             };
             jQuery(function () {
@@ -67,6 +101,10 @@
                     dataSource: window.appData.copy.getData,
                     multiSelect: false,
                     folderSelect: true
+                }).on('selected.fu.tree', function (event, data) {
+                    window.appData.copy.selectedUri = data.selected[0].uri;
+                }).on('deselected.fu.tree', function (event, data) {
+                    window.appData.copy.selectedUri = false;
                 });
             });
             return window.appData.copy;
@@ -76,7 +114,7 @@
     }
 </script>
 <style>
-    .tree-selected {
+    .tree-selected > .tree-branch-header {
         color: #FFFFFF;
         background-color: #428bca;
     }

@@ -44,6 +44,68 @@
 <script>
     export default {
         data: function () {
+            window.appData.rc = {
+                length: 0,
+                        timePos: 0,
+                        timeP: 0,
+                        volume: 100,
+                        mute: false,
+                        show: function () {
+                    jQuery('#tvModal').modal('show');
+                },
+                playVideo: function (uri) {
+                    jQuery.ajax('/player-play-video/' + uri, {
+                        success: function (data) {
+                            window.appData.rc.show();
+                        }
+                    });
+                },
+                pause: function () {
+                    jQuery.ajax('/player-pause/');
+                },
+                quit: function () {
+                    jQuery.ajax('/player-quit/');
+                },
+                getVolume: function () {
+                    jQuery.ajax('/player-get-volume/', {
+                        success: function (data) {
+                            window.appData.rc.volume = data.volume;
+                        }
+                    });
+                },
+                setVolume: function () {
+                    jQuery.ajax('/player-set-volume/' + window.appData.rc.volume);
+                },
+                getTimePos: function () {
+                    jQuery.ajax('/player-get-time-pos/', {
+                        success: function (data) {
+                            window.appData.rc.timePos = data.time_pos;
+                            window.appData.rc.length = data.length;
+                            window.appData.rc.timeP = Math.round((data.time_pos / data.length) * 1000000);
+                        }
+                    });
+                },
+                setTimePos: function () {
+                    jQuery.ajax('/player-get-time-pos/', {
+                        success: function (data) {
+                            window.appData.rc.timePos = data.time_pos;
+                            window.appData.rc.length = data.length;
+
+                            jQuery.ajax('/player-set-time-pos/' + Math.round((window.appData.rc.timeP / 1000000) * data.length));
+                        }
+                    });
+                },
+                switchMute: function () {
+                    window.appData.rc.mute = !window.appData.rc.mute;
+                    jQuery.ajax('/player-set-mute/' + (window.appData.rc.mute ? 't' : 'f'));
+                },
+                switchAudio: function () {
+                    jQuery.ajax('/player-switch-audio/');
+                },
+                switchVideo: function () {
+                    jQuery.ajax('/player-switch-video/');
+                }
+            };
             return window.appData.rc;
         },
         mounted() {

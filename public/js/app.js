@@ -11362,167 +11362,7 @@ module.exports = g;
 /* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
-window.appData = {
-    rc: {
-        length: 0,
-        timePos: 0,
-        timeP: 0,
-        volume: 100,
-        mute: false,
-        show: function show() {
-            jQuery('#tvModal').modal('show');
-        },
-        playVideo: function playVideo(uri) {
-            jQuery.ajax('/player-play-video/' + uri, {
-                success: function success(data) {
-                    window.appData.rc.show();
-                }
-            });
-        },
-        pause: function pause() {
-            jQuery.ajax('/player-pause/');
-        },
-        quit: function quit() {
-            jQuery.ajax('/player-quit/');
-        },
-        getVolume: function getVolume() {
-            jQuery.ajax('/player-get-volume/', {
-                success: function success(data) {
-                    window.appData.rc.volume = data.volume;
-                }
-            });
-        },
-        setVolume: function setVolume() {
-            jQuery.ajax('/player-set-volume/' + window.appData.rc.volume);
-        },
-        getTimePos: function getTimePos() {
-            jQuery.ajax('/player-get-time-pos/', {
-                success: function success(data) {
-                    window.appData.rc.timePos = data.time_pos;
-                    window.appData.rc.length = data.length;
-                    window.appData.rc.timeP = Math.round(data.time_pos / data.length * 1000000);
-                }
-            });
-        },
-        setTimePos: function setTimePos() {
-            jQuery.ajax('/player-get-time-pos/', {
-                success: function success(data) {
-                    window.appData.rc.timePos = data.time_pos;
-                    window.appData.rc.length = data.length;
-
-                    jQuery.ajax('/player-set-time-pos/' + Math.round(window.appData.rc.timeP / 1000000 * data.length));
-                }
-            });
-        },
-        switchMute: function switchMute() {
-            window.appData.rc.mute = !window.appData.rc.mute;
-            jQuery.ajax('/player-set-mute/' + (window.appData.rc.mute ? 't' : 'f'));
-        },
-        switchAudio: function switchAudio() {
-            jQuery.ajax('/player-switch-audio/');
-        },
-        switchVideo: function switchVideo() {
-            jQuery.ajax('/player-switch-video/');
-        }
-    },
-    rename: {
-        dir: '',
-        oldName: '',
-        newName: '',
-        status: '',
-        show: function show() {
-            jQuery('#renameModal').modal('show');
-        },
-        hide: function hide() {
-            jQuery('#renameModal').modal('hide');
-        },
-        fileRename: function fileRename() {
-            jQuery.ajax('/dir-mv/', {
-                method: 'POST',
-                data: {
-                    'uri_dir': window.appData.rename.dir,
-                    'old_name': window.appData.rename.oldName,
-                    'new_name': window.appData.rename.newName
-                },
-                success: function success(data) {
-                    setTimeout(function () {
-                        window.appData.rename.hide();
-                        window.appData.explorer.reload();
-                    }, 2000);
-                    if (data.status) {
-                        window.appData.rename.oldName = window.appData.rename.newName;
-                        window.appData.rename.status = 'Переименовано.';
-                    } else {
-                        window.appData.rename.status = 'Ошибка.';
-                    }
-                }
-            });
-        }
-    },
-    explorer: {
-        uri: '',
-        path: [],
-        items: [],
-        itemsChecked: [],
-        reload: function reload() {
-            window.appData.explorer.getData(window.appData.explorer.uri);
-        },
-        getData: function getData(uri) {
-            jQuery.ajax('/dir-list/' + uri, {
-                data: {},
-                success: function success(data) {
-                    var i;
-                    for (i in data.items) {
-                        data.items[i].uri = data.uri ? data.uri + '/' + data.items[i].name : data.items[i].name;
-                        data.items[i].dir = data.uri;
-                    }
-                    window.appData.explorer.items = data.items;
-                    window.appData.explorer.uri = data.uri;
-
-                    var path = [],
-                        uriTmp = '',
-                        uriArr = data.uri.split('/');
-                    for (i in uriArr) {
-                        if (uriArr[i] == '') {
-                            continue;
-                        }
-                        uriTmp += '' + uriArr[i];
-                        path.push({
-                            name: uriArr[i],
-                            uri: uriTmp
-                        });
-                        uriTmp += '/';
-                    }
-                    window.appData.explorer.path = path;
-                    window.appData.explorer.unchecked();
-                }
-            });
-        },
-        download: function download(uri) {
-            window.location.href = '/dir-download/' + uri;
-            return false;
-        },
-        playVideo: function playVideo() {
-            window.appData.rc.playVideo(window.appData.explorer.itemsChecked[0].uri);
-        },
-        unchecked: function unchecked() {
-            window.appData.explorer.itemsChecked = [];
-        },
-        fileRename: function fileRename() {
-            if (window.appData.explorer.itemsChecked.length != 1) {
-                window.appData.rename.status = 'Не знаю как переименовывать ' + window.appData.explorer.itemsChecked.length + ' файлов.';
-                window.appData.rename.show();
-                return;
-            }
-            window.appData.rename.status = '';
-            var item = window.appData.explorer.itemsChecked[0];
-            window.appData.rename.oldName = item.name;
-            window.appData.rename.newName = item.name;
-            window.appData.rename.dir = item.dir;
-            window.appData.rename.show();
-        }
-    }
-};
+window.appData = {};
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -11549,8 +11389,8 @@ Vue.component('rename', __webpack_require__(47));
 Vue.component('copy', __webpack_require__(44));
 
 var app = new Vue({
-    el: '#app',
-    data: window.appData
+  el: '#app',
+  data: window.appData
 });
 
 /***/ }),
@@ -12441,10 +12281,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         window.appData.copy = {
+            items: [],
+            selectedUri: false,
+            status: false,
             getData: function getData(openedParentData, callback) {
                 var uri = typeof openedParentData['uri'] == 'undefined' ? '' : openedParentData.uri;
                 jQuery.ajax('/dir-only-dir/' + uri, {
@@ -12468,6 +12319,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             },
             hide: function hide() {
                 jQuery('#copyModal').modal('hide');
+            },
+            copy: function copy() {
+                if (window.appData.copy.selectedUri == false) {
+                    return;
+                }
+                jQuery.ajax('/dir-copy/', {
+                    method: 'POST',
+                    data: {
+                        'uri_from': window.appData.copy.selectedUri,
+                        'uri_to': window.appData.copy.items
+                    },
+                    success: function success(data) {
+                        setTimeout(function () {
+                            window.appData.copy.hide();
+                            window.appData.explorer.reload();
+                        }, 2000);
+                        if (data.status) {
+                            window.appData.copy.status = 'Сделано.';
+                        } else {
+                            window.appData.copy.status = 'Ошибка.';
+                        }
+                    }
+                });
             }
         };
         jQuery(function () {
@@ -12475,6 +12349,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 dataSource: window.appData.copy.getData,
                 multiSelect: false,
                 folderSelect: true
+            }).on('selected.fu.tree', function (event, data) {
+                window.appData.copy.selectedUri = data.selected[0].uri;
+            }).on('deselected.fu.tree', function (event, data) {
+                window.appData.copy.selectedUri = false;
             });
         });
         return window.appData.copy;
@@ -12583,6 +12461,72 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
+        window.appData.explorer = {
+            uri: '',
+            path: [],
+            items: [],
+            itemsChecked: [],
+            reload: function reload() {
+                window.appData.explorer.getData(window.appData.explorer.uri);
+            },
+            getData: function getData(uri) {
+                jQuery.ajax('/dir-list/' + uri, {
+                    data: {},
+                    success: function success(data) {
+                        var i;
+                        for (i in data.items) {
+                            data.items[i].uri = data.uri ? data.uri + '/' + data.items[i].name : data.items[i].name;
+                            data.items[i].dir = data.uri;
+                        }
+                        window.appData.explorer.items = data.items;
+                        window.appData.explorer.uri = data.uri;
+
+                        var path = [],
+                            uriTmp = '',
+                            uriArr = data.uri.split('/');
+                        for (i in uriArr) {
+                            if (uriArr[i] == '') {
+                                continue;
+                            }
+                            uriTmp += '' + uriArr[i];
+                            path.push({
+                                name: uriArr[i],
+                                uri: uriTmp
+                            });
+                            uriTmp += '/';
+                        }
+                        window.appData.explorer.path = path;
+                        window.appData.explorer.unchecked();
+                    }
+                });
+            },
+            download: function download(uri) {
+                window.location.href = '/dir-download/' + uri;
+                return false;
+            },
+            playVideo: function playVideo() {
+                window.appData.rc.playVideo(window.appData.explorer.itemsChecked[0].uri);
+            },
+            unchecked: function unchecked() {
+                window.appData.explorer.itemsChecked = [];
+            },
+            fileRename: function fileRename() {
+                if (window.appData.explorer.itemsChecked.length != 1) {
+                    window.appData.rename.status = 'Не знаю как переименовывать ' + window.appData.explorer.itemsChecked.length + ' файлов.';
+                    window.appData.rename.show();
+                    return;
+                }
+                window.appData.rename.status = '';
+                var item = window.appData.explorer.itemsChecked[0];
+                window.appData.rename.oldName = item.name;
+                window.appData.rename.newName = item.name;
+                window.appData.rename.dir = item.dir;
+                window.appData.rename.show();
+            },
+            fileCopy: function fileCopy() {
+                window.appData.copy.show();
+            }
+        };
         window.appData.explorer.getData('');
         return window.appData.explorer;
     },
@@ -12655,6 +12599,68 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
+        window.appData.rc = {
+            length: 0,
+            timePos: 0,
+            timeP: 0,
+            volume: 100,
+            mute: false,
+            show: function show() {
+                jQuery('#tvModal').modal('show');
+            },
+            playVideo: function playVideo(uri) {
+                jQuery.ajax('/player-play-video/' + uri, {
+                    success: function success(data) {
+                        window.appData.rc.show();
+                    }
+                });
+            },
+            pause: function pause() {
+                jQuery.ajax('/player-pause/');
+            },
+            quit: function quit() {
+                jQuery.ajax('/player-quit/');
+            },
+            getVolume: function getVolume() {
+                jQuery.ajax('/player-get-volume/', {
+                    success: function success(data) {
+                        window.appData.rc.volume = data.volume;
+                    }
+                });
+            },
+            setVolume: function setVolume() {
+                jQuery.ajax('/player-set-volume/' + window.appData.rc.volume);
+            },
+            getTimePos: function getTimePos() {
+                jQuery.ajax('/player-get-time-pos/', {
+                    success: function success(data) {
+                        window.appData.rc.timePos = data.time_pos;
+                        window.appData.rc.length = data.length;
+                        window.appData.rc.timeP = Math.round(data.time_pos / data.length * 1000000);
+                    }
+                });
+            },
+            setTimePos: function setTimePos() {
+                jQuery.ajax('/player-get-time-pos/', {
+                    success: function success(data) {
+                        window.appData.rc.timePos = data.time_pos;
+                        window.appData.rc.length = data.length;
+
+                        jQuery.ajax('/player-set-time-pos/' + Math.round(window.appData.rc.timeP / 1000000 * data.length));
+                    }
+                });
+            },
+            switchMute: function switchMute() {
+                window.appData.rc.mute = !window.appData.rc.mute;
+                jQuery.ajax('/player-set-mute/' + (window.appData.rc.mute ? 't' : 'f'));
+            },
+            switchAudio: function switchAudio() {
+                jQuery.ajax('/player-switch-audio/');
+            },
+            switchVideo: function switchVideo() {
+                jQuery.ajax('/player-switch-video/');
+            }
+        };
         return window.appData.rc;
     },
     mounted: function mounted() {}
@@ -12693,6 +12699,40 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
+        window.appData.rename = {
+            dir: '',
+            oldName: '',
+            newName: '',
+            status: '',
+            show: function show() {
+                jQuery('#renameModal').modal('show');
+            },
+            hide: function hide() {
+                jQuery('#renameModal').modal('hide');
+            },
+            fileRename: function fileRename() {
+                jQuery.ajax('/dir-mv/', {
+                    method: 'POST',
+                    data: {
+                        'uri_dir': window.appData.rename.dir,
+                        'old_name': window.appData.rename.oldName,
+                        'new_name': window.appData.rename.newName
+                    },
+                    success: function success(data) {
+                        setTimeout(function () {
+                            window.appData.rename.hide();
+                            window.appData.explorer.reload();
+                        }, 2000);
+                        if (data.status) {
+                            window.appData.rename.oldName = window.appData.rename.newName;
+                            window.appData.rename.status = 'Переименовано.';
+                        } else {
+                            window.appData.rename.status = 'Ошибка.';
+                        }
+                    }
+                });
+            }
+        };
         return window.appData.rename;
     },
     mounted: function mounted() {}
@@ -15133,7 +15173,7 @@ if (typeof jQuery === 'undefined') {
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(8)();
-exports.push([module.i, "\n.tree-selected {\n    color: #FFFFFF;\n    background-color: #428bca;\n}\n", ""]);
+exports.push([module.i, "\n.tree-selected > .tree-branch-header {\n    color: #FFFFFF;\n    background-color: #428bca;\n}\n", ""]);
 
 /***/ }),
 /* 39 */
@@ -33540,8 +33580,6 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "modal fade rc",
     attrs: {
@@ -33557,7 +33595,49 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', {
     staticClass: "modal-content"
-  }, [_c('div', {
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "modal-body"
+  }, [_vm._m(1), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_vm._v("Элементов: " + _vm._s(_vm.items.length))]), _vm._v(" "), (_vm.selectedUri) ? _c('div', {
+    staticClass: "form-group"
+  }, [_vm._v("Переместить в: " + _vm._s(_vm.selectedUri))]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_vm._v(_vm._s(_vm.status))])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal"
+    }
+  }, [_vm._v("Отменить")]), _vm._v(" "), (_vm.selectedUri & _vm.items.length > 0) ? _c('button', {
+    staticClass: "btn btn-primary",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": function($event) {
+        _vm.fileRename()
+      }
+    }
+  }, [_c('span', {
+    staticClass: "glyphicon glyphicon-arrow-right"
+  }), _vm._v(" Переместить")]) : _vm._e(), _vm._v(" "), (_vm.selectedUri & _vm.items.length > 0) ? _c('button', {
+    staticClass: "btn btn-primary",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": function($event) {
+        _vm.copy()
+      }
+    }
+  }, [_c('span', {
+    staticClass: "glyphicon glyphicon-duplicate"
+  }), _vm._v(" Копировать")]) : _vm._e()])])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
     staticClass: "modal-header"
   }, [_c('button', {
     staticClass: "close",
@@ -33573,9 +33653,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "myModalLabel"
     }
-  }, [_vm._v("Переместить")])]), _vm._v(" "), _c('div', {
-    staticClass: "modal-body"
-  }, [_c('ul', {
+  }, [_vm._v("Переместить")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('ul', {
     staticClass: "list-group tree",
     attrs: {
       "role": "tree",
@@ -33620,7 +33700,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "glyphicon icon-item fueluxicon-bullet"
   }), _vm._v(" "), _c('span', {
     staticClass: "tree-label"
-  })])])])])])])])
+  })])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -34024,12 +34104,24 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     on: {
       "click": function($event) {
-        _vm.fileRename()
+        _vm.fileCopy()
       }
     }
   }, [_c('span', {
     staticClass: "glyphicon glyphicon-arrow-right"
-  }), _vm._v("  Переместить")]), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2), _vm._v(" "), _vm._m(3)], 2)] : _vm._e()], 2)])])])])
+  }), _vm._v("  Переместить")]), _vm._v(" "), _c('a', {
+    staticClass: "list-group-item",
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": function($event) {
+        _vm.fileCopy()
+      }
+    }
+  }, [_c('span', {
+    staticClass: "glyphicon glyphicon-duplicate"
+  }), _vm._v("  Копировать")]), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2)], 2)] : _vm._e()], 2)])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "explorer-img-box"
@@ -34038,15 +34130,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "src": "/img/dir.png"
     }
   })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('a', {
-    staticClass: "list-group-item",
-    attrs: {
-      "href": "#"
-    }
-  }, [_c('span', {
-    staticClass: "glyphicon glyphicon-duplicate"
-  }), _vm._v("  Копировать")])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('a', {
     staticClass: "list-group-item",

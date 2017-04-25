@@ -25,6 +25,40 @@
 <script>
     export default {
         data: function () {
+            window.appData.rename = {
+                dir: '',
+                        oldName: '',
+                        newName: '',
+                        status: '',
+                        show: function () {
+                    jQuery('#renameModal').modal('show');
+                },
+                hide: function () {
+                    jQuery('#renameModal').modal('hide');
+                },
+                fileRename: function () {
+                    jQuery.ajax('/dir-mv/', {
+                        method: 'POST',
+                        data: {
+                            'uri_dir':  window.appData.rename.dir,
+                            'old_name': window.appData.rename.oldName,
+                            'new_name': window.appData.rename.newName
+                        },
+                        success: function (data) {
+                            setTimeout(function() {
+                                window.appData.rename.hide();
+                                window.appData.explorer.reload();
+                            }, 2000);
+                            if (data.status) {
+                                window.appData.rename.oldName = window.appData.rename.newName;
+                                window.appData.rename.status = 'Переименовано.';
+                            } else {
+                                window.appData.rename.status = 'Ошибка.';
+                            }
+                        }
+                    });
+                }
+            };
             return window.appData.rename;
         },
         mounted() {
