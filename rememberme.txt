@@ -5,3 +5,6 @@ npm run production
 
 sudo service nginx restart
 sudo service php7.0-fpm restart
+- or -
+systemctl restart nginx
+systemctl restart php-fpm
