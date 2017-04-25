@@ -12636,10 +12636,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             setTimePos: function setTimePos() {
                 jQuery.ajax('/player-get-time-pos/', {
                     success: function success(data) {
-                        localData.timePos = data.time_pos;
-                        localData.length = data.length;
-
-                        jQuery.ajax('/player-set-time-pos/' + Math.round(localData.timeP / 1000000 * data.length));
+                        if (data.run) {
+                            localData.timePos = data.time_pos;
+                            localData.length = data.length;
+                            jQuery.ajax('/player-set-time-pos/' + Math.round(localData.timeP / 1000000 * data.length));
+                        }
                     }
                 });
             },

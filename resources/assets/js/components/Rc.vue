@@ -100,10 +100,11 @@
                 setTimePos: function () {
                     jQuery.ajax('/player-get-time-pos/', {
                         success: function (data) {
-                            localData.timePos = data.time_pos;
-                            localData.length = data.length;
-
-                            jQuery.ajax('/player-set-time-pos/' + Math.round((localData.timeP / 1000000) * data.length));
+                            if (data.run) {
+                                localData.timePos = data.time_pos;
+                                localData.length = data.length;
+                                jQuery.ajax('/player-set-time-pos/' + Math.round((localData.timeP / 1000000) * data.length));
+                            }
                         }
                     });
                 },
