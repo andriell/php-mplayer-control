@@ -94,12 +94,11 @@ class MPlayerController extends Controller
         $this->player->switchVideo();
     }
 
-    /*
-    public function command() {
+    /*public function command() {
         return response()->json(['resp' => $this->player->commandGet($_GET['exec'])]);
-    }
+    }*/
 
     public function getAllProperty() {
         return response()->json(['resp' => $this->player->getAllProperty()]);
-    }*/
+    }
 }

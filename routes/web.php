@@ -40,7 +40,7 @@ Route::get('/player-switch-audio/', 'MPlayerController@switchAudio');
 Route::get('/player-switch-video/', 'MPlayerController@switchVideo');
 //Route::get('/player-command/', 'MPlayerController@command')->name('player_command');
 //Route::get('/player-command-get/', 'MPlayerController@command')->name('player_command');
-//Route::get('/player-all-property/', 'MPlayerController@getAllProperty');
+Route::get('/player-all-property/', 'MPlayerController@getAllProperty');
 
 Auth::routes();
 Route::any('register', 'HomeController@index');
