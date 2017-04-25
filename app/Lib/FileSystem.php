@@ -260,7 +260,7 @@ class FileSystem
                 continue;
             }
             // --backup=numbered при совпадении имен нумеровать
-            shell_exec('mv --backup=numbered "' . $from . '" "' . $to . '"');
+            shell_exec('mv --backup=numbered "' . str_replace('"', '', $from) . '" "' . str_replace('"', '', $to) . '"');
             $i++;
         }
         return $i;
@@ -284,7 +284,7 @@ class FileSystem
         foreach ($uriFrom as $uri) {
             $from = $this->realPath($uri);
             // --backup=numbered при совпадении имен нумеровать
-            shell_exec('cp -r --backup=numbered "' . $from . '" "' . $to . '"');
+            shell_exec('cp -r --backup=numbered "' . str_replace('"', '', $from) . '" "' . str_replace('"', '', $to) . '"');
             $i++;
         }
         return $i;
