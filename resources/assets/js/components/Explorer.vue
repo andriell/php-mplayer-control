@@ -79,7 +79,7 @@
                                 </template>
                                 <a href="#" class="list-group-item" v-on:click="fileCopy()"><span class="glyphicon glyphicon-arrow-right"></span>&nbsp;&nbsp;Переместить</a>
                                 <a href="#" class="list-group-item" v-on:click="toNewFolder()"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;В новую папку</a>
-                                <a href="#" class="list-group-item"><span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;Удалить</a>
+                                <a href="#" class="list-group-item" v-on:click="doDelete()"><span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;Удалить</a>
                             </div>
                         </template>
                         <template v-else="">
@@ -197,6 +197,17 @@
                 },
                 newFolder: function() {
                     window.appData.newFolder.show();
+                },
+                doDelete: function() {
+                    if (localData.itemsChecked.length <= 0) {
+                        return;
+                    }
+                    window.appData.delete.items = [];
+                    window.appData.delete.status = '';
+                    for(var i in localData.itemsChecked) {
+                        window.appData.delete.items.push(localData.itemsChecked[i].uri);
+                    }
+                    window.appData.delete.show();
                 }
             };
             localData.getData('');

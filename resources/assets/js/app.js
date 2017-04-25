@@ -31,6 +31,7 @@ Vue.component('rename', require('./components/Rename.vue'));
 Vue.component('copy', require('./components/Copy.vue'));
 Vue.component('to_new_folder', require('./components/ToNewFolder.vue'));
 Vue.component('new_folder', require('./components/NewFolder.vue'));
+Vue.component('delete', require('./components/Delete.vue'));
 
 const app = new Vue({
     el: '#app',
