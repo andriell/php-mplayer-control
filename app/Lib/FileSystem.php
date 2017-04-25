@@ -82,7 +82,7 @@ class FileSystem
         return $this->override->filemtime($realPathFile);
     }
 
-    private function fileInfo($realPathFile)
+    private function fileInfo($realPathFile, $filter = [])
     {
         $r = [
             'type' => false,
@@ -94,6 +94,8 @@ class FileSystem
         if ($this->override->is_dir($realPathFile)) {
             $r['type'] = 'dir';
             return $r;
+        } elseif (isset($filter['only_dir'])) {
+            return false;
         }
         $r['type'] = 'file';
         $r['ext'] = strtolower(substr($realPathFile, strrpos($realPathFile, '.') + 1));
@@ -106,7 +108,7 @@ class FileSystem
         return $r;
     }
 
-    public function readDir($uri, $order = ['dir', 'name'])
+    public function readDir($uri, $order = ['dir', 'name'], $filter = [])
     {
         $uri = $this->normalizeUri($uri);
         $r = [
@@ -126,7 +128,10 @@ class FileSystem
                 if ($entry == '.' || $entry == '..') {
                     continue;
                 }
-                $item = $this->fileInfo($realPath . '/' . $entry);
+                $item = $this->fileInfo($realPath . '/' . $entry, $filter);
+                if (empty($item)) {
+                    continue;
+                }
                 $item['name'] = $entry;
                 $r['items'][] = $item;
             }

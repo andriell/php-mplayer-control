@@ -70,4 +70,16 @@ class DirController extends Controller
     {
         return response()->json(['status' => $this->fs->fileRename($_POST['uri_dir'], $_POST['old_name'], $_POST['new_name'])]);
     }
+
+    function onlyDir(Request $request, $uri = '') {
+        $r = [];
+        $list = $this->fs->readDir($uri, ['name'], ['only_dir' => true]);
+        if (empty($list)) {
+            return response()->json($r);
+        }
+        foreach ($list['items'] as $item) {
+            $r[] = $item['name'];
+        }
+        return response()->json($r);
+    }
 }
