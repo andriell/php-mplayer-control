@@ -12,9 +12,13 @@ namespace App\Lib;
 class Shell
 {
     static function exec($str) {
-        $file = storage_path('logs/shell_exec_' . date('Ymd') . '.log');
-        file_put_contents($file, date('Y-m-d H:i:s ') . $str);
+        self::log($str);
         return shell_exec($str);
+    }
 
+    static function log($str) {
+        $file = storage_path('logs/shell_exec_' . date('Ymd') . '.log');
+        $str .= ";\t" . $_SERVER['REMOTE_ADDR'] . ";\t" . $_SERVER['REQUEST_URI'] . ";\t" . http_build_query($_POST) . "\n";
+        file_put_contents($file, date('Y-m-d H:i:s ') . $str, FILE_APPEND);
     }
 }
