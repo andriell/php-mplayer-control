@@ -43,7 +43,7 @@ class MPlayer
 
     function isRun()
     {
-        return Shell::exec('whoami');
+        return Shell::system('pidof mplayer');
     }
 
     function command($str)
