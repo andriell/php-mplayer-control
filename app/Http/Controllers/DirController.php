@@ -36,7 +36,12 @@ class DirController extends Controller
 
     function getList(Request $request, $uri = '')
     {
-        return response()->json($this->fs->readDir($uri));
+        $json = json_encode($this->fs->readDir($uri));
+        $headers = [
+            'Content-Type' => 'application/json;charset=utf-8',
+            'Content-Length' => strlen($json),
+        ];
+        return response()->make($json, 200, $headers);
     }
 
     function img(Request $request, $uri)
