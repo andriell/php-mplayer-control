@@ -27,6 +27,18 @@
 7. systemctl restart php-fpm
 8. systemctl restart nginx
 
+### Установка торрент клиента Transmission
+1. yum install transmission-cli transmission-daemon
+2. systemctl start transmission-daemon.service
+   systemctl stop transmission-daemon.service
+3. nano /var/lib/transmission/.config/transmission-daemon/settings.json
+    "rpc-enabled": true,
+    "rpc-password": "mypassword",
+    "rpc-username": "mysuperlogin",
+    "rpc-whitelist-enabled": false,
+    "rpc-whitelist": "0.0.0.0",
+4. systemctl start transmission-daemon.service
+
 ## Осталось доделать
 * Торрент
 * Просмотр фото на телевизоре
