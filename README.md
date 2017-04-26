@@ -29,15 +29,18 @@
 
 ### Установка торрент клиента Transmission
 1. yum install transmission-cli transmission-daemon
-2. systemctl start transmission-daemon.service
+2. Что бы изменить пользователя от которого будет работать transmission
+    nano /usr/lib/systemd/system/transmission-daemon.service
+    Заменить User=newuser
+3. systemctl start transmission-daemon.service
    systemctl stop transmission-daemon.service
-3. nano /var/lib/transmission/.config/transmission-daemon/settings.json
+4. nano /home/newuser/.config/transmission-daemon/settings.json
     "rpc-enabled": true,
     "rpc-password": "mypassword",
     "rpc-username": "mysuperlogin",
     "rpc-whitelist-enabled": false,
     "rpc-whitelist": "0.0.0.0",
-4. systemctl start transmission-daemon.service
+5. systemctl start transmission-daemon.service
 
 ## Осталось доделать
 * Торрент
