@@ -34200,7 +34200,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "myModalLabel"
     }
-  }, [_vm._v("TV")]), _vm._v(" " + _vm._s(_vm.filename) + "\n            ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("TV " + _vm._s(_vm.filename))])]), _vm._v(" "), _c('div', {
     staticClass: "modal-body"
   }, [_c('div', {
     staticClass: "row rc-row-play"
