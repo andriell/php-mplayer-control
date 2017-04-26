@@ -4,7 +4,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove"></span></button>
-                    <h4 class="modal-title" id="myModalLabel">TV {{filename}}</h4>
+                    <h4 class="modal-title" id="myModalLabel">TV</h4> {{filename}}
                 </div>
                 <div class="modal-body">
                     <div class="row rc-row-play">
@@ -77,14 +77,14 @@
                     jQuery.ajax('/player-get-info/', {
                         success: function (data) {
                             if (data.run) {
-                                localData.volume = data.filename;
+                                localData.filename = data.filename;
                                 localData.length = data.length;
                                 localData.mute = data.mute == 'yes';
                                 localData.timePos = data.time_pos;
                                 localData.volume = data.volume;
                                 localData.timeP = Math.round((data.time_pos / data.length) * 1000000);
                             } else {
-                                localData.volume = '';
+                                localData.filename = '';
                                 localData.length = 0;
                                 localData.mute = false;
                                 localData.timePos = 0;
