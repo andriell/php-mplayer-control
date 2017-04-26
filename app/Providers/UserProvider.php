@@ -83,7 +83,9 @@ class UserProvider implements IlluminateUserProvider
     {
         $user = new User();
         $user->setAuthIdentifier($credentials['email']);
-        $user->setName($this->users[$credentials['email']]['name']);
+        if (isset($this->users[$credentials['email']]) && isset($this->users[$credentials['email']]['name'])) {
+            $user->setName($this->users[$credentials['email']]['name']);
+        }
         return $user;
     }
 
