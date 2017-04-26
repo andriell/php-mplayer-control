@@ -2,7 +2,6 @@
 
 @section('content')
 <explorer></explorer>
-<rc></rc>
 <rename></rename>
 <copy></copy>
 <to_new_folder></to_new_folder>
