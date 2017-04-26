@@ -101,6 +101,8 @@ class UserProvider implements IlluminateUserProvider
         if (!($user instanceof User)) {
             return false;
         }
-        return $this->users[$credentials['email']]['password'] == $credentials['password'];
+        return isset($this->users[$credentials['email']])
+            && isset($this->users[$credentials['email']]['password'])
+            && $this->users[$credentials['email']]['password'] == $credentials['password'];
     }
 }
