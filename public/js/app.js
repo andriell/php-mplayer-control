@@ -12314,7 +12314,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -34548,22 +34547,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       on: {
         "click": function($event) {
-          _vm.playVideo()
-        }
-      }
-    }, [_c('a', {
-      staticClass: "list-group-item",
-      attrs: {
-        "href": "#"
-      },
-      on: {
-        "click": function($event) {
           _vm.slideShowDir()
         }
       }
     }, [_c('span', {
       staticClass: "glyphicon glyphicon-picture"
-    }), _vm._v("  Слайд шоу")])]) : _vm._e(), _vm._v(" "), _c('a', {
+    }), _vm._v("  Слайд шоу\n                                    ")]) : _vm._e(), _vm._v(" "), _c('a', {
       staticClass: "list-group-item",
       attrs: {
         "href": "#"

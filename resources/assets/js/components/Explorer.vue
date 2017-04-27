@@ -74,9 +74,8 @@
                                            v-if="item.type == 'movie'">
                                             <span class="glyphicon glyphicon-film"></span>&nbsp;&nbsp;Воспроизвести
                                         </a>
-                                        <a href="#" class="list-group-item" v-on:click="playVideo()"
-                                           v-if="item.type == 'dir'">
-                                            <a href="#" class="list-group-item" v-on:click="slideShowDir()"><span class="glyphicon glyphicon-picture"></span>&nbsp;&nbsp;Слайд шоу</a>
+                                        <a href="#" class="list-group-item" v-on:click="slideShowDir()" v-if="item.type == 'dir'">
+                                            <span class="glyphicon glyphicon-picture"></span>&nbsp;&nbsp;Слайд шоу
                                         </a>
                                         <a href="#" class="list-group-item" v-on:click="fileRename()"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Переименовать</a>
                                     </template>
