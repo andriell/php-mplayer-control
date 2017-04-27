@@ -119,9 +119,9 @@
                     jQuery.ajax('/player-switch-video/');
                 }
             };
-            setInterval(function() {
+            /*setInterval(function() {
                 localData.update();
-            }, 60000);
+            }, 60000);*/
             return localData;
         },
         mounted() {
