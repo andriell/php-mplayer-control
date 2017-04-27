@@ -1,9 +1,5 @@
 <template>
     <div class="container text-center my-carousel">
-        <h1> Click Me </h1>
-        <!-- Large modal -->
-        <button class="btn btn-default" data-toggle="modal" data-target="#carouselModal">Large modal</button>
-
         <div id="carouselModal" class="modal" role="dialog">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove"></span></button>
 
