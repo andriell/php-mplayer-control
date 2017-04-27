@@ -4,9 +4,9 @@
         <!-- Large modal -->
         <button class="btn btn-default" data-toggle="modal" data-target="#carouselModal">Large modal</button>
 
-        <div id="carouselModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-             aria-hidden="true">
-            <!-- Controls -->
+        <div id="carouselModal" class="modal" role="dialog">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove"></span></button>
+
             <a class="left carousel-control" href="#" v-on:click="left()">
                 <span class="glyphicon glyphicon-chevron-left"></span>
             </a>
@@ -64,6 +64,13 @@
 </script>
 
 <style>
+    .my-carousel .modal .close {
+        z-index: 1055;
+        position: fixed;
+        right: 20px;
+        top: 20px;
+        font-size: 40px;
+    }
     .my-carousel .modal .footer {
         position: fixed;
         height: 50px;

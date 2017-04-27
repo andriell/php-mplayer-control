@@ -12521,7 +12521,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         imgUri.push(localData.items[i]);
                     }
                 }
-                debugger;
                 window.appData.carousel.show(imgUri, position);
             }
         };
@@ -34190,15 +34189,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "data-target": "#carouselModal"
     }
   }, [_vm._v("Large modal")]), _vm._v(" "), _c('div', {
-    staticClass: "modal fade",
+    staticClass: "modal",
     attrs: {
       "id": "carouselModal",
-      "tabindex": "-1",
-      "role": "dialog",
-      "aria-labelledby": "myLargeModalLabel",
-      "aria-hidden": "true"
+      "role": "dialog"
     }
-  }, [_c('a', {
+  }, [_vm._m(0), _vm._v(" "), _c('a', {
     staticClass: "left carousel-control",
     attrs: {
       "href": "#"
@@ -34228,8 +34224,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     staticClass: "glyphicon glyphicon-chevron-right"
-  })]), _vm._v(" "), _vm._m(0)])])
+  })]), _vm._v(" "), _vm._m(1)])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal",
+      "aria-label": "Close"
+    }
+  }, [_c('span', {
+    staticClass: "glyphicon glyphicon-remove"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "footer"
   }, [_c('button', {
@@ -44289,7 +44296,7 @@ module.exports = function() {
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(64)();
-exports.push([module.i, "\n.my-carousel .modal .footer {\n    position: fixed;\n    height: 50px;\n    width: 100%;\n    left: 0;\n    right: 0;\n    bottom: 0;\n}\n.my-carousel .modal img {\n    position: absolute;\n    top: 0;\n    bottom: 0;\n    left: 0;\n    right: 0;\n    z-index: 1051;\n}\n.my-carousel .modal {\n    margin: 50px 0 70px 0;\n}\n.my-carousel .carousel-control.left,\n.my-carousel .carousel-control.right {\n    background-image: none;\n    z-index: 1052;\n}\n.my-carousel .img-responsive {\n    display: block;\n    max-width: 100%;\n    max-height: 100%;\n    margin: auto;\n}\n", ""]);
+exports.push([module.i, "\n.my-carousel .modal .close {\n    z-index: 1055;\n    position: fixed;\n    right: 20px;\n    top: 20px;\n    font-size: 40px;\n}\n.my-carousel .modal .footer {\n    position: fixed;\n    height: 50px;\n    width: 100%;\n    left: 0;\n    right: 0;\n    bottom: 0;\n}\n.my-carousel .modal img {\n    position: absolute;\n    top: 0;\n    bottom: 0;\n    left: 0;\n    right: 0;\n    z-index: 1051;\n}\n.my-carousel .modal {\n    margin: 50px 0 70px 0;\n}\n.my-carousel .carousel-control.left,\n.my-carousel .carousel-control.right {\n    background-image: none;\n    z-index: 1052;\n}\n.my-carousel .img-responsive {\n    display: block;\n    max-width: 100%;\n    max-height: 100%;\n    margin: auto;\n}\n", ""]);
 
 /***/ }),
 /* 72 */

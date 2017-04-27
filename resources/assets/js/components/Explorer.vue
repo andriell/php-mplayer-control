@@ -236,7 +236,6 @@
 
                         }
                     }
-                    debugger;
                     window.appData.carousel.show(imgUri, position);
                 }
             };
