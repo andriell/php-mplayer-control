@@ -7,13 +7,13 @@
         <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
              aria-hidden="true">
             <!-- Controls -->
-            <a class="left carousel-control" href="#">
+            <a class="left carousel-control" href="#" v-on:click="left()">
                 <span class="glyphicon glyphicon-chevron-left"></span>
             </a>
 
             <img class="img-responsive" src="http://placehold.it/1200x2600/555/000&text=One" alt="...">
 
-            <a class="right carousel-control" href="#">
+            <a class="right carousel-control" href="#" v-on:click="right()">
                 <span class="glyphicon glyphicon-chevron-right"></span>
             </a>
             <div class="footer">
@@ -30,9 +30,12 @@
             var localData = window.appData.carousel = {
                 position: 0,
                 items: [],
-                item: {},
+                item: '',
+                available: function() {
+                    return Array.isArray(items) && items.length > 0;
+                },
                 show: function (items) {
-                    if (!(Array.isArray(items) && items.length > 0)) {
+                    if (!localData.available()) {
                         return;
                     }
                     localData.position = 0;
@@ -40,6 +43,9 @@
                     localData.item = items[0];
                 },
                 left: function () {
+                    if (!localData.available()) {
+                        return;
+                    }
                     localData.position--;
                     if (localData.position < 0) {
                         localData.position = localData.items.length - 1;
@@ -47,6 +53,9 @@
                     localData.item = localData.items[localData.position];
                 },
                 right: function () {
+                    if (!localData.available()) {
+                        return;
+                    }
                     localData.position++;
                     if (localData.position >= localData.items.length) {
                         localData.position = 0;

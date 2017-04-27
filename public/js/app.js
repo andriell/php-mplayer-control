@@ -12011,9 +12011,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var localData = window.appData.carousel = {
             position: 0,
             items: [],
-            item: {},
+            item: '',
+            available: function available() {
+                return Array.isArray(items) && items.length > 0;
+            },
             show: function show(items) {
-                if (!(Array.isArray(items) && items.length > 0)) {
+                if (!localData.available()) {
                     return;
                 }
                 localData.position = 0;
@@ -12021,6 +12024,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 localData.item = items[0];
             },
             left: function left() {
+                if (!localData.available()) {
+                    return;
+                }
                 localData.position--;
                 if (localData.position < 0) {
                     localData.position = localData.items.length - 1;
@@ -12028,6 +12034,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 localData.item = localData.items[localData.position];
             },
             right: function right() {
+                if (!localData.available()) {
+                    return;
+                }
                 localData.position++;
                 if (localData.position >= localData.items.length) {
                     localData.position = 0;
@@ -34164,8 +34173,6 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "container text-center my-carousel"
   }, [_c('h1', [_vm._v(" Click Me ")]), _vm._v(" "), _c('button', {
@@ -34186,6 +34193,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "left carousel-control",
     attrs: {
       "href": "#"
+    },
+    on: {
+      "click": function($event) {
+        _vm.left()
+      }
     }
   }, [_c('span', {
     staticClass: "glyphicon glyphicon-chevron-left"
@@ -34199,10 +34211,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "right carousel-control",
     attrs: {
       "href": "#"
+    },
+    on: {
+      "click": function($event) {
+        _vm.right()
+      }
     }
   }, [_c('span', {
     staticClass: "glyphicon glyphicon-chevron-right"
-  })]), _vm._v(" "), _c('div', {
+  })]), _vm._v(" "), _vm._m(0)])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
     staticClass: "footer"
   }, [_c('button', {
     staticClass: "btn btn-default",
@@ -34215,7 +34234,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "button"
     }
-  }, [_vm._v("Сохранить")])])])])
+  }, [_vm._v("Сохранить")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
