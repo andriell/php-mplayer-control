@@ -79,7 +79,7 @@ class DirController extends Controller
 
     function img1024x768(Request $request, $uri)
     {
-        return $this->resize($request, $uri, [1024, 768, true]);
+        return $this->resize($request, $uri, [1024, 768, false]);
     }
 
     function download(Request $request, $uri)
