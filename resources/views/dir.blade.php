@@ -1,11 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-<explorer></explorer>
-<rename></rename>
-<copy></copy>
-<to_new_folder></to_new_folder>
-<new_folder></new_folder>
-<delete></delete>
+    <explorer></explorer>
+    <rename></rename>
+    <copy></copy>
+    <to_new_folder></to_new_folder>
+    <new_folder></new_folder>
+    <delete></delete>
+    <carousel></carousel>
 @endsection
 
