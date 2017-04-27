@@ -48,8 +48,7 @@ class DirController extends Controller
         return response()->make($json, 200, $headers);
     }
 
-    function img(Request $request, $uri)
-    {
+    private function resize($request, $uri, $size) {
         $headers = ['Content-Type' => 'image/jpeg'];
         //<editor-fold desc="http cache">
         $serverDate = $this->fs->fileMTime($uri);
@@ -64,9 +63,19 @@ class DirController extends Controller
             }
         }
         //</editor-fold>
-        return response()->stream(function() use($uri) {
-            $this->fs->resizeImage($uri);
+        return response()->stream(function() use($uri, $size) {
+            $this->fs->resizeImage($uri, $size);
         }, 200, $headers);
+    }
+
+    function img100x100(Request $request, $uri)
+    {
+        return $this->resize($request, $uri, [100, 100, true]);
+    }
+
+    function img1024x768(Request $request, $uri)
+    {
+        return $this->resize($request, $uri, [1024, 768, true]);
     }
 
     function download(Request $request, $uri)
