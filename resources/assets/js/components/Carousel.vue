@@ -21,10 +21,10 @@
                     Дублировать на экране
                 </div>
                 <div class="button">
-                    Остановить
+                    <a href="#" v-on:click="stop()">Остановить</a>
                 </div>
                 <div class="button">
-                    Скачать
+                    <a href="#" v-on:click="download()">Скачать</a>
                 </div>
             </div>
         </div>
@@ -61,6 +61,12 @@
                         localData.position = 0;
                     }
                     localData.item = localData.items[localData.position];
+                },
+                stop: function () {
+
+                },
+                download: function () {
+
                 }
             };
             return localData;
