@@ -12310,6 +12310,41 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -34371,7 +34406,7 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "explorer"
-  }, [_c('div', {
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "explorer-path"
@@ -34439,7 +34474,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           }
         }
       }
-    }), _vm._v(" "), (item.type == 'dir') ? [_vm._m(0, true), _vm._v(" "), _c('a', {
+    }), _vm._v(" "), (item.type == 'dir') ? [_vm._m(1, true), _vm._v(" "), _c('a', {
       staticClass: "text",
       attrs: {
         "href": "#"
@@ -34590,6 +34625,75 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "glyphicon glyphicon-folder-open"
   }), _vm._v("  Новая папка")])])]], 2)])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "carousel slide",
+    attrs: {
+      "id": "myCarousel",
+      "data-ride": "carousel"
+    }
+  }, [_c('ol', {
+    staticClass: "carousel-indicators"
+  }, [_c('li', {
+    staticClass: "active",
+    attrs: {
+      "data-target": "#myCarousel",
+      "data-slide-to": "0"
+    }
+  }), _vm._v(" "), _c('li', {
+    attrs: {
+      "data-target": "#myCarousel",
+      "data-slide-to": "1"
+    }
+  }), _vm._v(" "), _c('li', {
+    attrs: {
+      "data-target": "#myCarousel",
+      "data-slide-to": "2"
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "carousel-inner"
+  }, [_c('div', {
+    staticClass: "item active"
+  }, [_c('img', {
+    attrs: {
+      "src": "la.jpg",
+      "alt": "Los Angeles"
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('img', {
+    attrs: {
+      "src": "chicago.jpg",
+      "alt": "Chicago"
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('img', {
+    attrs: {
+      "src": "ny.jpg",
+      "alt": "New York"
+    }
+  })])]), _vm._v(" "), _c('a', {
+    staticClass: "left carousel-control",
+    attrs: {
+      "href": "#myCarousel",
+      "data-slide": "prev"
+    }
+  }, [_c('span', {
+    staticClass: "glyphicon glyphicon-chevron-left"
+  }), _vm._v(" "), _c('span', {
+    staticClass: "sr-only"
+  }, [_vm._v("Previous")])]), _vm._v(" "), _c('a', {
+    staticClass: "right carousel-control",
+    attrs: {
+      "href": "#myCarousel",
+      "data-slide": "next"
+    }
+  }, [_c('span', {
+    staticClass: "glyphicon glyphicon-chevron-right"
+  }), _vm._v(" "), _c('span', {
+    staticClass: "sr-only"
+  }, [_vm._v("Next")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "explorer-img-box"
   }, [_c('img', {
