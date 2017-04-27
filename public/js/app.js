@@ -12001,6 +12001,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -34229,18 +34240,21 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "footer"
-  }, [_c('button', {
-    staticClass: "btn btn-default",
+  }, [_c('div', {
+    staticClass: "button"
+  }, [_c('label', {
+    staticClass: "switch"
+  }, [_c('input', {
     attrs: {
-      "type": "button",
-      "data-dismiss": "modal"
+      "type": "checkbox"
     }
-  }, [_vm._v("Отменить")]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-primary",
-    attrs: {
-      "type": "button"
-    }
-  }, [_vm._v("Сохранить")])])
+  }), _vm._v(" "), _c('div', {
+    staticClass: "slider round"
+  })]), _vm._v("\n                Дублировать на экране\n            ")]), _vm._v(" "), _c('div', {
+    staticClass: "button"
+  }, [_vm._v("\n                Остановить\n            ")]), _vm._v(" "), _c('div', {
+    staticClass: "button"
+  }, [_vm._v("\n                Скачать\n            ")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -44286,7 +44300,7 @@ module.exports = function() {
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(64)();
-exports.push([module.i, "\n.my-carousel .modal .close {\n    z-index: 1055;\n    position: fixed;\n    right: 20px;\n    top: 20px;\n    font-size: 40px;\n}\n.my-carousel .modal .footer {\n    position: fixed;\n    height: 50px;\n    width: 100%;\n    left: 0;\n    right: 0;\n    bottom: 0;\n}\n.my-carousel .modal img {\n    position: absolute;\n    top: 0;\n    bottom: 0;\n    left: 0;\n    right: 0;\n    z-index: 1051;\n}\n.my-carousel .modal {\n    margin: 50px 0 70px 0;\n}\n.my-carousel .carousel-control.left,\n.my-carousel .carousel-control.right {\n    background-image: none;\n    z-index: 1052;\n}\n.my-carousel .img-responsive {\n    display: block;\n    max-width: 100%;\n    max-height: 100%;\n    margin: auto;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 72 */

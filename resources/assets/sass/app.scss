@@ -1,12 +1,11 @@
-
 // Fonts
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
-
 // Variables
 @import "variables";
-
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+@import "switch";
 
 $navH: 50px;
 $tap: 5px;
@@ -131,6 +130,63 @@ body {
   .tree-selected > .tree-branch-header {
     color: #FFFFFF;
     background-color: #428bca;
+  }
+}
+
+.my-carousel {
+  .modal {
+    margin: 50px 0 70px 0;
+
+    .close {
+      z-index: 1055;
+      position: fixed;
+      right: 20px;
+      top: 20px;
+      font-size: 40px;
+    }
+    .footer {
+      position: fixed;
+      height: 40px;
+      width: 100%;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #000000;
+
+      .button {
+        display: inline-block;
+        color: #ffffff;
+        padding: 6px;
+      }
+
+      .switch {
+        top: 3px;
+        margin-bottom: 0;
+      }
+      .slider {
+        background-color: #484848;
+      }
+      input:checked + .slider {
+        background-color: #00834c;
+      }
+    }
+    .img-responsive {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 1051;
+      display: block;
+      max-width: 100%;
+      max-height: 100%;
+      margin: auto;
+    }
+    .carousel-control.left,
+    .carousel-control.right {
+      background-image: none;
+      z-index: 1052;
+    }
   }
 }
 
