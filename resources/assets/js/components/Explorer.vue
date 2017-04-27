@@ -35,9 +35,9 @@
                             <template v-else-if="item.type == 'image'">
                                 <div class="explorer-img-box">
                                     <img src="/img/file.png" :data-original="'/dir-img-100x100/' + item.uri" width="100"
-                                         height="100" class="lazy">
+                                         height="100" class="lazy" v-on:click="carouselShow(itemId)">
                                 </div>
-                                <a href="#" v-on:click="download(item.uri)" class="text">
+                                <a href="#" v-on:click="carouselShow(itemId)" class="text">
                                     {{ item.name }}
                                 </a>
                             </template>
@@ -223,6 +223,20 @@
                         return;
                     }
                     jQuery.ajax('/dir-slide-show/' + dir);
+                },
+                carouselShow: function(itemIndex) {
+                    var imgUri = [], position = 0;
+                    for (var i in localData.items) {
+                        if (localData.items[i].type == 'image') {
+                            if (itemIndex == i) {
+                                position = imgUri.length;
+                            }
+                            imgUri.push(localData.items[i].uri);
+
+                        }
+                    }
+                    debugger;
+                    window.appData.carousel.show(imgUri, position);
                 }
             };
             localData.getData('');

@@ -2,16 +2,16 @@
     <div class="container text-center my-carousel">
         <h1> Click Me </h1>
         <!-- Large modal -->
-        <button class="btn btn-default" data-toggle="modal" data-target=".bs-example-modal-lg">Large modal</button>
+        <button class="btn btn-default" data-toggle="modal" data-target="#carouselModal">Large modal</button>
 
-        <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+        <div id="carouselModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
              aria-hidden="true">
             <!-- Controls -->
             <a class="left carousel-control" href="#" v-on:click="left()">
                 <span class="glyphicon glyphicon-chevron-left"></span>
             </a>
 
-            <img class="img-responsive" src="http://placehold.it/1200x2600/555/000&text=One" alt="...">
+            <img class="img-responsive" :src="'/dir-img-1024x768/' + item" alt="...">
 
             <a class="right carousel-control" href="#" v-on:click="right()">
                 <span class="glyphicon glyphicon-chevron-right"></span>
@@ -31,21 +31,17 @@
                 position: 0,
                 items: [],
                 item: '',
-                available: function() {
-                    return Array.isArray(items) && items.length > 0;
-                },
-                show: function (items) {
-                    if (!localData.available()) {
+                show: function (items, position) {
+                    if (!(Array.isArray(items) && items.length > position)) {
                         return;
                     }
-                    localData.position = 0;
+                    localData.position = position;
                     localData.items = items;
-                    localData.item = items[0];
+                    localData.item = items[position];
+
+                    jQuery('#carouselModal').modal('show');
                 },
                 left: function () {
-                    if (!localData.available()) {
-                        return;
-                    }
                     localData.position--;
                     if (localData.position < 0) {
                         localData.position = localData.items.length - 1;
@@ -53,9 +49,6 @@
                     localData.item = localData.items[localData.position];
                 },
                 right: function () {
-                    if (!localData.available()) {
-                        return;
-                    }
                     localData.position++;
                     if (localData.position >= localData.items.length) {
                         localData.position = 0;

@@ -12012,21 +12012,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             position: 0,
             items: [],
             item: '',
-            available: function available() {
-                return Array.isArray(items) && items.length > 0;
-            },
-            show: function show(items) {
-                if (!localData.available()) {
+            show: function show(items, position) {
+                if (!(Array.isArray(items) && items.length > position)) {
                     return;
                 }
-                localData.position = 0;
+                localData.position = position;
                 localData.items = items;
-                localData.item = items[0];
+                localData.item = items[position];
+
+                jQuery('#carouselModal').modal('show');
             },
             left: function left() {
-                if (!localData.available()) {
-                    return;
-                }
                 localData.position--;
                 if (localData.position < 0) {
                     localData.position = localData.items.length - 1;
@@ -12034,9 +12030,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 localData.item = localData.items[localData.position];
             },
             right: function right() {
-                if (!localData.available()) {
-                    return;
-                }
                 localData.position++;
                 if (localData.position >= localData.items.length) {
                     localData.position = 0;
@@ -12515,6 +12508,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     return;
                 }
                 jQuery.ajax('/dir-slide-show/' + dir);
+            },
+            carouselShow: function carouselShow(itemIndex) {
+                var imgUri = [],
+                    position = 0;
+                for (var i in localData.items) {
+                    if (localData.items[i].type == 'image') {
+                        if (itemIndex == i) {
+                            position = imgUri.length;
+                        }
+                        imgUri.push(localData.items[i].uri);
+                    }
+                }
+                debugger;
+                window.appData.carousel.show(imgUri, position);
             }
         };
         localData.getData('');
@@ -34179,11 +34186,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "btn btn-default",
     attrs: {
       "data-toggle": "modal",
-      "data-target": ".bs-example-modal-lg"
+      "data-target": "#carouselModal"
     }
   }, [_vm._v("Large modal")]), _vm._v(" "), _c('div', {
-    staticClass: "modal fade bs-example-modal-lg",
+    staticClass: "modal fade",
     attrs: {
+      "id": "carouselModal",
       "tabindex": "-1",
       "role": "dialog",
       "aria-labelledby": "myLargeModalLabel",
@@ -34204,7 +34212,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })]), _vm._v(" "), _c('img', {
     staticClass: "img-responsive",
     attrs: {
-      "src": "http://placehold.it/1200x2600/555/000&text=One",
+      "src": '/dir-img-1024x768/' + _vm.item,
       "alt": "..."
     }
   }), _vm._v(" "), _c('a', {
@@ -34664,6 +34672,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "data-original": '/dir-img-100x100/' + item.uri,
         "width": "100",
         "height": "100"
+      },
+      on: {
+        "click": function($event) {
+          _vm.carouselShow(itemId)
+        }
       }
     })]), _vm._v(" "), _c('a', {
       staticClass: "text",
@@ -34672,7 +34685,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       on: {
         "click": function($event) {
-          _vm.download(item.uri)
+          _vm.carouselShow(itemId)
         }
       }
     }, [_vm._v("\n                                " + _vm._s(item.name) + "\n                            ")])] : [_c('div', {
