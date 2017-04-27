@@ -27,13 +27,13 @@ class Eom
     {
         $path = $this->fs->realPath($uri);
         Shell::exec('killall eom');
-        Shell::exec('eom -f "' . str_replace('"', '', $path) . '"');
+        Shell::exec('eom -f "' . str_replace('"', '', $path) . '" > /dev/null 2>&1 &');
     }
 
     function slideShowDir($uri)
     {
         $path = $this->fs->realPath($uri);
         Shell::exec('killall eom');
-        Shell::exec('eom -fs "' . str_replace('"', '', $path) . '/*"');
+        Shell::exec('eom -fs "' . str_replace('"', '', $path) . '/*" > /dev/null 2>&1 &');
     }
 }
