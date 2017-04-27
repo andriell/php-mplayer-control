@@ -12,6 +12,7 @@ namespace App\Providers;
 use App\Lib\Eom;
 use App\Lib\FileSystem;
 use App\Lib\FileSystemOverride;
+use App\Lib\Image;
 use App\Lib\MPlayer;
 use Illuminate\Support\ServiceProvider;
 
@@ -25,13 +26,21 @@ class LibProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->singleton(FileSystemOverride::class, function ($app) {
+            /** @var $app \Illuminate\Foundation\Application */
+            return new FileSystemOverride(config('nas.file_system_encoding'));
+        });
         $this->app->singleton(FileSystem::class, function ($app) {
             /** @var $app \Illuminate\Foundation\Application */
-            return new FileSystem(config('nas.media_dir'), new FileSystemOverride(config('nas.file_system_encoding')));
+            return new FileSystem(config('nas.media_dir'), $app->make(FileSystemOverride::class));
         });
         $this->app->singleton(Eom::class, function ($app) {
             /** @var $app \Illuminate\Foundation\Application */
             return new Eom($app->make(FileSystem::class));
+        });
+        $this->app->singleton(Image::class, function ($app) {
+            /** @var $app \Illuminate\Foundation\Application */
+            return new Image($app->make(FileSystem::class), $app->make(FileSystemOverride::class));
         });
         $this->app->singleton(MPlayer::class, function ($app) {
             /** @var $app \Illuminate\Foundation\Application */
