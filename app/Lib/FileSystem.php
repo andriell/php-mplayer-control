@@ -43,7 +43,7 @@ class FileSystem
     {
         $uri = preg_replace('#[\\\\/]+#', '/', $uri);
         $uri = preg_replace('#/[\\.]+/#', '/', $uri);
-        return ltrim($uri, '/');
+        return trim($uri, '/');
     }
 
     /**

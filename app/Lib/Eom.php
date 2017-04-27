@@ -22,4 +22,18 @@ class Eom
     {
         $this->fs = $fs;
     }
+
+    function openFile($uri)
+    {
+        $path = $this->fs->realPath($uri);
+        Shell::exec('killall eom');
+        Shell::exec('eom -f "' . str_replace('"', '', $path) . '"');
+    }
+
+    function openDir($uri)
+    {
+        $path = $this->fs->realPath($uri);
+        Shell::exec('killall eom');
+        Shell::exec('eom -fs "' . str_replace('"', '', $path) . '/*"');
+    }
 }
