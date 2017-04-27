@@ -218,7 +218,7 @@
                     if (localData.itemsChecked.length == 0) {
                         dir = localData.uri;
                     } else if (localData.itemsChecked.length == 1) {
-                        dir = localData.localData.itemsChecked[0].uri;
+                        dir = localData.itemsChecked[0].uri;
                     } else {
                         return;
                     }
