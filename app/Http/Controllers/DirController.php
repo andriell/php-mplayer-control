@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Lib\Eom;
 use App\Lib\FileSystem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
@@ -17,14 +18,17 @@ class DirController extends Controller
 {
 
     private $fs;
+    private $eom;
 
     /**
      * DirController constructor.
      * @param FileSystem $fs
+     * @param Eom $eom
      */
-    public function __construct(FileSystem $fs)
+    public function __construct(FileSystem $fs, Eom $eom)
     {
         $this->fs = $fs;
+        $this->eom = $eom;
         $this->middleware('auth');
     }
 
@@ -105,5 +109,9 @@ class DirController extends Controller
 
     function doDelete() {
         return response()->json(['status' => $this->fs->rm($_POST['items'])]);
+    }
+
+    function slideShow(Request $request, $uri = '') {
+        $this->eom->slideShowDir($uri);
     }
 }

@@ -21,6 +21,7 @@ Route::get('/dir-list/{uri?}', 'DirController@getList')->where(['uri' => '[\s\S]
 Route::get('/dir-img-100x100/{uri}', 'DirController@img')->where(['uri' => '[\s\S]+']);
 Route::get('/dir-download/{uri}', 'DirController@download')->where(['uri' => '[\s\S]+']);
 Route::get('/dir-only-dir/{uri?}', 'DirController@onlyDir')->where(['uri' => '[\s\S]+']);
+Route::get('/dir-slide-show/{uri?}', 'DirController@slideShow')->where(['uri' => '[\s\S]+']);
 Route::post('/dir-mv/', 'DirController@mv');
 Route::post('/dir-cut/', 'DirController@cut');
 Route::post('/dir-copy/', 'DirController@copy');

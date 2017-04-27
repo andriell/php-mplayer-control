@@ -30,7 +30,7 @@ class Eom
         Shell::exec('eom -f "' . str_replace('"', '', $path) . '"');
     }
 
-    function openDir($uri)
+    function slideShowDir($uri)
     {
         $path = $this->fs->realPath($uri);
         Shell::exec('killall eom');

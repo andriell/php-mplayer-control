@@ -12315,36 +12315,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -12458,6 +12428,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     window.appData.delete.items.push(localData.itemsChecked[i].uri);
                 }
                 window.appData.delete.show();
+            },
+            slideShowDir: function slideShowDir() {
+                var dir = false;
+                if (localData.itemsChecked.length == 0) {
+                    dir = localData.uri;
+                } else if (localData.itemsChecked.length == 1) {
+                    dir = localData.localData.itemsChecked[0].uri;
+                } else {
+                    return;
+                }
+                jQuery.ajax('/dir-slide-show/' + dir);
             }
         };
         localData.getData('');
@@ -34406,7 +34387,7 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "explorer"
-  }, [_vm._m(0), _vm._v(" "), _c('div', {
+  }, [_c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "explorer-path"
@@ -34474,7 +34455,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           }
         }
       }
-    }), _vm._v(" "), (item.type == 'dir') ? [_vm._m(1, true), _vm._v(" "), _c('a', {
+    }), _vm._v(" "), (item.type == 'dir') ? [_vm._m(0, true), _vm._v(" "), _c('a', {
       staticClass: "text",
       attrs: {
         "href": "#"
@@ -34560,7 +34541,29 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('span', {
       staticClass: "glyphicon glyphicon-film"
-    }), _vm._v("  Воспроизвести\n                                    ")]) : _vm._e(), _vm._v(" "), _c('a', {
+    }), _vm._v("  Воспроизвести\n                                    ")]) : _vm._e(), _vm._v(" "), (item.type == 'dir') ? _c('a', {
+      staticClass: "list-group-item",
+      attrs: {
+        "href": "#"
+      },
+      on: {
+        "click": function($event) {
+          _vm.playVideo()
+        }
+      }
+    }, [_c('a', {
+      staticClass: "list-group-item",
+      attrs: {
+        "href": "#"
+      },
+      on: {
+        "click": function($event) {
+          _vm.slideShowDir()
+        }
+      }
+    }, [_c('span', {
+      staticClass: "glyphicon glyphicon-picture"
+    }), _vm._v("  Слайд шоу")])]) : _vm._e(), _vm._v(" "), _c('a', {
       staticClass: "list-group-item",
       attrs: {
         "href": "#"
@@ -34623,77 +34626,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     staticClass: "glyphicon glyphicon-folder-open"
-  }), _vm._v("  Новая папка")])])]], 2)])])])])
+  }), _vm._v("  Новая папка")]), _vm._v(" "), _c('a', {
+    staticClass: "list-group-item",
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": function($event) {
+        _vm.slideShowDir()
+      }
+    }
+  }, [_c('span', {
+    staticClass: "glyphicon glyphicon-picture"
+  }), _vm._v("  Слайд шоу")])])]], 2)])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "carousel slide",
-    attrs: {
-      "id": "myCarousel",
-      "data-ride": "carousel"
-    }
-  }, [_c('ol', {
-    staticClass: "carousel-indicators"
-  }, [_c('li', {
-    staticClass: "active",
-    attrs: {
-      "data-target": "#myCarousel",
-      "data-slide-to": "0"
-    }
-  }), _vm._v(" "), _c('li', {
-    attrs: {
-      "data-target": "#myCarousel",
-      "data-slide-to": "1"
-    }
-  }), _vm._v(" "), _c('li', {
-    attrs: {
-      "data-target": "#myCarousel",
-      "data-slide-to": "2"
-    }
-  })]), _vm._v(" "), _c('div', {
-    staticClass: "carousel-inner"
-  }, [_c('div', {
-    staticClass: "item active"
-  }, [_c('img', {
-    attrs: {
-      "src": "la.jpg",
-      "alt": "Los Angeles"
-    }
-  })]), _vm._v(" "), _c('div', {
-    staticClass: "item"
-  }, [_c('img', {
-    attrs: {
-      "src": "chicago.jpg",
-      "alt": "Chicago"
-    }
-  })]), _vm._v(" "), _c('div', {
-    staticClass: "item"
-  }, [_c('img', {
-    attrs: {
-      "src": "ny.jpg",
-      "alt": "New York"
-    }
-  })])]), _vm._v(" "), _c('a', {
-    staticClass: "left carousel-control",
-    attrs: {
-      "href": "#myCarousel",
-      "data-slide": "prev"
-    }
-  }, [_c('span', {
-    staticClass: "glyphicon glyphicon-chevron-left"
-  }), _vm._v(" "), _c('span', {
-    staticClass: "sr-only"
-  }, [_vm._v("Previous")])]), _vm._v(" "), _c('a', {
-    staticClass: "right carousel-control",
-    attrs: {
-      "href": "#myCarousel",
-      "data-slide": "next"
-    }
-  }, [_c('span', {
-    staticClass: "glyphicon glyphicon-chevron-right"
-  }), _vm._v(" "), _c('span', {
-    staticClass: "sr-only"
-  }, [_vm._v("Next")])])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "explorer-img-box"
   }, [_c('img', {
