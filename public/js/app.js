@@ -12738,9 +12738,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 jQuery.ajax('/player-switch-video/');
             }
         };
-        setInterval(function () {
+        /*setInterval(function() {
             localData.update();
-        }, 60000);
+        }, 60000);*/
         return localData;
     },
     mounted: function mounted() {}
@@ -34185,8 +34185,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('a', {
     staticClass: "left carousel-control",
     attrs: {
-      "href": "#carousel-example-generic",
-      "role": "button"
+      "href": "#"
     }
   }, [_c('span', {
     staticClass: "glyphicon glyphicon-chevron-left"
@@ -34199,8 +34198,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), _c('a', {
     staticClass: "right carousel-control",
     attrs: {
-      "href": "#carousel-example-generic",
-      "role": "button"
+      "href": "#"
     }
   }, [_c('span', {
     staticClass: "glyphicon glyphicon-chevron-right"

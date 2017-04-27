@@ -7,13 +7,13 @@
         <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
              aria-hidden="true">
             <!-- Controls -->
-            <a class="left carousel-control" href="#carousel-example-generic" role="button">
+            <a class="left carousel-control" href="#">
                 <span class="glyphicon glyphicon-chevron-left"></span>
             </a>
 
             <img class="img-responsive" src="http://placehold.it/1200x2600/555/000&text=One" alt="...">
 
-            <a class="right carousel-control" href="#carousel-example-generic" role="button">
+            <a class="right carousel-control" href="#">
                 <span class="glyphicon glyphicon-chevron-right"></span>
             </a>
             <div class="footer">
