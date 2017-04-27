@@ -12019,6 +12019,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             position: 0,
             items: [],
             item: '',
+            sync: false,
             show: function show(items, position) {
                 if (!(Array.isArray(items) && items.length > position)) {
                     return;
@@ -12026,6 +12027,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 localData.position = position;
                 localData.items = items;
                 localData.item = items[position];
+                localData.sync = false;
 
                 jQuery('#carouselModal').modal('show');
             },
@@ -12042,6 +12044,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     localData.position = 0;
                 }
                 localData.item = localData.items[localData.position];
+            },
+            stop: function stop() {
+                jQuery.ajax('/dir-slide-stop/');
+            },
+            download: function download() {
+                window.location.href = '/dir-download/' + localData.item.uri;
             }
         };
         return localData;
@@ -34210,7 +34218,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })]), _vm._v(" "), _c('img', {
     staticClass: "img-responsive",
     attrs: {
-      "src": '/dir-img-1024x768/' + _vm.item.uri,
+      "src": '/dir-img-1024x768/' + _vm.item.uri + '?sync=' + _vm.sync,
       "alt": "..."
     }
   }), _vm._v(" "), _c('a', {
@@ -34225,7 +34233,68 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     staticClass: "glyphicon glyphicon-chevron-right"
-  })]), _vm._v(" "), _vm._m(1)])])
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "footer"
+  }, [_c('div', {
+    staticClass: "button"
+  }, [_c('label', {
+    staticClass: "switch"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.sync),
+      expression: "sync"
+    }],
+    attrs: {
+      "type": "checkbox"
+    },
+    domProps: {
+      "checked": Array.isArray(_vm.sync) ? _vm._i(_vm.sync, null) > -1 : (_vm.sync)
+    },
+    on: {
+      "__c": function($event) {
+        var $$a = _vm.sync,
+          $$el = $event.target,
+          $$c = $$el.checked ? (true) : (false);
+        if (Array.isArray($$a)) {
+          var $$v = null,
+            $$i = _vm._i($$a, $$v);
+          if ($$c) {
+            $$i < 0 && (_vm.sync = $$a.concat($$v))
+          } else {
+            $$i > -1 && (_vm.sync = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
+          }
+        } else {
+          _vm.sync = $$c
+        }
+      }
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "slider round"
+  })]), _vm._v("\n                Дублировать на экране\n            ")]), _vm._v(" "), _c('div', {
+    staticClass: "button"
+  }, [_c('a', {
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": function($event) {
+        _vm.stop()
+      }
+    }
+  }, [_vm._v("Остановить")])]), _vm._v(" "), _c('div', {
+    staticClass: "button"
+  }, [_c('a', {
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": function($event) {
+        _vm.download()
+      }
+    }
+  }, [_vm._v("Скачать")])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('button', {
     staticClass: "close",
@@ -34237,24 +34306,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('span', {
     staticClass: "glyphicon glyphicon-remove"
   })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "footer"
-  }, [_c('div', {
-    staticClass: "button"
-  }, [_c('label', {
-    staticClass: "switch"
-  }, [_c('input', {
-    attrs: {
-      "type": "checkbox"
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "slider round"
-  })]), _vm._v("\n                Дублировать на экране\n            ")]), _vm._v(" "), _c('div', {
-    staticClass: "button"
-  }, [_vm._v("\n                Остановить\n            ")]), _vm._v(" "), _c('div', {
-    staticClass: "button"
-  }, [_vm._v("\n                Скачать\n            ")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -44300,7 +44351,7 @@ module.exports = function() {
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(64)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 72 */

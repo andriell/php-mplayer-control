@@ -79,6 +79,9 @@ class DirController extends Controller
 
     function img1024x768(Request $request, $uri)
     {
+        if (isset($_GET['sync']) && $_GET['sync'] == 'true') {
+            $this->eom->openFile($uri);
+        }
         return $this->resize($request, $uri, [1024, 768, false]);
     }
 
@@ -124,7 +127,15 @@ class DirController extends Controller
         return response()->json(['status' => $this->fs->rm($_POST['items'])]);
     }
 
+    function slide(Request $request, $uri = '') {
+        $this->eom->openFile($uri);
+    }
+
     function slideShow(Request $request, $uri = '') {
         $this->eom->slideShowDir($uri);
+    }
+
+    function slideStop(Request $request, $uri = '') {
+        $this->eom->stop();
     }
 }

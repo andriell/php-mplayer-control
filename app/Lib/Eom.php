@@ -23,6 +23,11 @@ class Eom
         $this->fs = $fs;
     }
 
+    function stop()
+    {
+        Shell::exec('killall eom');
+    }
+
     function openFile($uri)
     {
         $path = $this->fs->realPath($uri);

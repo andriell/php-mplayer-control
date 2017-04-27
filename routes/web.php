@@ -22,7 +22,9 @@ Route::get('/dir-img-100x100/{uri}', 'DirController@img100x100')->where(['uri' =
 Route::get('/dir-img-1024x768/{uri}', 'DirController@img1024x768')->where(['uri' => '[\s\S]+']);
 Route::get('/dir-download/{uri}', 'DirController@download')->where(['uri' => '[\s\S]+']);
 Route::get('/dir-only-dir/{uri?}', 'DirController@onlyDir')->where(['uri' => '[\s\S]+']);
+Route::get('/dir-slide/{uri?}', 'DirController@slide')->where(['uri' => '[\s\S]+']);
 Route::get('/dir-slide-show/{uri?}', 'DirController@slideShow')->where(['uri' => '[\s\S]+']);
+Route::get('/dir-slide-stop/', 'DirController@slideStop');
 Route::post('/dir-mv/', 'DirController@mv');
 Route::post('/dir-cut/', 'DirController@cut');
 Route::post('/dir-copy/', 'DirController@copy');

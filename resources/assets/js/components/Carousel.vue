@@ -7,7 +7,7 @@
                 <span class="glyphicon glyphicon-chevron-left"></span>
             </a>
 
-            <img class="img-responsive" :src="'/dir-img-1024x768/' + item.uri" alt="...">
+            <img class="img-responsive" :src="'/dir-img-1024x768/' + item.uri + '?sync=' + sync" alt="...">
 
             <a class="right carousel-control" href="#" v-on:click="right()">
                 <span class="glyphicon glyphicon-chevron-right"></span>
@@ -15,7 +15,7 @@
             <div class="footer">
                 <div class="button">
                     <label class="switch">
-                        <input type="checkbox">
+                        <input type="checkbox" v-model="sync">
                         <div class="slider round"></div>
                     </label>
                     Дублировать на экране
@@ -38,6 +38,7 @@
                 position: 0,
                 items: [],
                 item: '',
+                sync: false,
                 show: function (items, position) {
                     if (!(Array.isArray(items) && items.length > position)) {
                         return;
@@ -45,6 +46,7 @@
                     localData.position = position;
                     localData.items = items;
                     localData.item = items[position];
+                    localData.sync = false;
 
                     jQuery('#carouselModal').modal('show');
                 },
@@ -63,10 +65,10 @@
                     localData.item = localData.items[localData.position];
                 },
                 stop: function () {
-
+                    jQuery.ajax('/dir-slide-stop/');
                 },
                 download: function () {
-
+                    window.location.href = '/dir-download/' + localData.item.uri;
                 }
             };
             return localData;
