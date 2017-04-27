@@ -34,6 +34,6 @@ class Eom
     {
         $path = $this->fs->realPath($uri);
         Shell::exec('killall eom');
-        Shell::exec('eom -fs "' . str_replace('"', '', $path) . '/*" > /dev/null 2>&1 &');
+        Shell::exec('eom -fs "' . str_replace('"', '', $path) . '" > /dev/null 2>&1 &');
     }
 }
