@@ -28,16 +28,30 @@
     export default {
         data: function () {
             var localData = window.appData.carousel = {
-                position: [],
+                position: 0,
                 items: [],
-                setItems: function () {
-
+                item: {},
+                show: function (items) {
+                    if (!(Array.isArray(items) && items.length > 0)) {
+                        return;
+                    }
+                    localData.position = 0;
+                    localData.items = items;
+                    localData.item = items[0];
                 },
                 left: function () {
-
+                    localData.position--;
+                    if (localData.position < 0) {
+                        localData.position = localData.items.length - 1;
+                    }
+                    localData.item = localData.items[localData.position];
                 },
                 right: function () {
-
+                    localData.position++;
+                    if (localData.position >= localData.items.length) {
+                        localData.position = 0;
+                    }
+                    localData.item = localData.items[localData.position];
                 }
             };
             return localData;

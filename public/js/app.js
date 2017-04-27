@@ -12009,11 +12009,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         var localData = window.appData.carousel = {
-            position: [],
+            position: 0,
             items: [],
-            setItems: function setItems() {},
-            left: function left() {},
-            right: function right() {}
+            item: {},
+            show: function show(items) {
+                if (!(Array.isArray(items) && items.length > 0)) {
+                    return;
+                }
+                localData.position = 0;
+                localData.items = items;
+                localData.item = items[0];
+            },
+            left: function left() {
+                localData.position--;
+                if (localData.position < 0) {
+                    localData.position = localData.items.length - 1;
+                }
+                localData.item = localData.items[localData.position];
+            },
+            right: function right() {
+                localData.position++;
+                if (localData.position >= localData.items.length) {
+                    localData.position = 0;
+                }
+                localData.item = localData.items[localData.position];
+            }
         };
         return localData;
     },
