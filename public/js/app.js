@@ -12001,10 +12001,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -34182,13 +34178,7 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "container text-center my-carousel"
-  }, [_c('h1', [_vm._v(" Click Me ")]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-default",
-    attrs: {
-      "data-toggle": "modal",
-      "data-target": "#carouselModal"
-    }
-  }, [_vm._v("Large modal")]), _vm._v(" "), _c('div', {
+  }, [_c('div', {
     staticClass: "modal",
     attrs: {
       "id": "carouselModal",
