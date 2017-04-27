@@ -12384,6 +12384,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -12437,8 +12438,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     }
                 });
             },
-            download: function download(uri) {
-                window.location.href = '/dir-download/' + uri;
+            download: function download() {
+                window.location.href = '/dir-download/' + localData.itemsChecked[0].uri;
                 return false;
             },
             playVideo: function playVideo() {
@@ -12517,7 +12518,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         if (itemIndex == i) {
                             position = imgUri.length;
                         }
-                        imgUri.push(localData.items[i].uri);
+                        imgUri.push(localData.items[i]);
                     }
                 }
                 debugger;
@@ -34212,7 +34213,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })]), _vm._v(" "), _c('img', {
     staticClass: "img-responsive",
     attrs: {
-      "src": '/dir-img-1024x768/' + _vm.item,
+      "src": '/dir-img-1024x768/' + _vm.item.uri,
       "alt": "..."
     }
   }), _vm._v(" "), _c('a', {
@@ -34702,11 +34703,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "text",
       attrs: {
         "href": "#"
-      },
-      on: {
-        "click": function($event) {
-          _vm.download(item.uri)
-        }
       }
     }, [_vm._v("\n                                    " + _vm._s(item.name) + "\n                                ")])])]], 2)
   }))])]), _vm._v(" "), _c('div', {
@@ -34768,7 +34764,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('span', {
       staticClass: "glyphicon glyphicon-pencil"
-    }), _vm._v("  Переименовать")])]
+    }), _vm._v("  Переименовать")]), _vm._v(" "), _c('a', {
+      staticClass: "list-group-item",
+      attrs: {
+        "href": "#"
+      },
+      on: {
+        "click": function($event) {
+          _vm.download()
+        }
+      }
+    }, [_c('span', {
+      staticClass: "glyphicon glyphicon-download-alt"
+    }), _vm._v("  Скачать")])]
   })] : _vm._e(), _vm._v(" "), _c('a', {
     staticClass: "list-group-item",
     attrs: {

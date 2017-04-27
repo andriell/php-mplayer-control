@@ -11,7 +11,7 @@
                 <span class="glyphicon glyphicon-chevron-left"></span>
             </a>
 
-            <img class="img-responsive" :src="'/dir-img-1024x768/' + item" alt="...">
+            <img class="img-responsive" :src="'/dir-img-1024x768/' + item.uri" alt="...">
 
             <a class="right carousel-control" href="#" v-on:click="right()">
                 <span class="glyphicon glyphicon-chevron-right"></span>

@@ -46,7 +46,7 @@
                                     <img src="/img/file.png"><br>
                                 </div>
                                 <a href="#">
-                                    <a href="#" v-on:click="download(item.uri)" class="text">
+                                    <a href="#" class="text">
                                         {{ item.name }}
                                     </a>
                                 </a>
@@ -78,6 +78,7 @@
                                             <span class="glyphicon glyphicon-picture"></span>&nbsp;&nbsp;Слайд шоу
                                         </a>
                                         <a href="#" class="list-group-item" v-on:click="fileRename()"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Переименовать</a>
+                                        <a href="#" class="list-group-item" v-on:click="download()"><span class="glyphicon glyphicon-download-alt"></span>&nbsp;&nbsp;Скачать</a>
                                     </template>
                                 </template>
                                 <a href="#" class="list-group-item" v-on:click="fileCopy()"><span class="glyphicon glyphicon-arrow-right"></span>&nbsp;&nbsp;Переместить</a>
@@ -152,8 +153,8 @@
                         }
                     });
                 },
-                download: function (uri) {
-                    window.location.href = '/dir-download/' + uri;
+                download: function () {
+                    window.location.href = '/dir-download/' + localData.itemsChecked[0].uri;
                     return false;
                 },
                 playVideo: function () {
@@ -231,7 +232,7 @@
                             if (itemIndex == i) {
                                 position = imgUri.length;
                             }
-                            imgUri.push(localData.items[i].uri);
+                            imgUri.push(localData.items[i]);
 
                         }
                     }
