@@ -11,6 +11,7 @@ namespace App\Http\Controllers;
 
 use App\Lib\Eom;
 use App\Lib\FileSystem;
+use App\Lib\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 
@@ -19,16 +20,19 @@ class DirController extends Controller
 
     private $fs;
     private $eom;
+    private $image;
 
     /**
      * DirController constructor.
      * @param FileSystem $fs
      * @param Eom $eom
+     * @param Image $image
      */
-    public function __construct(FileSystem $fs, Eom $eom)
+    public function __construct(FileSystem $fs, Eom $eom, Image $image)
     {
         $this->fs = $fs;
         $this->eom = $eom;
+        $this->image = $image;
         $this->middleware('auth');
     }
 
@@ -64,7 +68,7 @@ class DirController extends Controller
         }
         //</editor-fold>
         return response()->stream(function() use($uri, $size) {
-            $this->fs->resizeImage($uri, $size);
+            $this->image->resize($uri, $size);
         }, 200, $headers);
     }
 
