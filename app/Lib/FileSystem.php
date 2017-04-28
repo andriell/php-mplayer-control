@@ -205,12 +205,12 @@ class FileSystem
      */
     function mvUpload($realPathFrom, $uriTo)
     {
-        $realPathFrom = $this->normalizeUri($realPathFrom);
+        $realPathFrom = '/' . $this->normalizeUri($realPathFrom);
         $realPathTo = $this->realPath($uriTo);
-        if (empty($realPathTo) || empty($realPathTo)) {
+        if (is_file($realPathFrom) || empty($realPathTo)) {
             return false;
         }
-        Shell::exec('mv --backup=numbered "/' . str_replace('"', '', $realPathFrom) . '" "' . str_replace('"', '', $realPathTo) . '"');
+        Shell::exec('mv --backup=numbered "' . str_replace('"', '', $realPathFrom) . '" "' . str_replace('"', '', $realPathTo) . '"');
         return true;
     }
 
