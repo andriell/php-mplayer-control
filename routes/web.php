@@ -23,6 +23,8 @@ Route::get('/dir-img-1024x768/{uri}', 'DirController@img1024x768')->where(['uri'
 Route::get('/dir-download/{uri}', 'DirController@download')->where(['uri' => '[\s\S]+']);
 Route::get('/dir-only-dir/{uri?}', 'DirController@onlyDir')->where(['uri' => '[\s\S]+']);
 Route::get('/dir-slide/{uri?}', 'DirController@slide')->where(['uri' => '[\s\S]+']);
+Route::get('/dir-slide-left/', 'DirController@keyLeft');
+Route::get('/dir-slide-right/', 'DirController@keyRight');
 Route::get('/dir-slide-show/{uri?}', 'DirController@slideShow')->where(['uri' => '[\s\S]+']);
 Route::get('/dir-slide-stop/', 'DirController@slideStop');
 Route::post('/dir-mv/', 'DirController@mv');

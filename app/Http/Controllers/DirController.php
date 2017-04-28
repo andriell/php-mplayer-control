@@ -12,6 +12,7 @@ namespace App\Http\Controllers;
 use App\Lib\Eom;
 use App\Lib\FileSystem;
 use App\Lib\Image;
+use App\Lib\XBoTool;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 
@@ -21,6 +22,7 @@ class DirController extends Controller
     private $fs;
     private $eom;
     private $image;
+    private $xBoTool;
 
     /**
      * DirController constructor.
@@ -28,11 +30,12 @@ class DirController extends Controller
      * @param Eom $eom
      * @param Image $image
      */
-    public function __construct(FileSystem $fs, Eom $eom, Image $image)
+    public function __construct(FileSystem $fs, Eom $eom, Image $image, XBoTool $xBoTool)
     {
         $this->fs = $fs;
         $this->eom = $eom;
         $this->image = $image;
+        $this->xBoTool = $xBoTool;
         $this->middleware('auth');
     }
 
@@ -79,8 +82,12 @@ class DirController extends Controller
 
     function img1024x768(Request $request, $uri)
     {
-        if (isset($_GET['sync']) && $_GET['sync'] == 'true') {
-            $this->eom->openFile($uri);
+        if (isset($_GET['sync']) && $_GET['sync'] == 'true' && isset($_GET['action'])) {
+            if ($_GET['action'] == 'left') {
+                $this->xBoTool->keyLeft();
+            } else if ($_GET['action'] == 'right') {
+                $this->xBoTool->keyRight();
+            }
         }
         return $this->resize($request, $uri, [1024, 768, false]);
     }
@@ -129,6 +136,14 @@ class DirController extends Controller
 
     function slide(Request $request, $uri = '') {
         $this->eom->openFile($uri);
+    }
+
+    function slideLeft() {
+        $this->xBoTool->keyLeft();
+    }
+
+    function keyRight() {
+        $this->xBoTool->keyRight();
     }
 
     function slideShow(Request $request, $uri = '') {

@@ -7,7 +7,7 @@
                 <span class="glyphicon glyphicon-chevron-left"></span>
             </a>
 
-            <img class="img-responsive" :src="'/dir-img-1024x768/' + item.uri + '?sync=' + sync" alt="...">
+            <img class="img-responsive" :src="'/dir-img-1024x768/' + item.uri + '?sync=' + sync + '&action=' + action" alt="...">
 
             <a class="right carousel-control" href="#" v-on:click="right()">
                 <span class="glyphicon glyphicon-chevron-right"></span>
@@ -15,7 +15,7 @@
             <div class="footer">
                 <div class="button">
                     <label class="switch">
-                        <input type="checkbox" v-model="sync">
+                        <input type="checkbox" v-model="sync" v-on:click="syncToggle()">
                         <div class="slider round"></div>
                     </label>
                     Дублировать на экране
@@ -39,6 +39,7 @@
                 items: [],
                 item: '',
                 sync: false,
+                action: '',
                 show: function (items, position) {
                     if (!(Array.isArray(items) && items.length > position)) {
                         return;
@@ -50,11 +51,19 @@
 
                     jQuery('#carouselModal').modal('show');
                 },
+                syncToggle: function () {
+                    if (localData.sync) {
+                        jQuery.ajax('/dir-slide/' + localData.item.uri);
+                    } else {
+                        jQuery.ajax('/dir-slide-stop/');
+                    }
+                },
                 left: function () {
                     localData.position--;
                     if (localData.position < 0) {
                         localData.position = localData.items.length - 1;
                     }
+                    localData.action = 'left';
                     localData.item = localData.items[localData.position];
                 },
                 right: function () {
@@ -62,6 +71,7 @@
                     if (localData.position >= localData.items.length) {
                         localData.position = 0;
                     }
+                    localData.action = 'right';
                     localData.item = localData.items[localData.position];
                 },
                 stop: function () {
