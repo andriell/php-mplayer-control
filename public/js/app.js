@@ -11104,6 +11104,7 @@ __webpack_require__(39);
 __webpack_require__(45);
 __webpack_require__(44);
 __webpack_require__(40);
+__webpack_require__(79);
 
 window.Vue = __webpack_require__(69);
 
@@ -12022,7 +12023,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var localData = window.appData.carousel = {
             position: 0,
             items: [],
-            item: {},
+            item: false,
             sync: false,
             action: '',
             show: function show(items, position) {
@@ -12980,7 +12981,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {};
     },
     mounted: function mounted() {
-        jQuery("#input-4").fileinput({ showCaption: false });
+        jQuery('#input-ru').fileinput({
+            language: 'ru',
+            uploadUrl: '/dir-upload/'
+        });
     }
 });
 
@@ -38297,11 +38301,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_c('label', {
     staticClass: "control-label"
-  }, [_vm._v("Select File")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("Выберите Файл")]), _vm._v(" "), _c('input', {
     staticClass: "file-loading",
     attrs: {
-      "id": "input-4",
-      "name": "input4[]",
+      "id": "input-ru",
+      "name": "inputru[]",
       "type": "file",
       "multiple": ""
     }
@@ -48534,6 +48538,113 @@ module.exports = function(module) {
 
 __webpack_require__(10);
 module.exports = __webpack_require__(11);
+
+
+/***/ }),
+/* 72 */,
+/* 73 */,
+/* 74 */,
+/* 75 */,
+/* 76 */,
+/* 77 */,
+/* 78 */,
+/* 79 */
+/***/ (function(module, exports) {
+
+/*!
+ * FileInput Russian Translations
+ *
+ * This file must be loaded after 'fileinput.js'. Patterns in braces '{}', or
+ * any HTML markup tags in the messages must not be converted or translated.
+ *
+ * @see http://github.com/kartik-v/bootstrap-fileinput
+ * @author CyanoFresh <cyanofresh@gmail.com>
+ *
+ * NOTE: this file must be saved in UTF-8 encoding.
+ */
+(function ($) {
+    "use strict";
+
+    $.fn.fileinputLocales['ru'] = {
+        fileSingle: 'файл',
+        filePlural: 'файлы',
+        browseLabel: 'Выбрать &hellip;',
+        removeLabel: 'Удалить',
+        removeTitle: 'Очистить выбранные файлы',
+        cancelLabel: 'Отмена',
+        cancelTitle: 'Отменить текущую загрузку',
+        uploadLabel: 'Загрузить',
+        uploadTitle: 'Загрузить выбранные файлы',
+        msgNo: 'нет',
+        msgNoFilesSelected: '',
+        msgCancelled: 'Отменено',
+        msgZoomModalHeading: 'Подробное превью',
+        msgSizeTooSmall: 'File "{name}" (<b>{size} KB</b>) is too small and must be larger than <b>{minSize} KB</b>.',
+        msgSizeTooLarge: 'Файл "{name}" (<b>{size} KB</b>) превышает максимальный размер <b>{maxSize} KB</b>.',
+        msgFilesTooLess: 'Вы должны выбрать как минимум <b>{n}</b> {files} для загрузки.',
+        msgFilesTooMany: 'Количество выбранных файлов <b>({n})</b> превышает максимально допустимое количество <b>{m}</b>.',
+        msgFileNotFound: 'Файл "{name}" не найден!',
+        msgFileSecured: 'Ограничения безопасности запрещают читать файл "{name}".',
+        msgFileNotReadable: 'Файл "{name}" невозможно прочитать.',
+        msgFilePreviewAborted: 'Предпросмотр отменен для файла "{name}".',
+        msgFilePreviewError: 'Произошла ошибка при чтении файла "{name}".',
+        msgInvalidFileName: 'Invalid or unsupported characters in file name "{name}".',
+        msgInvalidFileType: 'Запрещенный тип файла для "{name}". Только "{types}" разрешены.',
+        msgInvalidFileExtension: 'Запрещенное расширение для файла "{name}". Только "{extensions}" разрешены.',
+        msgFileTypes: {
+            'image': 'image',
+            'html': 'HTML',
+            'text': 'text',
+            'video': 'video',
+            'audio': 'audio',
+            'flash': 'flash',
+            'pdf': 'PDF',
+            'object': 'object'
+        },
+        msgUploadAborted: 'Выгрузка файла прервана',
+        msgUploadThreshold: 'Обработка...',
+        msgUploadEmpty: 'Недопустимые данные для загрузки',
+        msgValidationError: 'Ошибка проверки',
+        msgLoading: 'Загрузка файла {index} из {files} &hellip;',
+        msgProgress: 'Загрузка файла {index} из {files} - {name} - {percent}% завершено.',
+        msgSelected: 'Выбрано файлов: {n}',
+        msgFoldersNotAllowed: 'Разрешено перетаскивание только файлов! Пропущено {n} папок.',
+        msgImageWidthSmall: 'Ширина изображения {name} должна быть не меньше {size} px.',
+        msgImageHeightSmall: 'Высота изображения {name} должна быть не меньше {size} px.',
+        msgImageWidthLarge: 'Ширина изображения "{name}" не может превышать {size} px.',
+        msgImageHeightLarge: 'Высота изображения "{name}" не может превышать {size} px.',
+        msgImageResizeError: 'Не удалось получить размеры изображения, чтобы изменить размер.',
+        msgImageResizeException: 'Ошибка при изменении размера изображения.<pre>{errors}</pre>',
+        msgAjaxError: 'Something went wrong with the {operation} operation. Please try again later!',
+        msgAjaxProgressError: '{operation} failed',
+        ajaxOperations: {
+            deleteThumb: 'file delete',
+            uploadThumb: 'single file upload',
+            uploadBatch: 'batch file upload',
+            uploadExtra: 'form data upload'
+        },
+        dropZoneTitle: 'Перетащите файлы сюда &hellip;',
+        dropZoneClickTitle: '<br>(Или щёлкните, чтобы выбрать {files})',
+        fileActionSettings: {
+            removeTitle: 'Удалить файл',
+            uploadTitle: 'Загрузить файл',
+            zoomTitle: 'посмотреть детали',
+            dragTitle: 'Move / Rearrange',
+            indicatorNewTitle: 'Еще не загружен',
+            indicatorSuccessTitle: 'Загружен',
+            indicatorErrorTitle: 'Ошибка загрузки',
+            indicatorLoadingTitle: 'Загрузка ...'
+        },
+        previewZoomButtonTitles: {
+            prev: 'View previous file',
+            next: 'View next file',
+            toggleheader: 'Toggle header',
+            fullscreen: 'Toggle full screen',
+            borderless: 'Toggle borderless mode',
+            close: 'Close detailed preview'
+        }
+    };
+})(window.jQuery);
 
 
 /***/ })

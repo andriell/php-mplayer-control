@@ -39,7 +39,7 @@
             var localData = window.appData.carousel = {
                 position: 0,
                 items: [],
-                item: {},
+                item: false,
                 sync: false,
                 action: '',
                 show: function (items, position) {

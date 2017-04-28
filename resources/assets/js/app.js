@@ -17,6 +17,7 @@ require('./bootstrap');
 require('jquery-lazyload');
 require('fuelux/js/tree.js');
 require('bootstrap-fileinput');
+require('bootstrap-fileinput/js/locales/ru.js');
 
 window.Vue = require('vue');
 
