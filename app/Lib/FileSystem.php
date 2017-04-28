@@ -189,7 +189,7 @@ class FileSystem
     function newFolder($uriFrom, $uriTo)
     {
         $to = $this->realPath($uriTo);
-        Shell::exec('mkdir -p 0664 "' . str_replace('"', '', $to) . '"');
+        Shell::exec('mkdir "' . str_replace('"', '', $to) . '"');
         if (empty($uriFrom)) {
             return true;
         }
