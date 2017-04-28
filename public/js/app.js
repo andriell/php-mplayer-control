@@ -12012,13 +12012,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         var localData = window.appData.carousel = {
             position: 0,
             items: [],
-            item: '',
+            item: {},
             sync: false,
             action: '',
             show: function show(items, position) {
@@ -12029,6 +12031,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 localData.items = items;
                 localData.item = items[position];
                 localData.sync = false;
+                localData.action = '';
 
                 jQuery('#carouselModal').modal('show');
             },
@@ -15391,7 +15394,7 @@ if (typeof jQuery === 'undefined') {
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(41)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 41 */
@@ -34288,13 +34291,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     staticClass: "glyphicon glyphicon-chevron-left"
-  })]), _vm._v(" "), _c('img', {
+  })]), _vm._v(" "), (_vm.item) ? [_c('img', {
     staticClass: "img-responsive",
     attrs: {
       "src": '/dir-img-1024x768/' + _vm.item.uri + '?sync=' + _vm.sync + '&action=' + _vm.action,
       "alt": "..."
     }
-  }), _vm._v(" "), _c('a', {
+  })] : _vm._e(), _vm._v(" "), _c('a', {
     staticClass: "right carousel-control",
     attrs: {
       "href": "#"
@@ -34370,7 +34373,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.download()
       }
     }
-  }, [_vm._v("Скачать")])])])])])
+  }, [_vm._v("Скачать")])])])], 2)])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('button', {
     staticClass: "close",

@@ -7,7 +7,9 @@
                 <span class="glyphicon glyphicon-chevron-left"></span>
             </a>
 
-            <img class="img-responsive" :src="'/dir-img-1024x768/' + item.uri + '?sync=' + sync + '&action=' + action" alt="...">
+            <template v-if="item">
+                <img class="img-responsive" :src="'/dir-img-1024x768/' + item.uri + '?sync=' + sync + '&action=' + action" alt="...">
+            </template>
 
             <a class="right carousel-control" href="#" v-on:click="right()">
                 <span class="glyphicon glyphicon-chevron-right"></span>
@@ -37,7 +39,7 @@
             var localData = window.appData.carousel = {
                 position: 0,
                 items: [],
-                item: '',
+                item: {},
                 sync: false,
                 action: '',
                 show: function (items, position) {
@@ -48,6 +50,7 @@
                     localData.items = items;
                     localData.item = items[position];
                     localData.sync = false;
+                    localData.action = '';
 
                     jQuery('#carouselModal').modal('show');
                 },
