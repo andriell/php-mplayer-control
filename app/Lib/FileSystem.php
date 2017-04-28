@@ -207,7 +207,7 @@ class FileSystem
     {
         $realPathFrom = '/' . $this->normalizeUri($realPathFrom);
         $realPathTo = $this->realPath($uriTo);
-        if (is_file($realPathFrom) || empty($realPathTo)) {
+        if (!(is_file($realPathFrom) && substr($realPathFrom, 0, 5) == '/tmp/' && $realPathTo)) {
             return false;
         }
         Shell::exec('mv --backup=numbered "' . str_replace('"', '', $realPathFrom) . '" "' . str_replace('"', '', $realPathTo) . '"');
