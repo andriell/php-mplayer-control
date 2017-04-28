@@ -202,6 +202,7 @@
                     window.appData.toNewFolder.show();
                 },
                 newFolder: function() {
+                    window.appData.newFolder.currentDir = localData.uri;
                     window.appData.newFolder.show();
                 },
                 doDelete: function() {

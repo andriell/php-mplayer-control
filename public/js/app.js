@@ -12518,6 +12518,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 window.appData.toNewFolder.show();
             },
             newFolder: function newFolder() {
+                window.appData.newFolder.currentDir = localData.uri;
                 window.appData.newFolder.show();
             },
             doDelete: function doDelete() {
