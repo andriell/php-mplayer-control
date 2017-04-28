@@ -12998,14 +12998,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var localData = window.appData.upload = {
             uri: '',
             fileInput: {},
+            modal: {},
             show: function show() {
-                jQuery('#uploadModal').modal('show');
+                localData.modal.modal('show');
                 localData.fileInput.fileinput('refresh', {
                     uploadUrl: '/dir-upload/' + localData.uri
                 });
             },
             hide: function hide() {
-                jQuery('#uploadModal').modal('hide');
+                localData.modal.modal('hide');
             }
         };
         return localData;
@@ -13014,6 +13015,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         window.appData.upload.fileInput = jQuery('#uploadInput').fileinput({
             language: 'ru',
             uploadUrl: '/dir-upload/'
+        });
+        window.appData.upload.modal = jQuery('#uploadModal');
+        window.appData.upload.modal.on('hidden.bs.modal', function () {
+            window.appData.explorer.reload();
         });
     }
 });

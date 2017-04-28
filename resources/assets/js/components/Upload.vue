@@ -22,14 +22,15 @@
             var localData = window.appData.upload = {
                 uri: '',
                 fileInput: {},
+                modal: {},
                 show: function () {
-                    jQuery('#uploadModal').modal('show');
+                    localData.modal.modal('show');
                     localData.fileInput.fileinput('refresh', {
                         uploadUrl: '/dir-upload/' + localData.uri
                     })
                 },
                 hide: function () {
-                    jQuery('#uploadModal').modal('hide');
+                    localData.modal.modal('hide');
                 }
             };
             return localData;
@@ -38,6 +39,10 @@
             window.appData.upload.fileInput = jQuery('#uploadInput').fileinput({
                 language: 'ru',
                 uploadUrl: '/dir-upload/'
+            });
+            window.appData.upload.modal = jQuery('#uploadModal');
+            window.appData.upload.modal.on('hidden.bs.modal', function () {
+                window.appData.explorer.reload();
             });
         }
     }

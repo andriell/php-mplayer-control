@@ -8,3 +8,5 @@ sudo service php7.0-fpm restart
 - or -
 systemctl restart nginx
 systemctl restart php-fpm
+systemctl restart smb
+
