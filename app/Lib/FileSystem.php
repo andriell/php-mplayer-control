@@ -205,7 +205,7 @@ class FileSystem
      */
     function mvUpload($realPathFrom, $uriTo)
     {
-        $realPathFrom = $this->normalizeUri($realPathFrom);
+        $realPathFrom = '/' . $this->normalizeUri($realPathFrom);
         $realPathTo = $this->realPath($uriTo);
         if (empty($realPathTo) || empty($realPathTo)) {
             return false;
