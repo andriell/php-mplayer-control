@@ -34,6 +34,7 @@ Vue.component('to_new_folder', require('./components/ToNewFolder.vue'));
 Vue.component('new_folder', require('./components/NewFolder.vue'));
 Vue.component('delete', require('./components/Delete.vue'));
 Vue.component('carousel', require('./components/Carousel.vue'));
+Vue.component('upload', require('./components/Upload.vue'));
 
 const app = new Vue({
     el: '#app',

@@ -8,5 +8,6 @@
     <new_folder></new_folder>
     <delete></delete>
     <carousel></carousel>
+    <upload></upload>
 @endsection
 
