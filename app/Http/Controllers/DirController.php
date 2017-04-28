@@ -166,6 +166,7 @@ class DirController extends Controller
     {
         $r = [
             'uploaded' => 'ERROR',
+            'files' => $_FILES,
         ];
         if (!isset($_FILES['file'])) {
             return response()->json($r);
