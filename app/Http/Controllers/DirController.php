@@ -165,18 +165,12 @@ class DirController extends Controller
     function upload(Request $request, $uri = '')
     {
         $r = [
-            'uploaded' => 'ERROR',
-            'files' => $_FILES,
+            'status' => 'ERROR',
         ];
-        if (!isset($_FILES['file'])) {
-            return response()->json($r);
+        if (!(isset($_FILES['file']) && $this->fs->mvUpload($_FILES['file']['tmp_name'][0], $uri . '/' . $_FILES['file']['name'][0]))) {
+            return response()->json($r, 501);
         }
-        if ($this->fs->mvUpload(
-            $_FILES['file']['tmp_name'][0],
-            $uri . '/' . $_FILES['file']['name'][0])
-        ) {
-            $r['uploaded'] = 'OK';
-        }
+        $r['status'] = 'OK';
         return response()->json($r);
     }
 }
