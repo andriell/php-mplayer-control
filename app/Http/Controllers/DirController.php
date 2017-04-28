@@ -55,7 +55,8 @@ class DirController extends Controller
         return response()->make($json, 200, $headers);
     }
 
-    private function resize($request, $uri, $size) {
+    private function resize($request, $uri, $size)
+    {
         $headers = ['Content-Type' => 'image/jpeg'];
         //<editor-fold desc="http cache">
         $serverDate = $this->fs->fileMTime($uri);
@@ -70,7 +71,7 @@ class DirController extends Controller
             }
         }
         //</editor-fold>
-        return response()->stream(function() use($uri, $size) {
+        return response()->stream(function () use ($uri, $size) {
             $this->image->resize($uri, $size);
         }, 200, $headers);
     }
@@ -118,7 +119,8 @@ class DirController extends Controller
         return response()->json(['status' => $this->fs->cpBackupNumbered($_POST['uri_from'], $_POST['uri_to'])]);
     }
 
-    function onlyDir(Request $request, $uri = '') {
+    function onlyDir(Request $request, $uri = '')
+    {
         $r = [];
         $list = $this->fs->readDir($uri, ['name'], ['only_dir' => true]);
         if (empty($list)) {
@@ -130,27 +132,50 @@ class DirController extends Controller
         return response()->json($r);
     }
 
-    function doDelete() {
+    function doDelete()
+    {
         return response()->json(['status' => $this->fs->rm($_POST['items'])]);
     }
 
-    function slide(Request $request, $uri = '') {
+    function slide(Request $request, $uri = '')
+    {
         $this->eom->openFile($uri);
     }
 
-    function slideLeft() {
+    function slideLeft()
+    {
         $this->xBoTool->keyLeft();
     }
 
-    function keyRight() {
+    function keyRight()
+    {
         $this->xBoTool->keyRight();
     }
 
-    function slideShow(Request $request, $uri = '') {
+    function slideShow(Request $request, $uri = '')
+    {
         $this->eom->slideShowDir($uri);
     }
 
-    function slideStop(Request $request, $uri = '') {
+    function slideStop(Request $request, $uri = '')
+    {
         $this->eom->stop();
+    }
+
+    function upload(Request $request, $uri = '')
+    {
+        $r = [
+            'uploaded' => 'ERROR',
+        ];
+        if (!isset($_FILES['file'])) {
+            return response()->json($r);
+        }
+        if ($this->fs->mvUpload(
+            $_FILES['file']['tmp_name'][0],
+            $uri . '/' . $_FILES['file']['name'][0])
+        ) {
+            $r['uploaded'] = 'OK';
+        }
+        return response()->json($r);
     }
 }

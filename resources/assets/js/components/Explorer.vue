@@ -93,6 +93,7 @@
                             <div class="list-group">
                                 <a href="#" class="list-group-item" v-on:click="newFolder()"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;Новая папка</a>
                                 <a href="#" class="list-group-item" v-on:click="slideShowDir()"><span class="glyphicon glyphicon-picture"></span>&nbsp;&nbsp;Слайд шоу</a>
+                                <a href="#" class="list-group-item" v-on:click="upload()"><span class="glyphicon glyphicon-open"></span>&nbsp;&nbsp;Загрузить</a>
                             </div>
                         </template>
                     </div>
@@ -237,6 +238,10 @@
                         }
                     }
                     window.appData.carousel.show(imgUri, position);
+                },
+                upload: function() {
+                    window.appData.upload.uri = localData.uri;
+                    window.appData.upload.show();
                 }
             };
             localData.getData('');

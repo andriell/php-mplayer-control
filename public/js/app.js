@@ -12416,6 +12416,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -12553,6 +12554,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     }
                 }
                 window.appData.carousel.show(imgUri, position);
+            },
+            upload: function upload() {
+                window.appData.upload.uri = localData.uri;
+                window.appData.upload.show();
             }
         };
         localData.getData('');
@@ -12975,13 +12980,37 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
-        return {};
+        var localData = window.appData.upload = {
+            uri: '',
+            fileInput: {},
+            show: function show() {
+                jQuery('#uploadModal').modal('show');
+                localData.fileInput.fileinput('refresh', {
+                    uploadUrl: '/dir-upload/' + localData.uri
+                });
+            },
+            hide: function hide() {
+                jQuery('#uploadModal').modal('hide');
+            }
+        };
+        return localData;
     },
     mounted: function mounted() {
-        jQuery('#input-ru').fileinput({
+        window.appData.upload.fileInput = jQuery('#uploadInput').fileinput({
             language: 'ru',
             uploadUrl: '/dir-upload/'
         });
@@ -38299,17 +38328,50 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _vm._m(0)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('label', {
+  return _c('div', {
+    staticClass: "modal fade upload",
+    attrs: {
+      "id": "uploadModal",
+      "tabindex": "-1",
+      "role": "dialog",
+      "aria-labelledby": "myModalLabel"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog modal-lg",
+    attrs: {
+      "role": "document"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content"
+  }, [_c('div', {
+    staticClass: "modal-header"
+  }, [_c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal",
+      "aria-label": "Close"
+    }
+  }, [_c('span', {
+    staticClass: "glyphicon glyphicon-remove"
+  })]), _vm._v(" "), _c('h4', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "myModalLabel"
+    }
+  }, [_vm._v("Загрузить")])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-body"
+  }, [_c('label', {
     staticClass: "control-label"
   }, [_vm._v("Выберите Файл")]), _vm._v(" "), _c('input', {
     staticClass: "file-loading",
     attrs: {
-      "id": "input-ru",
-      "name": "inputru[]",
+      "id": "uploadInput",
+      "name": "file[]",
       "type": "file",
       "multiple": ""
     }
-  })])
+  })])])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -38579,7 +38641,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     staticClass: "glyphicon glyphicon-picture"
-  }), _vm._v("  Слайд шоу")])])]], 2)])])])])
+  }), _vm._v("  Слайд шоу")]), _vm._v(" "), _c('a', {
+    staticClass: "list-group-item",
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": function($event) {
+        _vm.upload()
+      }
+    }
+  }, [_c('span', {
+    staticClass: "glyphicon glyphicon-open"
+  }), _vm._v("  Загрузить")])])]], 2)])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "explorer-img-box"

@@ -197,6 +197,24 @@ class FileSystem
     }
 
     /**
+     * Переместить только что загруженный файл
+     * Если целевой файл уже существует, то к его названию в конце будет добавлен номер .~n~
+     * @param string $realPathFrom - путь к файлу в папке tmp
+     * @param string $uriTo - путь к новому файлу
+     * @return bool
+     */
+    function mvUpload($realPathFrom, $uriTo)
+    {
+        $realPathFrom = $this->normalizeUri($realPathFrom);
+        $realPathTo = $this->realPath($uriTo);
+        if (empty($realPathTo) || empty($realPathTo)) {
+            return false;
+        }
+        Shell::exec('mv --backup=numbered "' . str_replace('"', '', $realPathFrom) . '" "' . str_replace('"', '', $realPathTo) . '"');
+        return true;
+    }
+
+    /**
      * Переместить или переименовать.
      * Если целевой файл уже существует, то к его названию в конце будет добавлен номер .~n~
      * @param string[]|string $uriFrom

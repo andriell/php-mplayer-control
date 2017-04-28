@@ -1,17 +1,41 @@
 <template>
-    <div>
-        <label class="control-label">Выберите Файл</label>
-        <input id="input-ru" name="inputru[]" type="file" multiple class="file-loading">
+    <div class="modal fade upload" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            class="glyphicon glyphicon-remove"></span></button>
+                    <h4 class="modal-title" id="myModalLabel">Загрузить</h4>
+                </div>
+                <div class="modal-body">
+                    <label class="control-label">Выберите Файл</label>
+                    <input id="uploadInput" name="file[]" type="file" multiple class="file-loading">
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
     export default {
         data: function () {
-            return {};
+            var localData = window.appData.upload = {
+                uri: '',
+                fileInput: {},
+                show: function () {
+                    jQuery('#uploadModal').modal('show');
+                    localData.fileInput.fileinput('refresh', {
+                        uploadUrl: '/dir-upload/' + localData.uri
+                    })
+                },
+                hide: function () {
+                    jQuery('#uploadModal').modal('hide');
+                }
+            };
+            return localData;
         },
         mounted() {
-            jQuery('#input-ru').fileinput({
+            window.appData.upload.fileInput = jQuery('#uploadInput').fileinput({
                 language: 'ru',
                 uploadUrl: '/dir-upload/'
             });
