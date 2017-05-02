@@ -13030,7 +13030,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mounted: function mounted() {
         window.appData.upload.fileInput = jQuery('#uploadInput').fileinput({
             language: 'ru',
-            uploadUrl: '/dir-upload/'
+            uploadUrl: '/dir-upload/',
+            maxFileSize: 8000
         });
         window.appData.upload.modal = jQuery('#uploadModal');
         window.appData.upload.modal.on('hidden.bs.modal', function () {
