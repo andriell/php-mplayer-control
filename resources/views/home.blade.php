@@ -12,6 +12,11 @@
                     <div class="progress">
                         <div class="progress-bar" style="width: {{ $disc_p }}%;"></div>
                     </div>
+
+                    Системный диск: {{ $system_used_f }} / {{ $system_total_f }}
+                    <div class="progress">
+                        <div class="progress-bar" style="width: {{ $system_p }}%;"></div>
+                    </div>
                 </div>
             </div>
         </div>
