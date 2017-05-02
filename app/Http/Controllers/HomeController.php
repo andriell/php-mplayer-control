@@ -40,11 +40,11 @@ class HomeController extends Controller
     public function index()
     {
         $data = [];
-        $data['disc_free'] = disk_free_space(config('nas.media_dir'));
-        $data['disc_free_f'] = round($data['disc_free'] / (1024 * 1024 * 10)) / 100 . 'Гб';
         $data['disc_total'] = disk_total_space(config('nas.media_dir'));
-        $data['disc_total_f'] = round($data['disc_total'] / (1024 * 1024 * 10)) / 100 . 'Гб';
-        $data['disc_p'] = $data['disc_free'] / $data['disc_total'] * 100;
+        $data['disc_total_f'] = round($data['disc_total'] / (1024 * 1024)) / 1000 . ' Гб';
+        $data['disc_used'] = $data['disc_total'] - disk_free_space(config('nas.media_dir'));
+        $data['disc_used_f'] = round($data['disc_used'] / (1024 * 1024)) / 1000 . ' Гб';
+        $data['disc_p'] = round($data['disc_used'] / $data['disc_total'] * 10000) / 100;
         return view('home', $data);
     }
 
