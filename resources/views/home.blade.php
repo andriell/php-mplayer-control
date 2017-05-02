@@ -8,9 +8,9 @@
                 <div class="panel-heading">Dashboard</div>
 
                 <div class="panel-body">
-                    Диск:
+                    Диск: {{ $disc_free_f }} / {{ $disc_total_f }}
                     <div class="progress">
-                        <div class="progress-bar" style="width: 60%;"></div>
+                        <div class="progress-bar" style="width: {{ $disc_p }}%;"></div>
                     </div>
                 </div>
             </div>

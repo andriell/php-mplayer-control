@@ -16,6 +16,22 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
+    function formatBytes($bytes) {
+        $units = array('B', 'KB', 'MB', 'GB', 'TB');
+
+
+
+        $bytes = max($bytes, 0);
+        $pow = floor(($bytes ? log($bytes) : 0) / log(1024));
+        $pow = min($pow, count($units) - 1);
+
+        // Uncomment one of the following alternatives
+        // $bytes /= pow(1024, $pow);
+        // $bytes /= (1 << (10 * $pow));
+
+        return round($bytes, 2) . ' ' . $units[$pow];
+    }
+
     /**
      * Show the application dashboard.
      *
@@ -23,7 +39,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $data = [];
+        $data['disc_free'] = disk_free_space(config('nas.media_dir'));
+        $data['disc_free_f'] = round($data['disc_free'] / (1024 * 1024 * 10)) / 100 . 'Гб';
+        $data['disc_total'] = disk_total_space(config('nas.media_dir'));
+        $data['disc_total_f'] = round($data['disc_total'] / (1024 * 1024 * 10)) / 100 . 'Гб';
+        $data['disc_p'] = $data['disc_free'] / $data['disc_total'] * 100;
+        return view('home', $data);
     }
 
     /**
