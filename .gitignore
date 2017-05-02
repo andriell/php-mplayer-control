@@ -8,6 +8,7 @@
 artisan.bat
 composer.bat
 composer.phar
+phpunit.phar
 Homestead.json
 Homestead.yaml
 laravel.bat
