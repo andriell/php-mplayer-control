@@ -28,8 +28,14 @@ body {
     }
     .navbar-collapse {
       background-color: #FFFFFF;
+
+      .search {
+        width: 200px;
+        margin-top: 7px;
+      }
     }
   }
+
   .content {
     padding-top: $navH + $tap;
   }

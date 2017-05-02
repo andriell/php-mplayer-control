@@ -113,6 +113,7 @@
                 items: [],
                 itemsChecked: [],
                 itemsSize: 0,
+                search: '',
                 reload: function () {
                     localData.getData(localData.uri);
                 },
@@ -124,7 +125,9 @@
                 },
                 getData: function (uri) {
                     jQuery.ajax('/dir-list/' + uri, {
-                        data: {},
+                        data: {
+                            search: localData.search
+                        },
                         success: function (data) {
                             var i;
                             localData.itemsSize = 0;
@@ -249,6 +252,13 @@
             return localData;
         },
         mounted() {
+            jQuery('#app-search').search().on('searched.fu.search', function (evt, data) {
+                window.appData.explorer.search = data;
+                window.appData.explorer.reload();
+            }).on('cleared.fu.search', function() {
+                window.appData.explorer.search = '';
+                window.appData.explorer.reload();
+            });
         },
         watch: {
             items: function () {

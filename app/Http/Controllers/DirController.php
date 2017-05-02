@@ -47,7 +47,11 @@ class DirController extends Controller
 
     function getList(Request $request, $uri = '')
     {
-        $json = json_encode($this->fs->readDir($uri));
+        $filter = [];
+        if (isset($_GET['search'])) {
+            $filter['name'] = $_GET['search'];
+        }
+        $json = json_encode($this->fs->readDir($uri, $filter));
         $headers = [
             'Content-Type' => 'application/json;charset=utf-8',
             'Content-Length' => strlen($json),
