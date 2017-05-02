@@ -48,7 +48,7 @@ class HomeController extends Controller
 
         $data['system_total'] = disk_total_space(config('nas.system_dir'));
         $data['system_total_f'] = round($data['system_total'] / (1024 * 1024)) / 1000 . ' Гб';
-        $data['system_used'] = $data['system_total'] - disk_free_space(config('nas.media_dir'));
+        $data['system_used'] = $data['system_total'] - disk_free_space(config('nas.system_dir'));
         $data['system_used_f'] = round($data['system_used'] / (1024 * 1024)) / 1000 . ' Гб';
         $data['system_p'] = round($data['system_used'] / $data['system_total'] * 10000) / 100;
         
