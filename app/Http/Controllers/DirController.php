@@ -122,7 +122,7 @@ class DirController extends Controller
     function onlyDir(Request $request, $uri = '')
     {
         $r = [];
-        $list = $this->fs->readDir($uri, ['name'], ['only_dir' => true]);
+        $list = $this->fs->readDir($uri, ['only_dir' => true], ['name']);
         if (empty($list)) {
             return response()->json($r);
         }

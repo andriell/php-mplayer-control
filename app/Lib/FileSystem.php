@@ -73,13 +73,29 @@ class FileSystem
         return $this->override->filemtime($realPathFile);
     }
 
-    private function fileInfo($realPathFile, $filter = [])
+    private function fileInfo($realPathFile, $name, $filter = [])
     {
+        if (isset($filter['name'])) {
+            /** @var StarPattern $pattern */
+            $pattern = $filter['name'];
+            if (!$pattern->match($name)) {
+                return false;
+            }
+        }
+
+        $fileMTime = $this->override->filemtime($realPathFile);
+        if (isset($filter['date>']) && $fileMTime < $filter['date>']) {
+            return false;
+        }
+        if (isset($filter['date<']) && $fileMTime > $filter['date<']) {
+            return false;
+        }
         $r = [
+            'name' => $name,
             'type' => false,
             'ext' => false,
             'size' => 0,
-            'date' => date('Y-m-d H:i:s', $this->override->filemtime($realPathFile)),
+            'date' => date('Y-m-d H:i:s', $fileMTime),
             'perms' => $this->override->fileperms($realPathFile),
         ];
         if ($this->override->is_dir($realPathFile)) {
@@ -91,15 +107,24 @@ class FileSystem
         $r['type'] = 'file';
         $r['ext'] = strtolower(substr($realPathFile, strrpos($realPathFile, '.') + 1));
         $r['size'] = $this->override->filesize($realPathFile);
+        if (isset($filter['size>']) && $r['size'] < $filter['size>']) {
+            return false;
+        }
+        if (isset($filter['size<']) && $r['size'] > $filter['size<']) {
+            return false;
+        }
         foreach (static::$fileTypes as $type => &$ext) {
             if (in_array($r['ext'], $ext)) {
                 $r['type'] = $type;
             }
         }
+        if (isset($filter['type']) && !in_array($r['type'], $filter['type'])) {
+            return false;
+        }
         return $r;
     }
 
-    public function readDir($uri, $order = ['dir', 'name'], $filter = [])
+    public function readDir($uri, $filter = [], $order = ['dir', 'name'], $limit = [0, 10000000])
     {
         $uri = $this->normalizeUri($uri);
         $r = [
@@ -114,20 +139,43 @@ class FileSystem
             return $r;
         }
 
+        //<editor-fold desc="Нормализация фильтров">
+        if (isset($filter['name'])) {
+            $filter['name'] = new StarPattern($filter['name']);
+        }
+        if (isset($filter['date>'])) {
+            $filter['date>'] = strtotime($filter['date>']);
+        }
+        if (isset($filter['date<'])) {
+            $filter['date<'] = strtotime($filter['date<']);
+        }
+        if (isset($filter['type']) && !is_array($filter['type'])) {
+            $filter['type'] = [$filter['type']];
+        }
+        //</editor-fold>
+
         if ($handle = $this->override->opendir($realPath)) {
             while (false !== ($entry = $this->override->readdir($handle))) {
                 if ($entry == '.' || $entry == '..') {
                     continue;
                 }
-                $item = $this->fileInfo($realPath . '/' . $entry, $filter);
+                $item = $this->fileInfo($realPath . '/' . $entry, $entry, $filter);
                 if (empty($item)) {
                     continue;
                 }
-                $item['name'] = $entry;
+                if ($limit[0] > 0) {
+                    $limit[0]--;
+                    continue;
+                }
+                if ($limit[1] <= 0) {
+                    $limit[1]--;
+                    break;
+                }
                 $r['items'][] = $item;
             }
             closedir($handle);
         }
+
         usort($r['items'], function ($a, $b) use ($order) {
             foreach ($order as $o) {
                 $r = 0;
@@ -265,7 +313,8 @@ class FileSystem
         return $i;
     }
 
-    function rm($uri) {
+    function rm($uri)
+    {
         $uri = is_array($uri) ? $uri : [$uri];
         $i = 0;
         foreach ($uri as $u) {
