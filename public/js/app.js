@@ -12418,6 +12418,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -12480,6 +12481,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             },
             playVideo: function playVideo() {
                 window.appData.rc.playVideo(localData.itemsChecked[0].uri);
+            },
+            checkeAll: function checkeAll() {
+                localData.itemsChecked = localData.items;
             },
             unchecked: function unchecked() {
                 localData.itemsChecked = [];
@@ -38643,7 +38647,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     staticClass: "glyphicon glyphicon-remove-circle"
-  }), _vm._v(" Отменить")])]), _vm._v(" "), _c('div', {
+  }), _vm._v(" Отменить")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-default btn-xs pull-right",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": function($event) {
+        _vm.checkeAll()
+      }
+    }
+  }, [_c('span', {
+    staticClass: "glyphicon glyphicon-ok-circle"
+  }), _vm._v(" Все")])]), _vm._v(" "), _c('div', {
     staticClass: "panel-body"
   }, [(_vm.itemsChecked.length > 0) ? [_c('div', {
     staticClass: "list-group"

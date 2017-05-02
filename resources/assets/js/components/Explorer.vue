@@ -60,6 +60,7 @@
                     <div class="panel-heading">
                         Объектов: {{itemsChecked.length}}
                         <button type="button" class="btn btn-default btn-xs pull-right" v-on:click="unchecked()"><span class="glyphicon glyphicon-remove-circle"></span> Отменить</button>
+                        <button type="button" class="btn btn-default btn-xs pull-right" v-on:click="checkeAll()"><span class="glyphicon glyphicon-ok-circle"></span> Все</button>
                     </div>
                     <div class="panel-body">
                         <template v-if="itemsChecked.length > 0">
@@ -163,6 +164,9 @@
                 },
                 playVideo: function () {
                     window.appData.rc.playVideo(localData.itemsChecked[0].uri);
+                },
+                checkeAll: function() {
+                    localData.itemsChecked = localData.items;
                 },
                 unchecked: function() {
                     localData.itemsChecked = [];
