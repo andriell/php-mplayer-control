@@ -124,7 +124,7 @@ class FileSystem
         return $r;
     }
 
-    public function readDir($uri, $filter = [], $order = ['dir', 'name'], $limit = [0, 10000000])
+    public function readDir($uri, $filter = [], $order = ['dir', 'name'], $limit = [0, 1000000])
     {
         $uri = $this->normalizeUri($uri);
         $r = [
