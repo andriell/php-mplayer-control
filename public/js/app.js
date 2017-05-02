@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 71);
+/******/ 	return __webpack_require__(__webpack_require__.s = 72);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -528,7 +528,7 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(47)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(48)))
 
 /***/ }),
 /* 3 */
@@ -11101,12 +11101,12 @@ window.appData = {
 
 __webpack_require__(39);
 
+__webpack_require__(46);
 __webpack_require__(45);
-__webpack_require__(44);
 __webpack_require__(40);
-__webpack_require__(79);
+__webpack_require__(41);
 
-window.Vue = __webpack_require__(69);
+window.Vue = __webpack_require__(70);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -11114,15 +11114,15 @@ window.Vue = __webpack_require__(69);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('explorer', __webpack_require__(51));
-Vue.component('rc', __webpack_require__(53));
-Vue.component('rename', __webpack_require__(54));
-Vue.component('copy', __webpack_require__(49));
-Vue.component('to_new_folder', __webpack_require__(55));
-Vue.component('new_folder', __webpack_require__(52));
-Vue.component('delete', __webpack_require__(50));
-Vue.component('carousel', __webpack_require__(48));
-Vue.component('upload', __webpack_require__(56));
+Vue.component('explorer', __webpack_require__(52));
+Vue.component('rc', __webpack_require__(54));
+Vue.component('rename', __webpack_require__(55));
+Vue.component('copy', __webpack_require__(50));
+Vue.component('to_new_folder', __webpack_require__(56));
+Vue.component('new_folder', __webpack_require__(53));
+Vue.component('delete', __webpack_require__(51));
+Vue.component('carousel', __webpack_require__(49));
+Vue.component('upload', __webpack_require__(57));
 
 var app = new Vue({
     el: '#app',
@@ -13028,7 +13028,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, exports, __webpack_require__) {
 
 
-window._ = __webpack_require__(46);
+window._ = __webpack_require__(47);
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -13041,7 +13041,7 @@ try {
 
   window.jQuery.ajaxSetup({ headers: { 'X-CSRF-TOKEN': window.Laravel.csrfToken } });
 
-  __webpack_require__(41);
+  __webpack_require__(42);
 } catch (e) {}
 
 /**
@@ -16584,6 +16584,106 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /***/ (function(module, exports) {
 
 /*!
+ * FileInput Russian Translations
+ *
+ * This file must be loaded after 'fileinput.js'. Patterns in braces '{}', or
+ * any HTML markup tags in the messages must not be converted or translated.
+ *
+ * @see http://github.com/kartik-v/bootstrap-fileinput
+ * @author CyanoFresh <cyanofresh@gmail.com>
+ *
+ * NOTE: this file must be saved in UTF-8 encoding.
+ */
+(function ($) {
+    "use strict";
+
+    $.fn.fileinputLocales['ru'] = {
+        fileSingle: 'файл',
+        filePlural: 'файлы',
+        browseLabel: 'Выбрать &hellip;',
+        removeLabel: 'Удалить',
+        removeTitle: 'Очистить выбранные файлы',
+        cancelLabel: 'Отмена',
+        cancelTitle: 'Отменить текущую загрузку',
+        uploadLabel: 'Загрузить',
+        uploadTitle: 'Загрузить выбранные файлы',
+        msgNo: 'нет',
+        msgNoFilesSelected: '',
+        msgCancelled: 'Отменено',
+        msgZoomModalHeading: 'Подробное превью',
+        msgSizeTooSmall: 'File "{name}" (<b>{size} KB</b>) is too small and must be larger than <b>{minSize} KB</b>.',
+        msgSizeTooLarge: 'Файл "{name}" (<b>{size} KB</b>) превышает максимальный размер <b>{maxSize} KB</b>.',
+        msgFilesTooLess: 'Вы должны выбрать как минимум <b>{n}</b> {files} для загрузки.',
+        msgFilesTooMany: 'Количество выбранных файлов <b>({n})</b> превышает максимально допустимое количество <b>{m}</b>.',
+        msgFileNotFound: 'Файл "{name}" не найден!',
+        msgFileSecured: 'Ограничения безопасности запрещают читать файл "{name}".',
+        msgFileNotReadable: 'Файл "{name}" невозможно прочитать.',
+        msgFilePreviewAborted: 'Предпросмотр отменен для файла "{name}".',
+        msgFilePreviewError: 'Произошла ошибка при чтении файла "{name}".',
+        msgInvalidFileName: 'Invalid or unsupported characters in file name "{name}".',
+        msgInvalidFileType: 'Запрещенный тип файла для "{name}". Только "{types}" разрешены.',
+        msgInvalidFileExtension: 'Запрещенное расширение для файла "{name}". Только "{extensions}" разрешены.',
+        msgFileTypes: {
+            'image': 'image',
+            'html': 'HTML',
+            'text': 'text',
+            'video': 'video',
+            'audio': 'audio',
+            'flash': 'flash',
+            'pdf': 'PDF',
+            'object': 'object'
+        },
+        msgUploadAborted: 'Выгрузка файла прервана',
+        msgUploadThreshold: 'Обработка...',
+        msgUploadEmpty: 'Недопустимые данные для загрузки',
+        msgValidationError: 'Ошибка проверки',
+        msgLoading: 'Загрузка файла {index} из {files} &hellip;',
+        msgProgress: 'Загрузка файла {index} из {files} - {name} - {percent}% завершено.',
+        msgSelected: 'Выбрано файлов: {n}',
+        msgFoldersNotAllowed: 'Разрешено перетаскивание только файлов! Пропущено {n} папок.',
+        msgImageWidthSmall: 'Ширина изображения {name} должна быть не меньше {size} px.',
+        msgImageHeightSmall: 'Высота изображения {name} должна быть не меньше {size} px.',
+        msgImageWidthLarge: 'Ширина изображения "{name}" не может превышать {size} px.',
+        msgImageHeightLarge: 'Высота изображения "{name}" не может превышать {size} px.',
+        msgImageResizeError: 'Не удалось получить размеры изображения, чтобы изменить размер.',
+        msgImageResizeException: 'Ошибка при изменении размера изображения.<pre>{errors}</pre>',
+        msgAjaxError: 'Something went wrong with the {operation} operation. Please try again later!',
+        msgAjaxProgressError: '{operation} failed',
+        ajaxOperations: {
+            deleteThumb: 'file delete',
+            uploadThumb: 'single file upload',
+            uploadBatch: 'batch file upload',
+            uploadExtra: 'form data upload'
+        },
+        dropZoneTitle: 'Перетащите файлы сюда &hellip;',
+        dropZoneClickTitle: '<br>(Или щёлкните, чтобы выбрать {files})',
+        fileActionSettings: {
+            removeTitle: 'Удалить файл',
+            uploadTitle: 'Загрузить файл',
+            zoomTitle: 'посмотреть детали',
+            dragTitle: 'Move / Rearrange',
+            indicatorNewTitle: 'Еще не загружен',
+            indicatorSuccessTitle: 'Загружен',
+            indicatorErrorTitle: 'Ошибка загрузки',
+            indicatorLoadingTitle: 'Загрузка ...'
+        },
+        previewZoomButtonTitles: {
+            prev: 'View previous file',
+            next: 'View next file',
+            toggleheader: 'Toggle header',
+            fullscreen: 'Toggle full screen',
+            borderless: 'Toggle borderless mode',
+            close: 'Close detailed preview'
+        }
+    };
+})(window.jQuery);
+
+
+/***/ }),
+/* 42 */
+/***/ (function(module, exports) {
+
+/*!
  * Bootstrap v3.3.7 (http://getbootstrap.com)
  * Copyright 2011-2016 Twitter, Inc.
  * Licensed under the MIT license
@@ -18963,14 +19063,14 @@ if (typeof jQuery === 'undefined') {
 
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(43)();
+exports = module.exports = __webpack_require__(44)();
 exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports) {
 
 /*
@@ -19026,7 +19126,7 @@ module.exports = function() {
 
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
@@ -19652,7 +19752,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports) {
 
 /*!
@@ -19900,7 +20000,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -36989,10 +37089,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9), __webpack_require__(70)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9), __webpack_require__(71)(module)))
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -37178,18 +37278,18 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(66)
+__webpack_require__(67)
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(30),
   /* template */
-  __webpack_require__(61),
+  __webpack_require__(62),
   /* scopeId */
   null,
   /* cssModules */
@@ -37216,14 +37316,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(31),
   /* template */
-  __webpack_require__(62),
+  __webpack_require__(63),
   /* scopeId */
   null,
   /* cssModules */
@@ -37250,14 +37350,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(32),
   /* template */
-  __webpack_require__(57),
+  __webpack_require__(58),
   /* scopeId */
   null,
   /* cssModules */
@@ -37284,14 +37384,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(33),
   /* template */
-  __webpack_require__(65),
+  __webpack_require__(66),
   /* scopeId */
   null,
   /* cssModules */
@@ -37318,14 +37418,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(34),
   /* template */
-  __webpack_require__(58),
+  __webpack_require__(59),
   /* scopeId */
   null,
   /* cssModules */
@@ -37352,14 +37452,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(35),
   /* template */
-  __webpack_require__(63),
+  __webpack_require__(64),
   /* scopeId */
   null,
   /* cssModules */
@@ -37386,14 +37486,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(36),
   /* template */
-  __webpack_require__(59),
+  __webpack_require__(60),
   /* scopeId */
   null,
   /* cssModules */
@@ -37420,14 +37520,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(37),
   /* template */
-  __webpack_require__(60),
+  __webpack_require__(61),
   /* scopeId */
   null,
   /* cssModules */
@@ -37454,14 +37554,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(38),
   /* template */
-  __webpack_require__(64),
+  __webpack_require__(65),
   /* scopeId */
   null,
   /* cssModules */
@@ -37488,7 +37588,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -37587,7 +37687,7 @@ if (false) {
 }
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -37680,7 +37780,7 @@ if (false) {
 }
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -37777,7 +37877,7 @@ if (false) {
 }
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -37874,7 +37974,7 @@ if (false) {
 }
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -38002,7 +38102,7 @@ if (false) {
 }
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -38137,7 +38237,7 @@ if (false) {
 }
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -38163,7 +38263,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "myModalLabel"
     }
-  }, [_vm._v("TV " + _vm._s(_vm.filename))])]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.filename))])]), _vm._v(" "), _c('div', {
     staticClass: "modal-body"
   }, [_c('div', {
     staticClass: "row rc-row-play"
@@ -38328,7 +38428,7 @@ if (false) {
 }
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -38388,7 +38488,7 @@ if (false) {
 }
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -38678,17 +38778,17 @@ if (false) {
 }
 
 /***/ }),
-/* 66 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(42);
+var content = __webpack_require__(43);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(67)("5824771e", content, false);
+var update = __webpack_require__(68)("5824771e", content, false);
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -38704,7 +38804,7 @@ if(false) {
 }
 
 /***/ }),
-/* 67 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -38723,7 +38823,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(68)
+var listToStyles = __webpack_require__(69)
 
 /*
 type StyleObject = {
@@ -38925,7 +39025,7 @@ function applyToTag (styleElement, obj) {
 
 
 /***/ }),
-/* 68 */
+/* 69 */
 /***/ (function(module, exports) {
 
 /**
@@ -38958,7 +39058,7 @@ module.exports = function listToStyles (parentId, list) {
 
 
 /***/ }),
-/* 69 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48585,7 +48685,7 @@ module.exports = Vue$3;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
-/* 70 */
+/* 71 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -48613,118 +48713,11 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 71 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(10);
 module.exports = __webpack_require__(11);
-
-
-/***/ }),
-/* 72 */,
-/* 73 */,
-/* 74 */,
-/* 75 */,
-/* 76 */,
-/* 77 */,
-/* 78 */,
-/* 79 */
-/***/ (function(module, exports) {
-
-/*!
- * FileInput Russian Translations
- *
- * This file must be loaded after 'fileinput.js'. Patterns in braces '{}', or
- * any HTML markup tags in the messages must not be converted or translated.
- *
- * @see http://github.com/kartik-v/bootstrap-fileinput
- * @author CyanoFresh <cyanofresh@gmail.com>
- *
- * NOTE: this file must be saved in UTF-8 encoding.
- */
-(function ($) {
-    "use strict";
-
-    $.fn.fileinputLocales['ru'] = {
-        fileSingle: 'файл',
-        filePlural: 'файлы',
-        browseLabel: 'Выбрать &hellip;',
-        removeLabel: 'Удалить',
-        removeTitle: 'Очистить выбранные файлы',
-        cancelLabel: 'Отмена',
-        cancelTitle: 'Отменить текущую загрузку',
-        uploadLabel: 'Загрузить',
-        uploadTitle: 'Загрузить выбранные файлы',
-        msgNo: 'нет',
-        msgNoFilesSelected: '',
-        msgCancelled: 'Отменено',
-        msgZoomModalHeading: 'Подробное превью',
-        msgSizeTooSmall: 'File "{name}" (<b>{size} KB</b>) is too small and must be larger than <b>{minSize} KB</b>.',
-        msgSizeTooLarge: 'Файл "{name}" (<b>{size} KB</b>) превышает максимальный размер <b>{maxSize} KB</b>.',
-        msgFilesTooLess: 'Вы должны выбрать как минимум <b>{n}</b> {files} для загрузки.',
-        msgFilesTooMany: 'Количество выбранных файлов <b>({n})</b> превышает максимально допустимое количество <b>{m}</b>.',
-        msgFileNotFound: 'Файл "{name}" не найден!',
-        msgFileSecured: 'Ограничения безопасности запрещают читать файл "{name}".',
-        msgFileNotReadable: 'Файл "{name}" невозможно прочитать.',
-        msgFilePreviewAborted: 'Предпросмотр отменен для файла "{name}".',
-        msgFilePreviewError: 'Произошла ошибка при чтении файла "{name}".',
-        msgInvalidFileName: 'Invalid or unsupported characters in file name "{name}".',
-        msgInvalidFileType: 'Запрещенный тип файла для "{name}". Только "{types}" разрешены.',
-        msgInvalidFileExtension: 'Запрещенное расширение для файла "{name}". Только "{extensions}" разрешены.',
-        msgFileTypes: {
-            'image': 'image',
-            'html': 'HTML',
-            'text': 'text',
-            'video': 'video',
-            'audio': 'audio',
-            'flash': 'flash',
-            'pdf': 'PDF',
-            'object': 'object'
-        },
-        msgUploadAborted: 'Выгрузка файла прервана',
-        msgUploadThreshold: 'Обработка...',
-        msgUploadEmpty: 'Недопустимые данные для загрузки',
-        msgValidationError: 'Ошибка проверки',
-        msgLoading: 'Загрузка файла {index} из {files} &hellip;',
-        msgProgress: 'Загрузка файла {index} из {files} - {name} - {percent}% завершено.',
-        msgSelected: 'Выбрано файлов: {n}',
-        msgFoldersNotAllowed: 'Разрешено перетаскивание только файлов! Пропущено {n} папок.',
-        msgImageWidthSmall: 'Ширина изображения {name} должна быть не меньше {size} px.',
-        msgImageHeightSmall: 'Высота изображения {name} должна быть не меньше {size} px.',
-        msgImageWidthLarge: 'Ширина изображения "{name}" не может превышать {size} px.',
-        msgImageHeightLarge: 'Высота изображения "{name}" не может превышать {size} px.',
-        msgImageResizeError: 'Не удалось получить размеры изображения, чтобы изменить размер.',
-        msgImageResizeException: 'Ошибка при изменении размера изображения.<pre>{errors}</pre>',
-        msgAjaxError: 'Something went wrong with the {operation} operation. Please try again later!',
-        msgAjaxProgressError: '{operation} failed',
-        ajaxOperations: {
-            deleteThumb: 'file delete',
-            uploadThumb: 'single file upload',
-            uploadBatch: 'batch file upload',
-            uploadExtra: 'form data upload'
-        },
-        dropZoneTitle: 'Перетащите файлы сюда &hellip;',
-        dropZoneClickTitle: '<br>(Или щёлкните, чтобы выбрать {files})',
-        fileActionSettings: {
-            removeTitle: 'Удалить файл',
-            uploadTitle: 'Загрузить файл',
-            zoomTitle: 'посмотреть детали',
-            dragTitle: 'Move / Rearrange',
-            indicatorNewTitle: 'Еще не загружен',
-            indicatorSuccessTitle: 'Загружен',
-            indicatorErrorTitle: 'Ошибка загрузки',
-            indicatorLoadingTitle: 'Загрузка ...'
-        },
-        previewZoomButtonTitles: {
-            prev: 'View previous file',
-            next: 'View next file',
-            toggleheader: 'Toggle header',
-            fullscreen: 'Toggle full screen',
-            borderless: 'Toggle borderless mode',
-            close: 'Close detailed preview'
-        }
-    };
-})(window.jQuery);
 
 
 /***/ })

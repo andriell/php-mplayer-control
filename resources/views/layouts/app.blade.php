@@ -45,17 +45,17 @@
                     <ul class="nav navbar-nav">
                         <li class="dropdown">
                             <a href="#">
-                                Torrent
+                                Торрент
                             </a>
                         </li>
                         <li class="dropdown">
                             <a href="{{ url('dir') }}">
-                                Files
+                                Файлы
                             </a>
                         </li>
                         <li class="dropdown">
                             <a href="#" v-on:click="rcShow()">
-                                RC
+                                Телевизор
                             </a>
                         </li>
                     </ul>
