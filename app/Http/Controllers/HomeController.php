@@ -51,6 +51,11 @@ class HomeController extends Controller
         $data['system_used'] = $data['system_total'] - disk_free_space(config('nas.system_dir'));
         $data['system_used_f'] = round($data['system_used'] / (1024 * 1024)) / 1000 . ' Гб';
         $data['system_p'] = round($data['system_used'] / $data['system_total'] * 10000) / 100;
+
+        if (function_exists('sys_getloadavg')) {
+            $var = sys_getloadavg();
+        }
+
         
         return view('home', $data);
     }

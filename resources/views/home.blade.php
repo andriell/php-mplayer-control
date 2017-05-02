@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+                <div class="panel-heading">Состояние сервера</div>
 
                 <div class="panel-body">
                     Диск: {{ $disc_used_f }} / {{ $disc_total_f }}
