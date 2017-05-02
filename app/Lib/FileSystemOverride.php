@@ -88,6 +88,14 @@ class FileSystemOverride
         return is_dir(iconv('UTF-8', $this->fileSystemEncoding, $str));
     }
 
+    public function is_file($str)
+    {
+        if (empty($this->fileSystemEncoding)) {
+            return is_file($str);
+        }
+        return is_file(iconv('UTF-8', $this->fileSystemEncoding, $str));
+    }
+
     public function filemtime($str)
     {
         if (empty($this->fileSystemEncoding)) {

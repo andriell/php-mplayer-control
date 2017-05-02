@@ -168,6 +168,7 @@ class DirController extends Controller
 
     function upload(Request $request, $uri = '')
     {
+        ini_set('post_max_size', '500M');
         $r = [
             'status' => 'ERROR',
         ];

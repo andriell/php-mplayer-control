@@ -33,6 +33,7 @@ class HomeController extends Controller
      */
     public function info()
     {
+        ini_set('post_max_size', '500M');
         phpinfo();
     }
 }

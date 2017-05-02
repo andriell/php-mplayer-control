@@ -39,7 +39,7 @@
             window.appData.upload.fileInput = jQuery('#uploadInput').fileinput({
                 language: 'ru',
                 uploadUrl: '/dir-upload/',
-                maxFileSize: 8000
+                maxFileSize: 1000000
             });
             window.appData.upload.modal = jQuery('#uploadModal');
             window.appData.upload.modal.on('hidden.bs.modal', function () {
