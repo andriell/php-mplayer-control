@@ -37,7 +37,7 @@
                     <td>
                         <div class="dropdown">
                             <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-toggle="dropdown">
-                                {{ item.status }}
+                                {{ item.status_f }}
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
@@ -47,9 +47,9 @@
                             </ul>
                         </div>
                     </td>
-                    <td>{{ item.doneDate }}</td>
-                    <td>{{ item.haveValid }}</td>
-                    <td>{{ item.totalSize }}</td>
+                    <td>{{ item.addedDate_f }}</td>
+                    <td>{{ item.haveValid_f }}</td>
+                    <td>{{ item.sizeWhenDone_f }}</td>
                 </tr>
                 </tbody>
             </table>

@@ -38875,7 +38875,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "type": "button",
         "data-toggle": "dropdown"
       }
-    }, [_vm._v("\n                            " + _vm._s(item.status) + "\n                            "), _c('span', {
+    }, [_vm._v("\n                            " + _vm._s(item.status_f) + "\n                            "), _c('span', {
       staticClass: "caret"
     })]), _vm._v(" "), _c('ul', {
       staticClass: "dropdown-menu"
@@ -38912,7 +38912,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('span', {
       staticClass: "glyphicon glyphicon-trash"
-    }), _vm._v(" Удалить")])])])])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.doneDate))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.haveValid))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.totalSize))])])
+    }), _vm._v(" Удалить")])])])])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.addedDate_f))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.haveValid_f))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.sizeWhenDone_f))])])
   }))])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('span', {
