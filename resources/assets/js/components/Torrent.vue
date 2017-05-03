@@ -9,7 +9,10 @@
                     <td>
                         <div class="pull-right">
                             <button type="button" class="btn btn-default" v-on:click="reload()"><span class="glyphicon glyphicon-refresh"></span> Обновить</button>
-                            <button type="button" class="btn btn-default" v-on:click="add()"><span class="glyphicon glyphicon-plus"></span> Добавить</button>
+                            <span class="btn btn-default btn-file">
+                                <span class="glyphicon glyphicon-plus"></span> Добавить
+                                <input type="file" accept="application/x-bittorrent">
+                            </span>
                         </div>
                     </td>
                 </tr>
@@ -67,7 +70,7 @@
                     });
                 },
                 add: function() {
-
+                    window.appData.torrentAdd.show();
                 },
                 remove: function(itemId) {
                     jQuery.ajax('/torrent-remove/', {

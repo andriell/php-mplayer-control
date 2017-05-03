@@ -11125,6 +11125,7 @@ Vue.component('delete', __webpack_require__(53));
 Vue.component('carousel', __webpack_require__(51));
 Vue.component('upload', __webpack_require__(60));
 Vue.component('torrent', __webpack_require__(59));
+Vue.component('torrent_edit', __webpack_require__(92));
 
 var app = new Vue({
     el: '#app',
@@ -13047,6 +13048,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -13059,7 +13063,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     }
                 });
             },
-            add: function add() {},
+            add: function add() {
+                window.appData.torrentAdd.show();
+            },
             remove: function remove(itemId) {
                 jQuery.ajax('/torrent-remove/', {
                     method: 'POST',
@@ -38856,23 +38862,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     staticClass: "glyphicon glyphicon-refresh"
-  }), _vm._v(" Обновить")]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-default",
-    attrs: {
-      "type": "button"
-    },
-    on: {
-      "click": function($event) {
-        _vm.add()
-      }
-    }
-  }, [_c('span', {
-    staticClass: "glyphicon glyphicon-plus"
-  }), _vm._v(" Добавить")])])])])])]), _vm._v(" "), _c('div', {
+  }), _vm._v(" Обновить")]), _vm._v(" "), _vm._m(0)])])])])]), _vm._v(" "), _c('div', {
     staticClass: "panel-body"
   }, [_c('table', {
     staticClass: "table table-striped"
-  }, [_vm._m(0), _vm._v(" "), _c('tbody', _vm._l((_vm.items), function(item, itemId) {
+  }, [_vm._m(1), _vm._v(" "), _c('tbody', _vm._l((_vm.items), function(item, itemId) {
     return _c('tr', [_c('td', [_vm._v(_vm._s(item.id))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.name))]), _vm._v(" "), _c('td', [_c('div', {
       staticClass: "dropdown"
     }, [_c('button', {
@@ -38921,6 +38915,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }), _vm._v(" Удалить")])])])])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.doneDate))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.haveValid))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.totalSize))])])
   }))])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
+    staticClass: "btn btn-default btn-file"
+  }, [_c('span', {
+    staticClass: "glyphicon glyphicon-plus"
+  }), _vm._v(" Добавить\n                            "), _c('input', {
+    attrs: {
+      "type": "file",
+      "accept": "application/x-bittorrent"
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('thead', [_c('tr', [_c('th', [_vm._v("Id")]), _vm._v(" "), _c('th', [_vm._v("Название")]), _vm._v(" "), _c('th', [_vm._v("Статус")]), _vm._v(" "), _c('th', [_vm._v("Дата")]), _vm._v(" "), _c('th', [_vm._v("haveValid")]), _vm._v(" "), _c('th', [_vm._v("totalSize")])])])
 }]}
 module.exports.render._withStripped = true
@@ -49276,6 +49281,157 @@ if(false) {
  }
  // When the module is disposed, remove the <style> tags
  module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 88 */,
+/* 89 */,
+/* 90 */,
+/* 91 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        var localData = window.appData.torrentEdit = {
+            show: function show() {
+                jQuery('#torrentEdit').modal('show');
+            },
+            hide: function hide() {
+                jQuery('#torrentEdit').modal('hide');
+            }
+        };
+        return localData;
+    },
+    mounted: function mounted() {}
+});
+
+/***/ }),
+/* 92 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(91),
+  /* template */
+  __webpack_require__(93),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "C:\\server\\www\\php-mplayer-control\\resources\\assets\\js\\components\\TorrentEdit.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] TorrentEdit.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-073defd9", Component.options)
+  } else {
+    hotAPI.reload("data-v-073defd9", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 93 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _vm._m(0)
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal fade torrentEdit",
+    attrs: {
+      "id": "torrentEdit",
+      "tabindex": "-1",
+      "role": "dialog",
+      "aria-labelledby": "myModalLabel"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog",
+    attrs: {
+      "role": "document"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content"
+  }, [_c('div', {
+    staticClass: "modal-header"
+  }, [_c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal",
+      "aria-label": "Close"
+    }
+  }, [_c('span', {
+    staticClass: "glyphicon glyphicon-remove"
+  })]), _vm._v(" "), _c('h4', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "myModalLabel"
+    }
+  }, [_vm._v("Добавить торрент")])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-body"
+  }, [_c('div', {
+    staticClass: "form-group row"
+  }, [_c('label', {
+    staticClass: "col-md-2 col-form-label",
+    attrs: {
+      "for": "example-text-input"
+    }
+  }, [_vm._v("Text")]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-10"
+  }, [_c('input', {
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "value": "Artisanal kale",
+      "id": "example-text-input"
+    }
+  })])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer"
+  })])])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-073defd9", module.exports)
+  }
 }
 
 /***/ })
