@@ -45,7 +45,7 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
                     <li class="dropdown">
-                        <a href="#">
+                        <a href="{{ url('torrent') }}">
                             Торрент
                         </a>
                     </li>

@@ -30,4 +30,8 @@ class Decorator
             return $size . ' b';
         }
     }
+
+    static function sizeGb($size, $precision = 3) {
+        return round($size / 1073741824, $precision) . ' Гб';
+    }
 }
