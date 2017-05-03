@@ -54,7 +54,7 @@ class LibProvider extends ServiceProvider
         });
         $this->app->singleton(RPC::class, function ($app) {
             /** @var $app \Illuminate\Foundation\Application */
-            return new RPC(config('nas.transmission_url'), config('nas.transmission_user'), config('nas.transmission_password'));
+            return new RPC(config('nas.transmission_url'), config('nas.transmission_user'), config('nas.transmission_password'), true);
         });
     }
 }

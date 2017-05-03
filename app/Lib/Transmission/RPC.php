@@ -388,32 +388,32 @@ class RPC
     {
         if ($this->rpc_version < 14) {
             if ($intstatus == self::RPC_LT_14_TR_STATUS_CHECK_WAIT)
-                return "Waiting to verify local files";
+                return "Ожидание проверки локальных файлов";
             if ($intstatus == self::RPC_LT_14_TR_STATUS_CHECK)
-                return "Verifying local files";
+                return "Проверка локальных файлов";
             if ($intstatus == self::RPC_LT_14_TR_STATUS_DOWNLOAD)
-                return "Downloading";
+                return "Скачивание";
             if ($intstatus == self::RPC_LT_14_TR_STATUS_SEED)
-                return "Seeding";
+                return "Раздается";
             if ($intstatus == self::RPC_LT_14_TR_STATUS_STOPPED)
-                return "Stopped";
+                return "Остановлен";
         } else {
             if ($intstatus == self::TR_STATUS_CHECK_WAIT)
-                return "Waiting to verify local files";
+                return "Ожидание проверки локальных файлов";
             if ($intstatus == self::TR_STATUS_CHECK)
-                return "Verifying local files";
+                return "Проверка локальных файлов";
             if ($intstatus == self::TR_STATUS_DOWNLOAD)
-                return "Downloading";
+                return "Скачивание";
             if ($intstatus == self::TR_STATUS_SEED)
-                return "Seeding";
+                return "Раздается";
             if ($intstatus == self::TR_STATUS_STOPPED)
-                return "Stopped";
+                return "Остановлен";
             if ($intstatus == self::TR_STATUS_SEED_WAIT)
-                return "Queued for seeding";
+                return "В очереди для раздачи";
             if ($intstatus == self::TR_STATUS_DOWNLOAD_WAIT)
-                return "Queued for download";
+                return "В очереди для скачивания";
         }
-        return "Unknown";
+        return "Неизвестно";
     }
 
 

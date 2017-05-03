@@ -27,7 +27,14 @@ class TorrentController extends Controller
 
     function index()
     {
+        $resp = $this->rpc->get();
+        $data = [];
+        $data['torrents'] = $resp['arguments']['torrents'];
+        foreach ($data['torrents'] as $i => $t) {
+            $data['torrents'][$i]['status'] = $this->rpc->getStatusString($data['torrents'][$i]['status']);
+        }
 
+        return view('torrent', $data);
     }
 
 }
