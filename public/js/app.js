@@ -13021,20 +13021,77 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         var localData = window.appData.torrent = {
             items: [],
-            getData: function getData() {
+            reload: function reload() {
                 jQuery.ajax('/torrent-list/', {
                     success: function success(data) {
                         localData.items = data.items;
                     }
                 });
+            },
+            add: function add() {},
+            remove: function remove(itemId) {
+                jQuery.ajax('/torrent-remove/', {
+                    method: 'POST',
+                    data: {
+                        id: itemId
+                    },
+                    success: function success(data) {
+                        localData.reload();
+                    }
+                });
+            },
+            stop: function stop(itemId) {
+                jQuery.ajax('/torrent-stop/', {
+                    method: 'POST',
+                    data: {
+                        id: itemId
+                    },
+                    success: function success(data) {
+                        localData.reload();
+                    }
+                });
+            },
+            start: function start(itemId) {
+                jQuery.ajax('/torrent-start/', {
+                    method: 'POST',
+                    data: {
+                        id: itemId
+                    },
+                    success: function success(data) {
+                        localData.reload();
+                    }
+                });
             }
         };
-        localData.getData();
+        localData.reload();
         return localData;
     },
     mounted: function mounted() {}
@@ -37863,6 +37920,10 @@ module.exports = Component.exports
 /* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
+
+/* styles */
+__webpack_require__(87)
+
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(38),
@@ -38773,15 +38834,70 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "panel panel-default"
+    staticClass: "panel panel-default torrent"
   }, [_c('div', {
     staticClass: "panel-heading"
-  }, [_vm._v("Торренты")]), _vm._v(" "), _c('div', {
+  }, [_c('table', {
+    staticClass: "table table-striped table-menu"
+  }, [_c('tr', [_c('td', [_vm._v("Торренты")]), _vm._v(" "), _c('td', [_c('div', {
+    staticClass: "pull-right"
+  }, [_c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": function($event) {
+        _vm.add()
+      }
+    }
+  }, [_c('span', {
+    staticClass: "glyphicon glyphicon-plus"
+  }), _vm._v(" Добавить")])])])])])]), _vm._v(" "), _c('div', {
     staticClass: "panel-body"
   }, [_c('table', {
     staticClass: "table table-striped"
   }, [_vm._m(0), _vm._v(" "), _c('tbody', _vm._l((_vm.items), function(item, itemId) {
-    return _c('tr', [_c('td', [_vm._v(_vm._s(item.id))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.status))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.doneDate))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.haveValid))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.totalSize))])])
+    return _c('tr', [_c('td', [_vm._v(_vm._s(item.id))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.name))]), _vm._v(" "), _c('td', [_c('div', {
+      staticClass: "dropdown"
+    }, [_c('button', {
+      staticClass: "btn btn-primary dropdown-toggle",
+      attrs: {
+        "type": "button",
+        "data-toggle": "dropdown"
+      }
+    }, [_vm._v("\n                            " + _vm._s(item.status) + "\n                            "), _c('span', {
+      staticClass: "caret"
+    })]), _vm._v(" "), _c('ul', {
+      staticClass: "dropdown-menu"
+    }, [_c('li', [_c('a', {
+      attrs: {
+        "href": "#"
+      },
+      on: {
+        "click": function($event) {
+          _vm.stop(item.id)
+        }
+      }
+    }, [_vm._v("Пауза")])]), _vm._v(" "), _c('li', [_c('a', {
+      attrs: {
+        "href": "#"
+      },
+      on: {
+        "click": function($event) {
+          _vm.start(item.id)
+        }
+      }
+    }, [_vm._v("Запустить")])]), _vm._v(" "), _c('li', [_c('a', {
+      attrs: {
+        "href": "#"
+      },
+      on: {
+        "click": function($event) {
+          _vm.remove(item.id)
+        }
+      }
+    }, [_vm._v("Удалить")])])])])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.doneDate))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.haveValid))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.totalSize))])])
   }))])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('thead', [_c('tr', [_c('th', [_vm._v("Id")]), _vm._v(" "), _c('th', [_vm._v("Название")]), _vm._v(" "), _c('th', [_vm._v("Статус")]), _vm._v(" "), _c('th', [_vm._v("Дата")]), _vm._v(" "), _c('th', [_vm._v("haveValid")]), _vm._v(" "), _c('th', [_vm._v("totalSize")])])])
@@ -49098,6 +49214,48 @@ module.exports = function(module) {
 __webpack_require__(10);
 module.exports = __webpack_require__(11);
 
+
+/***/ }),
+/* 77 */,
+/* 78 */,
+/* 79 */,
+/* 80 */,
+/* 81 */,
+/* 82 */,
+/* 83 */,
+/* 84 */,
+/* 85 */,
+/* 86 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(45)();
+exports.push([module.i, "\n.torrent .table-menu {\n    margin-bottom: 0;\n}\n", ""]);
+
+/***/ }),
+/* 87 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(86);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(72)("7dacea8f", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-e1f053a2\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Torrent.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-e1f053a2\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Torrent.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
 
 /***/ })
 /******/ ]);

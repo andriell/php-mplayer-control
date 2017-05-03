@@ -44,4 +44,28 @@ class TorrentController extends Controller
         }
         return response()->json($r);
     }
+
+    function add()
+    {
+        $resp = $this->rpc->add($_POST['id']);
+        return response()->json($resp);
+    }
+
+    function remove()
+    {
+        $resp = $this->rpc->remove($_POST['id']);
+        return response()->json($resp);
+    }
+
+    function stop()
+    {
+        $resp = $this->rpc->stop($_POST['id']);
+        return response()->json($resp);
+    }
+
+    function start()
+    {
+        $resp = $this->rpc->start($_POST['id']);
+        return response()->json($resp);
+    }
 }

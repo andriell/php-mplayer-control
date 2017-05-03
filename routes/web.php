@@ -19,6 +19,10 @@ Route::get('/info', 'HomeController@info');
 
 Route::get('/torrent', 'TorrentController@index')->name('torrent');
 Route::get('/torrent-list', 'TorrentController@list');
+Route::post('/torrent-add', 'TorrentController@add');
+Route::post('/torrent-remove', 'TorrentController@remove');
+Route::post('/torrent-stop', 'TorrentController@stop');
+Route::post('/torrent-start', 'TorrentController@start');
 
 Route::get('/dir', 'DirController@index')->name('dir');
 Route::get('/dir-list/{uri?}', 'DirController@getList')->where(['uri' => '[\s\S]+']);
