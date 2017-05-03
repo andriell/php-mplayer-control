@@ -26,8 +26,8 @@
                     <th>Название</th>
                     <th>Статус</th>
                     <th>Дата</th>
-                    <th>haveValid</th>
-                    <th>totalSize</th>
+                    <th>Скачано</th>
+                    <th>Всего</th>
                 </tr>
                 </thead>
                 <tbody>
