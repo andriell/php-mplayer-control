@@ -47,6 +47,7 @@ class RPC
      * @var bool
      */
     public $debug = false;
+    public $debugLog = [];
 
     /**
      * Transmission RPC version
@@ -526,8 +527,9 @@ class RPC
         if ($this->username && $this->password)
             $contextopts['http']['header'] .= sprintf("Authorization: Basic %s\r\n", base64_encode($this->username . ':' . $this->password));
 
-        if ($this->debug) echo "TRANSMISSIONRPC_DEBUG:: request( method=$method, ...):: Stream context created with options:" .
-            PHP_EOL . print_r($contextopts, true);
+        if ($this->debug) {
+            $this->debugLog[] = ["TRANSMISSIONRPC_DEBUG:: request( method=$method, ...):: Stream context created with options:", $contextopts];
+        }
 
         $context = stream_context_create($contextopts);    // Create the context for this request
         if ($fp = fopen($this->url, 'r', false, $context)) {    // Open a filepointer to the data, and use fgets to get the result
@@ -535,16 +537,18 @@ class RPC
             while ($row = fgets($fp)) {
                 $response .= trim($row) . "\n";
             }
-            if ($this->debug) echo "TRANSMISSIONRPC_DEBUG:: request( method=$method, ...):: POST Result: " .
-                PHP_EOL . print_r($response, true);
+            if ($this->debug) {
+                $this->debugLog[] = ["TRANSMISSIONRPC_DEBUG:: request( method=$method, ...):: POST Result: ", $response];
+            }
         } else
             throw new RPCException('Unable to connect to ' . $this->url, RPCException::E_CONNECTION);
 
         // Check the response (headers etc)
         $stream_meta = stream_get_meta_data($fp);
         fclose($fp);
-        if ($this->debug) echo "TRANSMISSIONRPC_DEBUG:: request( method={$method}, ...):: Stream meta info: " .
-            PHP_EOL . print_r($stream_meta, true);
+        if ($this->debug) {
+            $this->debugLog[] = ["TRANSMISSIONRPC_DEBUG:: request( method={$method}, ...):: Stream meta info: ", $stream_meta];
+        }
         if ($stream_meta['timed_out'])
             throw new RPCException("Timed out connecting to {$this->url}", RPCException::E_CONNECTION);
         if (substr($stream_meta['wrapper_data'][0], 9, 3) == "401")
@@ -576,8 +580,9 @@ class RPC
         if ($this->username && $this->password)
             $contextopts['http']['header'] = sprintf("Authorization: Basic %s\r\n", base64_encode($this->username . ':' . $this->password));
 
-        if ($this->debug) echo "TRANSMISSIONRPC_DEBUG:: GetSessionID():: Stream context created with options:" .
-            PHP_EOL . print_r($contextopts, true);
+        if ($this->debug) {
+            $this->debugLog[] = ["TRANSMISSIONRPC_DEBUG:: GetSessionID():: Stream context created with options:", $contextopts];
+        }
 
         $context = stream_context_create($contextopts);    // Create the context for this request
         if (!$fp = @fopen($this->url, 'r', false, $context))    // Open a filepointer to the data, and use fgets to get the result
@@ -586,8 +591,9 @@ class RPC
         // Check the response (headers etc)
         $stream_meta = stream_get_meta_data($fp);
         fclose($fp);
-        if ($this->debug) echo "TRANSMISSIONRPC_DEBUG:: GetSessionID():: Stream meta info: " .
-            PHP_EOL . print_r($stream_meta, true);
+        if ($this->debug) {
+            $this->debugLog[] = ["TRANSMISSIONRPC_DEBUG:: GetSessionID():: Stream meta info: ", $stream_meta];
+        }
         if ($stream_meta['timed_out'])
             throw new RPCException("Timed out connecting to {$this->url}", RPCException::E_CONNECTION);
         if (substr($stream_meta['wrapper_data'][0], 9, 3) == "401")
@@ -597,8 +603,9 @@ class RPC
             // Loop through the returned headers and extract the X-Transmission-Session-Id
             foreach ($stream_meta['wrapper_data'] as $header) {
                 if (strpos($header, 'X-Transmission-Session-Id: ') === 0) {
-                    if ($this->debug) echo "TRANSMISSIONRPC_DEBUG:: GetSessionID():: Session-Id header: " .
-                        PHP_EOL . print_r($header, true);
+                    if ($this->debug) {
+                        $this->debugLog[] = ["TRANSMISSIONRPC_DEBUG:: GetSessionID():: Session-Id header: ", $header];
+                    }
                     $this->session_id = trim(substr($header, 27));
                     break;
                 }

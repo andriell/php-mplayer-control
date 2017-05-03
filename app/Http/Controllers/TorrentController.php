@@ -53,7 +53,9 @@ class TorrentController extends Controller
 
     function remove()
     {
+        $this->rpc->debug = true;
         $resp = $this->rpc->remove($_POST['id']);
+        $resp['log'] = $this->rpc->debugLog;
         return response()->json($resp);
     }
 
