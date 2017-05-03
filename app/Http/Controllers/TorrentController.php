@@ -28,17 +28,20 @@ class TorrentController extends Controller
 
     function index()
     {
-        $resp = $this->rpc->get();
-        $data = [];
-        $data['torrents'] = $resp['arguments']['torrents'];
-        foreach ($data['torrents'] as $i => $t) {
-            $data['torrents'][$i]['status'] = $this->rpc->getStatusString($data['torrents'][$i]['status']);
-            $data['torrents'][$i]['doneDate'] = Decorator::date($data['torrents'][$i]['doneDate']);
-            $data['torrents'][$i]['haveValid'] = Decorator::size($data['torrents'][$i]['haveValid']);
-            $data['torrents'][$i]['totalSize'] = Decorator::size($data['torrents'][$i]['totalSize']);
-        }
-
-        return view('torrent', $data);
+        return view('torrent');
     }
 
+    function list()
+    {
+        $resp = $this->rpc->get();
+        $r = [];
+        $r['items'] = $resp['arguments']['torrents'];
+        foreach ($r['items'] as $i => $t) {
+            $r['items'][$i]['status'] = $this->rpc->getStatusString($r['items'][$i]['status']);
+            $r['items'][$i]['doneDate'] = Decorator::date($r['items'][$i]['doneDate']);
+            $r['items'][$i]['haveValid'] = Decorator::size($r['items'][$i]['haveValid']);
+            $r['items'][$i]['totalSize'] = Decorator::size($r['items'][$i]['totalSize']);
+        }
+        return response()->json($r);
+    }
 }

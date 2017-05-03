@@ -18,6 +18,7 @@ Route::get('/', 'HomeController@index');
 Route::get('/info', 'HomeController@info');
 
 Route::get('/torrent', 'TorrentController@index')->name('torrent');
+Route::get('/torrent-list', 'TorrentController@list');
 
 Route::get('/dir', 'DirController@index')->name('dir');
 Route::get('/dir-list/{uri?}', 'DirController@getList')->where(['uri' => '[\s\S]+']);

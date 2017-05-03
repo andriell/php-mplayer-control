@@ -37,6 +37,7 @@ Vue.component('new_folder', require('./components/NewFolder.vue'));
 Vue.component('delete', require('./components/Delete.vue'));
 Vue.component('carousel', require('./components/Carousel.vue'));
 Vue.component('upload', require('./components/Upload.vue'));
+Vue.component('torrent', require('./components/Torrent.vue'));
 
 const app = new Vue({
     el: '#app',
