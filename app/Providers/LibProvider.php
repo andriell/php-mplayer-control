@@ -14,6 +14,7 @@ use App\Lib\FileSystem;
 use App\Lib\FileSystemOverride;
 use App\Lib\Image;
 use App\Lib\MPlayer;
+use App\Lib\Transmission\RPC;
 use App\Lib\XBoTool;
 use Illuminate\Support\ServiceProvider;
 
@@ -50,6 +51,10 @@ class LibProvider extends ServiceProvider
         $this->app->singleton(XBoTool::class, function ($app) {
             /** @var $app \Illuminate\Foundation\Application */
             return new XBoTool();
+        });
+        $this->app->singleton(RPC::class, function ($app) {
+            /** @var $app \Illuminate\Foundation\Application */
+            return new RPC(config('nas.transmission_url'), config('nas.transmission_user'), config('nas.transmission_password'));
         });
     }
 }

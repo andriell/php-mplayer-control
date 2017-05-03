@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'HomeController@index');
 Route::get('/info', 'HomeController@info');
 
+Route::get('/torrent', 'TorrentController@index');
+
 Route::get('/dir', 'DirController@index')->name('dir');
 Route::get('/dir-list/{uri?}', 'DirController@getList')->where(['uri' => '[\s\S]+']);
 Route::get('/dir-img-100x100/{uri}', 'DirController@img100x100')->where(['uri' => '[\s\S]+']);
