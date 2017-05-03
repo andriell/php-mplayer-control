@@ -13044,6 +13044,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -38839,9 +38842,21 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "panel-heading"
   }, [_c('table', {
     staticClass: "table table-striped table-menu"
-  }, [_c('tr', [_c('td', [_vm._v("Торренты")]), _vm._v(" "), _c('td', [_c('div', {
+  }, [_c('tr', [_c('td', [_vm._v("\n                    Торренты\n                ")]), _vm._v(" "), _c('td', [_c('div', {
     staticClass: "pull-right"
   }, [_c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": function($event) {
+        _vm.reload()
+      }
+    }
+  }, [_c('span', {
+    staticClass: "glyphicon glyphicon-refresh"
+  }), _vm._v(" Обновить")]), _vm._v(" "), _c('button', {
     staticClass: "btn btn-default",
     attrs: {
       "type": "button"
@@ -38861,7 +38876,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     return _c('tr', [_c('td', [_vm._v(_vm._s(item.id))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.name))]), _vm._v(" "), _c('td', [_c('div', {
       staticClass: "dropdown"
     }, [_c('button', {
-      staticClass: "btn btn-primary dropdown-toggle",
+      staticClass: "btn btn-primary btn-xs dropdown-toggle",
       attrs: {
         "type": "button",
         "data-toggle": "dropdown"
@@ -38879,7 +38894,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           _vm.stop(item.id)
         }
       }
-    }, [_vm._v("Пауза")])]), _vm._v(" "), _c('li', [_c('a', {
+    }, [_c('span', {
+      staticClass: "glyphicon glyphicon-pause"
+    }), _vm._v(" Пауза")])]), _vm._v(" "), _c('li', [_c('a', {
       attrs: {
         "href": "#"
       },
@@ -38888,7 +38905,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           _vm.start(item.id)
         }
       }
-    }, [_vm._v("Запустить")])]), _vm._v(" "), _c('li', [_c('a', {
+    }, [_c('span', {
+      staticClass: "glyphicon glyphicon-play"
+    }), _vm._v(" Запустить")])]), _vm._v(" "), _c('li', [_c('a', {
       attrs: {
         "href": "#"
       },
@@ -38897,7 +38916,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           _vm.remove(item.id)
         }
       }
-    }, [_vm._v("Удалить")])])])])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.doneDate))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.haveValid))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.totalSize))])])
+    }, [_c('span', {
+      staticClass: "glyphicon glyphicon-trash"
+    }), _vm._v(" Удалить")])])])])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.doneDate))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.haveValid))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.totalSize))])])
   }))])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('thead', [_c('tr', [_c('th', [_vm._v("Id")]), _vm._v(" "), _c('th', [_vm._v("Название")]), _vm._v(" "), _c('th', [_vm._v("Статус")]), _vm._v(" "), _c('th', [_vm._v("Дата")]), _vm._v(" "), _c('th', [_vm._v("haveValid")]), _vm._v(" "), _c('th', [_vm._v("totalSize")])])])

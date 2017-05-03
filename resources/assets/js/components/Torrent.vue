@@ -3,9 +3,12 @@
         <div class="panel-heading">
             <table class="table table-striped table-menu">
                 <tr>
-                    <td>Торренты</td>
+                    <td>
+                        Торренты
+                    </td>
                     <td>
                         <div class="pull-right">
+                            <button type="button" class="btn btn-default" v-on:click="reload()"><span class="glyphicon glyphicon-refresh"></span> Обновить</button>
                             <button type="button" class="btn btn-default" v-on:click="add()"><span class="glyphicon glyphicon-plus"></span> Добавить</button>
                         </div>
                     </td>
@@ -30,14 +33,14 @@
                     <td>{{ item.name }}</td>
                     <td>
                         <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                            <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-toggle="dropdown">
                                 {{ item.status }}
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a href="#" v-on:click="stop(item.id)">Пауза</a></li>
-                                <li><a href="#" v-on:click="start(item.id)">Запустить</a></li>
-                                <li><a href="#" v-on:click="remove(item.id)">Удалить</a></li>
+                                <li><a href="#" v-on:click="stop(item.id)"><span class="glyphicon glyphicon-pause"></span> Пауза</a></li>
+                                <li><a href="#" v-on:click="start(item.id)"><span class="glyphicon glyphicon-play"></span> Запустить</a></li>
+                                <li><a href="#" v-on:click="remove(item.id)"><span class="glyphicon glyphicon-trash"></span> Удалить</a></li>
                             </ul>
                         </div>
                     </td>
