@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 use App\Lib\Decorator;
+use App\Lib\FileSystem;
 use App\Lib\Transmission\RPC;
 use Illuminate\Http\Request;
 
@@ -16,14 +17,17 @@ class TorrentController extends Controller
 {
 
     private $rpc;
+    private $fs;
 
     /**
      * DirController constructor.
      * @param RPC $rpc
+     * @param FileSystem $fs
      */
-    public function __construct(RPC $rpc)
+    public function __construct(RPC $rpc, FileSystem $fs)
     {
         $this->rpc = $rpc;
+        $this->fs = $fs;
         $this->middleware('auth');
     }
 
@@ -134,7 +138,7 @@ class TorrentController extends Controller
         }
         $torrentFile = '/tmp/' . $_FILES['file']['name'][0];
         if (!move_uploaded_file($_FILES['file']['tmp_name'][0], $torrentFile)) {
-            return response()->json(['Remove file error'], 501);
+            //return response()->json(['Move file error'], 501);
         }
         $resp = $this->rpc->add($torrentFile, $sessionProps['arguments']['download-dir']);
         unlink($torrentFile);
