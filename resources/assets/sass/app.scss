@@ -9,6 +9,8 @@
 
 @import "switch";
 
+@import "node_modules/fuelux/dist/css/fuelux";
+
 $navH: 50px;
 $tap: 5px;
 
@@ -135,13 +137,6 @@ body {
   }
   .rc-row-sound div {
     height: 36px;
-  }
-}
-
-.select-dir {
-  .tree-selected > .tree-branch-header {
-    color: #FFFFFF;
-    background-color: #428bca;
   }
 }
 

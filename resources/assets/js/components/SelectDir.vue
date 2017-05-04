@@ -1,24 +1,25 @@
 <template>
-    <ul class="list-group tree select-dir" role="tree" id="selectDir">
-        <li class="list-group-item tree-branch hide" data-template="treebranch" role="treeitem"
-            aria-expanded="false">
-            <div class="tree-branch-header">
-                <span class="glyphicon icon-caret glyphicon-play"></span>
-                    <span class="tree-branch-name">
+    <div class="fuelux">
+        <ul id="selectDir" class="tree tree-folder-select" role="tree">
+            <li class="tree-branch hide" data-template="treebranch" role="treeitem" aria-expanded="false">
+                <div class="tree-branch-header">
+                    <button class="glyphicon icon-caret glyphicon-play"><span class="sr-only">Открыть</span></button>
+                    <button class="tree-branch-name">
                         <span class="glyphicon icon-folder glyphicon-folder-close"></span>
                         <span class="tree-label"></span>
-                    </span>
-            </div>
-            <ul class="tree-branch-children" role="group"></ul>
-            <div class="tree-loader" role="alert">Загрузка...</div>
-        </li>
-        <li class="list-group-item tree-item hide" data-template="treeitem" role="treeitem">
-                <span class="tree-item-name">
+                    </button>
+                </div>
+                <ul class="tree-branch-children" role="group"></ul>
+                <div class="tree-loader" role="alert">Загрузка...</div>
+            </li>
+            <li class="tree-item hide" data-template="treeitem" role="treeitem">
+                <button class="tree-item-name">
                     <span class="glyphicon icon-item fueluxicon-bullet"></span>
                     <span class="tree-label"></span>
-                </span>
-        </li>
-    </ul>
+                </button>
+            </li>
+        </ul>
+    </div>
 </template>
 
 <script>

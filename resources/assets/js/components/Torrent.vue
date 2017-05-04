@@ -123,10 +123,10 @@
                     });
                 },
                 edit: function(itemId) {
-                    window.appData.torrentEdit.show();
+                    window.appData.torrentEdit.show(itemId);
                 }
             };
-            setInterval(localData.reload, 2000);
+            setInterval(localData.reload, 5000);
             localData.reload();
             return localData;
         },

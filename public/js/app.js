@@ -13342,7 +13342,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 });
             },
             edit: function edit(itemId) {
-                window.appData.torrentEdit.show();
+                window.appData.torrentEdit.show(itemId);
             }
         };
         setInterval(localData.reload, 2000);
@@ -13401,30 +13401,71 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         var localData = window.appData.torrentEdit = {
-
-            show: function show() {
+            info: {},
+            show: function show(itemId) {
+                jQuery.ajax('/torrent-info/' + itemId, {
+                    success: function success(data) {
+                        if (data['result'] != 'success') {
+                            return;
+                        }
+                        localData.info = data['arguments']['torrents'][0];
+                    }
+                });
                 jQuery('#torrentEdit').modal('show');
             },
             hide: function hide() {
                 jQuery('#torrentEdit').modal('hide');
+            },
+
+            dataSource: function dataSource(openedParentData, callback) {
+                var childNodesArray = [{ "name": "Ascending and Descending", "type": "folder" }, { "name": "Sky and Water I", "type": "item" }, { "name": "Drawing Hands", "type": "folder" }, { "name": "waterfall", "type": "item" }, { "name": "Belvedere", "type": "folder" }, { "name": "Relativity", "type": "item" }, { "name": "House of Stairs", "type": "folder" }, { "name": "Convex and Concave", "type": "item" }];
+
+                callback({
+                    data: childNodesArray
+                });
             }
         };
         return localData;
     },
     mounted: function mounted() {
-        /*jQuery('#downloadDirTree').tree({
-            dataSource: localData.getData,
+        $('#torrentFiles').tree({
+            dataSource: window.appData.torrentEdit.dataSource,
             multiSelect: false,
             folderSelect: true
-        }).on('selected.fu.tree', function (event, data) {
-            localData.selectedUri = data.selected[0].uri;
-        }).on('deselected.fu.tree', function (event, data) {
-            localData.selectedUri = false;
-        });*/
+        });
     }
 });
 
@@ -38516,9 +38557,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', {
     staticClass: "modal-content"
-  }, [_vm._m(0), _vm._v(" "), _c('div', {
-    staticClass: "modal-body"
-  }, [_c('select_dir')], 1), _vm._v(" "), _c('div', {
+  }, [_c('div', {
+    staticClass: "modal-header"
+  }, [_vm._m(0), _vm._v(" "), _c('h4', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "myModalLabel"
+    }
+  }, [_vm._v("Торрент " + _vm._s(_vm.info.name))])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-body fuelux"
+  }, [_vm._v("\n                Папка для загрузки\n                "), _c('select_dir'), _vm._v("\n                Содержимое торрента\n\n                "), _vm._m(1)], 1), _vm._v(" "), _c('div', {
     staticClass: "modal-footer"
   }, [_c('button', {
     staticClass: "btn btn-default",
@@ -38538,7 +38586,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     staticClass: "glyphicon glyphicon-arrow-right"
-  }), _vm._v(" Переместить")]), _vm._v(" "), _c('button', {
+  }), _vm._v(" Переместить\n                ")]), _vm._v(" "), _c('button', {
     staticClass: "btn btn-primary",
     attrs: {
       "type": "button"
@@ -38550,11 +38598,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     staticClass: "glyphicon glyphicon-duplicate"
-  }), _vm._v(" Копировать")])])])])])
+  }), _vm._v(" Копировать\n                ")])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "modal-header"
-  }, [_c('button', {
+  return _c('button', {
     staticClass: "close",
     attrs: {
       "type": "button",
@@ -38563,12 +38609,56 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     staticClass: "glyphicon glyphicon-remove"
-  })]), _vm._v(" "), _c('h4', {
-    staticClass: "modal-title",
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('ul', {
+    staticClass: "tree tree-folder-select",
     attrs: {
-      "id": "myModalLabel"
+      "id": "torrentFiles",
+      "role": "tree"
     }
-  }, [_vm._v("Переместить")])])
+  }, [_c('li', {
+    staticClass: "tree-branch hide",
+    attrs: {
+      "data-template": "treebranch",
+      "role": "treeitem",
+      "aria-expanded": "false"
+    }
+  }, [_c('div', {
+    staticClass: "tree-branch-header"
+  }, [_c('button', {
+    staticClass: "glyphicon icon-caret glyphicon-play"
+  }, [_c('span', {
+    staticClass: "sr-only"
+  }, [_vm._v("Open")])]), _vm._v(" "), _c('button', {
+    staticClass: "tree-branch-name"
+  }, [_c('span', {
+    staticClass: "glyphicon icon-folder glyphicon-folder-close"
+  }), _vm._v(" "), _c('span', {
+    staticClass: "tree-label"
+  })])]), _vm._v(" "), _c('ul', {
+    staticClass: "tree-branch-children",
+    attrs: {
+      "role": "group"
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "tree-loader",
+    attrs: {
+      "role": "alert"
+    }
+  }, [_vm._v("Loading...")])]), _vm._v(" "), _c('li', {
+    staticClass: "tree-item hide",
+    attrs: {
+      "data-template": "treeitem",
+      "role": "treeitem"
+    }
+  }, [_c('button', {
+    staticClass: "tree-item-name"
+  }, [_c('span', {
+    staticClass: "glyphicon icon-item fueluxicon-bullet"
+  }), _vm._v(" "), _c('span', {
+    staticClass: "tree-label"
+  })])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -49541,6 +49631,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -49631,14 +49722,16 @@ module.exports = Component.exports
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _vm._m(0)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('ul', {
-    staticClass: "list-group tree select-dir",
+  return _c('div', {
+    staticClass: "fuelux"
+  }, [_c('ul', {
+    staticClass: "tree tree-folder-select",
     attrs: {
-      "role": "tree",
-      "id": "selectDir"
+      "id": "selectDir",
+      "role": "tree"
     }
   }, [_c('li', {
-    staticClass: "list-group-item tree-branch hide",
+    staticClass: "tree-branch hide",
     attrs: {
       "data-template": "treebranch",
       "role": "treeitem",
@@ -49646,9 +49739,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', {
     staticClass: "tree-branch-header"
-  }, [_c('span', {
+  }, [_c('button', {
     staticClass: "glyphicon icon-caret glyphicon-play"
-  }), _vm._v(" "), _c('span', {
+  }, [_c('span', {
+    staticClass: "sr-only"
+  }, [_vm._v("Открыть")])]), _vm._v(" "), _c('button', {
     staticClass: "tree-branch-name"
   }, [_c('span', {
     staticClass: "glyphicon icon-folder glyphicon-folder-close"
@@ -49665,18 +49760,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "role": "alert"
     }
   }, [_vm._v("Загрузка...")])]), _vm._v(" "), _c('li', {
-    staticClass: "list-group-item tree-item hide",
+    staticClass: "tree-item hide",
     attrs: {
       "data-template": "treeitem",
       "role": "treeitem"
     }
-  }, [_c('span', {
+  }, [_c('button', {
     staticClass: "tree-item-name"
   }, [_c('span', {
     staticClass: "glyphicon icon-item fueluxicon-bullet"
   }), _vm._v(" "), _c('span', {
     staticClass: "tree-label"
-  })])])])
+  })])])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
