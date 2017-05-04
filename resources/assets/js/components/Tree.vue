@@ -7,7 +7,7 @@
 <script>
     export default {
         data: function () {
-            return {
+            var localData = window.appData.torrentFiles = {
                 items: [{id: 1, name: 'My Tree', children: [
                     {id: 2, name: 'hello1'},
                     {id: 3, name: 'wat2'},
@@ -30,8 +30,12 @@
                         r.push(jQuery(this).val());
                     });
                     return r;
+                },
+                checkChild: function(itemId) {
+                    jQuery('#myTree .tree-child-' + itemId  + ' input').prop('checked', jQuery('#myTree input[value=' + itemId  + ']').prop('checked'));
                 }
             };
+            return localData;
         },
         mounted() {},
         props: ['message']

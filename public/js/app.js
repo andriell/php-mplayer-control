@@ -49884,7 +49884,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
-        return {
+        var localData = window.appData.torrentFiles = {
             items: [{ id: 1, name: 'My Tree', children: [{ id: 2, name: 'hello1' }, { id: 3, name: 'wat2' }, { id: 4, name: 'child folder3', children: [{ id: 5, name: 'child folder4', children: [{ id: 6, name: 'hello5' }, { id: 7, name: 'wat6' }] }, { id: 8, name: 'hello7' }, { id: 9, name: 'wat8' }, { id: 10, name: 'child folder9', children: [{ id: 11, name: 'hello10' }, { id: 12, name: 'wat11' }] }] }] }],
             getChecked: function getChecked() {
                 var r = [];
@@ -49892,8 +49892,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     r.push(jQuery(this).val());
                 });
                 return r;
+            },
+            checkChild: function checkChild(itemId) {
+                jQuery('#myTree .tree-child-' + itemId + ' input').prop('checked', jQuery('#myTree input[value=' + itemId + ']').prop('checked'));
             }
         };
+        return localData;
     },
     mounted: function mounted() {},
 
@@ -49983,14 +49987,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            items: this.data
+            items: this.data,
+            checkChild: function checkChild(itemId) {
+                window.appData.torrentFiles.checkChild(itemId);
+            }
         };
     },
     mounted: function mounted() {},
+
 
     props: ['data']
 });
@@ -50041,7 +50060,38 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('table', {
     staticClass: "tree-table"
   }, [_vm._l((_vm.items), function(item) {
-    return [_c('tr', [_c('td', {
+    return [(item.children) ? [_c('tr', [_c('td', {
+      staticClass: "tree-table-id"
+    }, [_c('input', {
+      attrs: {
+        "type": "checkbox",
+        "name": "ids[]"
+      },
+      domProps: {
+        "value": item.id
+      },
+      on: {
+        "change": function($event) {
+          _vm.checkChild(item.id)
+        }
+      }
+    })]), _vm._v(" "), _c('td', {
+      staticClass: "tree-table-name"
+    }, [_vm._v(_vm._s(item.name))]), _vm._v(" "), _c('td', {
+      staticClass: "tree-table-size"
+    }, [_vm._v(_vm._s(item.size))])]), _vm._v(" "), _c('tr', {
+      class: 'tree-child-' + item.id
+    }, [_c('td', {
+      staticClass: "tree-table-id"
+    }), _vm._v(" "), _c('td', {
+      attrs: {
+        "colspan": "2"
+      }
+    }, [_c('tree_item', {
+      attrs: {
+        "data": item.children
+      }
+    })], 1)])] : [_c('tr', [_c('td', {
       staticClass: "tree-table-id"
     }, [_c('input', {
       attrs: {
@@ -50055,17 +50105,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "tree-table-name"
     }, [_vm._v(_vm._s(item.name))]), _vm._v(" "), _c('td', {
       staticClass: "tree-table-size"
-    }, [_vm._v(_vm._s(item.size))])]), _vm._v(" "), (item.children) ? _c('tr', [_c('td', {
-      staticClass: "tree-table-id"
-    }), _vm._v(" "), _c('td', {
-      attrs: {
-        "colspan": "2"
-      }
-    }, [_c('tree_item', {
-      attrs: {
-        "data": item.children
-      }
-    })], 1)]) : _vm._e()]
+    }, [_vm._v(_vm._s(item.size))])])]]
   })], 2)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
