@@ -270,9 +270,9 @@ class RPC
      * @param save_path Folder to save torrent in
      * @param extra options Optional extra torrent options
      */
-    public function add($torrent_location, $save_path = '', $extra_options = array())
+    public function add($extra_options)
     {
-        return $this->add_file($torrent_location, $save_path, $extra_options);
+        return $this->request("torrent-add", $extra_options);
     }
 
     /**
