@@ -33,6 +33,9 @@
                 },
                 checkChild: function(itemId) {
                     jQuery('#myTree .tree-child-' + itemId  + ' input').prop('checked', jQuery('#myTree input[value=' + itemId  + ']').prop('checked'));
+                },
+                toggle: function(itemId) {
+                    jQuery('#myTree .tree-child-' + itemId).toggle();
                 }
             };
             return localData;

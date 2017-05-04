@@ -49895,6 +49895,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             },
             checkChild: function checkChild(itemId) {
                 jQuery('#myTree .tree-child-' + itemId + ' input').prop('checked', jQuery('#myTree input[value=' + itemId + ']').prop('checked'));
+            },
+            toggle: function toggle(itemId) {
+                jQuery('#myTree .tree-child-' + itemId).toggle();
             }
         };
         return localData;
@@ -50005,6 +50008,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             items: this.data,
             checkChild: function checkChild(itemId) {
                 window.appData.torrentFiles.checkChild(itemId);
+            },
+            toggle: function toggle(itemId) {
+                window.appData.torrentFiles.toggle(itemId);
             }
         };
     },
@@ -50076,8 +50082,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     })]), _vm._v(" "), _c('td', {
-      staticClass: "tree-table-name"
-    }, [_vm._v(_vm._s(item.name))]), _vm._v(" "), _c('td', {
+      staticClass: "tree-table-name",
+      on: {
+        "click": function($event) {
+          _vm.toggle(item.id)
+        }
+      }
+    }, [_c('span', {
+      staticClass: "glyphicon glyphicon-folder-open"
+    }), _vm._v(" " + _vm._s(item.name))]), _vm._v(" "), _c('td', {
       staticClass: "tree-table-size"
     }, [_vm._v(_vm._s(item.size))])]), _vm._v(" "), _c('tr', {
       class: 'tree-child-' + item.id
@@ -50103,7 +50116,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     })]), _vm._v(" "), _c('td', {
       staticClass: "tree-table-name"
-    }, [_vm._v(_vm._s(item.name))]), _vm._v(" "), _c('td', {
+    }, [_c('span', {
+      staticClass: "glyphicon glyphicon-file"
+    }), _vm._v(" " + _vm._s(item.name))]), _vm._v(" "), _c('td', {
       staticClass: "tree-table-size"
     }, [_vm._v(_vm._s(item.size))])])]]
   })], 2)

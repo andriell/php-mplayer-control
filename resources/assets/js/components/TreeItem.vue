@@ -6,7 +6,7 @@
                     <td class="tree-table-id">
                         <input type="checkbox" name="ids[]" :value="item.id" v-on:change="checkChild(item.id)">
                     </td>
-                    <td class="tree-table-name">{{item.name}}</td>
+                    <td class="tree-table-name" v-on:click="toggle(item.id)"><span class="glyphicon glyphicon-folder-open"></span> {{item.name}}</td>
                     <td class="tree-table-size">{{item.size}}</td>
                 </tr>
                 <tr :class="'tree-child-' + item.id">
@@ -21,7 +21,7 @@
                     <td class="tree-table-id">
                         <input type="checkbox" name="ids[]" :value="item.id">
                     </td>
-                    <td class="tree-table-name">{{item.name}}</td>
+                    <td class="tree-table-name"><span class="glyphicon glyphicon-file"></span> {{item.name}}</td>
                     <td class="tree-table-size">{{item.size}}</td>
                 </tr>
             </template>
@@ -36,6 +36,9 @@
                 items: this.data,
                 checkChild: function(itemId) {
                     window.appData.torrentFiles.checkChild(itemId);
+                },
+                toggle: function(itemId) {
+                    window.appData.torrentFiles.toggle(itemId);
                 }
             };
         },
