@@ -11,7 +11,7 @@
                             <button type="button" class="btn btn-default" v-on:click="reload()"><span class="glyphicon glyphicon-refresh"></span> Обновить</button>
                             <span class="btn btn-default btn-file">
                                 <span class="glyphicon glyphicon-plus"></span> Добавить
-                                <input type="file" accept="application/x-bittorrent">
+                                <input id="torrentInputFile" type="file" accept="application/x-bittorrent">
                             </span>
                         </div>
                     </td>
@@ -70,7 +70,7 @@
                     });
                 },
                 add: function() {
-                    window.appData.torrentAdd.show();
+
                 },
                 remove: function(itemId) {
                     jQuery.ajax('/torrent-remove/', {
@@ -110,11 +110,31 @@
             return localData;
         },
         mounted() {
+            window.appData.torrent.fileInput = jQuery('#torrentInputFile').on('change', function() {
+                var fileData = jQuery('#torrentInputFile').prop('files')[0];
+                var formData = new FormData();
+                formData.append('file', fileData);
+
+                jQuery.ajax('/torrent-add/', {
+                    method: 'POST',
+                    data: formData,
+                    dataType: 'text',
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function(data) {
+                        window.appData.torrent.reload();
+                    }
+                });
+            });
         }
     }
 </script>
 
 <style>
+    .torrent .kv-upload-progress {
+        display: none;
+    }
     .torrent .table-menu {
         margin-bottom: 0;
     }

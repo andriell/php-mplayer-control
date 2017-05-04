@@ -125,7 +125,14 @@ class TorrentController extends Controller
 
     function add()
     {
-        $resp = $this->rpc->add($_POST['id']);
+        if (!(isset($_FILES['file']) && isset($_FILES['file']['tmp_name']) && isset($_FILES['file']['tmp_name'][0]))) {
+            return response()->json(['No file'], 501);
+        }
+        $sessionProps = $this->rpc->sget();
+        if (!(isset($sessionProps['arguments']) && isset($sessionProps['arguments']['download-dir']))) {
+            return response()->json(['Transmission error'], 501);
+        }
+        $resp = $this->rpc->add($_FILES['file']['tmp_name'][0], $sessionProps['arguments']['download-dir']);
         return response()->json($resp);
     }
 
