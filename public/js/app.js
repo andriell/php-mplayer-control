@@ -13432,12 +13432,16 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         var localData = window.appData.torrentEdit = {
             info: {},
             files: {},
+            f: window.decorator,
+            torrentFiles: false,
             addFile: function addFile(name, size, loaded) {
                 var path = name.split('/');
                 var f = localData.files;
@@ -13470,7 +13474,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                         break;
                     }
                     childNodesArray.push({
-                        name: name,
+                        name: name + '&thinsp;&thinsp;&thinsp;&thinsp;<span class="size-info">' + localData.f.size(f[name].loaded) + '/' + localData.f.size(f[name].size) + '</span>',
                         type: type,
                         c: f[name].c
                     });
@@ -13481,6 +13485,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             },
 
             show: function show(itemId) {
+                localData.files = {};
+
                 jQuery.ajax('/torrent-info/' + itemId, {
                     success: function success(data) {
                         if (data['result'] != 'success') {
@@ -13493,10 +13499,14 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                             localData.addFile(files[i].name, files[i].length, files[i].bytesCompleted);
                         }
                         localData.info = data['arguments']['torrents'][0];
-
-                        $('#torrentFiles').tree({
-                            dataSource: localData.dataSource,
-                            multiSelect: false,
+                        if (localData.torrentFiles !== false) {
+                            localData.torrentFiles.tree('destroy');
+                        }
+                        localData.torrentFiles = jQuery('#torrentFiles').clone();
+                        jQuery('#newSelectFiles').html(localData.torrentFiles);
+                        localData.torrentFiles.tree({
+                            dataSource: window.appData.torrentEdit.dataSource,
+                            multiSelect: true,
                             folderSelect: true
                         });
                     }
@@ -38325,6 +38335,10 @@ module.exports = Component.exports
 /* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
+
+/* styles */
+__webpack_require__(97)
+
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(41),
@@ -38587,7 +38601,7 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "modal fade torrentEdit",
+    staticClass: "modal fade torrent-edit",
     attrs: {
       "id": "torrentEdit",
       "tabindex": "-1",
@@ -38610,7 +38624,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Торрент " + _vm._s(_vm.info.name))])]), _vm._v(" "), _c('div', {
     staticClass: "modal-body fuelux"
-  }, [_vm._v("\n                Папка для загрузки\n                "), _c('select_dir'), _vm._v("\n                Содержимое торрента\n\n                "), _vm._m(1)], 1), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                Папка для загрузки\n                "), _c('select_dir'), _vm._v("\n                Содержимое торрента\n\n                "), _vm._m(1), _vm._v(" "), _c('div', {
+    attrs: {
+      "id": "newSelectFiles"
+    }
+  })], 1), _vm._v(" "), _c('div', {
     staticClass: "modal-footer"
   }, [_c('button', {
     staticClass: "btn btn-default",
@@ -38655,7 +38673,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "glyphicon glyphicon-remove"
   })])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('ul', {
+  return _c('div', {
+    staticStyle: {
+      "display": "none"
+    }
+  }, [_c('ul', {
     staticClass: "tree tree-folder-select",
     attrs: {
       "id": "torrentFiles",
@@ -38702,7 +38724,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "glyphicon icon-item fueluxicon-bullet"
   }), _vm._v(" "), _c('span', {
     staticClass: "tree-label"
-  })])])])
+  })])])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -49823,6 +49845,40 @@ if (false) {
   if (module.hot.data) {
      require("vue-hot-reload-api").rerender("data-v-e86d7660", module.exports)
   }
+}
+
+/***/ }),
+/* 95 */,
+/* 96 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(9)();
+exports.push([module.i, "\n.torrent-edit .tree-item-name {\n    text-align: left;\n}\n.torrent-edit .size-info {\n    color: blue;\n    float: right;\n}\n", ""]);
+
+/***/ }),
+/* 97 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(96);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(10)("67a32ea4", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-073defd9\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./TorrentEdit.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-073defd9\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./TorrentEdit.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
 }
 
 /***/ })

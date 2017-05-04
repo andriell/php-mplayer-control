@@ -1,5 +1,5 @@
 <template>
-    <div class="modal fade torrentEdit" id="torrentEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal fade torrent-edit" id="torrentEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -12,27 +12,29 @@
                     <select_dir></select_dir>
                     Содержимое торрента
 
-                    <ul id="torrentFiles" class="tree tree-folder-select" role="tree">
-                        <li class="tree-branch hide" data-template="treebranch" role="treeitem" aria-expanded="false">
-                            <div class="tree-branch-header">
-                                <button class="glyphicon icon-caret glyphicon-play"><span class="sr-only">Open</span>
-                                </button>
-                                <button class="tree-branch-name">
-                                    <span class="glyphicon icon-folder glyphicon-folder-close"></span>
+                    <div style="display: none">
+                        <ul id="torrentFiles" class="tree tree-folder-select" role="tree">
+                            <li class="tree-branch hide" data-template="treebranch" role="treeitem" aria-expanded="false">
+                                <div class="tree-branch-header">
+                                    <button class="glyphicon icon-caret glyphicon-play"><span class="sr-only">Open</span>
+                                    </button>
+                                    <button class="tree-branch-name">
+                                        <span class="glyphicon icon-folder glyphicon-folder-close"></span>
+                                        <span class="tree-label"></span>
+                                    </button>
+                                </div>
+                                <ul class="tree-branch-children" role="group"></ul>
+                                <div class="tree-loader" role="alert">Loading...</div>
+                            </li>
+                            <li class="tree-item hide" data-template="treeitem" role="treeitem">
+                                <button class="tree-item-name">
+                                    <span class="glyphicon icon-item fueluxicon-bullet"></span>
                                     <span class="tree-label"></span>
                                 </button>
-                            </div>
-                            <ul class="tree-branch-children" role="group"></ul>
-                            <div class="tree-loader" role="alert">Loading...</div>
-                        </li>
-                        <li class="tree-item hide" data-template="treeitem" role="treeitem">
-                            <button class="tree-item-name">
-                                <span class="glyphicon icon-item fueluxicon-bullet"></span>
-                                <span class="tree-label"></span>
-                            </button>
-                        </li>
-                    </ul>
-
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="newSelectFiles"></div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Отменить</button>
@@ -54,6 +56,8 @@
             var localData = window.appData.torrentEdit = {
                 info: {},
                 files: {},
+                f: window.decorator,
+                torrentFiles: false,
                 addFile: function(name, size, loaded) {
                     var path = name.split('/');
                     var f = localData.files;
@@ -86,7 +90,7 @@
                             break;
                         }
                         childNodesArray.push({
-                            name: name,
+                            name: name + '&thinsp;&thinsp;&thinsp;&thinsp;<span class="size-info">' + localData.f.size(f[name].loaded) + '/' + localData.f.size(f[name].size) + '</span>',
                             type: type,
                             c: f[name].c
                         });
@@ -97,6 +101,8 @@
                 },
 
                 show: function (itemId) {
+                    localData.files = {};
+
                     jQuery.ajax('/torrent-info/' + itemId, {
                         success: function (data) {
                             if (data['result'] != 'success') {
@@ -109,10 +115,14 @@
                                 localData.addFile(files[i].name, files[i].length, files[i].bytesCompleted);
                             }
                             localData.info = data['arguments']['torrents'][0];
-
-                            $('#torrentFiles').tree({
-                                dataSource: localData.dataSource,
-                                multiSelect: false,
+                            if (localData.torrentFiles !== false) {
+                                localData.torrentFiles.tree('destroy');
+                            }
+                            localData.torrentFiles = jQuery('#torrentFiles').clone();
+                            jQuery('#newSelectFiles').html(localData.torrentFiles);
+                            localData.torrentFiles.tree({
+                                dataSource: window.appData.torrentEdit.dataSource,
+                                multiSelect: true,
                                 folderSelect: true
                             });
                         }
@@ -126,10 +136,17 @@
             };
             return localData;
         },
-        mounted() {
-
-        }
+        mounted() {}
     }
 </script>
 
+<style>
+    .torrent-edit .tree-item-name {
+        text-align: left;
+    }
+    .torrent-edit .size-info {
+        color: blue;
+        float: right;
+    }
+</style>
 
