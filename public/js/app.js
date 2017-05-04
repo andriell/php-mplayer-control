@@ -13345,7 +13345,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 window.appData.torrentEdit.show(itemId);
             }
         };
-        setInterval(localData.reload, 2000);
+        setInterval(localData.reload, 5000);
         localData.reload();
         return localData;
     },
