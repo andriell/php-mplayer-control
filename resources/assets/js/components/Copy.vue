@@ -7,28 +7,9 @@
                     <h4 class="modal-title" id="myModalLabel">Переместить</h4>
                 </div>
                 <div class="modal-body">
-                    <ul class="list-group tree" role="tree" id="copyTree">
-                        <li class="list-group-item tree-branch hide" data-template="treebranch" role="treeitem"
-                            aria-expanded="false">
-                            <div class="tree-branch-header">
-                                <span class="glyphicon icon-caret glyphicon-play"></span>
-                                <span class="tree-branch-name">
-                                    <span class="glyphicon icon-folder glyphicon-folder-close"></span>
-                                    <span class="tree-label"></span>
-                                </span>
-                            </div>
-                            <ul class="tree-branch-children" role="group"></ul>
-                            <div class="tree-loader" role="alert">Загрузка...</div>
-                        </li>
-                        <li class="list-group-item tree-item hide" data-template="treeitem" role="treeitem">
-                            <span class="tree-item-name">
-                                <span class="glyphicon icon-item fueluxicon-bullet"></span>
-                                <span class="tree-label"></span>
-                            </span>
-                        </li>
-                    </ul>
+                    <select_dir></select_dir>
                     <div class="form-group">Элементов: {{items.length}}</div>
-                    <div class="form-group">Переместить в: <template v-if="selectedUri">{{selectedUri}}</template></div>
+                    <div class="form-group">Переместить в: <template v-if="selectedUri()">{{ selectedUri() }}</template></div>
                     <div class="form-group">{{status}}</div>
                 </div>
                 <div class="modal-footer">
@@ -47,39 +28,16 @@
             var localData = window.appData.copy = {
                 currentDir: '',
                 items: [],
-                selectedUri: false,
                 status: '',
                 run: false,
-                available: function() {
-                    return !localData.run && localData.selectedUri !== false && localData.items.length > 0 && localData.selectedUri != localData.currentDir;
-                },
-                getData: function (openedParentData, callback) {
-                    if (typeof openedParentData['uri'] == 'undefined') {
-                        callback({
-                            data: [{
-                                'name': 'Диск',
-                                'type': 'folder',
-                                'uri': ''
-                            }]
-                        });
-                        return;
+                selectedUri: function () {
+                    if (typeof window.appData.selectDir != 'object') {
+                        return false;
                     }
-                    var uri = openedParentData.uri;
-                    jQuery.ajax('/dir-only-dir/' + uri, {
-                        success: function (data) {
-                            var r = [];
-                            for (var i in data) {
-                                r.push({
-                                    'name': data[i],
-                                    'type': 'folder',
-                                    'uri': uri ? uri + '/' + data[i] : data[i]
-                                });
-                             }
-                            callback({
-                                data: r
-                            });
-                        }
-                    });
+                    return window.appData.selectDir.selectedUri;
+                },
+                available: function() {
+                    return !localData.run && localData.selectedUri() !== false && localData.items.length > 0 && localData.selectedUri() != localData.currentDir;
                 },
                 show: function () {
                     localData.run = false;
@@ -104,7 +62,7 @@
                         method: 'POST',
                         data: {
                             'uri_from': localData.items,
-                            'uri_to': localData.selectedUri
+                            'uri_to': localData.selectedUri()
                         },
                         success: function (data) {
                             if (data.status) {
@@ -123,17 +81,6 @@
                     });
                 }
             };
-            jQuery(function () {
-                jQuery('#copyTree').tree({
-                    dataSource: localData.getData,
-                    multiSelect: false,
-                    folderSelect: true
-                }).on('selected.fu.tree', function (event, data) {
-                    localData.selectedUri = data.selected[0].uri;
-                }).on('deselected.fu.tree', function (event, data) {
-                    localData.selectedUri = false;
-                });
-            });
             return localData;
         },
         mounted() {

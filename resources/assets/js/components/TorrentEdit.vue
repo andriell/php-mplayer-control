@@ -4,18 +4,15 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove"></span></button>
-                    <h4 class="modal-title" id="myModalLabel">Добавить торрент</h4>
+                    <h4 class="modal-title" id="myModalLabel">Переместить</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group row">
-                        <label for="example-text-input" class="col-md-2 col-form-label">Text</label>
-                        <div class="col-md-10">
-                            <input class="form-control" type="text" value="Artisanal kale" id="example-text-input">
-                        </div>
-                    </div>
+                    <select_dir></select_dir>
                 </div>
                 <div class="modal-footer">
-
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Отменить</button>
+                    <button type="button" class="btn btn-primary" v-on:click="cut()"><span class="glyphicon glyphicon-arrow-right"></span> Переместить</button>
+                    <button type="button" class="btn btn-primary" v-on:click="copy()"><span class="glyphicon glyphicon-duplicate"></span> Копировать</button>
                 </div>
             </div>
         </div>
@@ -26,6 +23,7 @@
     export default {
         data: function () {
             var localData = window.appData.torrentEdit = {
+
                 show: function () {
                     jQuery('#torrentEdit').modal('show');
                 },
@@ -36,6 +34,15 @@
             return localData;
         },
         mounted() {
+            /*jQuery('#downloadDirTree').tree({
+                dataSource: localData.getData,
+                multiSelect: false,
+                folderSelect: true
+            }).on('selected.fu.tree', function (event, data) {
+                localData.selectedUri = data.selected[0].uri;
+            }).on('deselected.fu.tree', function (event, data) {
+                localData.selectedUri = false;
+            });*/
         }
     }
 </script>
