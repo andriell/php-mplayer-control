@@ -40,8 +40,7 @@
             };
             return localData;
         },
-        mounted() {},
-        props: ['message']
+        mounted() {}
     }
 </script>
 

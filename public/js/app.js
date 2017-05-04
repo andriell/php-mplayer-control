@@ -13410,27 +13410,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -38626,7 +38605,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Торрент " + _vm._s(_vm.info.name))])]), _vm._v(" "), _c('div', {
     staticClass: "modal-body fuelux"
-  }, [_vm._v("\n                Папка для загрузки\n                "), _c('select_dir'), _vm._v("\n                Содержимое торрента\n\n                "), _vm._m(1), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                Папка для загрузки\n                "), _c('select_dir'), _vm._v("\n                Содержимое торрента\n\n                "), _c('tree'), _vm._v(" "), _c('div', {
     attrs: {
       "id": "newSelectFiles"
     }
@@ -38660,59 +38639,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('span', {
     staticClass: "glyphicon glyphicon-remove"
   })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticStyle: {
-      "display": "none"
-    }
-  }, [_c('ul', {
-    staticClass: "tree tree-folder-select",
-    attrs: {
-      "id": "torrentFiles",
-      "role": "tree"
-    }
-  }, [_c('li', {
-    staticClass: "tree-branch hide",
-    attrs: {
-      "data-template": "treebranch",
-      "role": "treeitem",
-      "aria-expanded": "false"
-    }
-  }, [_c('div', {
-    staticClass: "tree-branch-header"
-  }, [_c('button', {
-    staticClass: "glyphicon icon-caret glyphicon-play"
-  }, [_c('span', {
-    staticClass: "sr-only"
-  }, [_vm._v("Open")])]), _vm._v(" "), _c('button', {
-    staticClass: "tree-branch-name"
-  }, [_c('span', {
-    staticClass: "glyphicon icon-folder glyphicon-folder-close"
-  }), _vm._v(" "), _c('span', {
-    staticClass: "tree-label"
-  })])]), _vm._v(" "), _c('ul', {
-    staticClass: "tree-branch-children",
-    attrs: {
-      "role": "group"
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "tree-loader",
-    attrs: {
-      "role": "alert"
-    }
-  }, [_vm._v("Loading...")])]), _vm._v(" "), _c('li', {
-    staticClass: "tree-item hide",
-    attrs: {
-      "data-template": "treeitem",
-      "role": "treeitem"
-    }
-  }, [_c('button', {
-    staticClass: "tree-item-name"
-  }, [_c('span', {
-    staticClass: "glyphicon icon-item fueluxicon-bullet"
-  }), _vm._v(" "), _c('span', {
-    staticClass: "tree-label"
-  })])])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -49902,9 +49828,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
         return localData;
     },
-    mounted: function mounted() {},
-
-    props: ['message']
+    mounted: function mounted() {}
 });
 
 /***/ }),
