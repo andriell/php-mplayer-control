@@ -49879,11 +49879,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            items: [{ name: 'My Tree', children: [{ type: 'file', name: 'hello1' }, { type: 'file', name: 'wat2' }, { type: 'folder', name: 'child folder3', children: [{ type: 'folder', name: 'child folder4', children: [{ type: 'file', name: 'hello5' }, { type: 'file', name: 'wat6' }] }, { type: 'file', name: 'hello7' }, { type: 'file', name: 'wat8' }, { type: 'folder', name: 'child folder9', children: [{ type: 'file', name: 'hello10' }, { type: 'file', name: 'wat11' }] }] }] }]
+            items: [{ id: 1, name: 'My Tree', children: [{ id: 2, name: 'hello1' }, { id: 3, name: 'wat2' }, { id: 4, name: 'child folder3', children: [{ id: 5, name: 'child folder4', children: [{ id: 6, name: 'hello5' }, { id: 7, name: 'wat6' }] }, { id: 8, name: 'hello7' }, { id: 9, name: 'wat8' }, { id: 10, name: 'child folder9', children: [{ id: 11, name: 'hello10' }, { id: 12, name: 'wat11' }] }] }] }],
+            getChecked: function getChecked() {
+                var r = [];
+                jQuery('#myTree input:checked').each(function () {
+                    r.push(jQuery(this).val());
+                });
+                return r;
+            }
         };
     },
     mounted: function mounted() {},
@@ -49930,11 +49939,15 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('tree_item', {
+  return _c('div', {
+    attrs: {
+      "id": "myTree"
+    }
+  }, [_c('tree_item', {
     attrs: {
       "data": _vm.items
     }
-  })
+  })], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -49973,7 +49986,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
-        return { items: this.data };
+        return {
+            items: this.data
+        };
     },
     mounted: function mounted() {},
 
@@ -50026,7 +50041,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('table', {
     staticClass: "tree-table"
   }, [_vm._l((_vm.items), function(item) {
-    return [_c('tr', [_vm._m(0, true), _vm._v(" "), _c('td', {
+    return [_c('tr', [_c('td', {
+      staticClass: "tree-table-id"
+    }, [_c('input', {
+      attrs: {
+        "type": "checkbox",
+        "name": "ids[]"
+      },
+      domProps: {
+        "value": item.id
+      }
+    })]), _vm._v(" "), _c('td', {
       staticClass: "tree-table-name"
     }, [_vm._v(_vm._s(item.name))]), _vm._v(" "), _c('td', {
       staticClass: "tree-table-size"
@@ -50034,7 +50059,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "tree-table-id"
     }), _vm._v(" "), _c('td', {
       attrs: {
-        "rowspan": "2"
+        "colspan": "2"
       }
     }, [_c('tree_item', {
       attrs: {
@@ -50042,15 +50067,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     })], 1)]) : _vm._e()]
   })], 2)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('td', {
-    staticClass: "tree-table-id"
-  }, [_c('input', {
-    attrs: {
-      "type": "checkbox"
-    }
-  })])
-}]}
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
