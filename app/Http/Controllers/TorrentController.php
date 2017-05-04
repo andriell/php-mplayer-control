@@ -10,6 +10,7 @@ namespace App\Http\Controllers;
 
 use App\Lib\Decorator;
 use App\Lib\FileSystem;
+use App\Lib\Transmission\Files;
 use App\Lib\Transmission\RPC;
 use Illuminate\Http\Request;
 
@@ -108,6 +109,20 @@ class TorrentController extends Controller
             //'webseeds',
             'webseedsSendingToUs',
         ]);
+
+        if (!(
+            is_array($resp) && isset($resp['result']) && $resp['result'] == 'success' && isset($resp['arguments'])
+            && isset($resp['arguments']['torrents']) && isset($resp['arguments']['torrents'][0])
+            && isset($resp['arguments']['torrents'][0]['files'])
+        )) {
+            return response()->json(['No file'], 501);
+        }
+        $resp['arguments'] = $resp['arguments']['torrents'][0];
+
+        $files = new Files();
+        $files->addFiles($resp['arguments']['files']);
+        $resp['arguments']['files'] = $files->getData();
+
         return response()->json($resp);
     }
 
