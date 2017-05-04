@@ -34,7 +34,7 @@ class TorrentController extends Controller
 
     function info(Request $request, $id)
     {
-        $resp = $this->rpc->get((int) $id, [
+        $resp = $this->rpc->get((int)$id, [
             'activityDate',
             'addedDate',
             'bandwidthPriority',
@@ -132,7 +132,12 @@ class TorrentController extends Controller
         if (!(isset($sessionProps['arguments']) && isset($sessionProps['arguments']['download-dir']))) {
             return response()->json(['Transmission error'], 501);
         }
-        $resp = $this->rpc->add($_FILES['file']['tmp_name'][0], $sessionProps['arguments']['download-dir']);
+        $torrentFile = $sessionProps['arguments']['download-dir'] . '/' . $_FILES['file']['name'][0];
+        if (!move_uploaded_file($_FILES['file']['tmp_name'][0], $torrentFile)) {
+            return response()->json(['Remove file error'], 501);
+        }
+        $resp = $this->rpc->add($torrentFile, $sessionProps['arguments']['download-dir']);
+        unlink($torrentFile);
         return response()->json($resp);
     }
 
