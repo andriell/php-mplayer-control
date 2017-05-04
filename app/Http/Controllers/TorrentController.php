@@ -136,12 +136,12 @@ class TorrentController extends Controller
         if (!(isset($sessionProps['arguments']) && isset($sessionProps['arguments']['download-dir']))) {
             return response()->json(['Transmission error'], 501);
         }
-        $torrentFile = '/tmp/' . $_FILES['file']['name'];
+        /*$torrentFile = '/tmp/' . $_FILES['file']['name'];
         if (!move_uploaded_file($_FILES['file']['tmp_name'], $torrentFile)) {
             return response()->json(['Move file error'], 501);
-        }
-        $resp = $this->rpc->add($torrentFile, $sessionProps['arguments']['download-dir']);
-        unlink($torrentFile);
+        }*/
+        $resp = $this->rpc->add($_FILES['file']['tmp_name'], $sessionProps['arguments']['download-dir']);
+        //unlink($torrentFile);
         return response()->json($resp);
     }
 
