@@ -13516,8 +13516,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             },
             save: function save() {
                 var items = localData.torrentFiles.tree('selectedItems');
-
-                debugger;
             }
         };
         return localData;
