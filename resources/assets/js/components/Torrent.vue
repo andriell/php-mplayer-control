@@ -47,7 +47,7 @@
                             </ul>
                         </div>
                     </td>
-                    <td>{{ item.addedDate_f }}</td>
+                    <td>{{ f.date(item.addedDate) }}</td>
                     <td>{{ item.haveValid_f }}</td>
                     <td>{{ item.sizeWhenDone_f }}</td>
                 </tr>
@@ -62,6 +62,7 @@
         data: function () {
             var localData = window.appData.torrent = {
                 items: [],
+                f: window.decorator,
                 reload: function () {
                     jQuery.ajax('/torrent-list/', {
                         success: function (data) {

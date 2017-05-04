@@ -11376,6 +11376,7 @@ window.appData = {
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+__webpack_require__(91);
 __webpack_require__(43);
 
 __webpack_require__(51);
@@ -13333,6 +13334,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         var localData = window.appData.torrent = {
             items: [],
+            f: window.decorator,
             reload: function reload() {
                 jQuery.ajax('/torrent-list/', {
                     success: function success(data) {
@@ -39308,7 +39310,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('span', {
       staticClass: "glyphicon glyphicon-trash"
-    }), _vm._v(" Удалить")])])])])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.addedDate_f))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.haveValid_f))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.sizeWhenDone_f))])])
+    }), _vm._v(" Удалить")])])])])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.f.date(item.addedDate)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.haveValid_f))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.sizeWhenDone_f))])])
   }))])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('span', {
@@ -49442,6 +49444,59 @@ module.exports = function(module) {
 __webpack_require__(12);
 module.exports = __webpack_require__(13);
 
+
+/***/ }),
+/* 82 */,
+/* 83 */,
+/* 84 */,
+/* 85 */,
+/* 86 */,
+/* 87 */,
+/* 88 */,
+/* 89 */,
+/* 90 */,
+/* 91 */
+/***/ (function(module, exports) {
+
+/**
+ * Created by Андрей on 04.05.2017.
+ */
+
+window.decorator = {
+    size: function size(_size, precision) {
+        precision = typeof precision !== 'undefined' ? precision : 2;
+        if (_size > 1099511627776) {
+            return Math.round(_size / 1099511627776 * precision) / precision + ' Тб';
+        } else if (_size > 1073741824) {
+            return Math.round(_size / 1073741824 * precision) / precision + ' Гб';
+        } else if (_size > 1048576) {
+            return Math.round(_size / 1048576 * precision) / precision + ' Мб';
+        } else if (_size > 1024) {
+            return Math.round(_size / 1024 * precision) / precision + ' Кб';
+        } else {
+            return _size + ' b';
+        }
+    },
+    speed: function speed(size, precision) {
+        precision = typeof precision !== 'undefined' ? precision : 2;
+        if (size > 1099511627776) {
+            return Math.round(size / 1099511627776 * precision) / precision + ' Тб/c';
+        } else if (size > 1073741824) {
+            return Math.round(size / 1073741824 * precision) / precision + ' Гб/c';
+        } else if (size > 1048576) {
+            return Math.round(size / 1048576 * precision) / precision + ' Мб/c';
+        } else if (size > 1024) {
+            return Math.round(size / 1024 * precision) / precision + ' Кб/c';
+        } else {
+            return size + ' b/c';
+        }
+    },
+    date: function timeConverter(timestamp) {
+        var a = new Date(timestamp * 1000);
+        return a.getFullYear() + '-' + (a.getMonth() > 9 ? a.getMonth() + 1 : '0' + a.getMonth()) + '-' + (a.getDate() > 10 ? a.getDate() : '0' + a.getDate()) + ' ' + (a.getHours() > 10 ? a.getHours() : '0' + a.getHours()) + ':' + (a.getMinutes() > 10 ? a.getMinutes() : '0' + a.getMinutes()) + ':' + (a.getSeconds() > 10 ? a.getSeconds() : '0' + a.getSeconds());
+    }
+
+};
 
 /***/ })
 /******/ ]);
