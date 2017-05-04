@@ -40,6 +40,8 @@ Vue.component('carousel', require('./components/Carousel.vue'));
 Vue.component('upload', require('./components/Upload.vue'));
 Vue.component('torrent', require('./components/Torrent.vue'));
 Vue.component('torrent_edit', require('./components/TorrentEdit.vue'));
+Vue.component('tree', require('./components/Tree.vue'));
+Vue.component('tree_item', require('./components/TreeItem.vue'));
 
 const app = new Vue({
     el: '#app',
