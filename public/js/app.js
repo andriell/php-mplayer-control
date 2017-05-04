@@ -13382,8 +13382,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 //
 //
 //
@@ -13415,78 +13413,17 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     data: function data() {
         var localData = window.appData.torrentEdit = {
             info: {},
-            files: {},
             f: window.decorator,
-            torrentFiles: false,
-            addFile: function addFile(name, size, loaded, id) {
-                var path = name.split('/');
-                var f = localData.files;
-                for (var i = 0; i < path.length; i++) {
-                    if (!(path[i] in f)) {
-                        f[path[i]] = {
-                            size: 0,
-                            loaded: 0,
-                            c: {},
-                            id: []
-                        };
-                    }
-                    f[path[i]].id.push(id);
-                    f[path[i]].size += size;
-                    f[path[i]].loaded += loaded;
-                    f = f[path[i]].c;
-                }
-            },
-
-            dataSource: function dataSource(openedParentData, callback) {
-                var childNodesArray = [];
-                var f = localData.files;
-                console.info(openedParentData);
-                if (_typeof(openedParentData['c']) == 'object') {
-                    f = openedParentData['c'];
-                }
-
-                for (var name in f) {
-                    var type = 'item';
-                    for (var name2 in f[name].c) {
-                        type = 'folder';
-                        break;
-                    }
-                    childNodesArray.push({
-                        name: name + '&thinsp;&thinsp;&thinsp;&thinsp;<span class="size-info">' + localData.f.size(f[name].loaded) + '/' + localData.f.size(f[name].size) + '</span>',
-                        type: type,
-                        c: f[name].c
-                    });
-                }
-                callback({
-                    data: childNodesArray
-                });
-            },
 
             show: function show(itemId) {
-                localData.files = {};
 
                 jQuery.ajax('/torrent-info/' + itemId, {
                     success: function success(data) {
                         if (data['result'] != 'success') {
                             return;
                         }
-                        var files = data['arguments']['torrents'][0]['files'];
-                        data['arguments']['torrents'][0]['files'] = null;
-                        localData.files = {};
-                        for (var i in files) {
-                            localData.addFile(files[i].name, files[i].length, files[i].bytesCompleted, i);
-                        }
-                        localData.info = data['arguments']['torrents'][0];
-                        if (localData.torrentFiles !== false) {
-                            localData.torrentFiles.tree('destroy');
-                        }
-                        localData.torrentFiles = jQuery('#torrentFiles').clone();
-                        jQuery('#newSelectFiles').html(localData.torrentFiles);
-                        localData.torrentFiles.tree({
-                            dataSource: window.appData.torrentEdit.dataSource,
-                            multiSelect: true,
-                            folderSelect: true
-                        });
+                        localData.info = data['arguments'];
+                        window.appData.torrentFiles.items = localData.info.files;
                     }
                 });
 
