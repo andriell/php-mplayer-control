@@ -53,46 +53,81 @@
         data: function () {
             var localData = window.appData.torrentEdit = {
                 info: {},
+                files: {},
+                addFile: function(name, size, loaded) {
+                    var path = name.split('/');
+                    var f = localData.files;
+                    for (var i = 0; i < path.length; i++) {
+                        if (!(path[i] in f)) {
+                            f[path[i]] = {
+                                size: 0,
+                                loaded: 0,
+                                c: {}
+                            };
+                        }
+                        f[path[i]].size += size;
+                        f[path[i]].loaded += loaded;
+                        f = f[path[i]].c;
+                    }
+                },
+
+                dataSource: function (openedParentData, callback) {
+                    var childNodesArray = [];
+                    var f = localData.files;
+                    console.info(openedParentData);
+                    if (typeof openedParentData['c'] == 'object') {
+                        f = openedParentData['c'];
+                    }
+
+                    for (var name in f) {
+                        var type = 'item';
+                        for (var name2 in f[name].c) {
+                            type = 'folder';
+                            break;
+                        }
+                        childNodesArray.push({
+                            name: name,
+                            type: type,
+                            c: f[name].c
+                        });
+                    }
+                    callback({
+                        data: childNodesArray
+                    });
+                },
+
                 show: function (itemId) {
                     jQuery.ajax('/torrent-info/' + itemId, {
                         success: function (data) {
                             if (data['result'] != 'success') {
                                 return;
                             }
+                            var files = data['arguments']['torrents'][0]['files'];
+                            data['arguments']['torrents'][0]['files'] = null;
+                            localData.files = {};
+                            for (var i in files) {
+                                localData.addFile(files[i].name, files[i].length, files[i].bytesCompleted);
+                            }
                             localData.info = data['arguments']['torrents'][0];
+
+                            $('#torrentFiles').tree({
+                                dataSource: localData.dataSource,
+                                multiSelect: false,
+                                folderSelect: true
+                            });
                         }
                     });
+
                     jQuery('#torrentEdit').modal('show');
                 },
                 hide: function () {
                     jQuery('#torrentEdit').modal('hide');
-                },
-
-                dataSource: function (openedParentData, callback) {
-                    var childNodesArray = [
-                        {"name": "Ascending and Descending", "type": "folder"},
-                        {"name": "Sky and Water I", "type": "item"},
-                        {"name": "Drawing Hands", "type": "folder"},
-                        {"name": "waterfall", "type": "item"},
-                        {"name": "Belvedere", "type": "folder"},
-                        {"name": "Relativity", "type": "item"},
-                        {"name": "House of Stairs", "type": "folder"},
-                        {"name": "Convex and Concave", "type": "item"}
-                    ];
-
-                    callback({
-                        data: childNodesArray
-                    });
                 }
             };
             return localData;
         },
         mounted() {
-            $('#torrentFiles').tree({
-                dataSource: window.appData.torrentEdit.dataSource,
-                multiSelect: false,
-                folderSelect: true
-            });
+
         }
     }
 </script>
