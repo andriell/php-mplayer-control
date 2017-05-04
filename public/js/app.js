@@ -13387,12 +13387,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             jQuery.ajax('/torrent-add/', {
                 method: 'POST',
                 data: formData,
-                dataType: 'text',
+                dataType: 'json',
                 cache: false,
                 contentType: false,
                 processData: false,
                 success: function success(data) {
                     window.appData.torrent.reload();
+                    if (data['result'] != 'success') {
+                        return;
+                    }
+                    var id = data['arguments']['torrent-added']['id'];
                 }
             });
         });
