@@ -13429,11 +13429,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 //
 //
 //
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -13442,7 +13437,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             files: {},
             f: window.decorator,
             torrentFiles: false,
-            addFile: function addFile(name, size, loaded) {
+            addFile: function addFile(name, size, loaded, id) {
                 var path = name.split('/');
                 var f = localData.files;
                 for (var i = 0; i < path.length; i++) {
@@ -13450,9 +13445,11 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                         f[path[i]] = {
                             size: 0,
                             loaded: 0,
-                            c: {}
+                            c: {},
+                            id: []
                         };
                     }
+                    f[path[i]].id.push(id);
                     f[path[i]].size += size;
                     f[path[i]].loaded += loaded;
                     f = f[path[i]].c;
@@ -13496,7 +13493,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                         data['arguments']['torrents'][0]['files'] = null;
                         localData.files = {};
                         for (var i in files) {
-                            localData.addFile(files[i].name, files[i].length, files[i].bytesCompleted);
+                            localData.addFile(files[i].name, files[i].length, files[i].bytesCompleted, i);
                         }
                         localData.info = data['arguments']['torrents'][0];
                         if (localData.torrentFiles !== false) {
@@ -13516,6 +13513,11 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             },
             hide: function hide() {
                 jQuery('#torrentEdit').modal('hide');
+            },
+            save: function save() {
+                var items = localData.torrentFiles.tree('selectedItems');
+
+                debugger;
             }
         };
         return localData;
@@ -38643,24 +38645,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     on: {
       "click": function($event) {
-        _vm.cut()
+        _vm.save()
       }
     }
-  }, [_c('span', {
-    staticClass: "glyphicon glyphicon-arrow-right"
-  }), _vm._v(" Переместить\n                ")]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-primary",
-    attrs: {
-      "type": "button"
-    },
-    on: {
-      "click": function($event) {
-        _vm.copy()
-      }
-    }
-  }, [_c('span', {
-    staticClass: "glyphicon glyphicon-duplicate"
-  }), _vm._v(" Копировать\n                ")])])])])])
+  }, [_vm._v("Сохранить")])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('button', {
     staticClass: "close",

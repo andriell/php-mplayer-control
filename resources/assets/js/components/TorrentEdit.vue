@@ -38,12 +38,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Отменить</button>
-                    <button type="button" class="btn btn-primary" v-on:click="cut()"><span
-                            class="glyphicon glyphicon-arrow-right"></span> Переместить
-                    </button>
-                    <button type="button" class="btn btn-primary" v-on:click="copy()"><span
-                            class="glyphicon glyphicon-duplicate"></span> Копировать
-                    </button>
+                    <button type="button" class="btn btn-primary" v-on:click="save()">Сохранить</button>
                 </div>
             </div>
         </div>
@@ -58,7 +53,7 @@
                 files: {},
                 f: window.decorator,
                 torrentFiles: false,
-                addFile: function(name, size, loaded) {
+                addFile: function(name, size, loaded, id) {
                     var path = name.split('/');
                     var f = localData.files;
                     for (var i = 0; i < path.length; i++) {
@@ -66,9 +61,11 @@
                             f[path[i]] = {
                                 size: 0,
                                 loaded: 0,
-                                c: {}
+                                c: {},
+                                id: []
                             };
                         }
+                        f[path[i]].id.push(id);
                         f[path[i]].size += size;
                         f[path[i]].loaded += loaded;
                         f = f[path[i]].c;
@@ -112,7 +109,7 @@
                             data['arguments']['torrents'][0]['files'] = null;
                             localData.files = {};
                             for (var i in files) {
-                                localData.addFile(files[i].name, files[i].length, files[i].bytesCompleted);
+                                localData.addFile(files[i].name, files[i].length, files[i].bytesCompleted, i);
                             }
                             localData.info = data['arguments']['torrents'][0];
                             if (localData.torrentFiles !== false) {
@@ -132,6 +129,9 @@
                 },
                 hide: function () {
                     jQuery('#torrentEdit').modal('hide');
+                },
+                save: function() {
+                    var items = localData.torrentFiles.tree('selectedItems');
                 }
             };
             return localData;
