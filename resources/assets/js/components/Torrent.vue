@@ -19,25 +19,35 @@
             </table>
         </div>
         <div class="panel-body">
-            <table class="table table-striped">
+            <table class="table table-striped table-data">
                 <thead>
                 <tr>
                     <th>Id</th>
                     <th>Название</th>
+                    <th style="width: 100px">Размер</th>
+                    <th>Готово</th>
                     <th>Статус</th>
+                    <th>Сиды</th>
+                    <th style="width: 100px">Загрузка</th>
+                    <th style="width: 100px">Отдача</th>
+                    <th>Осталось</th>
                     <th>Дата</th>
-                    <th>Скачано</th>
-                    <th>Всего</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr v-for="(item, itemId) in items">
                     <td>{{ item.id }}</td>
                     <td>{{ item.name }}</td>
+                    <td>{{ f.size(item.haveValid) }}</td>
+                    <td>
+                        <div class="progress">
+                            <div class="progress-bar" :style="f.widthP(item.haveValid, item.sizeWhenDone)">{{ f.percent(item.haveValid, item.sizeWhenDone) }}</div>
+                        </div>
+                    </td>
                     <td>
                         <div class="dropdown">
                             <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-toggle="dropdown">
-                                {{ item.status_f }}
+                                {{ f.torrentStatus(item.status) }}
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
@@ -47,9 +57,11 @@
                             </ul>
                         </div>
                     </td>
+                    <td>{{ item.peersSendingToUs }}</td>
+                    <td>{{ f.speed(item.rateDownload) }}</td>
+                    <td>{{ f.speed(item.rateUpload) }}</td>
+                    <td>{{ f.seconds(item.eta) }}</td>
                     <td>{{ f.date(item.addedDate) }}</td>
-                    <td>{{ item.haveValid_f }}</td>
-                    <td>{{ item.sizeWhenDone_f }}</td>
                 </tr>
                 </tbody>
             </table>
@@ -66,7 +78,10 @@
                 reload: function () {
                     jQuery.ajax('/torrent-list/', {
                         success: function (data) {
-                            localData.items = data.items;
+                            if (data['result'] != 'success') {
+                                return;
+                            }
+                            localData.items = data['arguments']['torrents'];
                         }
                     });
                 },
@@ -107,6 +122,7 @@
                     });
                 }
             };
+            setInterval(localData.reload, 2000);
             localData.reload();
             return localData;
         },
@@ -139,6 +155,19 @@
 <style>
     .torrent .kv-upload-progress {
         display: none;
+    }
+    .torrent .table-data td {
+        white-space: nowrap;
+    }
+
+    .torrent .progress .progress-bar {
+        text-align: center;
+        color: white;
+        text-shadow: #3097D1 1px 1px 0, #3097D1 -1px -1px 0,
+        #3097D1 -1px 1px 0, #3097D1 1px -1px 0;
+    }
+    .torrent .progress {
+        margin-bottom: 0;
     }
     .torrent .table-menu {
         margin-bottom: 0;

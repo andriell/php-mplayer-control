@@ -111,9 +111,13 @@ class TorrentController extends Controller
         return response()->json($resp);
     }
 
+    function session() {
+        return response()->json($this->rpc->sget());
+    }
+
     function list()
     {
-        $resp = $this->rpc->get([], [
+        $r = $this->rpc->get([], [
             'id',
             'name',
             'status',
@@ -123,18 +127,9 @@ class TorrentController extends Controller
             'sizeWhenDone',
             'rateDownload',
             'rateUpload',
+            'eta',
+            'peersSendingToUs',
         ]);
-        $r = [];
-        $r['items'] = $resp['arguments']['torrents'];
-        foreach ($r['items'] as $i => $t) {
-            $r['items'][$i]['status_f'] = $this->rpc->getStatusString($r['items'][$i]['status']);
-            $r['items'][$i]['addedDate_f'] = Decorator::date($r['items'][$i]['addedDate']);
-            $r['items'][$i]['haveValid_f'] = Decorator::size($r['items'][$i]['haveValid']);
-            $r['items'][$i]['sizeWhenDone_f'] = Decorator::size($r['items'][$i]['sizeWhenDone']);
-            $r['items'][$i]['totalSize_f'] = Decorator::size($r['items'][$i]['totalSize']);
-            $r['items'][$i]['rateDownload_f'] = Decorator::size($r['items'][$i]['rateDownload']);
-            $r['items'][$i]['rateUpload_f'] = Decorator::size($r['items'][$i]['rateUpload']);
-        }
         return response()->json($r);
     }
 

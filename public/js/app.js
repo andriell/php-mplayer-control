@@ -13329,6 +13329,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -13338,7 +13350,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             reload: function reload() {
                 jQuery.ajax('/torrent-list/', {
                     success: function success(data) {
-                        localData.items = data.items;
+                        if (data['result'] != 'success') {
+                            return;
+                        }
+                        localData.items = data['arguments']['torrents'];
                     }
                 });
             },
@@ -13377,6 +13392,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 });
             }
         };
+        setInterval(localData.reload, 2000);
         localData.reload();
         return localData;
     },
@@ -19559,7 +19575,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(9)();
-exports.push([module.i, "\n.torrent .kv-upload-progress {\n    display: none;\n}\n.torrent .table-menu {\n    margin-bottom: 0;\n}\n", ""]);
+exports.push([module.i, "\n.torrent .kv-upload-progress {\n    display: none;\n}\n.torrent .table-data td {\n    white-space: nowrap;\n}\n.torrent .progress .progress-bar {\n    text-align: center;\n    color: white;\n    text-shadow: #3097D1 1px 1px 0, #3097D1 -1px -1px 0,\n    #3097D1 -1px 1px 0, #3097D1 1px -1px 0;\n}\n.torrent .progress {\n    margin-bottom: 0;\n}\n.torrent .table-menu {\n    margin-bottom: 0;\n}\n", ""]);
 
 /***/ }),
 /* 49 */
@@ -39263,9 +39279,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" Обновить")]), _vm._v(" "), _vm._m(0)])])])])]), _vm._v(" "), _c('div', {
     staticClass: "panel-body"
   }, [_c('table', {
-    staticClass: "table table-striped"
+    staticClass: "table table-striped table-data"
   }, [_vm._m(1), _vm._v(" "), _c('tbody', _vm._l((_vm.items), function(item, itemId) {
-    return _c('tr', [_c('td', [_vm._v(_vm._s(item.id))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.name))]), _vm._v(" "), _c('td', [_c('div', {
+    return _c('tr', [_c('td', [_vm._v(_vm._s(item.id))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.f.size(item.haveValid)))]), _vm._v(" "), _c('td', [_c('div', {
+      staticClass: "progress"
+    }, [_c('div', {
+      staticClass: "progress-bar",
+      style: (_vm.f.widthP(item.haveValid, item.sizeWhenDone))
+    }, [_vm._v(_vm._s(_vm.f.percent(item.haveValid, item.sizeWhenDone)))])])]), _vm._v(" "), _c('td', [_c('div', {
       staticClass: "dropdown"
     }, [_c('button', {
       staticClass: "btn btn-primary btn-xs dropdown-toggle",
@@ -39273,7 +39294,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "type": "button",
         "data-toggle": "dropdown"
       }
-    }, [_vm._v("\n                            " + _vm._s(item.status_f) + "\n                            "), _c('span', {
+    }, [_vm._v("\n                            " + _vm._s(_vm.f.torrentStatus(item.status)) + "\n                            "), _c('span', {
       staticClass: "caret"
     })]), _vm._v(" "), _c('ul', {
       staticClass: "dropdown-menu"
@@ -39310,7 +39331,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('span', {
       staticClass: "glyphicon glyphicon-trash"
-    }), _vm._v(" Удалить")])])])])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.f.date(item.addedDate)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.haveValid_f))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.sizeWhenDone_f))])])
+    }), _vm._v(" Удалить")])])])])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.peersSendingToUs))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.f.speed(item.rateDownload)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.f.speed(item.rateUpload)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.f.seconds(item.eta)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.f.date(item.addedDate)))])])
   }))])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('span', {
@@ -39325,7 +39346,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('thead', [_c('tr', [_c('th', [_vm._v("Id")]), _vm._v(" "), _c('th', [_vm._v("Название")]), _vm._v(" "), _c('th', [_vm._v("Статус")]), _vm._v(" "), _c('th', [_vm._v("Дата")]), _vm._v(" "), _c('th', [_vm._v("Скачано")]), _vm._v(" "), _c('th', [_vm._v("Всего")])])])
+  return _c('thead', [_c('tr', [_c('th', [_vm._v("Id")]), _vm._v(" "), _c('th', [_vm._v("Название")]), _vm._v(" "), _c('th', {
+    staticStyle: {
+      "width": "100px"
+    }
+  }, [_vm._v("Размер")]), _vm._v(" "), _c('th', [_vm._v("Готово")]), _vm._v(" "), _c('th', [_vm._v("Статус")]), _vm._v(" "), _c('th', [_vm._v("Сиды")]), _vm._v(" "), _c('th', {
+    staticStyle: {
+      "width": "100px"
+    }
+  }, [_vm._v("Загрузка")]), _vm._v(" "), _c('th', {
+    staticStyle: {
+      "width": "100px"
+    }
+  }, [_vm._v("Отдача")]), _vm._v(" "), _c('th', [_vm._v("Осталось")]), _vm._v(" "), _c('th', [_vm._v("Дата")])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -49465,20 +49498,22 @@ module.exports = __webpack_require__(13);
 window.decorator = {
     size: function size(_size, precision) {
         precision = typeof precision !== 'undefined' ? precision : 2;
+        precision = Math.pow(10, precision);
         if (_size > 1099511627776) {
-            return Math.round(_size / 1099511627776 * precision) / precision + ' Тб';
+            return Math.floor(_size / 1099511627776 * precision) / precision + ' Тб';
         } else if (_size > 1073741824) {
-            return Math.round(_size / 1073741824 * precision) / precision + ' Гб';
+            return Math.floor(_size / 1073741824 * precision) / precision + ' Гб';
         } else if (_size > 1048576) {
-            return Math.round(_size / 1048576 * precision) / precision + ' Мб';
+            return Math.floor(_size / 1048576 * precision) / precision + ' Мб';
         } else if (_size > 1024) {
-            return Math.round(_size / 1024 * precision) / precision + ' Кб';
+            return Math.floor(_size / 1024 * precision) / precision + ' Кб';
         } else {
             return _size + ' b';
         }
     },
     speed: function speed(size, precision) {
         precision = typeof precision !== 'undefined' ? precision : 2;
+        precision = Math.pow(10, precision);
         if (size > 1099511627776) {
             return Math.round(size / 1099511627776 * precision) / precision + ' Тб/c';
         } else if (size > 1073741824) {
@@ -49493,7 +49528,47 @@ window.decorator = {
     },
     date: function timeConverter(timestamp) {
         var a = new Date(timestamp * 1000);
-        return a.getFullYear() + '-' + (a.getMonth() > 9 ? a.getMonth() + 1 : '0' + a.getMonth()) + '-' + (a.getDate() > 10 ? a.getDate() : '0' + a.getDate()) + ' ' + (a.getHours() > 10 ? a.getHours() : '0' + a.getHours()) + ':' + (a.getMinutes() > 10 ? a.getMinutes() : '0' + a.getMinutes()) + ':' + (a.getSeconds() > 10 ? a.getSeconds() : '0' + a.getSeconds());
+        return a.getFullYear() + '-' + (a.getMonth() > 8 ? a.getMonth() + 1 : '0' + a.getMonth()) + '-' + (a.getDate() > 9 ? a.getDate() : '0' + a.getDate()) + ' ' + (a.getHours() > 9 ? a.getHours() : '0' + a.getHours()) + ':' + (a.getMinutes() > 9 ? a.getMinutes() : '0' + a.getMinutes()) + ':' + (a.getSeconds() > 9 ? a.getSeconds() : '0' + a.getSeconds());
+    },
+
+    torrentStatus: function torrentStatus(status) {
+        if (status == 0) {
+            return "Остановлен";
+        } else if (status == 1) {
+            return "Ожидание проверки локальных файлов";
+        } else if (status == 2) {
+            return "Проверка локальных файлов";
+        } else if (status == 3) {
+            return "В очереди для скачивания";
+        } else if (status == 4) {
+            return "Скачивание";
+        } else if (status == 5) {
+            return "В очереди для раздачи";
+        } else if (status == 6) {
+            return "Раздается";
+        } else {
+            return "Неизвестно";
+        }
+    },
+
+    widthP: function widthP(val, max) {
+        return 'width:' + Math.round(val / max * 10000) / 100 + '%;';
+    },
+
+    percent: function percent(val, max, precision) {
+        precision = typeof precision !== 'undefined' ? precision : 2;
+        precision = Math.pow(10, precision);
+        return Math.round(val / max * 100 * precision) / precision + '%';
+    },
+
+    seconds: function seconds(sec) {
+        if (sec < 0) {
+            return '';
+        }
+        var h = Math.floor(sec / 3600);
+        var m = Math.floor((sec - h * 3600) / 60);
+        var s = sec - h * 3600 - m * 60;
+        return (h > 9 ? h : '0' + h) + ':' + (m > 9 ? m : '0' + m) + ':' + (s > 9 ? s : '0' + s);
     }
 
 };
