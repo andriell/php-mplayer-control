@@ -129,19 +129,19 @@ class TorrentController extends Controller
 
     function add()
     {
-        if (!(isset($_FILES['file']) && isset($_FILES['file']['tmp_name']) && isset($_FILES['file']['tmp_name'][0]))) {
+        if (!(isset($_FILES['file']) && isset($_FILES['file']['tmp_name']))) {
             return response()->json(['No file'], 501);
         }
         $sessionProps = $this->rpc->sget();
         if (!(isset($sessionProps['arguments']) && isset($sessionProps['arguments']['download-dir']))) {
             return response()->json(['Transmission error'], 501);
         }
-        $torrentFile = '/tmp/' . $_FILES['file']['name'][0];
-        if (!move_uploaded_file($_FILES['file']['tmp_name'][0], $torrentFile)) {
-            //return response()->json(['Move file error'], 501);
+        $torrentFile = '/tmp/' . $_FILES['file']['name'];
+        if (!move_uploaded_file($_FILES['file']['tmp_name'], $torrentFile)) {
+            return response()->json(['Move file error'], 501);
         }
         $resp = $this->rpc->add($torrentFile, $sessionProps['arguments']['download-dir']);
-        //unlink($torrentFile);
+        unlink($torrentFile);
         return response()->json($resp);
     }
 
