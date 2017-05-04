@@ -141,7 +141,7 @@ class TorrentController extends Controller
             //return response()->json(['Move file error'], 501);
         }
         $resp = $this->rpc->add($torrentFile, $sessionProps['arguments']['download-dir']);
-        unlink($torrentFile);
+        //unlink($torrentFile);
         return response()->json($resp);
     }
 
