@@ -197,9 +197,7 @@ class TorrentController extends Controller
             }
         }
 
-        $this->rpc->debug = true;
         $resp = $this->rpc->set((int) $id, $_POST['arguments']);
-        $resp['log'] = $this->rpc->debugLog;
         return response()->json($resp);
     }
 }
