@@ -5,15 +5,10 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             class="glyphicon glyphicon-remove"></span></button>
-                    <h4 class="modal-title" id="myModalLabel">Торрент {{ info.name }}</h4>
+                    <h4 class="modal-title" id="myModalLabel">{{ info.name }}</h4>
                 </div>
-                <div class="modal-body fuelux">
-                    Папка для загрузки
-                    <select_dir></select_dir>
-                    Содержимое торрента
-
-                    <tree></tree>
-                    <div id="newSelectFiles"></div>
+                <div id="torrentEditFiles" class="modal-body fuelux">
+                    <torrent_edit_tree_item v-bind:items="info.files"></torrent_edit_tree_item>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Отменить</button>
@@ -28,7 +23,9 @@
     export default {
         data: function () {
             var localData = window.appData.torrentEdit = {
-                info: {},
+                info: {
+                    files:[]
+                },
                 f: window.decorator,
 
                 show: function (itemId) {
@@ -39,7 +36,6 @@
                                 return;
                             }
                             localData.info = data['arguments'];
-                            window.appData.torrentFiles.items = localData.info.files;
                         }
                     });
 
@@ -50,6 +46,19 @@
                 },
                 save: function() {
                     var items = localData.torrentFiles.tree('selectedItems');
+                },
+                fileChecked: function() {
+                    var r = [];
+                    jQuery('#torrentEditFiles input:checked').each(function() {
+                        r.push(jQuery(this).val());
+                    });
+                    return r;
+                },
+                fileCheckChild: function(itemId) {
+                    jQuery('#torrentEditFiles .tree-child-' + itemId  + ' input').prop('checked', jQuery('#torrentEditFiles input[value=' + itemId  + ']').prop('checked'));
+                },
+                fileToggle: function(itemId) {
+                    jQuery('#torrentEditFiles .tree-child-' + itemId).toggle();
                 }
             };
             return localData;

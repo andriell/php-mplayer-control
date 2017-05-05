@@ -1,7 +1,7 @@
 <template>
     <table class="tree-table">
         <template v-for="item in items">
-            <template v-if="item.children">
+            <template v-if="item.children.length > 0">
                 <tr>
                     <td class="tree-table-id">
                         <input type="checkbox" name="ids[]" :value="item.id" v-on:change="checkChild(item.id)">
@@ -12,7 +12,7 @@
                 <tr :class="'tree-child-' + item.id">
                     <td class="tree-table-id"></td>
                     <td colspan="2">
-                        <tree_item :data="item.children"></tree_item>
+                        <torrent_edit_tree_item v-bind:data="item.children"></torrent_edit_tree_item>
                     </td>
                 </tr>
             </template>
@@ -33,19 +33,18 @@
     export default {
         data: function () {
             return {
-                items: this.data,
                 checkChild: function(itemId) {
-                    window.appData.torrentFiles.checkChild(itemId);
+                    window.appData.torrentEdit.fileCheckChild(itemId);
                 },
                 toggle: function(itemId) {
-                    window.appData.torrentFiles.toggle(itemId);
+                    window.appData.torrentEdit.fileToggle(itemId);
                 }
             };
         },
         mounted() {
         },
 
-        props: ['data']
+        props: ['items']
     }
 </script>
 
