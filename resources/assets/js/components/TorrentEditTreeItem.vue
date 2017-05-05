@@ -7,12 +7,16 @@
                         <input v-if="item.wanted" type="checkbox" name="ids[]" :value="item.id" checked v-on:change="checkChild(item.id)" class="tree-input-folder">
                         <input v-if="!item.wanted" type="checkbox" name="ids[]" :value="item.id" v-on:change="checkChild(item.id)" class="tree-input-folder">
                     </td>
-                    <td class="tree-table-name" v-on:click="toggle(item.id)"><span class="glyphicon glyphicon-folder-open"></span> {{item.name}}</td>
-                    <td class="tree-table-size">{{ f.size(item.size) }}</td>
+                    <td class="tree-table-name" v-on:click="toggle(item.id)">
+                        <span class="glyphicon glyphicon-folder-open"></span>
+                        <span class="tree-table-size">{{ f.size(item.size) }}</span>
+                        <span class="tree-table-size-p">{{ f.percent(item.loaded, item.size) }}</span>
+                        {{item.name}}
+                    </td>
                 </tr>
                 <tr :class="'tree-child-' + item.id" style="display: none;">
                     <td class="tree-table-id"></td>
-                    <td colspan="2">
+                    <td colspan="1">
                         <torrent_edit_tree_item v-bind:items="item.children"></torrent_edit_tree_item>
                     </td>
                 </tr>
@@ -23,8 +27,12 @@
                         <input v-if="item.wanted" type="checkbox" name="ids[]" :value="item.id" checked class="tree-input-item">
                         <input v-if="!item.wanted" type="checkbox" name="ids[]" :value="item.id" class="tree-input-item">
                     </td>
-                    <td class="tree-table-name"><span class="glyphicon glyphicon-file"></span> {{item.name}}</td>
-                    <td class="tree-table-size">{{ f.size(item.size) }}</td>
+                    <td class="tree-table-name">
+                        <span class="glyphicon glyphicon-file"></span>
+                        <span class="tree-table-size">{{ f.size(item.size) }}</span>
+                        <span class="tree-table-size-p">{{ f.percent(item.loaded, item.size) }}</span>
+                        {{item.name}}
+                    </td>
                 </tr>
             </template>
         </template>
@@ -57,14 +65,22 @@
     }
     .tree-table .tree-table-id {
         text-align: right;
+        white-space: nowrap;
         padding-right: 10px;
         width: 20px;
     }
     .tree-table .tree-table-name {
         cursor: pointer;
         white-space: nowrap;
+        overflow: hidden;
+        padding-right: 10px;
     }
     .tree-table .tree-table-size {
-        text-align: right;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        color: #eeb300;
+    }
+    .tree-table .tree-table-size-p {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        color: #00b3ee;
     }
 </style>

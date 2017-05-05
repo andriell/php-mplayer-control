@@ -19738,7 +19738,7 @@ if (typeof jQuery === 'undefined') {
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "\n.torrent-edit .tree-item-name {\n    text-align: left;\n}\n.torrent-edit .size-info {\n    color: blue;\n    float: right;\n}\n", ""]);
+exports.push([module.i, "\n.torrent-edit .fuelux {\n    overflow: scroll;\n}\n.torrent-edit .tree-item-name {\n    text-align: left;\n}\n.torrent-edit .size-info {\n    color: blue;\n    float: right;\n}\n", ""]);
 
 /***/ }),
 /* 52 */,
@@ -49813,6 +49813,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -49837,7 +49845,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "\n.tree-table {\n    width: 100%;\n}\n.tree-table .tree-table-id {\n    text-align: right;\n    padding-right: 10px;\n    width: 20px;\n}\n.tree-table .tree-table-name {\n    cursor: pointer;\n    white-space: nowrap;\n}\n.tree-table .tree-table-size {\n    text-align: right;\n}\n", ""]);
+exports.push([module.i, "\n.tree-table {\n    width: 100%;\n}\n.tree-table .tree-table-id {\n    text-align: right;\n    white-space: nowrap;\n    padding-right: 10px;\n    width: 20px;\n}\n.tree-table .tree-table-name {\n    cursor: pointer;\n    white-space: nowrap;\n    overflow: hidden;\n    padding-right: 10px;\n}\n.tree-table .tree-table-size {\n    font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n    color: #eeb300;\n}\n.tree-table .tree-table-size-p {\n    font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n    color: #00b3ee;\n}\n", ""]);
 
 /***/ }),
 /* 110 */
@@ -49925,9 +49933,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('span', {
       staticClass: "glyphicon glyphicon-folder-open"
-    }), _vm._v(" " + _vm._s(item.name))]), _vm._v(" "), _c('td', {
+    }), _vm._v(" "), _c('span', {
       staticClass: "tree-table-size"
-    }, [_vm._v(_vm._s(_vm.f.size(item.size)))])]), _vm._v(" "), _c('tr', {
+    }, [_vm._v(_vm._s(_vm.f.size(item.size)))]), _vm._v(" "), _c('span', {
+      staticClass: "tree-table-size-p"
+    }, [_vm._v(_vm._s(_vm.f.percent(item.loaded, item.size)))]), _vm._v("\n                    " + _vm._s(item.name) + "\n                ")])]), _vm._v(" "), _c('tr', {
       class: 'tree-child-' + item.id,
       staticStyle: {
         "display": "none"
@@ -49936,7 +49946,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "tree-table-id"
     }), _vm._v(" "), _c('td', {
       attrs: {
-        "colspan": "2"
+        "colspan": "1"
       }
     }, [_c('torrent_edit_tree_item', {
       attrs: {
@@ -49967,9 +49977,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "tree-table-name"
     }, [_c('span', {
       staticClass: "glyphicon glyphicon-file"
-    }), _vm._v(" " + _vm._s(item.name))]), _vm._v(" "), _c('td', {
+    }), _vm._v(" "), _c('span', {
       staticClass: "tree-table-size"
-    }, [_vm._v(_vm._s(_vm.f.size(item.size)))])])]]
+    }, [_vm._v(_vm._s(_vm.f.size(item.size)))]), _vm._v(" "), _c('span', {
+      staticClass: "tree-table-size-p"
+    }, [_vm._v(_vm._s(_vm.f.percent(item.loaded, item.size)))]), _vm._v("\n                    " + _vm._s(item.name) + "\n                ")])])]]
   })], 2)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
