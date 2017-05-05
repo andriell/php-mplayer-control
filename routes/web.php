@@ -25,7 +25,7 @@ Route::post('/torrent-add', 'TorrentController@add');
 Route::post('/torrent-remove', 'TorrentController@remove');
 Route::post('/torrent-stop', 'TorrentController@stop');
 Route::post('/torrent-start', 'TorrentController@start');
-Route::post('/torrent-update/{id}', 'TorrentController@info')->where(['id' => '\d+']);
+Route::post('/torrent-update/{id}', 'TorrentController@update')->where(['id' => '\d+']);
 
 Route::get('/dir', 'DirController@index')->name('dir');
 Route::get('/dir-list/{uri?}', 'DirController@getList')->where(['uri' => '[\s\S]+']);

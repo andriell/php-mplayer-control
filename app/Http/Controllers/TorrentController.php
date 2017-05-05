@@ -185,7 +185,20 @@ class TorrentController extends Controller
 
     function update(Request $request, $id)
     {
+        if (isset($_POST['arguments']['files-wanted'])) {
+            foreach ($_POST['arguments']['files-wanted'] as $i => $value) {
+                $_POST['arguments']['files-wanted'][$i] = (int) $value;
+            }
+        }
+        if (isset($_POST['arguments']['files-unwanted'])) {
+            foreach ($_POST['arguments']['files-unwanted'] as $i => $value) {
+                $_POST['arguments']['files-unwanted'][$i] = (int) $value;
+            }
+        }
+
+        $this->rpc->debug = true;
         $resp = $this->rpc->set((int) $id, $_POST['arguments']);
+        $resp['log'] = $this->rpc->debugLog;
         return response()->json($resp);
     }
 }

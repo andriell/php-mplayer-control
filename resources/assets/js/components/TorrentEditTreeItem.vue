@@ -9,7 +9,7 @@
                     <td class="tree-table-name" v-on:click="toggle(item.id)"><span class="glyphicon glyphicon-folder-open"></span> {{item.name}}</td>
                     <td class="tree-table-size">{{ f.size(item.size) }}</td>
                 </tr>
-                <tr :class="'tree-child-' + item.id">
+                <tr :class="'tree-child-' + item.id" style="display: none;">
                     <td class="tree-table-id"></td>
                     <td colspan="2">
                         <torrent_edit_tree_item v-bind:items="item.children"></torrent_edit_tree_item>

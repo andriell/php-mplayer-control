@@ -45,12 +45,12 @@
                     jQuery('#torrentEdit').modal('hide');
                 },
                 save: function() {
-                    var items = localData.fileChecked();
                     jQuery.ajax('/torrent-update/' + localData.torrentId, {
                         method: 'POST',
                         data: {
                             'arguments': {
-                                'files-wanted': items
+                                'files-wanted': localData.fileChecked(),
+                                'files-unwanted': localData.fileUnchecked()
                             }
                         },
                         success: function (data) {
@@ -64,6 +64,13 @@
                 fileChecked: function() {
                     var r = [];
                     jQuery('#torrentEditFiles input:checked.tree-input-item').each(function() {
+                        r.push(jQuery(this).val());
+                    });
+                    return r;
+                },
+                fileUnchecked: function() {
+                    var r = [];
+                    jQuery('#torrentEditFiles input:not(:checked).tree-input-item').each(function() {
                         r.push(jQuery(this).val());
                     });
                     return r;

@@ -13507,12 +13507,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 jQuery('#torrentEdit').modal('hide');
             },
             save: function save() {
-                var items = localData.fileChecked();
                 jQuery.ajax('/torrent-update/' + localData.torrentId, {
                     method: 'POST',
                     data: {
                         'arguments': {
-                            'files-wanted': items
+                            'files-wanted': localData.fileChecked(),
+                            'files-unwanted': localData.fileUnchecked()
                         }
                     },
                     success: function success(data) {
@@ -13526,6 +13526,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             fileChecked: function fileChecked() {
                 var r = [];
                 jQuery('#torrentEditFiles input:checked.tree-input-item').each(function () {
+                    r.push(jQuery(this).val());
+                });
+                return r;
+            },
+            fileUnchecked: function fileUnchecked() {
+                var r = [];
+                jQuery('#torrentEditFiles input:not(:checked).tree-input-item').each(function () {
                     r.push(jQuery(this).val());
                 });
                 return r;
@@ -49904,7 +49911,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }), _vm._v(" " + _vm._s(item.name))]), _vm._v(" "), _c('td', {
       staticClass: "tree-table-size"
     }, [_vm._v(_vm._s(_vm.f.size(item.size)))])]), _vm._v(" "), _c('tr', {
-      class: 'tree-child-' + item.id
+      class: 'tree-child-' + item.id,
+      staticStyle: {
+        "display": "none"
+      }
     }, [_c('td', {
       staticClass: "tree-table-id"
     }), _vm._v(" "), _c('td', {
