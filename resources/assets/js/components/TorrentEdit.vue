@@ -88,16 +88,4 @@
     }
 </script>
 
-<style>
-    .torrent-edit .fuelux {
-        overflow: scroll;
-    }
-    .torrent-edit .tree-item-name {
-        text-align: left;
-    }
-    .torrent-edit .size-info {
-        color: blue;
-        float: right;
-    }
-</style>
 

@@ -4,11 +4,8 @@
 @import "variables";
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
-
 @import "node_modules/bootstrap-fileinput/css/fileinput";
-
 @import "switch";
-
 @import "node_modules/fuelux/dist/css/fuelux";
 
 $navH: 50px;
@@ -44,6 +41,61 @@ body {
 
   .content {
     padding-top: $navH + $tap;
+  }
+}
+
+.torrent {
+  .table-data td {
+    white-space: nowrap;
+  }
+  .progress {
+    margin-bottom: 0;
+
+    .progress-bar {
+      text-align: center;
+      color: white;
+      text-shadow: #3097D1 1px 1px 0, #3097D1 -1px -1px 0,
+      #3097D1 -1px 1px 0, #3097D1 1px -1px 0;
+    }
+  }
+  .table-menu {
+    margin-bottom: 0;
+  }
+  .torrent-edit {
+    .fuelux {
+      overflow: scroll;
+    }
+    .tree-item-name {
+      text-align: left;
+    }
+    .size-info {
+      color: blue;
+      float: right;
+    }
+    .tree-table {
+      width: 100%;
+
+      .tree-table-id {
+        text-align: right;
+        white-space: nowrap;
+        padding-right: 10px;
+        width: 20px;
+      }
+      .tree-table-name {
+        cursor: pointer;
+        white-space: nowrap;
+        overflow: hidden;
+        padding-right: 10px;
+      }
+      .tree-table-size {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        color: #eeb300;
+      }
+      .tree-table-size-p {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        color: #00b3ee;
+      }
+    }
   }
 }
 

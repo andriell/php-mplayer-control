@@ -1,5 +1,6 @@
 <template>
     <div class="panel panel-default torrent">
+        <torrent_edit></torrent_edit>
         <div class="panel-heading">
             <table class="table table-striped table-menu">
                 <tr>
@@ -155,25 +156,3 @@
         }
     }
 </script>
-
-<style>
-    .torrent .kv-upload-progress {
-        display: none;
-    }
-    .torrent .table-data td {
-        white-space: nowrap;
-    }
-
-    .torrent .progress .progress-bar {
-        text-align: center;
-        color: white;
-        text-shadow: #3097D1 1px 1px 0, #3097D1 -1px -1px 0,
-        #3097D1 -1px 1px 0, #3097D1 1px -1px 0;
-    }
-    .torrent .progress {
-        margin-bottom: 0;
-    }
-    .torrent .table-menu {
-        margin-bottom: 0;
-    }
-</style>

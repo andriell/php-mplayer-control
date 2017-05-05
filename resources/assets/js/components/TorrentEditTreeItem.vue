@@ -59,28 +59,3 @@
     }
 </script>
 
-<style>
-    .tree-table {
-        width: 100%;
-    }
-    .tree-table .tree-table-id {
-        text-align: right;
-        white-space: nowrap;
-        padding-right: 10px;
-        width: 20px;
-    }
-    .tree-table .tree-table-name {
-        cursor: pointer;
-        white-space: nowrap;
-        overflow: hidden;
-        padding-right: 10px;
-    }
-    .tree-table .tree-table-size {
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-        color: #eeb300;
-    }
-    .tree-table .tree-table-size-p {
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-        color: #00b3ee;
-    }
-</style>
