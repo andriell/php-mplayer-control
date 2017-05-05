@@ -63,17 +63,19 @@
 
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <div id="app-search" class="search input-group" role="search">
-                            <input type="search" class="form-control" placeholder="Поиск"/>
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
-                                    <span class="glyphicon glyphicon-search"></span>
-                                    <span class="sr-only">Search</span>
-                                </button>
-                            </span>
-                        </div>
-                    </li>
+                    @if (isset($search))
+                        <li>
+                            <div id="app-search" class="search input-group" role="search">
+                                <input type="search" class="form-control" placeholder="Поиск"/>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                        <span class="sr-only">Search</span>
+                                    </button>
+                                </span>
+                            </div>
+                        </li>
+                    @endif
 
                     <!-- Authentication Links -->
                     @if (Auth::guest())
