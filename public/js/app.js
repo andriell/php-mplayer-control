@@ -13511,7 +13511,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             },
             fileChecked: function fileChecked() {
                 var r = [];
-                jQuery('#torrentEditFiles input:checked').each(function () {
+                jQuery('#torrentEditFiles input:checked.tree-input-item').each(function () {
                     r.push(jQuery(this).val());
                 });
                 return r;
@@ -49794,6 +49794,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
+            f: window.decorator,
             checkChild: function checkChild(itemId) {
                 window.appData.torrentEdit.fileCheckChild(itemId);
             },
@@ -49813,7 +49814,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "\n.tree-table .tree-table-id {\n    width: 20px;\n}\n", ""]);
+exports.push([module.i, "\n.tree-table {\n    width: 100%;\n}\n.tree-table .tree-table-id {\n    text-align: right;\n    padding-right: 10px;\n    width: 20px;\n}\n.tree-table .tree-table-name {\n    cursor: pointer;\n    white-space: nowrap;\n}\n.tree-table .tree-table-size {\n    text-align: right;\n}\n", ""]);
 
 /***/ }),
 /* 110 */
@@ -49864,6 +49865,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     return [(item.children.length > 0) ? [_c('tr', [_c('td', {
       staticClass: "tree-table-id"
     }, [_c('input', {
+      staticClass: "tree-input-folder",
       attrs: {
         "type": "checkbox",
         "name": "ids[]"
@@ -49887,7 +49889,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "glyphicon glyphicon-folder-open"
     }), _vm._v(" " + _vm._s(item.name))]), _vm._v(" "), _c('td', {
       staticClass: "tree-table-size"
-    }, [_vm._v(_vm._s(item.size))])]), _vm._v(" "), _c('tr', {
+    }, [_vm._v(_vm._s(_vm.f.size(item.size)))])]), _vm._v(" "), _c('tr', {
       class: 'tree-child-' + item.id
     }, [_c('td', {
       staticClass: "tree-table-id"
@@ -49897,11 +49899,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('torrent_edit_tree_item', {
       attrs: {
-        "data": item.children
+        "items": item.children
       }
     })], 1)])] : [_c('tr', [_c('td', {
       staticClass: "tree-table-id"
     }, [_c('input', {
+      staticClass: "tree-input-item",
       attrs: {
         "type": "checkbox",
         "name": "ids[]"
@@ -49915,7 +49918,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "glyphicon glyphicon-file"
     }), _vm._v(" " + _vm._s(item.name))]), _vm._v(" "), _c('td', {
       staticClass: "tree-table-size"
-    }, [_vm._v(_vm._s(item.size))])])]]
+    }, [_vm._v(_vm._s(_vm.f.size(item.size)))])])]]
   })], 2)
 },staticRenderFns: []}
 module.exports.render._withStripped = true

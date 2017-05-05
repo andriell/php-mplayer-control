@@ -49,7 +49,7 @@
                 },
                 fileChecked: function() {
                     var r = [];
-                    jQuery('#torrentEditFiles input:checked').each(function() {
+                    jQuery('#torrentEditFiles input:checked.tree-input-item').each(function() {
                         r.push(jQuery(this).val());
                     });
                     return r;
