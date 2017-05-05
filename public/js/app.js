@@ -13485,14 +13485,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         var localData = window.appData.torrentEdit = {
+            torrentId: 0,
             info: {
                 files: []
             },
             f: window.decorator,
 
             show: function show(itemId) {
-
-                jQuery.ajax('/torrent-info/' + itemId, {
+                localData.torrentId = itemId;
+                jQuery.ajax('/torrent-info/' + localData.torrentId, {
                     success: function success(data) {
                         if (data['result'] != 'success') {
                             return;
@@ -13500,14 +13501,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         localData.info = data['arguments'];
                     }
                 });
-
                 jQuery('#torrentEdit').modal('show');
             },
             hide: function hide() {
                 jQuery('#torrentEdit').modal('hide');
             },
             save: function save() {
-                var items = localData.torrentFiles.tree('selectedItems');
+                var items = localData.fileChecked();
+                jQuery.ajax('/torrent-update/' + localData.torrentId, {
+                    method: 'POST',
+                    data: {
+                        'arguments': {
+                            'files-wanted': items
+                        }
+                    },
+                    success: function success(data) {
+                        if (data['result'] != 'success') {
+                            return;
+                        }
+                        localData.hide();
+                    }
+                });
             },
             fileChecked: function fileChecked() {
                 var r = [];

@@ -23,14 +23,15 @@
     export default {
         data: function () {
             var localData = window.appData.torrentEdit = {
+                torrentId: 0,
                 info: {
                     files:[]
                 },
                 f: window.decorator,
 
                 show: function (itemId) {
-
-                    jQuery.ajax('/torrent-info/' + itemId, {
+                    localData.torrentId = itemId;
+                    jQuery.ajax('/torrent-info/' + localData.torrentId, {
                         success: function (data) {
                             if (data['result'] != 'success') {
                                 return;
@@ -38,14 +39,27 @@
                             localData.info = data['arguments'];
                         }
                     });
-
                     jQuery('#torrentEdit').modal('show');
                 },
                 hide: function () {
                     jQuery('#torrentEdit').modal('hide');
                 },
                 save: function() {
-                    var items = localData.torrentFiles.tree('selectedItems');
+                    var items = localData.fileChecked();
+                    jQuery.ajax('/torrent-update/' + localData.torrentId, {
+                        method: 'POST',
+                        data: {
+                            'arguments': {
+                                'files-wanted': items
+                            }
+                        },
+                        success: function (data) {
+                            if (data['result'] != 'success') {
+                                return;
+                            }
+                            localData.hide();
+                        }
+                    });
                 },
                 fileChecked: function() {
                     var r = [];

@@ -182,4 +182,10 @@ class TorrentController extends Controller
         $resp = $this->rpc->start((int)$_POST['id']);
         return response()->json($resp);
     }
+
+    function update(Request $request, $id)
+    {
+        $resp = $this->rpc->set((int) $id, $_POST['arguments']);
+        return response()->json($resp);
+    }
 }
