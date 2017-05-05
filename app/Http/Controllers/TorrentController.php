@@ -121,6 +121,7 @@ class TorrentController extends Controller
 
         $files = new Files();
         $files->addFiles($resp['arguments']['files'], $resp['arguments']['fileStats']);
+        unset($resp['arguments']['fileStats']);
         $resp['arguments']['files'] = $files->getData();
 
         return response()->json($resp);

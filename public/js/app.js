@@ -49811,6 +49811,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -49885,7 +49887,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._l((_vm.items), function(item) {
     return [(item.children.length > 0) ? [_c('tr', [_c('td', {
       staticClass: "tree-table-id"
-    }, [_c('input', {
+    }, [(item.wanted) ? _c('input', {
+      staticClass: "tree-input-folder",
+      attrs: {
+        "type": "checkbox",
+        "name": "ids[]",
+        "checked": ""
+      },
+      domProps: {
+        "value": item.id
+      },
+      on: {
+        "change": function($event) {
+          _vm.checkChild(item.id)
+        }
+      }
+    }) : _vm._e(), _vm._v(" "), (!item.wanted) ? _c('input', {
       staticClass: "tree-input-folder",
       attrs: {
         "type": "checkbox",
@@ -49899,7 +49916,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           _vm.checkChild(item.id)
         }
       }
-    })]), _vm._v(" "), _c('td', {
+    }) : _vm._e()]), _vm._v(" "), _c('td', {
       staticClass: "tree-table-name",
       on: {
         "click": function($event) {
@@ -49927,7 +49944,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     })], 1)])] : [_c('tr', [_c('td', {
       staticClass: "tree-table-id"
-    }, [_c('input', {
+    }, [(item.wanted) ? _c('input', {
+      staticClass: "tree-input-item",
+      attrs: {
+        "type": "checkbox",
+        "name": "ids[]",
+        "checked": ""
+      },
+      domProps: {
+        "value": item.id
+      }
+    }) : _vm._e(), _vm._v(" "), (!item.wanted) ? _c('input', {
       staticClass: "tree-input-item",
       attrs: {
         "type": "checkbox",
@@ -49936,7 +49963,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       domProps: {
         "value": item.id
       }
-    })]), _vm._v(" "), _c('td', {
+    }) : _vm._e()]), _vm._v(" "), _c('td', {
       staticClass: "tree-table-name"
     }, [_c('span', {
       staticClass: "glyphicon glyphicon-file"

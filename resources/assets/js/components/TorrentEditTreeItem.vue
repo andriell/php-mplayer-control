@@ -4,7 +4,8 @@
             <template v-if="item.children.length > 0">
                 <tr>
                     <td class="tree-table-id">
-                        <input type="checkbox" name="ids[]" :value="item.id" v-on:change="checkChild(item.id)" class="tree-input-folder">
+                        <input v-if="item.wanted" type="checkbox" name="ids[]" :value="item.id" checked v-on:change="checkChild(item.id)" class="tree-input-folder">
+                        <input v-if="!item.wanted" type="checkbox" name="ids[]" :value="item.id" v-on:change="checkChild(item.id)" class="tree-input-folder">
                     </td>
                     <td class="tree-table-name" v-on:click="toggle(item.id)"><span class="glyphicon glyphicon-folder-open"></span> {{item.name}}</td>
                     <td class="tree-table-size">{{ f.size(item.size) }}</td>
@@ -19,7 +20,8 @@
             <template v-else="">
                 <tr>
                     <td class="tree-table-id">
-                        <input type="checkbox" name="ids[]" :value="item.id" class="tree-input-item">
+                        <input v-if="item.wanted" type="checkbox" name="ids[]" :value="item.id" checked class="tree-input-item">
+                        <input v-if="!item.wanted" type="checkbox" name="ids[]" :value="item.id" class="tree-input-item">
                     </td>
                     <td class="tree-table-name"><span class="glyphicon glyphicon-file"></span> {{item.name}}</td>
                     <td class="tree-table-size">{{ f.size(item.size) }}</td>
