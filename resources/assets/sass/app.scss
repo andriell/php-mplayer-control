@@ -64,6 +64,8 @@ body {
   .torrent-edit {
     .fuelux {
       overflow: scroll;
+      overflow-x: auto;
+      overflow-y: auto;
     }
     .tree-item-name {
       text-align: left;

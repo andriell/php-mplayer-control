@@ -38463,7 +38463,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "aria-labelledby": "myModalLabel"
     }
   }, [_c('div', {
-    staticClass: "modal-dialog",
+    staticClass: "modal-dialog modal-lg",
     attrs: {
       "role": "document"
     }
