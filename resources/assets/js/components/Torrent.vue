@@ -39,10 +39,10 @@
                 <tr v-for="(item, itemId) in items">
                     <td>{{ item.id }}</td>
                     <td>{{ item.name }}</td>
-                    <td>{{ f.size(item.haveValid) }}</td>
+                    <td>{{ f.size(item.sizeWhenDone) }}</td>
                     <td>
                         <div class="progress">
-                            <div class="progress-bar" :style="f.widthP(item.haveValid, item.sizeWhenDone)">{{ f.percent(item.haveValid, item.sizeWhenDone) }}</div>
+                            <div class="progress-bar" :style="f.widthP(item.percentDone, 1)">{{ f.percent(item.percentDone, 1) }}</div>
                         </div>
                     </td>
                     <td>

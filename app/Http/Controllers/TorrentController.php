@@ -138,11 +138,12 @@ class TorrentController extends Controller
             'name',
             'status',
             'addedDate',
-            'haveValid',
+            //'haveValid',
             'totalSize',
             'sizeWhenDone',
             'rateDownload',
             'rateUpload',
+            'percentDone',
             'eta',
             'peersSendingToUs',
         ]);
