@@ -45,21 +45,21 @@ window.decorator = {
 
     torrentStatus: function (status) {
         if (status == 0) {
-            return "Остановлен";
+            return 'Остановлен';
         } else if (status == 1) {
-            return "Ожидание проверки локальных файлов";
+            return 'Ожидание проверки локальных файлов';
         } else if (status == 2) {
-            return "Проверка локальных файлов";
+            return 'Проверка локальных файлов';
         } else if (status == 3) {
-            return "В очереди для скачивания";
+            return 'В очереди для скачивания';
         } else if (status == 4) {
-            return "Скачивание";
+            return 'Скачивание';
         } else if (status == 5) {
-            return "В очереди для раздачи";
+            return 'В очереди для раздачи';
         } else if (status == 6) {
-            return "Раздается";
+            return 'Раздается';
         } else {
-            return "Неизвестно";
+            return 'Неизвестно';
         }
     },
 

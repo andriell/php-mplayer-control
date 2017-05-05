@@ -47,10 +47,26 @@
                     </td>
                     <td>
                         <div class="dropdown">
-                            <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-toggle="dropdown">
-                                {{ f.torrentStatus(item.status) }}
-                                <span class="caret"></span>
-                            </button>
+                            <template v-if="item.status == 0">
+                                <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-toggle="dropdown">
+                                    <span class="glyphicon glyphicon-pause"></span> {{f.torrentStatus(item.status)}} <span class="caret"></span>
+                                </button>
+                            </template>
+                            <template v-else-if="item.status == 1 || item.status == 2 || item.status == 3">
+                                <button class="btn btn-info btn-xs dropdown-toggle" type="button" data-toggle="dropdown">
+                                    {{item.status}}<span class="glyphicon glyphicon-time"></span> {{f.torrentStatus(item.status)}} <span class="caret"></span>
+                                </button>
+                            </template>
+                            <template v-else-if="item.status == 4 || item.status == 5 || item.status == 6">
+                                <button class="btn btn-success btn-xs dropdown-toggle" type="button" data-toggle="dropdown">
+                                    <span class="glyphicon glyphicon-play"></span> {{f.torrentStatus(item.status)}} <span class="caret"></span>
+                                </button>
+                            </template>
+                            <template v-else="">
+                                <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown">
+                                    {{f.torrentStatus(item.status)}} <span class="caret"></span>
+                                </button>
+                            </template>
                             <ul class="dropdown-menu">
                                 <li><a href="#" v-on:click="stop(item.id)"><span class="glyphicon glyphicon-pause"></span> Пауза</a></li>
                                 <li><a href="#" v-on:click="start(item.id)"><span class="glyphicon glyphicon-play"></span> Запустить</a></li>
