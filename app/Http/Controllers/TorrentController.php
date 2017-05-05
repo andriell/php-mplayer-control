@@ -58,7 +58,7 @@ class TorrentController extends Controller
             'eta',
             'etaIdle',
             'files',
-            //'fileStats',
+            'fileStats',
             'hashString',
             'haveUnchecked',
             'haveValid',
@@ -120,7 +120,7 @@ class TorrentController extends Controller
         $resp['arguments'] = $resp['arguments']['torrents'][0];
 
         $files = new Files();
-        $files->addFiles($resp['arguments']['files']);
+        $files->addFiles($resp['arguments']['files'], $resp['arguments']['fileStats']);
         $resp['arguments']['files'] = $files->getData();
 
         return response()->json($resp);

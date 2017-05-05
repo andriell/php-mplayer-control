@@ -16,13 +16,13 @@ class Files
     ];
     private $id = 0;
 
-    function addFiles($files) {
+    function addFiles($files, $fileStats) {
         foreach ($files as $id => $file) {
-            $this->addFile($file['name'], $file['length'], $file['bytesCompleted'], $id);
+            $this->addFile($file['name'], $file['length'], $file['bytesCompleted'], $id, $fileStats[$id]['wanted']);
         }
     }
 
-    function addFile($name, $size, $loaded, $id) {
+    private function addFile($name, $size, $loaded, $id, $wanted) {
         $path = mb_split('/', $name);
 
         $f = &$this->files;
@@ -34,6 +34,7 @@ class Files
                     'size' => 0,
                     'loaded' => 0,
                     'children' => [],
+                    'wanted' => false,
                 ];
             }
             $f[$p]['size'] += $size;
@@ -41,20 +42,29 @@ class Files
             $f = &$f[$p];
         }
         $f['id'] = $id;
+        $f['wanted'] = $wanted;
     }
 
-    function getData($children = false) {
+    function getData(&$children = false, &$childrenWanted = true) {
         if (!is_array($children)) {
             $children = $this->files['children'];
         }
         $r = [];
         foreach ($children as $name => $item) {
+            $childrenWanted = $childrenWanted && $item['wanted'];
+            $children = [];
+            $wanted = $item['wanted'];
+            if ($item['children']) {
+                $wanted = true;
+                $children = $this->getData($item['children'], $wanted);
+            }
             $r[] = [
                 'id' => $item['id'],
                 'name' => $name,
                 'size' => $item['size'],
                 'loaded' => $item['loaded'],
-                'children' => $item['children'] ? $this->getData($item['children']) : [],
+                'wanted' => $wanted,
+                'children' => $children,
             ];
         }
         return $r;
