@@ -45,14 +45,85 @@ body {
 }
 
 .torrent {
-  .progress {
-    margin-bottom: 0;
+  .torrent-table {
+    width: 100%;
+    height: 72px;
 
-    .progress-bar {
+    td {
+      white-space: nowrap;
+      /*border: 1px solid black;*/
+    }
+    .progress {
+      margin-bottom: 0;
+      height: 12px;
+
+      .progress-bar {
+        line-height: 12px;
+        text-align: center;
+        color: white;
+        text-shadow: #3097D1 1px 1px 0, #3097D1 -1px -1px 0,
+        #3097D1 -1px 1px 0, #3097D1 1px -1px 0;
+      }
+    }
+    .t-td-btm {
+      width: 72px;
+      padding-right: 10px;
+
+      .btn {
+        font-size: 10px;
+        width: 72px;
+        height: 72px;
+        padding: 2px;
+        text-align: center;
+
+        .glyphicon {
+          font-size: 30px;
+        }
+      }
+    }
+    .t-td-name {
+      max-width: 100px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .t-td-eta {
       text-align: center;
-      color: white;
-      text-shadow: #3097D1 1px 1px 0, #3097D1 -1px -1px 0,
-      #3097D1 -1px 1px 0, #3097D1 1px -1px 0;
+    }
+    .t-td-date,
+    .t-td-progress,
+    .t-td-size,
+    .t-td-eta,
+    .t-td-leechers,
+    .t-td-upload,
+    .t-td-seeders,
+    .t-td-download {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+    .t-td-leechers,
+    .t-td-upload {
+      color: red;
+    }
+    .t-td-seeders,
+    .t-td-download {
+      color: green;
+    }
+    .t-td-upload,
+    .t-td-download {
+      width: 110px;
+    }
+    .t-td-leechers,
+    .t-td-seeders {
+      text-align: right;
+      width: 50px;
+    }
+    .t-td-size {
+      width: 90px;
+      color: orange;
+    }
+    .t-td-date {
+      vertical-align: top;
+      text-align: right;
     }
   }
   .table-menu {

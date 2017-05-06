@@ -67,7 +67,7 @@
                         <tr>
                             <td class="t-td-size">{{ f.size(item.sizeWhenDone) }}</td>
                             <td class="t-td-eta">{{ f.seconds(item.eta) }}</td>
-                            <td class="t-td-leechers">{{ item.webseedsSendingToUs }}</td>
+                            <td class="t-td-leechers">{{ item.peersGettingFromUs }}</td>
                             <td class="t-td-upload"><span class="glyphicon glyphicon-arrow-up"></span> {{ f.speed(item.rateUpload) }}</td>
                             <td class="t-td-seeders">{{ item.peersSendingToUs }}</td>
                             <td class="t-td-download"><span class="glyphicon glyphicon-arrow-down"></span> {{ f.speed(item.rateDownload) }}</td>
@@ -165,91 +165,3 @@
     }
 </script>
 
-<style>
-    .torrent .progress .progress-bar {
-        line-height: 12px;
-    }
-    .torrent .progress {
-        height: 12px;
-    }
-    .torrent .torrent-table {
-        width: 100%;
-        height: 72px;
-    }
-    .torrent .torrent-table td {
-        white-space: nowrap;
-        /*border: 1px solid black;*/
-    }
-    .torrent .torrent-table .t-td-btm {
-        width: 72px;
-        padding-right: 10px;
-    }
-    .torrent .torrent-table .t-td-btm .btn {
-        font-size: 10px;
-        width: 72px;
-        height: 72px;
-        padding: 2px;
-        text-align: center;
-    }
-    .torrent .torrent-table .t-td-btm .btn .glyphicon {
-        font-size: 30px;
-    }
-
-    .torrent .torrent-table .t-td-eta {
-        text-align: center;
-    }
-
-    .torrent .torrent-table .t-td-name {
-        max-width: 100px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
-    .torrent .torrent-table .t-td-date {
-        vertical-align: top;
-    }
-
-    .torrent .torrent-table .t-td-date,
-    .torrent .torrent-table .t-td-progress,
-    .torrent .torrent-table .t-td-size,
-    .torrent .torrent-table .t-td-eta,
-    .torrent .torrent-table .t-td-leechers,
-    .torrent .torrent-table .t-td-upload,
-    .torrent .torrent-table .t-td-seeders,
-    .torrent .torrent-table .t-td-download {
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    }
-
-    .torrent .torrent-table .t-td-leechers,
-    .torrent .torrent-table .t-td-upload {
-        color: red;
-    }
-    .torrent .torrent-table .t-td-seeders,
-    .torrent .torrent-table .t-td-download {
-        color: green;
-    }
-
-    .torrent .torrent-table .t-td-upload,
-    .torrent .torrent-table .t-td-download {
-        width: 110px;
-    }
-
-    .torrent .torrent-table .t-td-leechers,
-    .torrent .torrent-table .t-td-seeders {
-        width: 50px;
-    }
-
-    .torrent .torrent-table .t-td-size {
-        width: 90px;
-        color: orange;
-    }
-
-    .torrent .torrent-table .t-td-date,
-    .torrent .torrent-table .t-td-leechers,
-    .torrent .torrent-table .t-td-seeders {
-        text-align: right;
-    }
-
-
-</style>
