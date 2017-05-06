@@ -146,6 +146,7 @@ class TorrentController extends Controller
             'percentDone',
             'eta',
             'peersSendingToUs',
+            'webseedsSendingToUs',
         ]);
         return response()->json($r);
     }
