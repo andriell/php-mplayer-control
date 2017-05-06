@@ -20,6 +20,21 @@
             </table>
         </div>
         <div class="panel-body">
+
+
+            <div class="list-group">
+                <div v-for="(item, itemId) in items" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">{{ item.name }}</h5>
+                        <small class="text-muted">{{ f.date(item.addedDate) }}</small>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar" :style="f.widthP(item.percentDone, 1)">{{ f.percent(item.percentDone, 1) }}</div>
+                    </div>
+                </div>
+            </div>
+
+
             <table class="table table-striped table-data">
                 <thead>
                 <tr>
@@ -172,3 +187,19 @@
         }
     }
 </script>
+
+<style>
+    .torrent .d-flex {
+        justify-content: space-between;
+        display: -webkit-box!important;
+        display: -ms-flexbox!important;
+        display: flex!important;
+    }
+    .torrent .progress .progress-bar {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        line-height: 12px;
+    }
+    .torrent .progress {
+        height: 12px;
+    }
+</style>

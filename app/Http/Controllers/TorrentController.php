@@ -34,7 +34,7 @@ class TorrentController extends Controller
 
     function index()
     {
-        return view('torrent');
+        return view('torrent', ['title' => 'MyNAS Торрент']);
     }
 
     function info(Request $request, $id)

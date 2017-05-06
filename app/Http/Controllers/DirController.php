@@ -41,7 +41,7 @@ class DirController extends Controller
 
     function index()
     {
-        return view('dir', ['search' => true]);
+        return view('dir', ['title' => 'MyNAS Файлы', 'search' => true]);
     }
 
 

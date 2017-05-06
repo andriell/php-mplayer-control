@@ -40,7 +40,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $data = [];
+        $data = ['title' => 'MyNAS'];
         $data['disc_total'] = disk_total_space(config('nas.media_dir'));
         $data['disc_total_f'] = Decorator::sizeGb($data['disc_total']);
         $data['disc_used'] = $data['disc_total'] - disk_free_space(config('nas.media_dir'));
