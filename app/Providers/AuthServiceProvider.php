@@ -28,7 +28,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
         Auth::provider('user_provider', function($app, array $config) {
             $users = config('local.users');
-            return new UserProvider($app['cache'], $users);
+            return new UserProvider($app['cache'], $users, config('nas.home_ip_start'));
         });
     }
 }

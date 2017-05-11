@@ -19,16 +19,19 @@ class UserProvider implements IlluminateUserProvider
     protected $cache;
     /** @var  array */
     protected $users;
+    protected $homeIpStart = false;
 
     /**
      * UserProvider constructor.
      * @param \Illuminate\Cache\CacheManager $cache
      * @param array $users
+     * @param $homeIpStart
      */
-    public function __construct($cache, $users)
+    public function __construct($cache, $users, $homeIpStart)
     {
         $this->cache = $cache;
         $this->users = $users;
+        $this->homeIpStart = $homeIpStart;
     }
 
 
@@ -73,7 +76,7 @@ class UserProvider implements IlluminateUserProvider
     public function updateRememberToken(Authenticatable $user, $token)
     {
         $time = 60 * 24;
-        if (substr($_SERVER['REMOTE_ADDR'], 0, 10) == '192.168.1.') {
+        if ($this->homeIpStart && substr($_SERVER['REMOTE_ADDR'], 0, strlen($this->homeIpStart)) == $this->homeIpStart) {
             $time = 60 * 24 * 1000;
         }
         $this->cache->put('user_' . $user->getAuthIdentifier() . '_token_' . $token . '_' . $_SERVER['REMOTE_ADDR'], $user, $time);
