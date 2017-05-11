@@ -60,7 +60,7 @@ class UserProvider implements IlluminateUserProvider
      */
     public function retrieveByToken($identifier, $token)
     {
-        return $this->cache->get('user_' . $identifier . '_token_' . $token, NULL);
+        return $this->cache->get('user_' . $identifier . '_token_' . $token . '_' . $_SERVER['REMOTE_ADDR'], NULL);
     }
 
     /**
@@ -72,7 +72,11 @@ class UserProvider implements IlluminateUserProvider
      */
     public function updateRememberToken(Authenticatable $user, $token)
     {
-        $this->cache->put('user_' . $user->getAuthIdentifier() . '_token_' . $token, $user, 60 * 24);
+        $time = 60 * 24;
+        if (substr($_SERVER['REMOTE_ADDR'], 0, 10) == '192.168.1.') {
+            $time = 60 * 24 * 1000;
+        }
+        $this->cache->put('user_' . $user->getAuthIdentifier() . '_token_' . $token . '_' . $_SERVER['REMOTE_ADDR'], $user, $time);
     }
 
     /**
