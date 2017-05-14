@@ -238,6 +238,11 @@ body {
 }
 
 .rc {
+  .modal-header {
+    h4 {
+      overflow: hidden;
+    }
+  }
   .modal-content {
     width: 440px;
   }

@@ -77,6 +77,7 @@ window.decorator = {
         if (sec < 0) {
             return '';
         }
+        sec = Math.round(sec);
         var h = Math.floor(sec / 3600);
         var m = Math.floor((sec - (h * 3600)) / 60);
         var s = sec - (h * 3600) - (m * 60);

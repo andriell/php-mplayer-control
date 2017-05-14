@@ -37,7 +37,7 @@
                         </div>
                     </div>
                     <div class="row rc-row-time">
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">{{ f.seconds(timePos) }}</div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">{{ f.seconds(timePosEmulation) }}</div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">{{ f.seconds(length) }}</div>
                     </div>
                 </div>
@@ -53,6 +53,7 @@
                 length: 0,
                 filename: '',
                 timePos: 0,
+                timePosEmulation: 0,
                 timeP: 0,
                 volume: 100,
                 mute: false,
@@ -86,6 +87,7 @@
                                 localData.length = data.length;
                                 localData.mute = data.mute == 'yes';
                                 localData.timePos = data.time_pos;
+                                localData.timePosEmulation = data.time_pos;
                                 localData.volume = data.volume;
                                 localData.timeP = Math.round((data.time_pos / data.length) * 1000000);
                             } else {
@@ -94,6 +96,7 @@
                                 localData.length = 0;
                                 localData.mute = false;
                                 localData.timePos = 0;
+                                localData.timePosEmulation = 0;
                                 localData.volume = 100;
                                 localData.timeP = 0;
                             }
@@ -130,7 +133,8 @@
                 if (localData.paused) {
                     return;
                 }
-                localData.timeP = Math.round(((localData.timePos + (new Date().getTime() - localData.lastUpdate) / 1000) / localData.length) * 1000000);
+                localData.timePosEmulation = localData.timePos + (new Date().getTime() - localData.lastUpdate) / 1000;
+                localData.timeP = Math.round((localData.timePosEmulation / localData.length) * 1000000);
             }, 1000);
             return localData;
         },
