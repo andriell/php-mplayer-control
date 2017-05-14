@@ -128,7 +128,13 @@
                             localData.timePos = parseFloat(data.time_pos);
                             localData.timePosEmulation = localData.timePos;
                             localData.lastUpdate = new Date().getTime();
-                            jQuery.ajax('/player-set-time-pos/' + Math.round((localData.timeP / 1000000) * data.length));
+                            var newTimePos = Math.round((localData.timeP / 1000000) * data.length);
+                            jQuery.ajax('/player-set-time-pos/' + newTimePos, {success: function (data) {
+                                localData.timePos = newTimePos;
+                                localData.timePosEmulation = localData.timePos;
+                                localData.timeP = Math.round((localData.timePosEmulation / localData.length) * 1000000);
+                                localData.lastUpdate = new Date().getTime();
+                            }});
                         }
                     });
                 },
