@@ -60,6 +60,7 @@
                 run: false,
                 paused: true,
                 lastUpdate: new Date().getTime(),
+                autoUpdate: true,
                 f: window.decorator,
                 show: function () {
                     localData.update();
@@ -119,6 +120,7 @@
                     jQuery.ajax('/player-set-volume/' + localData.volume);
                 },
                 setTimePos: function () {
+                    localData.autoUpdate = false;
                     jQuery.ajax('/player-get-time-pos/', {
                         success: function (data) {
                             if (!data.run) {
@@ -134,6 +136,7 @@
                                 localData.timePosEmulation = localData.timePos;
                                 localData.timeP = Math.round((localData.timePosEmulation / localData.length) * 1000000);
                                 localData.lastUpdate = new Date().getTime();
+                                localData.autoUpdate = true;
                             }});
                         }
                     });
@@ -150,7 +153,7 @@
                 }
             };
             setInterval(function() {
-                if (localData.paused) {
+                if (localData.paused || !localData.autoUpdate) {
                     return;
                 }
                 localData.timePosEmulation = localData.timePos + (new Date().getTime() - localData.lastUpdate) / 1000;
