@@ -103,6 +103,7 @@ class MPlayerController extends Controller
             'mute',
             'time_pos',
             'volume',
+            'pause',
         ]));
     }
 }

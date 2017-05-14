@@ -36,8 +36,9 @@
                             <input type="range" min="0" max="1000000" step="1" v-model="timeP" v-on:change="setTimePos()" />
                         </div>
                     </div>
-                    <div class="row text-center">
-                        <div id="progress-slider" style="width:200px;"></div>
+                    <div class="row rc-row-time">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">{{ f.seconds(timePos) }}</div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">{{ f.seconds(length) }}</div>
                     </div>
                 </div>
             </div>
@@ -56,6 +57,9 @@
                 volume: 100,
                 mute: false,
                 run: false,
+                paused: true,
+                lastUpdate: new Date().getTime(),
+                f: window.decorator,
                 show: function () {
                     localData.update();
                     jQuery('#tvModal').modal('show');
@@ -77,6 +81,7 @@
                     jQuery.ajax('/player-get-info/', {
                         success: function (data) {
                             if (data.run) {
+                                localData.paused = data.paused == 'yes';
                                 localData.filename = data.filename;
                                 localData.length = data.length;
                                 localData.mute = data.mute == 'yes';
@@ -84,6 +89,7 @@
                                 localData.volume = data.volume;
                                 localData.timeP = Math.round((data.time_pos / data.length) * 1000000);
                             } else {
+                                localData.paused = true;
                                 localData.filename = '';
                                 localData.length = 0;
                                 localData.mute = false;
@@ -91,6 +97,7 @@
                                 localData.volume = 100;
                                 localData.timeP = 0;
                             }
+                            localData.lastUpdate = new Date().getTime();
                         }
                     });
                 },
@@ -119,9 +126,12 @@
                     jQuery.ajax('/player-switch-video/');
                 }
             };
-            /*setInterval(function() {
-                localData.update();
-            }, 60000);*/
+            setInterval(function() {
+                if (localData.paused) {
+                    return;
+                }
+                localData.timeP = Math.round(((localData.timePos + (new Date().getTime() - localData.lastUpdate) / 1000) / localData.length) * 1000000);
+            }, 1000);
             return localData;
         },
         mounted() {

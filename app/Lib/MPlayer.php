@@ -62,7 +62,7 @@ class MPlayer
     function setProperty($p, $keepPause = true)
     {
         if ($keepPause) {
-            $this->command('pausing_keep set_property ' . $p);
+            $this->command('pausing_keep_force set_property ' . $p);
         } else {
             $this->command('set_property ' . $p);
         }
@@ -71,7 +71,7 @@ class MPlayer
     function getProperty($p, $keepPause = true)
     {
         if ($keepPause) {
-            $resp = $this->commandGet('pausing_keep get_property ' . $p);
+            $resp = $this->commandGet('pausing_keep_force get_property ' . $p);
         } else {
             $resp = $this->commandGet('get_property ' . $p);
         }
@@ -116,7 +116,7 @@ class MPlayer
         Shell::exec('> ' . $this->fileOut);
         $lastCommand = '';
         foreach ($prop as $p) {
-            Shell::exec('printf "pausing_keep get_property ' . str_replace('"', '', $p) . '\n" > ' . $this->fileFifo);
+            Shell::exec('printf "pausing_keep_force get_property ' . str_replace('"', '', $p) . '\n" > ' . $this->fileFifo);
             $r[$p] = '';
             $lastCommand = $p;
         }
