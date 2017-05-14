@@ -81,7 +81,7 @@
                             localData.paused = data.pause == 'yes';
                             localData.timePos = parseFloat(data.time_pos);
                             localData.timePosEmulation = localData.timePos;
-                            localData.timeP = Math.round((localData.timePos / localData.length) * 1000000);
+                            localData.timeP = Math.round((localData.timePosEmulation / localData.length) * 1000000);
                             localData.lastUpdate = new Date().getTime();
                         }
                     });
@@ -94,21 +94,21 @@
                         success: function (data) {
                             if (data.run) {
                                 localData.paused = data.pause == 'yes';
-                                localData.filename = data.filename;
-                                localData.length = parseFloat(data.length);
                                 localData.mute = data.mute == 'yes';
-                                localData.timePos = parseFloat(localData.time_pos);
+                                localData.filename = data.filename;
+                                localData.volume = parseFloat(data.volume);
+                                localData.length = parseFloat(data.length);
+                                localData.timePos = parseFloat(data.time_pos);
                                 localData.timePosEmulation = localData.timePos;
-                                localData.volume = data.volume;
-                                localData.timeP = Math.round((localData.timePos / localData.length) * 1000000);
+                                localData.timeP = Math.round((localData.timePosEmulation / localData.length) * 1000000);
                             } else {
                                 localData.paused = true;
-                                localData.filename = '';
-                                localData.length = 0;
                                 localData.mute = false;
+                                localData.filename = '';
+                                localData.volume = 100;
+                                localData.length = 0;
                                 localData.timePos = 0;
                                 localData.timePosEmulation = 0;
-                                localData.volume = 100;
                                 localData.timeP = 0;
                             }
                             localData.lastUpdate = new Date().getTime();
@@ -124,11 +124,11 @@
                             if (!data.run) {
                                 return;
                             }
+                            localData.length = parseFloat(data.length);
                             localData.timePos = parseFloat(data.time_pos);
                             localData.timePosEmulation = localData.timePos;
-                            localData.length = parseFloat(data.length);
                             localData.lastUpdate = new Date().getTime();
-                            jQuery.ajax('/player-set-time-pos/' + Math.round((localData.timeP / 1000000) * data.length));
+                            jQuery.ajax('/player-set-time-pos/' + Math.round((localData.timePos / 1000000) * data.length));
                         }
                     });
                 },
