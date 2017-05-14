@@ -73,7 +73,11 @@
                     });
                 },
                 pause: function () {
-                    jQuery.ajax('/player-pause/');
+                    jQuery.ajax('/player-pause/', {
+                        success: function (data) {
+                            localData.paused = data.pause == 'yes';
+                        }
+                    });
                 },
                 quit: function () {
                     jQuery.ajax('/player-quit/');

@@ -44,6 +44,9 @@ class MPlayerController extends Controller
     public function pause()
     {
         $this->player->pause();
+        return response()->json($this->player->getInfo([
+            'pause',
+        ]));
     }
 
     public function quit()
