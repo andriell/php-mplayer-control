@@ -82,11 +82,11 @@
                     jQuery.ajax('/player-get-info/', {
                         success: function (data) {
                             if (data.run) {
-                                localData.paused = data.paused == 'yes';
+                                localData.paused = data.pause == 'yes';
                                 localData.filename = data.filename;
-                                localData.length = data.length;
+                                localData.length = parseFloat(data.length);
                                 localData.mute = data.mute == 'yes';
-                                localData.timePos = data.time_pos;
+                                localData.timePos = parseFloat(data.time_pos);
                                 localData.timePosEmulation = data.time_pos;
                                 localData.volume = data.volume;
                                 localData.timeP = Math.round((data.time_pos / data.length) * 1000000);
@@ -111,8 +111,8 @@
                     jQuery.ajax('/player-get-time-pos/', {
                         success: function (data) {
                             if (data.run) {
-                                localData.timePos = data.time_pos;
-                                localData.length = data.length;
+                                localData.timePos = parseFloat(data.time_pos);
+                                localData.length = parseFloat(data.length);
                                 jQuery.ajax('/player-set-time-pos/' + Math.round((localData.timeP / 1000000) * data.length));
                             }
                         }
