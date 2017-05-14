@@ -80,8 +80,8 @@
                             }
                             localData.paused = data.pause == 'yes';
                             localData.timePos = parseFloat(data.time_pos);
-                            localData.timePosEmulation = data.time_pos;
-                            localData.timeP = Math.round((data.time_pos / data.length) * 1000000);
+                            localData.timePosEmulation = localData.timePos;
+                            localData.timeP = Math.round((localData.timePos / localData.length) * 1000000);
                             localData.lastUpdate = new Date().getTime();
                         }
                     });
@@ -97,10 +97,10 @@
                                 localData.filename = data.filename;
                                 localData.length = parseFloat(data.length);
                                 localData.mute = data.mute == 'yes';
-                                localData.timePos = parseFloat(data.time_pos);
-                                localData.timePosEmulation = data.time_pos;
+                                localData.timePos = parseFloat(localData.timePos);
+                                localData.timePosEmulation = localData.timePos;
                                 localData.volume = data.volume;
-                                localData.timeP = Math.round((data.time_pos / data.length) * 1000000);
+                                localData.timeP = Math.round((localData.timePos / localData.length) * 1000000);
                             } else {
                                 localData.paused = true;
                                 localData.filename = '';
@@ -121,11 +121,14 @@
                 setTimePos: function () {
                     jQuery.ajax('/player-get-time-pos/', {
                         success: function (data) {
-                            if (data.run) {
-                                localData.timePos = parseFloat(data.time_pos);
-                                localData.length = parseFloat(data.length);
-                                jQuery.ajax('/player-set-time-pos/' + Math.round((localData.timeP / 1000000) * data.length));
+                            if (!data.run) {
+                                return;
                             }
+                            localData.timePos = parseFloat(data.time_pos);
+                            localData.timePosEmulation = localData.timePos;
+                            localData.length = parseFloat(data.length);
+                            localData.lastUpdate = new Date().getTime();
+                            jQuery.ajax('/player-set-time-pos/' + Math.round((localData.timeP / 1000000) * data.length));
                         }
                     });
                 },
