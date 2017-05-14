@@ -75,7 +75,14 @@
                 pause: function () {
                     jQuery.ajax('/player-pause/', {
                         success: function (data) {
+                            if (!data.run) {
+                                return;
+                            }
                             localData.paused = data.pause == 'yes';
+                            localData.timePos = parseFloat(data.time_pos);
+                            localData.timePosEmulation = data.time_pos;
+                            localData.timeP = Math.round((data.time_pos / data.length) * 1000000);
+                            localData.lastUpdate = new Date().getTime();
                         }
                     });
                 },

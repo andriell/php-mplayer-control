@@ -46,6 +46,7 @@ class MPlayerController extends Controller
         $this->player->pause();
         return response()->json($this->player->getInfo([
             'pause',
+            'time_pos',
         ]));
     }
 
