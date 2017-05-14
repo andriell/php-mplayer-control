@@ -97,7 +97,7 @@
                                 localData.filename = data.filename;
                                 localData.length = parseFloat(data.length);
                                 localData.mute = data.mute == 'yes';
-                                localData.timePos = parseFloat(localData.timePos);
+                                localData.timePos = parseFloat(localData.time_pos);
                                 localData.timePosEmulation = localData.timePos;
                                 localData.volume = data.volume;
                                 localData.timeP = Math.round((localData.timePos / localData.length) * 1000000);
