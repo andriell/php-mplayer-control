@@ -70,6 +70,8 @@ body {
       padding-right: 10px;
 
       .btn {
+        overflow: hidden;
+        white-space: normal;
         font-size: 10px;
         width: 72px;
         height: 72px;
@@ -241,6 +243,7 @@ body {
   .modal-header {
     h4 {
       overflow: hidden;
+      white-space: nowrap;
     }
   }
   .modal-content {
