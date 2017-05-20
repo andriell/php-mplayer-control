@@ -73,6 +73,11 @@ listen.acl_users = nginx
 5. systemctl start transmission-daemon.service
 6. systemctl enable transmission-daemon.service
 
+### Устанавливаем медиаплеер
+1. yum -y install http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm
+2. yum install mplayer
+3. yum install eom
+
 ## Осталось доделать
 * Сделать автослайдер удобнее
 * Сортировку
