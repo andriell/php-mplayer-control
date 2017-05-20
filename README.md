@@ -16,6 +16,17 @@
 5. ln -sf /lib/systemd/system/graphical.target /etc/systemd/system/default.target
 6. reboot
 
+### Отключить Selinux (Не обязательно)
+1. nano /etc/selinux/config
+   прописать SELINUX=disabled
+2. reboot
+
+### Отключить firewall (Не обязательно)
+1. systemctl disable firewalld
+2. systemctl stop firewalld
+3. systemctl status firewalld
+4. reboot
+
 ### Установка Nginx и PHP
 В официальных репозиториях Cent OS 7 пока нет сборки PHP 7.
 1. curl 'https://setup.ius.io/' -o setup-ius.sh
@@ -41,6 +52,7 @@
     "rpc-whitelist-enabled": false,
     "rpc-whitelist": "0.0.0.0",
 5. systemctl start transmission-daemon.service
+6. systemctl enable transmission-daemon.service
 
 ## Осталось доделать
 * Сделать автослайдер удобнее
