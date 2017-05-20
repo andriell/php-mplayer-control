@@ -33,10 +33,29 @@
 2. bash setup-ius.sh
 3. yum install nginx
 4. yum install php71u-fpm php71u-cli
-5. yum install php71u-fpm php71u-cli php71u-xml php71u-mbstring php71u-gd
+5. yum install php71u-fpm php71u-cli php71u-xml php71u-mbstring php71u-gd php71u-json
 6. Настраиваем php и nginx
 7. systemctl restart php-fpm
 8. systemctl restart nginx
+9. systemctl enable php-fpm
+10. systemctl enable nginx
+
+### Настраиваем nginx
+1. nano /etc/nginx/nginx.conf
+2. Удаляем коментарии из секции Settings for a TLS enabled server.
+3. mkdir /etc/pki/nginx/
+   mkdir /etc/pki/nginx/private/
+4. cd /etc/pki/nginx/
+5. openssl genrsa -out server.key 2048
+6. openssl req -new -sha256 -key private.key -out server.crt
+7. mv server.key private/server.key
+8. chown nginx:nginx /etc/pki/nginx/
+   chown nginx:nginx /etc/pki/nginx/*
+   
+nano /etc/php-fpm.d/www.conf
+listen = /run/php-fpm/www.sock
+listen.acl_users = nginx
+
 
 ### Установка торрент клиента Transmission
 1. yum install transmission-cli transmission-daemon
