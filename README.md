@@ -75,8 +75,17 @@ listen.acl_users = nginx
 
 ### Устанавливаем медиаплеер
 1. yum -y install http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm
-2. yum install mplayer
-3. yum install eom
+2. yum install mplayer eom xdotool
+
+### Установка samba
+1. yum install samba
+2. systemctl stop smb.service
+3. cp /etc/samba/smb.conf /etc/samba/smb.conf.bak
+4. nano /etc/samba/smb.conf
+5. Добавляем системного пользователя в samba
+   smbpasswd -a user
+6. systemctl restart smb.service
+7. systemctl enable smb.service
 
 ## Осталось доделать
 * Сделать автослайдер удобнее
