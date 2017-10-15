@@ -308,7 +308,7 @@ class FileSystem
             if (empty($from)) {
                 continue;
             }
-            Shell::exec('ln -sf "' . str_replace('"', '', $from) . '" "' . str_replace('"', '', $to) . '"');
+            Shell::exec('ln -sf "' . str_replace('"', '', $from) . '" "' . str_replace('"', '', $to) . '/"');
             $i++;
         }
         return $i;
