@@ -41,6 +41,7 @@ Route::get('/dir-slide-show/{uri?}', 'DirController@slideShow')->where(['uri' =>
 Route::get('/dir-slide-stop/', 'DirController@slideStop');
 Route::post('/dir-mv/', 'DirController@mv');
 Route::post('/dir-cut/', 'DirController@cut');
+Route::post('/dir-symlink/', 'DirController@symlink');
 Route::post('/dir-copy/', 'DirController@copy');
 Route::post('/dir-new-folder/', 'DirController@newFolder');
 Route::post('/dir-delete/', 'DirController@doDelete');

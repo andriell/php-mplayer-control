@@ -15,6 +15,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Отменить</button>
                     <button type="button" class="btn btn-primary" v-if="available()" v-on:click="cut()"><span class="glyphicon glyphicon-arrow-right"></span> Переместить</button>
+                    <button type="button" class="btn btn-primary" v-if="available()" v-on:click="symlink()"><span class="glyphicon glyphicon-arrow-right"></span> Симлинк</button>
                     <button type="button" class="btn btn-primary" v-if="available()" v-on:click="copy()"><span class="glyphicon glyphicon-duplicate"></span> Копировать</button>
                 </div>
             </div>
@@ -48,6 +49,9 @@
                 },
                 cut: function() {
                     localData.action('/dir-cut/');
+                },
+                symlink: function() {
+                    localData.action('/dir-symlink/');
                 },
                 copy: function() {
                     localData.action('/dir-copy/');

@@ -290,6 +290,31 @@ class FileSystem
     }
 
     /**
+     * Сделать симлинк
+     * @param $uriFrom
+     * @param $uriTo
+     * @return bool|int
+     */
+    function lnSf($uriFrom, $uriTo)
+    {
+        $to = $this->realPath($uriTo);
+        if (empty($to)) {
+            return false;
+        }
+        $uriFrom = is_array($uriFrom) ? $uriFrom : [$uriFrom];
+        $i = 0;
+        foreach ($uriFrom as $uri) {
+            $from = $this->realPath($uri);
+            if (empty($from)) {
+                continue;
+            }
+            Shell::exec('ln -sf "' . str_replace('"', '', $from) . '" "' . str_replace('"', '', $to) . '"');
+            $i++;
+        }
+        return $i;
+    }
+
+    /**
      * Копировать
      * Если целевой файл уже существует, то к его названию в конце будет добавлен номер .~n~
      * @param string[]|string $uriFrom
@@ -306,6 +331,9 @@ class FileSystem
         $i = 0;
         foreach ($uriFrom as $uri) {
             $from = $this->realPath($uri);
+            if (empty($from)) {
+                continue;
+            }
             // --backup=numbered при совпадении имен нумеровать
             Shell::exec('cp -r --backup=numbered "' . str_replace('"', '', $from) . '" "' . str_replace('"', '', $to) . '"');
             $i++;
@@ -319,6 +347,9 @@ class FileSystem
         $i = 0;
         foreach ($uri as $u) {
             $realPath = $this->realPath($u);
+            if (empty($from)) {
+                continue;
+            }
             Shell::exec('rm -rv "' . str_replace('"', '', $realPath) . '"');
             $i++;
         }
