@@ -22,7 +22,8 @@
             <div class="col explorer-items">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <div class="explorer-item thumbnail" v-for="(item, itemId) in items">
+                        <template v-for="(item, itemId) in items">
+                        <div class="explorer-item thumbnail" v-bind:class="{is_link: item.is_link }">
                             <input type="checkbox" class="select" v-model="itemsChecked" :value="item">
                             <template v-if="item.type == 'dir'">
                                 <div class="explorer-img-box">
@@ -52,6 +53,7 @@
                                 </a>
                             </template>
                         </div>
+                        </template>
                     </div>
                 </div>
             </div>
@@ -68,7 +70,7 @@
                                 <template v-if="itemsChecked.length == 1">
                                     <template v-for="item in itemsChecked">
                                         <h4>{{item.name}}</h4>
-                                        <p v-if="item.is_link">Настоящий путь: {{item.real_path}}</p>
+                                        <p v-if="item.is_link">&gt;&gt;{{item.real_path}}</p>
                                         <p>Размер: {{bytesToSize(item.size)}}</p>
                                         <p>Изменен: {{item.date}}</p>
                                         <p>Права: {{item.perms}}</p>
