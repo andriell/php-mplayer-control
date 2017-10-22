@@ -17,6 +17,8 @@
                     <div class="progress">
                         <div class="progress-bar" style="width: {{ $system_p }}%;"></div>
                     </div>
+
+                    <ya_disk></ya_disk>
                 </div>
             </div>
         </div>

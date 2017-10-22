@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'HomeController@index');
+Route::get('/yandex-disk-status', 'HomeController@yandexDiskStatus');
 Route::get('/info', 'HomeController@info');
 
 Route::get('/torrent', 'TorrentController@index')->name('torrent');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Lib\Decorator;
+use App\Lib\Shell;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -57,8 +58,18 @@ class HomeController extends Controller
             $var = sys_getloadavg();
         }
 
-        
         return view('home', $data);
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function yandexDiskStatus()
+    {
+        $status = Shell::exec('yandex-disk status');
+        return response()->json(['status' => $status]);
     }
 
     /**
