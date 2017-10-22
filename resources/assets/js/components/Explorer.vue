@@ -7,14 +7,14 @@
                         <span>Диск</span> /
                     </template>
                     <template v-else="">
-                        <a href="#" v-on:click="getData('')">Диск</a> /
+                        <a v-on:click="getData('')">Диск</a> /
                     </template>
                     <template v-for="(p, i) in path">
                         <template v-if="path.length == i + 1">
                             <span>{{p.name}}</span> /
                         </template>
                         <template v-else="">
-                            <a href="#" v-on:click="getData(p.uri)">{{p.name}}</a> /
+                            <a v-on:click="getData(p.uri)">{{p.name}}</a> /
                         </template>
                     </template>
                   </div>
@@ -29,7 +29,7 @@
                                 <div class="explorer-img-box">
                                     <img src="/img/dir.png">
                                 </div>
-                                <a href="#" v-on:click="getData(item.uri)" class="text">
+                                <a v-on:click="getData(item.uri)" class="text">
                                     {{ item.name }}
                                 </a>
                             </template>
@@ -38,7 +38,7 @@
                                     <img src="/img/file.png" :data-original="'/dir-img-100x100/' + item.uri" width="100"
                                          height="100" class="lazy" v-on:click="carouselShow(itemId)">
                                 </div>
-                                <a href="#" v-on:click="carouselShow(itemId)" class="text">
+                                <a v-on:click="carouselShow(itemId)" class="text">
                                     {{ item.name }}
                                 </a>
                             </template>
@@ -46,8 +46,8 @@
                                 <div class="explorer-img-box">
                                     <img src="/img/file.png"><br>
                                 </div>
-                                <a href="#">
-                                    <a href="#" class="text">
+                                <a>
+                                    <a class="text">
                                         {{ item.name }}
                                     </a>
                                 </a>
@@ -74,20 +74,20 @@
                                         <p>Размер: {{bytesToSize(item.size)}}</p>
                                         <p>Изменен: {{item.date}}</p>
                                         <p>Права: {{item.perms}}</p>
-                                        <a href="#" class="list-group-item" v-on:click="playVideo()"
+                                        <a class="list-group-item" v-on:click="playVideo()"
                                            v-if="item.type == 'movie'">
                                             <span class="glyphicon glyphicon-film"></span>&nbsp;&nbsp;Воспроизвести
                                         </a>
-                                        <a href="#" class="list-group-item" v-on:click="slideShowDir()" v-if="item.type == 'dir'">
+                                        <a class="list-group-item" v-on:click="slideShowDir()" v-if="item.type == 'dir'">
                                             <span class="glyphicon glyphicon-picture"></span>&nbsp;&nbsp;Слайд шоу
                                         </a>
-                                        <a href="#" class="list-group-item" v-on:click="fileRename()"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Переименовать</a>
-                                        <a href="#" class="list-group-item" v-on:click="download()"><span class="glyphicon glyphicon-download-alt"></span>&nbsp;&nbsp;Скачать</a>
+                                        <a class="list-group-item" v-on:click="fileRename()"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Переименовать</a>
+                                        <a class="list-group-item" v-on:click="download()"><span class="glyphicon glyphicon-download-alt"></span>&nbsp;&nbsp;Скачать</a>
                                     </template>
                                 </template>
-                                <a href="#" class="list-group-item" v-on:click="fileCopy()"><span class="glyphicon glyphicon-arrow-right"></span>&nbsp;&nbsp;Переместить</a>
-                                <a href="#" class="list-group-item" v-on:click="toNewFolder()"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;В новую папку</a>
-                                <a href="#" class="list-group-item" v-on:click="doDelete()"><span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;Удалить</a>
+                                <a class="list-group-item" v-on:click="fileCopy()"><span class="glyphicon glyphicon-arrow-right"></span>&nbsp;&nbsp;Переместить</a>
+                                <a class="list-group-item" v-on:click="toNewFolder()"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;В новую папку</a>
+                                <a class="list-group-item" v-on:click="doDelete()"><span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;Удалить</a>
                             </div>
                         </template>
                         <template v-else="">
@@ -95,9 +95,9 @@
                             <p>Файлов: {{items.length}}</p>
                             <p>Общий размер: {{bytesToSize(itemsSize)}}</p>
                             <div class="list-group">
-                                <a href="#" class="list-group-item" v-on:click="newFolder()"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;Новая папка</a>
-                                <a href="#" class="list-group-item" v-on:click="slideShowDir()"><span class="glyphicon glyphicon-picture"></span>&nbsp;&nbsp;Слайд шоу</a>
-                                <a href="#" class="list-group-item" v-on:click="upload()"><span class="glyphicon glyphicon-open"></span>&nbsp;&nbsp;Загрузить</a>
+                                <a class="list-group-item" v-on:click="newFolder()"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;Новая папка</a>
+                                <a class="list-group-item" v-on:click="slideShowDir()"><span class="glyphicon glyphicon-picture"></span>&nbsp;&nbsp;Слайд шоу</a>
+                                <a class="list-group-item" v-on:click="upload()"><span class="glyphicon glyphicon-open"></span>&nbsp;&nbsp;Загрузить</a>
                             </div>
                         </template>
                     </div>

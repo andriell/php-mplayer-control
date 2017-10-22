@@ -47,10 +47,10 @@
                                         </button>
                                     </template>
                                     <ul class="dropdown-menu">
-                                        <li><a href="#" v-on:click="stop(item.id)"><span class="glyphicon glyphicon-pause"></span> Пауза</a></li>
-                                        <li><a href="#" v-on:click="start(item.id)"><span class="glyphicon glyphicon-play"></span> Запустить</a></li>
-                                        <li><a href="#" v-on:click="edit(item.id)"><span class="glyphicon glyphicon-edit"></span> Изменить</a></li>
-                                        <li><a href="#" v-on:click="remove(item.id)"><span class="glyphicon glyphicon-trash"></span> Удалить</a></li>
+                                        <li><a v-on:click="stop(item.id)"><span class="glyphicon glyphicon-pause"></span> Пауза</a></li>
+                                        <li><a v-on:click="start(item.id)"><span class="glyphicon glyphicon-play"></span> Запустить</a></li>
+                                        <li><a v-on:click="edit(item.id)"><span class="glyphicon glyphicon-edit"></span> Изменить</a></li>
+                                        <li><a v-on:click="remove(item.id)"><span class="glyphicon glyphicon-trash"></span> Удалить</a></li>
                                     </ul>
                                 </div>
                             </td>

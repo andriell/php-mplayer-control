@@ -3,7 +3,7 @@
         <div id="carouselModal" class="modal" role="dialog">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove"></span></button>
 
-            <a class="left carousel-control" href="#" v-on:click="left()">
+            <a class="left carousel-control" v-on:click="left()">
                 <span class="glyphicon glyphicon-chevron-left"></span>
             </a>
 
@@ -11,7 +11,7 @@
                 <img class="img-responsive" :src="'/dir-img-1024x768/' + item.uri + '?sync=' + sync + '&action=' + action" alt="...">
             </template>
 
-            <a class="right carousel-control" href="#" v-on:click="right()">
+            <a class="right carousel-control" v-on:click="right()">
                 <span class="glyphicon glyphicon-chevron-right"></span>
             </a>
             <div class="footer">
@@ -23,10 +23,10 @@
                     Дублировать на экране
                 </div>
                 <div class="button">
-                    <a href="#" v-on:click="stop()">Остановить</a>
+                    <a v-on:click="stop()">Остановить</a>
                 </div>
                 <div class="button">
-                    <a href="#" v-on:click="download()">Скачать</a>
+                    <a v-on:click="download()">Скачать</a>
                 </div>
             </div>
         </div>

@@ -60,7 +60,7 @@
                             </a>
                         </li>
                         <li class="dropdown">
-                            <a href="#" v-on:click="rcShow()">
+                            <a v-on:click="rcShow()">
                                 Телевизор
                             </a>
                         </li>
@@ -83,7 +83,7 @@
                         @endif
 
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                            <a class="dropdown-toggle" data-toggle="dropdown" role="button"
                                aria-expanded="false">
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
