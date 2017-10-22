@@ -95,14 +95,14 @@ class FileSystem
             $r['is_link'] = true;
             $realPathFile = $this->override->readlink($realPathFile);
             $r['real_path'] = $realPathFile;
-            if (!$this->override->file_exists($realPathFile)) {
-                return $r;
-            }
             if (DIRECTORY_SEPARATOR == '\\') {
                 $r['real_path'] = str_replace('\\', '/', $r['real_path']);
             }
             if (substr($r['real_path'], 0, strlen($this->mediaDir)) == $this->mediaDir) {
                 $r['real_path'] = trim(substr($r['real_path'], strlen($this->mediaDir)), '/');
+            }
+            if (!$this->override->file_exists($realPathFile)) {
+                return $r;
             }
         }
         $r['perms'] = $this->override->fileperms($realPathFile);
