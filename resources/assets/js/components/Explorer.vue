@@ -118,8 +118,14 @@
                 itemsChecked: [],
                 itemsSize: 0,
                 search: '',
+                getUri: function () {
+                    window.location.hash.replace('#', '');
+                },
+                setUri: function (uri) {
+                    window.location.hash = uri;
+                },
                 reload: function () {
-                    localData.getData(localData.uri);
+                    localData.getData(localData.getUri());
                 },
                 bytesToSize: function(bytes) {
                     var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
@@ -141,7 +147,7 @@
                                 localData.itemsSize += data.items[i].size;
                             }
                             localData.items = data.items;
-                            localData.uri = data.uri;
+                            localData.setUri(data.uri);
                             localData.dirName = 'Диск';
                             var path = [], uriTmp = '', uriArr = data.uri.split('/');
                             for (i in uriArr) {
@@ -191,7 +197,7 @@
                     if (localData.itemsChecked.length <= 0) {
                         return;
                     }
-                    window.appData.copy.currentDir = localData.uri;
+                    window.appData.copy.currentDir = localData.getUri();
                     window.appData.copy.status = '';
                     window.appData.copy.items = [];
                     for(var i in localData.itemsChecked) {
@@ -203,7 +209,7 @@
                     if (localData.itemsChecked.length <= 0) {
                         return;
                     }
-                    window.appData.toNewFolder.currentDir = localData.uri;
+                    window.appData.toNewFolder.currentDir = localData.getUri();
                     window.appData.toNewFolder.status = '';
                     window.appData.toNewFolder.items = [];
                     for(var i in localData.itemsChecked) {
@@ -212,7 +218,7 @@
                     window.appData.toNewFolder.show();
                 },
                 newFolder: function() {
-                    window.appData.newFolder.currentDir = localData.uri;
+                    window.appData.newFolder.currentDir = localData.getUri();
                     window.appData.newFolder.show();
                 },
                 doDelete: function() {
@@ -229,7 +235,7 @@
                 slideShowDir: function() {
                     var dir = false;
                     if (localData.itemsChecked.length == 0) {
-                        dir = localData.uri;
+                        dir = localData.getUri();
                     } else if (localData.itemsChecked.length == 1) {
                         dir = localData.itemsChecked[0].uri;
                     } else {
@@ -251,11 +257,11 @@
                     window.appData.carousel.show(imgUri, position);
                 },
                 upload: function() {
-                    window.appData.upload.uri = localData.uri;
+                    window.appData.upload.uri = localData.getUri();
                     window.appData.upload.show();
                 }
             };
-            localData.getData('');
+            localData.getData(localData.getUri());
             return localData;
         },
         mounted() {
