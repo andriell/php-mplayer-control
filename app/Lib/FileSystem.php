@@ -89,7 +89,6 @@ class FileSystem
             'type' => false,
             'ext' => false,
             'size' => 0,
-            'perms' => $this->override->fileperms($realPathFile),
         ];
         if ($this->override->is_link($realPathFile)) {
             $r['is_link'] = true;
@@ -102,6 +101,7 @@ class FileSystem
                 $r['real_path'] = trim(substr($r['real_path'], strlen($this->mediaDir) - 1), '/');
             }
         }
+        $r['perms'] = $this->override->fileperms($realPathFile);
         $fileMTime = $this->override->filemtime($realPathFile);
         if (isset($filter['date>']) && $fileMTime < $filter['date>']) {
             return false;
