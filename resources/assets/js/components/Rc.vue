@@ -9,7 +9,9 @@
                 <div class="modal-body">
                     <div class="row rc-row-play">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <button type="button" class="btn btn-default" v-on:click="pause()"><span v-if="!paused" class="glyphicon glyphicon-pause"></span><span v-if="paused" class="glyphicon glyphicon-play"></span></button>
+                            <button type="button" class="btn btn-default" v-on:click="stepTimePos(-30)"><span class="glyphicon glyphicon-step-backward"></span></button>
+                            <button type="button" class="btn btn-default btn-big" v-on:click="pause()"><span v-if="!paused" class="glyphicon glyphicon-pause"></span><span v-if="paused" class="glyphicon glyphicon-play"></span></button>
+                            <button type="button" class="btn btn-default" v-on:click="stepTimePos(30)"><span class="glyphicon glyphicon-step-forward"></span></button>
                         </div>
                     </div>
                     <div class="row rc-row-button1">
@@ -87,8 +89,19 @@
                         }
                     });
                 },
+                stepTimePos: function (int) {
+                    jQuery.ajax('/player-step-time-pos/' + int, {
+                        success: function (data) {
+                            localData.timePos += int;
+                        }
+                    });
+                },
                 quit: function () {
-                    jQuery.ajax('/player-quit/');
+                    jQuery.ajax('/player-quit/', {
+                        success: function (data) {
+                            localData.update();
+                        }
+                    });
                 },
                 update: function () {
                     jQuery.ajax('/player-get-info/', {
@@ -157,6 +170,9 @@
                     return;
                 }
                 localData.timePosEmulation = localData.timePos + (new Date().getTime() - localData.lastUpdate) / 1000;
+                if (localData.timePosEmulation >= localData.length) {
+                    localData.quit();
+                }
                 localData.timeP = Math.round((localData.timePosEmulation / localData.length) * 1000000);
             }, 1000);
             return localData;

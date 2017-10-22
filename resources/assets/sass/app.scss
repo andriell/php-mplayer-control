@@ -257,8 +257,13 @@ body {
     padding: 5px;
   }
   .rc-row-play button {
+    font-size: 35px;
+    line-height: 35px;
+  }
+  .rc-row-play button.btn-big {
     font-size: 70px;
     line-height: 70px;
+    margin: 0 15px;
   }
   .rc-row-play div {
     text-align: center;

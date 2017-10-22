@@ -50,6 +50,11 @@ class MPlayerController extends Controller
         ]));
     }
 
+    public function stepTimePos($timePos)
+    {
+        $this->player->stepTimePos($timePos);
+    }
+
     public function quit()
     {
         $this->player->quit();

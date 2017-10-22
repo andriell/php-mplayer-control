@@ -68,6 +68,15 @@ class MPlayer
         }
     }
 
+    function stepProperty($p, $keepPause = true)
+    {
+        if ($keepPause) {
+            $this->command('pausing_keep_force step_property ' . $p);
+        } else {
+            $this->command('step_property ' . $p);
+        }
+    }
+
     function getProperty($p, $keepPause = true)
     {
         if ($keepPause) {
@@ -215,6 +224,14 @@ class MPlayer
     function setTimePos($p)
     {
         $this->setProperty('time_pos ' . intval($p));
+    }
+
+    /**
+     * @param int $p
+     */
+    function stepTimePos($p)
+    {
+        $this->stepProperty('time_pos ' . intval($p));
     }
 
     /**
