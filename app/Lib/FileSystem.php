@@ -89,6 +89,7 @@ class FileSystem
             'type' => false,
             'ext' => false,
             'size' => 0,
+            'perms' => 'r: ---------',
         ];
         if ($this->override->is_link($realPathFile)) {
             $r['is_link'] = true;
