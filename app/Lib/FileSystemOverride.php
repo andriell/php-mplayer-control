@@ -80,6 +80,14 @@ class FileSystemOverride
         return $info;
     }
 
+    public function file_exists($str)
+    {
+        if (empty($this->fileSystemEncoding)) {
+            return file_exists($str);
+        }
+        return file_exists(iconv('UTF-8', $this->fileSystemEncoding, $str));
+    }
+
     public function is_dir($str)
     {
         if (empty($this->fileSystemEncoding)) {
