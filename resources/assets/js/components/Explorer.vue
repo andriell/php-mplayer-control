@@ -111,7 +111,6 @@
     export default {
         data: function () {
             var localData = window.appData.explorer = {
-                uri: '',
                 dirName: 'Диск',
                 path: [],
                 items: [],
@@ -119,7 +118,7 @@
                 itemsSize: 0,
                 search: '',
                 getUri: function () {
-                    window.location.hash.replace('#', '');
+                    return window.location.hash.replace('#', '');
                 },
                 setUri: function (uri) {
                     window.location.hash = uri;
