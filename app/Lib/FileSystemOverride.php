@@ -88,6 +88,22 @@ class FileSystemOverride
         return is_dir(iconv('UTF-8', $this->fileSystemEncoding, $str));
     }
 
+    public function readlink($str)
+    {
+        if (empty($this->fileSystemEncoding)) {
+            return readlink($str);
+        }
+        return readlink(iconv('UTF-8', $this->fileSystemEncoding, $str));
+    }
+
+    public function is_link($str)
+    {
+        if (empty($this->fileSystemEncoding)) {
+            return is_link($str);
+        }
+        return is_link(iconv('UTF-8', $this->fileSystemEncoding, $str));
+    }
+
     public function is_file($str)
     {
         if (empty($this->fileSystemEncoding)) {

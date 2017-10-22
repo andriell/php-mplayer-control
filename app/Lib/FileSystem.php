@@ -41,8 +41,8 @@ class FileSystem
      */
     private function normalizeUri($uri)
     {
-        $uri = preg_replace('#[\\\\/]+#', '/', $uri);
         $uri = preg_replace('#/[\\.]+/#', '/', $uri);
+        $uri = preg_replace('#[\\\\/]+#', '/', $uri);
         return trim($uri, '/');
     }
 
@@ -82,7 +82,26 @@ class FileSystem
                 return false;
             }
         }
-
+        $r = [
+            'name' => $name,
+            'is_link' => false,
+            'real_path' => false,
+            'type' => false,
+            'ext' => false,
+            'size' => 0,
+            'perms' => $this->override->fileperms($realPathFile),
+        ];
+        if ($this->override->is_link($realPathFile)) {
+            $r['is_link'] = true;
+            $realPathFile = $this->override->readlink($realPathFile);
+            $r['real_path'] = $realPathFile;
+            if (DIRECTORY_SEPARATOR == '\\') {
+                $r['real_path'] = str_replace('\\', '/', $r['real_path']);
+            }
+            if (substr($r['real_path'], 0, strlen($this->mediaDir)) == $this->mediaDir) {
+                $r['real_path'] = trim(substr($r['real_path'], strlen($this->mediaDir) - 1), '/');
+            }
+        }
         $fileMTime = $this->override->filemtime($realPathFile);
         if (isset($filter['date>']) && $fileMTime < $filter['date>']) {
             return false;
@@ -90,14 +109,7 @@ class FileSystem
         if (isset($filter['date<']) && $fileMTime > $filter['date<']) {
             return false;
         }
-        $r = [
-            'name' => $name,
-            'type' => false,
-            'ext' => false,
-            'size' => 0,
-            'date' => date('Y-m-d H:i:s', $fileMTime),
-            'perms' => $this->override->fileperms($realPathFile),
-        ];
+
         if ($this->override->is_dir($realPathFile)) {
             $r['type'] = 'dir';
             return $r;
