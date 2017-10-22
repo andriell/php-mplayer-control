@@ -68,7 +68,7 @@ class HomeController extends Controller
      */
     public function yandexDiskStatus()
     {
-        $status = Shell::exec('yandex-disk status', false);
+        $status = Shell::exec(base_path('shell/ya_disk_status.sh'), false);
         return response()->json(['status' => $status]);
     }
 
