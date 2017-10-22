@@ -176,7 +176,7 @@
                 }
                 localData.timePosEmulation = localData.timePos + (new Date().getTime() - localData.lastUpdate) / 1000;
                 if (localData.timePosEmulation >= localData.length) {
-                    localData.quit();
+                    localData.update();
                 }
                 localData.timeP = Math.round((localData.timePosEmulation / localData.length) * 1000000);
             }, 1000);
