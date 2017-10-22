@@ -118,10 +118,10 @@
                 itemsSize: 0,
                 search: '',
                 getUri: function () {
-                    return window.location.hash.replace('#', '');
+                    return window.location.pathname.substr(4);
                 },
                 setUri: function (uri) {
-                    window.location.hash = uri;
+                    window.history.pushState('', '', '/dir/' + uri);
                 },
                 reload: function () {
                     localData.getData(localData.getUri());
