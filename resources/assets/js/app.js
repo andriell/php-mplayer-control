@@ -41,7 +41,7 @@ Vue.component('upload', require('./components/Upload.vue'));
 Vue.component('torrent', require('./components/Torrent.vue'));
 Vue.component('torrent_edit', require('./components/TorrentEdit.vue'));
 Vue.component('torrent_edit_tree_item', require('./components/TorrentEditTreeItem.vue'));
-Vue.component('ya_disk', require('./components/YaDisk.vue'));
+//Vue.component('ya_disk', require('./components/YaDisk.vue'));
 
 const app = new Vue({
     el: '#app',
