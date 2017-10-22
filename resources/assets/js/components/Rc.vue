@@ -92,7 +92,11 @@
                 stepTimePos: function (int) {
                     jQuery.ajax('/player-step-time-pos/' + int, {
                         success: function (data) {
+                            if (!data.run) {
+                                return;
+                            }
                             localData.timePos += int;
+                            localData.timePosEmulation = localData.timePos;
                         }
                     });
                 },
