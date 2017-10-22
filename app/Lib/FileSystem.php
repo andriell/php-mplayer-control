@@ -363,7 +363,7 @@ class FileSystem
         $i = 0;
         foreach ($uri as $u) {
             $realPath = $this->realPath($u);
-            if (empty($from)) {
+            if (empty($realPath)) {
                 continue;
             }
             Shell::exec('rm -rv "' . str_replace('"', '', $realPath) . '"');
