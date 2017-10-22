@@ -68,6 +68,7 @@
                                 <template v-if="itemsChecked.length == 1">
                                     <template v-for="item in itemsChecked">
                                         <h4>{{item.name}}</h4>
+                                        <p v-if="item.is_link">Настоящий путь: {{item.real_path}}</p>
                                         <p>Размер: {{bytesToSize(item.size)}}</p>
                                         <p>Изменен: {{item.date}}</p>
                                         <p>Права: {{item.perms}}</p>
