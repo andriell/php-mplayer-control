@@ -32,9 +32,10 @@ class ImageMagick
         try {
             $realPathFile = $this->fs->realPath($uri);
             $imagick = new \Imagick($realPathFile);
-
             if (isset($newSize[2]) && $newSize[2]) {
+                $orientation = $imagick->getImageOrientation();
                 $imagick->cropThumbnailImage($newSize[0], $newSize[1]);
+                $imagick->setImageOrientation($orientation);
             } else {
                 $w1 = $imagick->getImageWidth();
                 $h1 = $imagick->getImageHeight();
