@@ -219,6 +219,16 @@ body {
       margin-top: 5px;
       margin-left: 5px;
     }
+    .ext {
+      display: block;
+      position: relative;
+      right: 0;
+      top: 60px;
+      width: 100px;
+      height: 0;
+      text-align: center;
+      text-transform: uppercase;
+    }
     .text {
        display: block;
        text-align: center;
@@ -236,10 +246,11 @@ body {
     width: 100px;
     height: 100px;
     overflow: hidden;
-  }
-  .explorer-img-box img {
-    display: block;
-    margin: auto;
+
+    img {
+      display: block;
+      margin: auto;
+    }
   }
 }
 

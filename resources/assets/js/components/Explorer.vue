@@ -35,7 +35,7 @@
                             </template>
                             <template v-else-if="item.type == 'image'">
                                 <div class="explorer-img-box">
-                                    <img src="/img/file.png" :data-original="'/dir-img-100x100/' + item.uri" width="100"
+                                    <img src="/img/image.png" :data-original="'/dir-img-100x100/' + item.uri" width="100"
                                          height="100" class="lazy" v-on:click="carouselShow(itemId)">
                                 </div>
                                 <a v-on:click="carouselShow(itemId)" class="text">
@@ -44,7 +44,8 @@
                             </template>
                             <template v-else>
                                 <div class="explorer-img-box">
-                                    <img src="/img/file.png"><br>
+                                    <span class="ext">{{ item.ext }}</span>
+                                    <img src="/img/file0.png"><br>
                                 </div>
                                 <a>
                                     <a class="text">
