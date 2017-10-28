@@ -45,10 +45,10 @@ class ImageMagick
                 $x2 = 0;
                 $y2 = 0;
                 if ($w2 > $newSize[0]) {
-                    $x2 = ($newSize[0] - $w2) / 2;
+                    $x2 = ($w2 - $newSize[0]) / 2;
                 }
                 if ($h2 > $newSize[1]) {
-                    $y2 = ($newSize[1] - $h2) / 2;
+                    $y2 = ($h2  - $newSize[1]) / 2;
                 }
                 $imagick->scaleImage($w2, $h2, false);
                 $imagick->cropImage($newSize[0], $newSize[1], $x2, $y2);
