@@ -57,7 +57,7 @@ class ImageMagick
             /* Черный текст */
             $draw = new \ImagickDraw();
             $draw->setFillColor(new \ImagickPixel('rgb(0, 0, 0)'));
-            $draw->setFont('Bookman-DemiItalic');
+            $draw->setFont('AvantGarde-Book');
             $draw->setFontSize(12);
             $image->annotateImage($draw, ($newSize[0] - 40) / 2, ($newSize[1] - 16) / 2, 0, 'Error');
             $image->setImageFormat('jpg');
