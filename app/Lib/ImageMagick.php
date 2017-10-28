@@ -51,7 +51,7 @@ class ImageMagick
                     $y2 = ($newSize[1] - $h2) / 2;
                 }
                 $imagick->scaleImage($w2, $h2, false);
-                $imagick->cropImage($w2, $h2, $x2, $y2);
+                $imagick->cropImage($newSize[0], $newSize[1], $x2, $y2);
             } else {
                 if ($w1 > $h1) {
                     $p = $newSize[0] / $w1;
