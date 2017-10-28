@@ -32,13 +32,27 @@ class ImageMagick
         try {
             $realPathFile = $this->fs->realPath($uri);
             $imagick = new \Imagick($realPathFile);
+            $w1 = $imagick->getImageWidth();
+            $h1 = $imagick->getImageHeight();
             if (isset($newSize[2]) && $newSize[2]) {
-                $orientation = $imagick->getImageOrientation();
-                $imagick->cropThumbnailImage($newSize[0], $newSize[1]);
-                $imagick->setImageOrientation($orientation);
+                if ($w1 < $h1) {
+                    $p = $newSize[0] / $w1;
+                } else {
+                    $p = $newSize[1] / $h1;
+                }
+                $w2 = $w1 * $p;
+                $h2 = $h1 * $p;
+                $x2 = 0;
+                $y2 = 0;
+                if ($w2 > $newSize[0]) {
+                    $x2 = ($newSize[0] - $w2) / 2;
+                }
+                if ($h2 > $newSize[1]) {
+                    $y2 = ($newSize[1] - $h2) / 2;
+                }
+                $imagick->scaleImage($w2, $h2, false);
+                $imagick->cropImage($w2, $h2, $x2, $y2);
             } else {
-                $w1 = $imagick->getImageWidth();
-                $h1 = $imagick->getImageHeight();
                 if ($w1 > $h1) {
                     $p = $newSize[0] / $w1;
                 } else {
@@ -46,7 +60,7 @@ class ImageMagick
                 }
                 $w2 = $w1 * $p;
                 $h2 = $h1 * $p;
-                $imagick->scaleImage($w2, $h2, true);
+                $imagick->scaleImage($w2, $h2, false);
             }
 
             $imagick->setImageFormat('jpg');
