@@ -8,13 +8,11 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Lib\Eom;
 use App\Lib\FileSystem;
-use App\Lib\Image;
+use App\Lib\ImageMagick;
 use App\Lib\XBoTool;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
 
 class DirController extends Controller
 {
@@ -28,9 +26,9 @@ class DirController extends Controller
      * DirController constructor.
      * @param FileSystem $fs
      * @param Eom $eom
-     * @param Image $image
+     * @param ImageMagick $image
      */
-    public function __construct(FileSystem $fs, Eom $eom, Image $image, XBoTool $xBoTool)
+    public function __construct(FileSystem $fs, Eom $eom, ImageMagick $image, XBoTool $xBoTool)
     {
         $this->fs = $fs;
         $this->eom = $eom;
@@ -75,9 +73,7 @@ class DirController extends Controller
             }
         }
         //</editor-fold>
-        return response()->stream(function () use ($uri, $size) {
-            $this->image->resize($uri, $size);
-        }, 200, $headers);
+        return response($this->image->resize($uri, $size), 200, $headers);
     }
 
     function img100x100(Request $request, $uri)

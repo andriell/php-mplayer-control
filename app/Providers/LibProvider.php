@@ -13,6 +13,7 @@ use App\Lib\Eom;
 use App\Lib\FileSystem;
 use App\Lib\FileSystemOverride;
 use App\Lib\Image;
+use App\Lib\ImageMagick;
 use App\Lib\MPlayer;
 use App\Lib\Transmission\RPC;
 use App\Lib\XBoTool;
@@ -43,6 +44,10 @@ class LibProvider extends ServiceProvider
         $this->app->singleton(Image::class, function ($app) {
             /** @var $app \Illuminate\Foundation\Application */
             return new Image($app->make(FileSystem::class), $app->make(FileSystemOverride::class));
+        });
+        $this->app->singleton(ImageMagick::class, function ($app) {
+            /** @var $app \Illuminate\Foundation\Application */
+            return new ImageMagick($app->make(FileSystem::class), $app->make(FileSystemOverride::class));
         });
         $this->app->singleton(MPlayer::class, function ($app) {
             /** @var $app \Illuminate\Foundation\Application */
