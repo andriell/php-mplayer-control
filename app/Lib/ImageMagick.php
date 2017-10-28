@@ -63,15 +63,29 @@ class ImageMagick
                 $imagick->scaleImage($w2, $h2, false);
             }
 
+            $orientation = $imagick->getImageOrientation();
+            $rotate = 0;
+            if ($orientation == \Imagick::ORIENTATION_BOTTOMRIGHT) {
+                $rotate = 180;
+            } elseif ($orientation == \Imagick::ORIENTATION_RIGHTTOP) {
+                $rotate = 90;
+            } elseif ($orientation == \Imagick::ORIENTATION_LEFTBOTTOM) {
+                $rotate = -90;
+            }
+            if ($rotate != 0) {
+                $imagick->rotateImage('#000000', $rotate);
+                $imagick->setImageOrientation(\Imagick::ORIENTATION_TOPLEFT);
+            }
+
             $imagick->setImageFormat('jpg');
             return $imagick->getImageBlob();
         } catch (\Exception $e) {
             $image = new \Imagick();
-            $image->newImage($newSize[0], $newSize[1], new \ImagickPixel('rgb(255, 255, 255)'));
+            $image->newImage($newSize[0], $newSize[1], new \ImagickPixel('#FFFFFF'));
 
             /* Черный текст */
             $draw = new \ImagickDraw();
-            $draw->setFillColor(new \ImagickPixel('rgb(0, 0, 0)'));
+            $draw->setFillColor(new \ImagickPixel('#000000'));
             $draw->setFont('Courier');
             $draw->setFontSize(12);
             $image->annotateImage($draw, ($newSize[0] - 40) / 2, ($newSize[1] - 16) / 2, 0, 'Error');
