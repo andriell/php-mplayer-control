@@ -40,6 +40,7 @@ class StackFile
 
     public function add($uri)
     {
+        $uri = $this->fs->normalizeUri($uri);
         foreach ($this->data as $i => $row) {
             if ($row['uri'] == $uri) {
                 unset($this->data[$i]);

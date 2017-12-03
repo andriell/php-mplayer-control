@@ -39,7 +39,7 @@ class FileSystem
      * @param $uri
      * @return bool|string
      */
-    private function normalizeUri($uri)
+    public function normalizeUri($uri)
     {
         $uri = preg_replace('#/[\\.]+/#', '/', $uri);
         $uri = preg_replace('#[\\\\/]+#', '/', $uri);
