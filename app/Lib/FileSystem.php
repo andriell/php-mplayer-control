@@ -116,7 +116,7 @@ class FileSystem
 
         if ($this->override->is_dir($realPathFile)) {
             $r['type'] = 'dir';
-            return in_array('dir', $filter['type']) ? $r : false;
+            return is_array($filter['type']) && in_array('dir', $filter['type']) ? $r : false;
         } elseif (isset($filter['only_dir'])) {
             return false;
         }
