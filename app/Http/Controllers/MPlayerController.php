@@ -60,7 +60,7 @@ class MPlayerController extends Controller
         $returnNext = false;
         foreach ($list['items'] as $row) {
             if ($returnNext) {
-                $this->playVideo($baseUri . $fileName);
+                $this->playVideo($baseUri . $row['name']);
                 break;
             }
             if ($row['name'] == $fileName) {
