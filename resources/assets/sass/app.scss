@@ -38,7 +38,9 @@ body {
       }
     }
   }
-
+  a {
+    cursor: pointer;
+  }
   .content {
     padding-top: $navH + $tap;
   }

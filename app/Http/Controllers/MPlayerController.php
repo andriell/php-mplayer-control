@@ -56,7 +56,7 @@ class MPlayerController extends Controller
     {
         $fileName = basename($this->fs->realPath($uri));
         $baseUri = substr($uri, 0, strlen($uri) - strlen($fileName));
-        $list = $this->fs->readDir($uri, ['type' => ['movie']], ['name']);
+        $list = $this->fs->readDir($baseUri, ['type' => ['movie']], ['name']);
         $returnNext = false;
         foreach ($list['items'] as $row) {
             if ($returnNext) {

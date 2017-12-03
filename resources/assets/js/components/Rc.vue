@@ -43,9 +43,9 @@
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">{{ f.seconds(length) }}</div>
                     </div>
                     <div class="row rc-row-time">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">Последнии файлы</div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><a v-on:click="showLastFiles()">Последнии файлы</a></div>
                     </div>
-                    <div class="row rc-row-time rc-last-play">
+                    <div class="row rc-row-time rc-last-play" v-if="isLastFile">
                         <template v-for="(item, itemId) in lastFile">
                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 rc-last-play-name">
                                 {{ item.name }}
@@ -78,6 +78,7 @@
                 lastUpdate: new Date().getTime(),
                 autoUpdate: true,
                 f: window.decorator,
+                isLastFile: false,
                 lastFile: [],
                 show: function () {
                     localData.update();
@@ -96,6 +97,9 @@
                             localData.show();
                         }
                     });
+                },
+                showLastFiles: function () {
+                    localData.isLastFile = !localData.isLastFile;
                 },
                 pause: function () {
                     jQuery.ajax('/player-pause/', {
