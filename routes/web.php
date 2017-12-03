@@ -54,6 +54,7 @@ Route::get('/player-get-volume/', 'MPlayerController@getVolume');
 Route::get('/player-set-volume/{volume}', 'MPlayerController@setVolume')->where(['volume' => '[0-9]+']);
 Route::get('/player-get-length/', 'MPlayerController@getLength');
 Route::get('/player-get-time-pos/', 'MPlayerController@getTimePos');
+Route::get('/player-get-last-file/', 'MPlayerController@getLastFile');
 Route::get('/player-set-time-pos/{timePos}', 'MPlayerController@setTimePos')->where(['timePos' => '[0-9]+']);
 Route::get('/player-step-time-pos/{timePos}', 'MPlayerController@stepTimePos')->where(['timePos' => '[\\-0-9]+']);;
 Route::get('/player-set-mute/{mute}', 'MPlayerController@setMute')->where(['mute' => '[tf]']);

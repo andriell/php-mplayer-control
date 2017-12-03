@@ -11,6 +11,7 @@ namespace App\Http\Controllers;
 
 use App\Lib\FileSystem;
 use App\Lib\MPlayer;
+use App\Lib\StackFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 
@@ -18,14 +19,17 @@ class MPlayerController extends Controller
 {
     /** @var MPlayer */
     private $player;
+    /** @var StackFile */
+    private $stackFile;
 
     /**
      * DirController constructor.
      * @param MPlayer $player
      */
-    public function __construct(MPlayer $player)
+    public function __construct(MPlayer $player, StackFile $stackFile)
     {
         $this->player = $player;
+        $this->stackFile = $stackFile;
         $this->middleware('auth');
     }
 
@@ -38,7 +42,9 @@ class MPlayerController extends Controller
 
     public function playVideo($uri)
     {
+        $this->stackFile->add($uri);
         $this->player->playVideo($uri);
+        $this->stackFile->save();
     }
 
     public function pause()
@@ -72,6 +78,11 @@ class MPlayerController extends Controller
             'length',
             'time_pos',
         ]));
+    }
+
+    public function getLastFile()
+    {
+        return response()->json($this->stackFile->getData());
     }
 
     public function setTimePos($timePos)
