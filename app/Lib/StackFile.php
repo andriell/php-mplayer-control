@@ -26,7 +26,7 @@ class StackFile
      * @param string $file
      * @param int $limit
      */
-    public function __construct($fs, $file, $limit = 10)
+    public function __construct($fs, $file, $limit = 5)
     {
         $this->fs = $fs;
         $this->file = $file;

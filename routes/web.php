@@ -48,6 +48,7 @@ Route::post('/dir-new-folder/', 'DirController@newFolder');
 Route::post('/dir-delete/', 'DirController@doDelete');
 
 Route::get('/player-play-video/{uri}', 'MPlayerController@playVideo')->where(['uri' => '[\s\S]+']);
+Route::get('/player-play-next-video/{uri}', 'MPlayerController@playNextVideo')->where(['uri' => '[\s\S]+']);
 Route::get('/player-pause/', 'MPlayerController@pause');
 Route::get('/player-quit/', 'MPlayerController@quit');
 Route::get('/player-get-volume/', 'MPlayerController@getVolume');

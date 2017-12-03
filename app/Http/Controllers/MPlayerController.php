@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Input;
 
 class MPlayerController extends Controller
 {
+    /** @var  FileSystem */
+    private $fs;
     /** @var MPlayer */
     private $player;
     /** @var StackFile */
@@ -24,10 +26,13 @@ class MPlayerController extends Controller
 
     /**
      * DirController constructor.
+     * @param FileSystem $fs
      * @param MPlayer $player
+     * @param StackFile $stackFile
      */
-    public function __construct(MPlayer $player, StackFile $stackFile)
+    public function __construct(FileSystem $fs, MPlayer $player, StackFile $stackFile)
     {
+        $this->fs = $fs;
         $this->player = $player;
         $this->stackFile = $stackFile;
         $this->middleware('auth');
@@ -45,6 +50,23 @@ class MPlayerController extends Controller
         $this->stackFile->add($uri);
         $this->player->playVideo($uri);
         $this->stackFile->save();
+    }
+
+    public function playNextVideo($uri)
+    {
+        $fileName = basename($this->fs->realPath($uri));
+        $baseUri = substr($uri, 0, strlen($uri) - strlen($fileName));
+        $list = $this->fs->readDir($uri, ['type' => ['movie']], ['name']);
+        $returnNext = false;
+        foreach ($list['items'] as $row) {
+            if ($returnNext) {
+                $this->playVideo($baseUri . $fileName);
+                break;
+            }
+            if ($row['name'] == $fileName) {
+                $returnNext = true;
+            }
+        }
     }
 
     public function pause()
@@ -117,13 +139,15 @@ class MPlayerController extends Controller
 
     public function getInfo()
     {
-        return response()->json($this->player->getInfo([
+        $r = $this->player->getInfo([
             'filename',
             'length',
             'mute',
             'time_pos',
             'volume',
             'pause',
-        ]));
+        ]);
+        $r['last_file'] = $this->stackFile->getData();
+        return response()->json($r);
     }
 }
