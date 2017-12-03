@@ -44,17 +44,11 @@ class StackFile
         foreach ($this->data as $i => $row) {
             if ($row['uri'] == $uri) {
                 unset($this->data[$i]);
-                $this->push($uri);
             }
         }
         if (count($this->data) >= $this->limit) {
             $this->data = array_slice($this->data, -1 * ($this->limit - 1));
         }
-        $this->push($uri);
-    }
-
-    private function push($uri)
-    {
         $this->data[] = [
             'uri' => $uri,
             'name' => basename($this->fs->realPath($uri)),
