@@ -17,6 +17,13 @@
                     <div class="progress">
                         <div class="progress-bar" style="width: {{ $system_p }}%;"></div>
                     </div>
+
+                    @if ($yandex_total)
+                        Яндекс диск: {{ $yandex_used_f }} / {{ $yandex_total_f }}
+                        <div class="progress">
+                            <div class="progress-bar" style="width: {{ $yandex_p }}%;"></div>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
