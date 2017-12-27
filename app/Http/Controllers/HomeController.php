@@ -58,7 +58,7 @@ class HomeController extends Controller
         if ($data['yandex_total'] > 0) {
             $yandexDir = config('nas.yandex_dir');
             $data['yandex_total_f'] = Decorator::sizeGb($data['yandex_total']);
-            $data['yandex_used'] = Shell::exec('du -sLB1 --exclude=' . $yandexDir . '/.sync/* ' . $yandexDir, false);
+            $data['yandex_used'] = (int) Shell::exec('du -sLB1 --exclude=' . $yandexDir . '/.sync/* ' . $yandexDir, false);
             $data['yandex_used_f'] = Decorator::sizeGb($data['yandex_used']);
             $data['yandex_p'] = round($data['yandex_used'] / $data['yandex_total'] * 100, 2);
         }
