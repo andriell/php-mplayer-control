@@ -81,7 +81,7 @@ class DirController extends Controller
         return response($img, 200, $headers);
     }
 
-    function imgPreview(Request $request, $uri)
+    function img100x100(Request $request, $uri)
     {
         $imgData = null;
         try {
@@ -90,7 +90,7 @@ class DirController extends Controller
             $fileName = substr($uri, 0, $m) . substr($uri, $p);
             $imgData = $this->image->resize($fileName, [100, 100, true]);
             if ($imgData) {
-                $filePath = public_path($this->fs->normalizeUri('/dir-img-preview/' . $uri));
+                $filePath = public_path($this->fs->normalizeUri('/dir-img-100x100/' . $uri));
                 $dir = dirname($filePath);
                 if (!file_exists($dir)) {
                     try {
@@ -104,11 +104,6 @@ class DirController extends Controller
             $imgData = $this->image->imgError([100, 100, true]);
         }
         return response($imgData, 200, ['Content-Type' => 'image/jpeg']);
-    }
-
-    function img100x100(Request $request, $uri)
-    {
-        return $this->resize($request, $uri, [100, 100, true]);
     }
 
     function img1024x768(Request $request, $uri)
