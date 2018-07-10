@@ -81,7 +81,13 @@ class DirController extends Controller
         $imgData = $this->image->resize($uri, [100, 100, true]);
         if ($imgData) {
             $filePath = public_path($this->fs->normalizeUri('/dir-img-preview/' . $uri));
-            mkdir(dirname($filePath), 0755, true);
+            $dir = dirname($filePath);
+            if (!file_exists($dir)) {
+                try {
+                    mkdir(dirname($filePath), 0755, true);
+                } catch (\Exception $e) {
+                }
+            }
             file_put_contents($filePath, $imgData);
         }
         return response($imgData, 200, ['Content-Type' => 'image/jpeg']);
