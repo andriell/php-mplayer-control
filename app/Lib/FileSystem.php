@@ -106,11 +106,11 @@ class FileSystem
             }
         }
         $r['perms'] = $this->override->fileperms($realPathFile);
-        $fileMTime = $this->override->filemtime($realPathFile);
-        if (isset($filter['date>']) && $fileMTime < $filter['date>']) {
+        $r['date'] = $this->override->filemtime($realPathFile);
+        if (isset($filter['date>']) && $r['date'] < $filter['date>']) {
             return false;
         }
-        if (isset($filter['date<']) && $fileMTime > $filter['date<']) {
+        if (isset($filter['date<']) && $r['date'] > $filter['date<']) {
             return false;
         }
 
