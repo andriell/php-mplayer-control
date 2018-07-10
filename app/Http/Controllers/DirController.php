@@ -76,6 +76,17 @@ class DirController extends Controller
         return response($this->image->resize($uri, $size), 200, $headers);
     }
 
+    function imgPreview(Request $request, $uri)
+    {
+        $imgData = $this->image->resize($uri, [100, 100, true]);
+        if ($imgData) {
+            $filePath = public_path($this->fs->normalizeUri('/dir-img-preview/' . $uri));
+            mkdir(dirname($filePath), 0755, true);
+            file_put_contents($filePath, $imgData);
+        }
+        return response($imgData, 200, ['Content-Type' => 'image/jpeg']);
+    }
+
     function img100x100(Request $request, $uri)
     {
         return $this->resize($request, $uri, [100, 100, true]);

@@ -33,7 +33,7 @@ window.decorator = {
             return size + ' b/c';
         }
     },
-    date: function timeConverter(timestamp) {
+    date: function (timestamp) {
         var a = new Date(timestamp * 1000);
         return a.getFullYear() + '-' +
             (a.getMonth() > 8 ? a.getMonth() + 1 : '0' + a.getMonth()) + '-' +
@@ -42,7 +42,10 @@ window.decorator = {
             (a.getMinutes() > 9 ? a.getMinutes() : '0' + a.getMinutes()) + ':' +
             (a.getSeconds() > 9 ? a.getSeconds() : '0' + a.getSeconds());
     },
-
+    filePreview: function(uri, date) {
+        var p = uri.lastIndexOf('.');
+        return '/dir-img-preview/' + uri.substring(0, p) + '-' + date + uri.substring(p, uri.length);
+    },
     torrentStatus: function (status) {
         if (status == 0) {
             return 'Остановлен';
