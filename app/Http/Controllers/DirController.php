@@ -83,20 +83,25 @@ class DirController extends Controller
 
     function imgPreview(Request $request, $uri)
     {
-        $p = strrpos($uri, '.');
-        $m = strrpos($uri, '-', strlen($uri) - $p);
-        $fileName = substr($uri, 0, $m) . substr($uri, $p);
-        $imgData = $this->image->resize($fileName, [100, 100, true]);
-        if ($imgData) {
-            $filePath = public_path($this->fs->normalizeUri('/dir-img-preview/' . $uri));
-            $dir = dirname($filePath);
-            if (!file_exists($dir)) {
-                try {
-                    mkdir(dirname($filePath), 0755, true);
-                } catch (\Exception $e) {
+        $imgData = null;
+        try {
+            $p = strrpos($uri, '.');
+            $m = strrpos($uri, '-', strlen($uri) - $p);
+            $fileName = substr($uri, 0, $m) . substr($uri, $p);
+            $imgData = $this->image->resize($fileName, [100, 100, true]);
+            if ($imgData) {
+                $filePath = public_path($this->fs->normalizeUri('/dir-img-preview/' . $uri));
+                $dir = dirname($filePath);
+                if (!file_exists($dir)) {
+                    try {
+                        mkdir(dirname($filePath), 0755, true);
+                    } catch (\Exception $e) {
+                    }
                 }
+                file_put_contents($filePath, $imgData);
             }
-            file_put_contents($filePath, $imgData);
+        } catch (\Exception $e) {
+            $imgData = $this->image->imgError([100, 100, true]);
         }
         return response($imgData, 200, ['Content-Type' => 'image/jpeg']);
     }
