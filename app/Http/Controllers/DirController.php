@@ -73,12 +73,17 @@ class DirController extends Controller
             }
         }
         //</editor-fold>
-        return response($this->image->resize($uri, $size), 200, $headers);
+        try {
+            $img = $this->image->resize($uri, $size);
+        } catch (\Exception $e) {
+            $img = $this->image->imgError($size);
+        }
+        return response($img, 200, $headers);
     }
 
     function imgPreview(Request $request, $uri)
     {
-        $imgData = $this->image->resize($uri, [100, 100, true], false);
+        $imgData = $this->image->resize($uri, [100, 100, true]);
         if ($imgData) {
             $filePath = public_path($this->fs->normalizeUri('/dir-img-preview/' . $uri));
             $dir = dirname($filePath);
