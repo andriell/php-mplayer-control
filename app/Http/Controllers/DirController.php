@@ -78,7 +78,7 @@ class DirController extends Controller
 
     function imgPreview(Request $request, $uri)
     {
-        $imgData = $this->image->resize($uri, [100, 100, true]);
+        $imgData = $this->image->resize($uri, [100, 100, true], false);
         if ($imgData) {
             $filePath = public_path($this->fs->normalizeUri('/dir-img-preview/' . $uri));
             $dir = dirname($filePath);

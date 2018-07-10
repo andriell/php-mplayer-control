@@ -27,7 +27,7 @@ class ImageMagick
         $this->override = $override;
     }
 
-    public function resize($uri, $newSize = [100, 100, false])
+    public function resize($uri, $newSize = [100, 100, false], $ifError = 'img')
     {
         try {
             $realPathFile = $this->fs->realPath($uri);
@@ -80,17 +80,20 @@ class ImageMagick
             $imagick->setImageFormat('jpg');
             return $imagick->getImageBlob();
         } catch (\Exception $e) {
-            $image = new \Imagick();
-            $image->newImage($newSize[0], $newSize[1], new \ImagickPixel('#FFFFFF'));
+            if ($ifError == 'img') {
+                $image = new \Imagick();
+                $image->newImage($newSize[0], $newSize[1], new \ImagickPixel('#FFFFFF'));
 
-            /* Черный текст */
-            $draw = new \ImagickDraw();
-            $draw->setFillColor(new \ImagickPixel('#000000'));
-            $draw->setFont('Courier');
-            $draw->setFontSize(12);
-            $image->annotateImage($draw, ($newSize[0] - 40) / 2, ($newSize[1] - 16) / 2, 0, 'Error');
-            $image->setImageFormat('jpg');
-            return $image->getImageBlob();
+                /* Черный текст */
+                $draw = new \ImagickDraw();
+                $draw->setFillColor(new \ImagickPixel('#000000'));
+                $draw->setFont('Courier');
+                $draw->setFontSize(12);
+                $image->annotateImage($draw, ($newSize[0] - 40) / 2, ($newSize[1] - 16) / 2, 0, 'Error');
+                $image->setImageFormat('jpg');
+                return $image->getImageBlob();
+            }
+            return $ifError;
         }
     }
 }
