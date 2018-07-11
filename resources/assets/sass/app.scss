@@ -25,12 +25,13 @@ body {
     height: $navH;
     position: fixed;
     margin-bottom: 2px;
+    z-index: 100;
 
     .container {
       width: auto;
     }
     .navbar-collapse {
-      background-color: #FFFFFF;
+      /* background-color: #FFFFFF; */
 
       .search {
         width: 200px;
@@ -187,11 +188,13 @@ body {
   }
   .explorer-path {
     position: fixed;
-    top: $navH + $tap;
+    top: $navH;
+    padding-top: $tap;
     width: 100%;
     height: $explorerPathH;
     padding-right: $explorerInfoW + $tap;
-
+    z-index: 100;
+    background-color: $body-bg;
     .panel {
       height: $explorerPathH;
       margin: 0;
@@ -202,6 +205,7 @@ body {
     top: $navH + $tap;
     right: 0;
     width: $explorerInfoW;
+    z-index: 101;
   }
   .explorer-items {
     padding-top: $explorerPathH - 1px;
