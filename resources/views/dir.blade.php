@@ -9,5 +9,6 @@
     <delete></delete>
     <carousel></carousel>
     <upload></upload>
+    <editor_txt></editor_txt>
 @endsection
 

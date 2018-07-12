@@ -378,3 +378,40 @@ body {
   }
 }
 
+.editor-txt {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  z-index: 1100;
+
+  td {
+    padding: 4px 10px;
+  }
+  .editor-txt-row1 {
+    height: 40px;
+  }
+  .editor-txt-row2 {
+    height: 40px;
+  }
+  .editor-txt-row3 {
+    textarea {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .editor-txt-col1 {
+    width: 136px;
+  }
+  .editor-txt-col2 {
+    width: 160px;
+  }
+  .editor-txt-col3 {
+    width: 160px;
+  }
+  .editor-txt-col4 {
+
+  }
+}
