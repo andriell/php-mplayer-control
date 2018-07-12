@@ -67,6 +67,9 @@ Route::get('/player-get-info/', 'MPlayerController@getInfo');
 Route::get('/player-command/', 'MPlayerController@command');
 Route::get('/player-all-property/', 'MPlayerController@getAllProperty');
 
+Route::get('/editor-txt-load/{uri}', 'EditorTxtController@load')->where(['uri' => '[\s\S]+']);
+Route::post('/editor-txt-save/', 'EditorTxtController@save');
+
 Auth::routes();
 Route::any('register', 'HomeController@index');
 Route::any('password/reset', 'HomeController@index');
