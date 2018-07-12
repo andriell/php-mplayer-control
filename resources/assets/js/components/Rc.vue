@@ -62,23 +62,23 @@
                     </div>
                     <div class="rc-row-color-settings" v-if="isColorSettings">
                         <div class="row">
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><label for="brightness">Яркость</label></div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><label for="brightness" v-on:click="setBrightness(0)">Яркость</label></div>
                             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9"><input id="brightness" type="range" min="-100" max="100" step="1" v-model="brightness" v-on:change="setBrightness()" /></div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><label for="contrast">Контраст</label></div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><label for="contrast" v-on:click="setContrast(0)">Контраст</label></div>
                             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9"><input id="contrast" type="range" min="-100" max="100" step="1" v-model="contrast" v-on:change="setContrast()" /></div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><label for="gamma">Гамма</label></div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><label for="gamma" v-on:click="setGamma(0)">Гамма</label></div>
                             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9"><input id="gamma" type="range" min="-100" max="100" step="1" v-model="gamma" v-on:change="setGamma()" /></div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><label for="hue">Оттенок</label></div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><label for="hue" v-on:click="setHue(0)">Оттенок</label></div>
                             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9"><input id="hue" type="range" min="-100" max="100" step="1" v-model="hue" v-on:change="setHue()" /></div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><label for="range">Насыщенность</label></div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><label for="range" v-on:click="setSaturation(0)">Насыщенность</label></div>
                             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9"><input id="range" type="range" min="-100" max="100" step="1" v-model="saturation" v-on:change="setSaturation()" /></div>
                         </div>
                     </div>
@@ -240,35 +240,50 @@
                         }
                     });
                 },
-                setBrightness: function () {
+                setBrightness: function (v) {
+                    if (typeof v !== 'undefined') {
+                        localData.brightness = v;
+                    }
                     jQuery.ajax('/player-set-brightness/' + localData.brightness, {
                         success: function (data) {
                             localData.update();
                         }
                     });
                 },
-                setContrast: function () {
+                setContrast: function (v) {
+                    if (typeof v !== 'undefined') {
+                        localData.contrast = v;
+                    }
                     jQuery.ajax('/player-set-contrast/' + localData.contrast, {
                         success: function (data) {
                             localData.update();
                         }
                     });
                 },
-                setGamma: function () {
+                setGamma: function (v) {
+                    if (typeof v !== 'undefined') {
+                        localData.gamma = v;
+                    }
                     jQuery.ajax('/player-set-gamma/' + localData.gamma, {
                         success: function (data) {
                             localData.update();
                         }
                     });
                 },
-                setHue: function () {
+                setHue: function (v) {
+                    if (typeof v !== 'undefined') {
+                        localData.hue = v;
+                    }
                     jQuery.ajax('/player-set-hue/' + localData.hue, {
                         success: function (data) {
                             localData.update();
                         }
                     });
                 },
-                setSaturation: function () {
+                setSaturation: function (v) {
+                    if (typeof v !== 'undefined') {
+                        localData.saturation = v;
+                    }
                     jQuery.ajax('/player-set-saturation/' + localData.saturation, {
                         success: function (data) {
                             localData.update();
