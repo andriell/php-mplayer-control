@@ -236,11 +236,11 @@ body {
       text-transform: uppercase;
     }
     .text {
-       display: block;
-       text-align: center;
-       font-size: 12px;
-       color: #000000;
-       font-family: Arial, sans-serif;
+      display: block;
+      text-align: center;
+      font-size: 12px;
+      color: #000000;
+      font-family: Arial, sans-serif;
     }
   }
   .explorer-item.is_link .text {
@@ -273,17 +273,25 @@ body {
   .row {
     padding: 5px;
   }
-  .rc-row-play button {
-    font-size: 35px;
-    line-height: 35px;
-  }
-  .rc-row-play button.btn-big {
-    font-size: 70px;
-    line-height: 70px;
-    margin: 0 15px;
-  }
-  .rc-row-play div {
-    text-align: center;
+  .rc-row-play {
+    button {
+      font-size: 35px;
+      line-height: 35px;
+    }
+    button.btn-big {
+      font-size: 70px;
+      line-height: 70px;
+      margin: 0 15px;
+    }
+    div {
+      text-align: center;
+    }
+    .rc-btn-backward {
+      padding-right: 20px;
+    }
+    .rc-btn-forward {
+      padding-left: 20px;
+    }
   }
   .rc-btn-sound,
   .rc-btn-time {

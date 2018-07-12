@@ -9,9 +9,9 @@
                 <div class="modal-body">
                     <div class="row rc-row-play">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <button type="button" class="btn btn-default" v-on:click="stepTimePos(-30)"><span class="glyphicon glyphicon-backward"></span></button>
+                            <button type="button" class="btn btn-default rc-btn-backward" v-on:click="stepTimePos(-30)"><span class="glyphicon glyphicon-backward"></span></button>
                             <button type="button" class="btn btn-default btn-big" v-on:click="pause()"><span v-if="!paused" class="glyphicon glyphicon-pause"></span><span v-if="paused" class="glyphicon glyphicon-play"></span></button>
-                            <button type="button" class="btn btn-default" v-on:click="stepTimePos(30)"><span class="glyphicon glyphicon-forward"></span></button>
+                            <button type="button" class="btn btn-default rc-btn-forward" v-on:click="stepTimePos(30)"><span class="glyphicon glyphicon-forward"></span></button>
                         </div>
                     </div>
                     <div class="row rc-row-sound">
