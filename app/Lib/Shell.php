@@ -15,7 +15,7 @@ class Shell
         if ($log) {
             self::log($str);
         }
-        return shell_exec($str);
+        return  iconv("UTF-8","UTF-8//IGNORE", shell_exec($str));
     }
 
     static function log($str) {
