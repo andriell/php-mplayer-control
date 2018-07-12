@@ -72,10 +72,6 @@ class MPlayerController extends Controller
     public function pause()
     {
         $this->player->pause();
-        return response()->json($this->player->getInfo([
-            'pause',
-            'time_pos',
-        ]));
     }
 
     public function stepTimePos($timePos)
@@ -93,23 +89,34 @@ class MPlayerController extends Controller
         $this->player->setVolume($volume);
     }
 
-
-    public function getTimePos()
-    {
-        return response()->json($this->player->getInfo([
-            'length',
-            'time_pos',
-        ]));
-    }
-
-    public function getLastFile()
-    {
-        return response()->json($this->stackFile->getData());
-    }
-
     public function setTimePos($timePos)
     {
         $this->player->setTimePos($timePos);
+    }
+
+    public function setBrightness($p)
+    {
+        $this->player->setBrightness($p);
+    }
+
+    public function setContrast($p)
+    {
+        $this->player->setContrast($p);
+    }
+
+    public function setGamma($p)
+    {
+        $this->player->setGamma($p);
+    }
+
+    public function setHue($p)
+    {
+        $this->player->setHue($p);
+    }
+
+    public function setSaturation($p)
+    {
+        $this->player->setSaturation($p);
     }
 
     public function setMute($mute)
@@ -125,6 +132,11 @@ class MPlayerController extends Controller
     public function switchVideo()
     {
         $this->player->switchVideo();
+    }
+
+    public function switchSubtitle()
+    {
+        $this->player->switchSubtitle();
     }
 
     public function command()
@@ -146,6 +158,11 @@ class MPlayerController extends Controller
             'time_pos',
             'volume',
             'pause',
+            'brightness',
+            'contrast',
+            'gamma',
+            'hue',
+            'saturation',
         ]);
         $r['last_file'] = $this->stackFile->getData();
         return response()->json($r);

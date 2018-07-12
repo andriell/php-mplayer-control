@@ -229,6 +229,81 @@ class MPlayer
     /**
      * @param int $p
      */
+    function setBrightness($p)
+    {
+        $p = intval($p);
+        if ($p > 100) {
+            $p = 100;
+        }
+        if ($p < -100) {
+            $p = -100;
+        }
+        $this->setProperty('brightness ' . $p);
+    }
+
+    /**
+     * @param int $p
+     */
+    function setContrast($p)
+    {
+        $p = intval($p);
+        if ($p > 100) {
+            $p = 100;
+        }
+        if ($p < -100) {
+            $p = -100;
+        }
+        $this->setProperty('contrast ' . $p);
+    }
+
+    /**
+     * @param int $p
+     */
+    function setGamma($p)
+    {
+        $p = intval($p);
+        if ($p > 100) {
+            $p = 100;
+        }
+        if ($p < -100) {
+            $p = -100;
+        }
+        $this->setProperty('gamma ' . $p);
+    }
+
+    /**
+     * @param int $p
+     */
+    function setHue($p)
+    {
+        $p = intval($p);
+        if ($p > 100) {
+            $p = 100;
+        }
+        if ($p < -100) {
+            $p = -100;
+        }
+        $this->setProperty('hue ' . $p);
+    }
+
+    /**
+     * @param int $p
+     */
+    function setSaturation($p)
+    {
+        $p = intval($p);
+        if ($p > 100) {
+            $p = 100;
+        }
+        if ($p < -100) {
+            $p = -100;
+        }
+        $this->setProperty('saturation ' . $p);
+    }
+
+    /**
+     * @param int $p
+     */
     function stepTimePos($p)
     {
         $this->stepProperty('time_pos ' . intval($p));
@@ -251,4 +326,11 @@ class MPlayer
     {
         $this->command('switch_video');
     }
+
+    function switchSubtitle()
+    {
+        $this->command('sub_select');
+    }
+
+
 }

@@ -9,15 +9,16 @@
                 <div class="modal-body">
                     <div class="row rc-row-play">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <button type="button" class="btn btn-default" v-on:click="stepTimePos(-30)"><span class="glyphicon glyphicon-step-backward"></span></button>
+                            <button type="button" class="btn btn-default" v-on:click="stepTimePos(-30)"><span class="glyphicon glyphicon-backward"></span></button>
                             <button type="button" class="btn btn-default btn-big" v-on:click="pause()"><span v-if="!paused" class="glyphicon glyphicon-pause"></span><span v-if="paused" class="glyphicon glyphicon-play"></span></button>
-                            <button type="button" class="btn btn-default" v-on:click="stepTimePos(30)"><span class="glyphicon glyphicon-step-forward"></span></button>
+                            <button type="button" class="btn btn-default" v-on:click="stepTimePos(30)"><span class="glyphicon glyphicon-forward"></span></button>
                         </div>
                     </div>
                     <div class="row rc-row-button1">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <button type="button" class="btn btn-default" v-on:click="switchAudio()"><span class="glyphicon glyphicon-music"></span> Переключить звук</button>
-                            <button type="button" class="btn btn-default" v-on:click="switchVideo()"><span class="glyphicon glyphicon-facetime-video"></span> Переключить видео</button>
+                            <button type="button" class="btn btn-default" v-on:click="switchAudio()"><span class="glyphicon glyphicon-repeat"></span> <span class="glyphicon glyphicon-music"></span></button>
+                            <button type="button" class="btn btn-default" v-on:click="switchVideo()"><span class="glyphicon glyphicon-repeat"></span><span class="glyphicon glyphicon-facetime-video"></span></button>
+                            <button type="button" class="btn btn-default" v-on:click="switchSubtitle()"><span class="glyphicon glyphicon-repeat"></span><span class="glyphicon glyphicon-subtitles"></span></button>
                             <button type="button" class="btn btn-default" v-on:click="quit()"><span class="glyphicon glyphicon-off"></span></button>
                         </div>
                     </div>
@@ -43,7 +44,8 @@
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">{{ f.seconds(length) }}</div>
                     </div>
                     <div class="row rc-row-time">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><a v-on:click="showLastFiles()">Последнии файлы</a></div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><a v-on:click="showLastFiles()">Последнии файлы</a></div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><a v-on:click="showColorSettings()">Настройки изображения</a></div>
                     </div>
                     <div class="row rc-row-time rc-last-play" v-if="isLastFile">
                         <template v-for="(item, itemId) in lastFile">
@@ -55,6 +57,13 @@
                                 <button type="button" class="btn btn-default" v-on:click="playNextVideo(item.uri)"><span class="glyphicon glyphicon-step-forward"></span></button>
                             </div>
                         </template>
+                    </div>
+                    <div class="row rc-row-time rc-last-play" v-if="isColorSettings">
+                        <input type="range" min="-100" max="100" step="1" v-model="brightness" v-on:change="setBrightness()" />
+                        <input type="range" min="-100" max="100" step="1" v-model="contrast" v-on:change="setContrast()" />
+                        <input type="range" min="-100" max="100" step="1" v-model="gamma" v-on:change="setGamma()" />
+                        <input type="range" min="-100" max="100" step="1" v-model="hue" v-on:change="setHue()" />
+                        <input type="range" min="-100" max="100" step="1" v-model="saturation" v-on:change="setSaturation()" />
                     </div>
                 </div>
             </div>
@@ -72,6 +81,11 @@
                 timePosEmulation: 0,
                 timeP: 0,
                 volume: 100,
+                brightness: 0,
+                contrast: 0,
+                gamma: 0,
+                hue: 0,
+                saturation: 0,
                 mute: false,
                 run: false,
                 paused: true,
@@ -79,6 +93,7 @@
                 autoUpdate: true,
                 f: window.decorator,
                 isLastFile: false,
+                isColorSettings: false,
                 lastFile: [],
                 show: function () {
                     localData.update();
@@ -101,29 +116,20 @@
                 showLastFiles: function () {
                     localData.isLastFile = !localData.isLastFile;
                 },
+                showColorSettings: function () {
+                    localData.isColorSettings = !localData.isColorSettings;
+                },
                 pause: function () {
                     jQuery.ajax('/player-pause/', {
                         success: function (data) {
-                            if (!data.run) {
-                                return;
-                            }
-                            localData.paused = data.pause == 'yes';
-                            localData.timePos = parseFloat(data.time_pos);
-                            localData.timePosEmulation = localData.timePos;
-                            localData.timeP = Math.round((localData.timePosEmulation / localData.length) * 1000000);
-                            localData.lastUpdate = new Date().getTime();
+                            localData.update();
                         }
                     });
                 },
                 stepTimePos: function (int) {
                     jQuery.ajax('/player-step-time-pos/' + int, {
                         success: function (data) {
-                            if (localData.length <= 0) {
-                                return;
-                            }
-                            localData.timePos += int;
-                            localData.timePosEmulation = localData.timePos;
-                            localData.timeP = Math.round((localData.timePosEmulation / localData.length) * 1000000);
+                            localData.update();
                         }
                     });
                 },
@@ -142,6 +148,11 @@
                                 localData.mute = data.mute == 'yes';
                                 localData.filename = data.filename;
                                 localData.volume = parseFloat(data.volume);
+                                localData.brightness = parseInt(data.brightness);
+                                localData.contrast = parseInt(data.contrast);
+                                localData.gamma = parseInt(data.gamma);
+                                localData.hue = parseInt(data.hue);
+                                localData.saturation = parseInt(data.saturation);
                                 localData.length = parseFloat(data.length);
                                 localData.timePos = parseFloat(data.time_pos);
                                 localData.timePosEmulation = localData.timePos;
@@ -155,6 +166,11 @@
                                 localData.timePos = 0;
                                 localData.timePosEmulation = 0;
                                 localData.timeP = 0;
+                                localData.brightness = 0;
+                                localData.contrast = 0;
+                                localData.gamma = 0;
+                                localData.hue = 0;
+                                localData.saturation = 0;
                             }
                             localData.lastFile = data.last_file;
                             localData.lastUpdate = new Date().getTime();
@@ -162,40 +178,84 @@
                     });
                 },
                 setVolume: function () {
-                    jQuery.ajax('/player-set-volume/' + localData.volume);
-                },
-                setTimePos: function () {
-                    localData.autoUpdate = false;
-                    jQuery.ajax('/player-get-time-pos/', {
+                    jQuery.ajax('/player-set-volume/' + localData.volume, {
                         success: function (data) {
-                            if (!data.run) {
-                                return;
-                            }
-                            localData.length = parseFloat(data.length);
-                            localData.timePos = parseFloat(data.time_pos);
-                            localData.timePosEmulation = localData.timePos;
-                            localData.lastUpdate = new Date().getTime();
-                            var newTimePos = Math.round((localData.timeP / 1000000) * data.length);
-                            jQuery.ajax('/player-set-time-pos/' + newTimePos, {success: function (data) {
-                                localData.timePos = newTimePos;
-                                localData.timePosEmulation = localData.timePos;
-                                localData.timeP = Math.round((localData.timePosEmulation / localData.length) * 1000000);
-                                localData.lastUpdate = new Date().getTime();
-                                localData.autoUpdate = true;
-                            }});
+                            localData.update();
                         }
                     });
                 },
+                setTimePos: function () {
+                    localData.autoUpdate = false;
+                    var newTimePos = Math.round((localData.timeP / 1000000) * data.length);
+                    jQuery.ajax('/player-set-time-pos/' + newTimePos, {success: function (data) {
+                        localData.update();
+                        localData.autoUpdate = true;
+                    }});
+                },
                 switchMute: function () {
                     localData.mute = !localData.mute;
-                    jQuery.ajax('/player-set-mute/' + (localData.mute ? 't' : 'f'));
+                    jQuery.ajax('/player-set-mute/' + (localData.mute ? 't' : 'f'), {
+                        success: function (data) {
+                            localData.update();
+                        }
+                    });
                 },
                 switchAudio: function () {
-                    jQuery.ajax('/player-switch-audio/');
+                    jQuery.ajax('/player-switch-audio/', {
+                        success: function (data) {
+                            localData.update();
+                        }
+                    });
                 },
                 switchVideo: function () {
-                    jQuery.ajax('/player-switch-video/');
-                }
+                    jQuery.ajax('/player-switch-video/', {
+                        success: function (data) {
+                            localData.update();
+                        }
+                    });
+                },
+                switchSubtitle: function () {
+                    jQuery.ajax('/player-switch-subtitle/', {
+                        success: function (data) {
+                            localData.update();
+                        }
+                    });
+                },
+                setBrightness: function () {
+                    jQuery.ajax('/player-set-brightness/' + localData.brightness, {
+                        success: function (data) {
+                            localData.update();
+                        }
+                    });
+                },
+                setContrast: function () {
+                    jQuery.ajax('/player-set-contrast/' + localData.contrast, {
+                        success: function (data) {
+                            localData.update();
+                        }
+                    });
+                },
+                setGamma: function () {
+                    jQuery.ajax('/player-set-gamma/' + localData.gamma, {
+                        success: function (data) {
+                            localData.update();
+                        }
+                    });
+                },
+                setHue: function () {
+                    jQuery.ajax('/player-set-hue/' + localData.hue, {
+                        success: function (data) {
+                            localData.update();
+                        }
+                    });
+                },
+                setSaturation: function () {
+                    jQuery.ajax('/player-set-saturation/' + localData.saturation, {
+                        success: function (data) {
+                            localData.update();
+                        }
+                    });
+                },
             };
             setInterval(function() {
                 if (localData.paused || !localData.autoUpdate) {
