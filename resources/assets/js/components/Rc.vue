@@ -14,14 +14,6 @@
                             <button type="button" class="btn btn-default" v-on:click="stepTimePos(30)"><span class="glyphicon glyphicon-forward"></span></button>
                         </div>
                     </div>
-                    <div class="row rc-row-button1">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <button type="button" class="btn btn-default" v-on:click="switchAudio()"><span class="glyphicon glyphicon-repeat"></span> <span class="glyphicon glyphicon-music"></span></button>
-                            <button type="button" class="btn btn-default" v-on:click="switchVideo()"><span class="glyphicon glyphicon-repeat"></span><span class="glyphicon glyphicon-facetime-video"></span></button>
-                            <button type="button" class="btn btn-default" v-on:click="switchSubtitle()"><span class="glyphicon glyphicon-repeat"></span><span class="glyphicon glyphicon-subtitles"></span></button>
-                            <button type="button" class="btn btn-default" v-on:click="quit()"><span class="glyphicon glyphicon-off"></span></button>
-                        </div>
-                    </div>
                     <div class="row rc-row-sound">
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                             <button type="button" class="btn btn-default rc-btn-sound" v-on:click="switchMute()">
@@ -34,20 +26,30 @@
                             <input type="range" min="0" max="100" step="1" v-model="volume" v-on:change="setVolume()" />
                         </div>
                     </div>
-                    <div class="row rc-row-time">
+                    <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <input type="range" min="0" max="1000000" step="1" v-model="timeP" v-on:change="setTimePos()" />
                         </div>
                     </div>
-                    <div class="row rc-row-time">
+                    <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">{{ f.seconds(timePosEmulation) }}</div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">{{ f.seconds(length) }}</div>
                     </div>
-                    <div class="row rc-row-time">
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><a v-on:click="showLastFiles()">Последнии файлы</a></div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><a v-on:click="showColorSettings()">Настройки изображения</a></div>
+                    <div class="row rc-row-button1">
+                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                            <button type="button" class="btn btn-default" v-on:click="switchAudio()"><span class="glyphicon glyphicon-repeat"></span> <span class="glyphicon glyphicon-music"></span></button>
+                            <button type="button" class="btn btn-default" v-on:click="switchVideo()"><span class="glyphicon glyphicon-repeat"></span> <span class="glyphicon glyphicon-facetime-video"></span></button>
+                            <button type="button" class="btn btn-default" v-on:click="switchSubtitle()"><span class="glyphicon glyphicon-repeat"></span> <span class="glyphicon glyphicon-subtitles"></span></button>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                            <button type="button" class="btn btn-default" v-on:click="quit()"><span class="glyphicon glyphicon-off"></span></button>
+                        </div>
                     </div>
-                    <div class="row rc-row-time rc-last-play" v-if="isLastFile">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><a v-on:click="showLastFiles()">Последнии файлы</a></div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-color-settings"><a v-on:click="showColorSettings()">Настройки изображения</a></div>
+                    </div>
+                    <div class="row rc-last-play" v-if="isLastFile">
                         <template v-for="(item, itemId) in lastFile">
                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 rc-last-play-name">
                                 {{ item.name }}
@@ -58,12 +60,27 @@
                             </div>
                         </template>
                     </div>
-                    <div class="row rc-row-time rc-last-play" v-if="isColorSettings">
-                        <input type="range" min="-100" max="100" step="1" v-model="brightness" v-on:change="setBrightness()" />
-                        <input type="range" min="-100" max="100" step="1" v-model="contrast" v-on:change="setContrast()" />
-                        <input type="range" min="-100" max="100" step="1" v-model="gamma" v-on:change="setGamma()" />
-                        <input type="range" min="-100" max="100" step="1" v-model="hue" v-on:change="setHue()" />
-                        <input type="range" min="-100" max="100" step="1" v-model="saturation" v-on:change="setSaturation()" />
+                    <div class="rc-row-color-settings" v-if="isColorSettings">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><label for="brightness">Яркость</label></div>
+                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9"><input id="brightness" type="range" min="-100" max="100" step="1" v-model="brightness" v-on:change="setBrightness()" /></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><label for="contrast">Контраст</label></div>
+                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9"><input id="contrast" type="range" min="-100" max="100" step="1" v-model="contrast" v-on:change="setContrast()" /></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><label for="gamma">Гамма</label></div>
+                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9"><input id="gamma" type="range" min="-100" max="100" step="1" v-model="gamma" v-on:change="setGamma()" /></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><label for="hue">Оттенок</label></div>
+                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9"><input id="hue" type="range" min="-100" max="100" step="1" v-model="hue" v-on:change="setHue()" /></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><label for="range">Насыщенность</label></div>
+                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9"><input id="range" type="range" min="-100" max="100" step="1" v-model="saturation" v-on:change="setSaturation()" /></div>
+                        </div>
                     </div>
                 </div>
             </div>
