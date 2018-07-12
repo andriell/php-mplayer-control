@@ -203,11 +203,13 @@
                 },
                 setTimePos: function () {
                     localData.autoUpdate = false;
-                    var newTimePos = Math.round((localData.timeP / 1000000) * data.length);
-                    jQuery.ajax('/player-set-time-pos/' + newTimePos, {success: function (data) {
-                        localData.update();
-                        localData.autoUpdate = true;
-                    }});
+                    var newTimePos = Math.round((localData.timeP / 1000000) * localData.length);
+                    jQuery.ajax('/player-set-time-pos/' + newTimePos, {
+                        success: function (data) {
+                            localData.update();
+                            localData.autoUpdate = true;
+                        }
+                    });
                 },
                 switchMute: function () {
                     localData.mute = !localData.mute;
