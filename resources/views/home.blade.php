@@ -10,18 +10,18 @@
                 <div class="panel-body">
                     Диск: {{ $disc_used_f }} / {{ $disc_total_f }}
                     <div class="progress">
-                        <div class="progress-bar" style="width: {{ $disc_p }}%;"></div>
+                        <div class="progress-bar" style="width: {{ $disc_p }}%;">{{ $disc_p }}%</div>
                     </div>
 
                     Системный диск: {{ $system_used_f }} / {{ $system_total_f }}
                     <div class="progress">
-                        <div class="progress-bar" style="width: {{ $system_p }}%;"></div>
+                        <div class="progress-bar" style="width: {{ $system_p }}%;">{{ $system_p }}%</div>
                     </div>
 
                     @if ($yandex_total)
                         Яндекс диск: {{ $yandex_used_f }} / {{ $yandex_total_f }}
                         <div class="progress">
-                            <div class="progress-bar" style="width: {{ $yandex_p }}%;"></div>
+                            <div class="progress-bar" style="width: {{ $yandex_p }}%;">{{ $yandex_p }}%</div>
                         </div>
                     @endif
                 </div>
