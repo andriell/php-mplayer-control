@@ -41,7 +41,7 @@ class EditorTxtController extends Controller
         $data = '';
         if (is_file($file)) {
             $data = file_get_contents($file);
-            $data = iconv($charsetIn, 'UTF-8//IGNORE', $data);
+            $data = iconv($charsetIn, 'UTF-8', $data);
         }
         return response($data, 200)
             ->header('Content-Type', 'text/plain');
