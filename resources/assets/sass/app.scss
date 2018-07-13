@@ -425,6 +425,17 @@ body {
 }
 
 .navbar-collapse {
-  background-color: #ffffff;
   position: relative;
+  background: none;
+}
+
+@media (max-width: $screen-sm) {
+  .navbar-collapse {
+    background: #ffffff;
+  }
+}
+
+.navbar-header {
+  position: relative;
+  z-index: 1;
 }
