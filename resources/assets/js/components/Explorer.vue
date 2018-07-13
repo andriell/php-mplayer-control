@@ -42,10 +42,21 @@
                                     {{ item.name }}
                                 </a>
                             </template>
+                            <template v-else-if="item.type == 'movie'">
+                                <div class="explorer-img-box">
+                                    <span class="ext">{{ item.ext }}</span>
+                                    <img src="/img/file_movie.png"><br>
+                                </div>
+                                <a>
+                                    <a class="text" v-on:click="playVideo(item.uri)">
+                                        {{ item.name }}
+                                    </a>
+                                </a>
+                            </template>
                             <template v-else-if="item.type == 'text'">
                                 <div class="explorer-img-box">
                                     <span class="ext">{{ item.ext }}</span>
-                                    <img src="/img/file0.png"><br>
+                                    <img src="/img/file_txt.png"><br>
                                 </div>
                                 <a>
                                     <a class="text" v-on:click="editorTxt(item.uri)">
@@ -86,7 +97,7 @@
                                         <p>Размер: {{bytesToSize(item.size)}}</p>
                                         <p>Изменен: {{f.date(item.date)}}</p>
                                         <p>Права: {{item.perms}}</p>
-                                        <a class="list-group-item" v-on:click="playVideo()"
+                                        <a class="list-group-item" v-on:click="playVideo(item.uri)"
                                            v-if="item.type == 'movie'">
                                             <span class="glyphicon glyphicon-film"></span>&nbsp;&nbsp;Воспроизвести
                                         </a>
@@ -184,8 +195,8 @@
                     window.location.href = '/dir-download/' + localData.itemsChecked[0].uri;
                     return false;
                 },
-                playVideo: function () {
-                    window.appData.rc.playVideo(localData.itemsChecked[0].uri);
+                playVideo: function (uri) {
+                    window.appData.rc.playVideo(uri);
                 },
                 checkeAll: function() {
                     localData.itemsChecked = localData.items;
