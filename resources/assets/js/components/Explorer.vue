@@ -42,6 +42,17 @@
                                     {{ item.name }}
                                 </a>
                             </template>
+                            <template v-else-if="item.type == 'text'">
+                                <div class="explorer-img-box">
+                                    <span class="ext">{{ item.ext }}</span>
+                                    <img src="/img/file0.png"><br>
+                                </div>
+                                <a>
+                                    <a class="text" v-on:click="editorTxt(item.uri)">
+                                        {{ item.name }}
+                                    </a>
+                                </a>
+                            </template>
                             <template v-else>
                                 <div class="explorer-img-box">
                                     <span class="ext">{{ item.ext }}</span>
@@ -84,7 +95,7 @@
                                         </a>
                                         <a class="list-group-item" v-on:click="fileRename()"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Переименовать</a>
                                         <a class="list-group-item" v-on:click="download()"><span class="glyphicon glyphicon-download-alt"></span>&nbsp;&nbsp;Скачать</a>
-                                        <a v-if="item.type == 'text'" class="list-group-item" v-on:click="editorTxt()"><span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;Править</a>
+                                        <a v-if="item.type == 'text'" class="list-group-item" v-on:click="editorTxt(item.uri)"><span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;Править</a>
                                     </template>
                                 </template>
                                 <a class="list-group-item" v-on:click="fileCopy()"><span class="glyphicon glyphicon-arrow-right"></span>&nbsp;&nbsp;Переместить</a>
@@ -182,11 +193,8 @@
                 unchecked: function() {
                     localData.itemsChecked = [];
                 },
-                editorTxt: function () {
-                    var item = localData.itemsChecked[0];
-                    window.appData.editorTxt.file = item.name;
-                    window.appData.editorTxt.dir = item.dir;
-                    window.appData.editorTxt.show();
+                editorTxt: function (uri) {
+                    window.appData.editorTxt.show(uri);
                 },
                 fileRename: function() {
                     if (localData.itemsChecked.length != 1) {

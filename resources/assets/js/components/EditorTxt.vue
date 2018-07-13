@@ -51,7 +51,7 @@
             </td>
         </tr>
         <tr class="editor-txt-row2">
-            <td>{{dir}}/{{file}} <span class="text-info">{{message}}</span> <span class="text-danger">{{error}}</span></td>
+            <td>{{uri}} <span class="text-info">{{message}}</span> <span class="text-danger">{{error}}</span></td>
         </tr>
         <tr class="editor-txt-row3">
             <td>
@@ -66,8 +66,7 @@
         data: function () {
             var localData = window.appData.editorTxt = {
                 run: false,
-                file: '',
-                dir: '',
+                uri: '',
                 charsetIn: 'UTF-8',
                 charsetOut: 'UTF-8',
                 nlList: {
@@ -99,8 +98,9 @@
                 setNl: function (v) {
                     localData.nl = v;
                 },
-                show: function () {
+                show: function (uri) {
                     localData.run = true;
+                    localData.uri = uri;
                     localData.load();
                 },
                 hide: function () {
@@ -108,8 +108,7 @@
                 },
                 load: function () {
                     localData.showMessage('Загрузка');
-                    var uri = localData.dir + '/' + localData.file;
-                    jQuery.ajax('/editor-txt-load/' + uri, {
+                    jQuery.ajax('/editor-txt-load/' + localData.uri, {
                         data: {
                             charset_in: localData.charsetIn
                         },
@@ -124,9 +123,8 @@
                     });
                 },
                 save: function () {
-                    var uri = localData.dir + '/' + localData.file;
                     localData.showMessage('Сохраняю');
-                    jQuery.ajax('/editor-txt-save/' + uri, {
+                    jQuery.ajax('/editor-txt-save/' + localData.uri, {
                         method: 'POST',
                         data: {
                             charset_out: localData.charsetOut,
