@@ -25,7 +25,7 @@ body {
     height: $navH;
     position: fixed;
     margin-bottom: 2px;
-    z-index: 100;
+    z-index: 4;
 
     .container {
       width: auto;
@@ -193,7 +193,7 @@ body {
     width: 100%;
     height: $explorerPathH;
     padding-right: $explorerInfoW + $tap;
-    z-index: 100;
+    z-index: 2;
     background-color: $body-bg;
     .panel {
       height: $explorerPathH;
@@ -205,7 +205,7 @@ body {
     top: $navH + $tap;
     right: 0;
     width: $explorerInfoW;
-    z-index: 101;
+    z-index: 3;
   }
   .explorer-items {
     padding-top: $explorerPathH - 1px;
@@ -385,7 +385,8 @@ body {
   width: 100%;
   height: 100%;
   background: #ffffff;
-  z-index: 1100;
+  z-index: 5;
+  min-width: 560px;
 
   td {
     padding: 4px 10px;
@@ -403,6 +404,7 @@ body {
     textarea {
       width: 100%;
       height: 100%;
+      border: 1px solid #b1bbbf;
     }
   }
   .editor-txt-col1 {
@@ -420,4 +422,9 @@ body {
   .editor-txt-col5 {
     text-align: right;
   }
+}
+
+.navbar-collapse {
+  background-color: #ffffff;
+  position: relative;
 }
