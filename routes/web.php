@@ -68,7 +68,7 @@ Route::get('/player-command/', 'MPlayerController@command');
 Route::get('/player-all-property/', 'MPlayerController@getAllProperty');
 
 Route::get('/editor-txt-load/{uri}', 'EditorTxtController@load')->where(['uri' => '[\s\S]+']);
-Route::post('/editor-txt-save/', 'EditorTxtController@save');
+Route::post('/editor-txt-save/{uri}', 'EditorTxtController@save')->where(['uri' => '[\s\S]+']);
 
 Auth::routes();
 Route::any('register', 'HomeController@index');
