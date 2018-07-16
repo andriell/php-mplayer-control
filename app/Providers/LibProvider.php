@@ -15,7 +15,7 @@ use App\Lib\FileSystemOverride;
 use App\Lib\Image;
 use App\Lib\ImageMagick;
 use App\Lib\MPlayer;
-use App\Lib\StackFile;
+use App\Lib\PlaylistByDir;
 use App\Lib\Transmission\RPC;
 use App\Lib\XBoTool;
 use Illuminate\Support\ServiceProvider;
@@ -54,9 +54,9 @@ class LibProvider extends ServiceProvider
             /** @var $app \Illuminate\Foundation\Application */
             return new MPlayer($app->make(FileSystem::class));
         });
-        $this->app->singleton(StackFile::class, function ($app) {
+        $this->app->singleton(PlaylistByDir::class, function ($app) {
             /** @var $app \Illuminate\Foundation\Application */
-            return new StackFile($app->make(FileSystem::class), storage_path('last_files.json'));
+            return new PlaylistByDir($app->make(FileSystem::class), storage_path('playlist.json'));
         });
         $this->app->singleton(XBoTool::class, function ($app) {
             /** @var $app \Illuminate\Foundation\Application */

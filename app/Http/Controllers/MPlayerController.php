@@ -11,7 +11,7 @@ namespace App\Http\Controllers;
 
 use App\Lib\FileSystem;
 use App\Lib\MPlayer;
-use App\Lib\StackFile;
+use App\Lib\PlaylistByDir;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 
@@ -21,20 +21,20 @@ class MPlayerController extends Controller
     private $fs;
     /** @var MPlayer */
     private $player;
-    /** @var StackFile */
-    private $stackFile;
+    /** @var PlaylistByDir */
+    private $playlistByDir;
 
     /**
      * DirController constructor.
      * @param FileSystem $fs
      * @param MPlayer $player
-     * @param StackFile $stackFile
+     * @param PlaylistByDir $playlistByDir
      */
-    public function __construct(FileSystem $fs, MPlayer $player, StackFile $stackFile)
+    public function __construct(FileSystem $fs, MPlayer $player, PlaylistByDir $playlistByDir)
     {
         $this->fs = $fs;
         $this->player = $player;
-        $this->stackFile = $stackFile;
+        $this->playlistByDir = $playlistByDir;
         $this->middleware('auth');
     }
 
@@ -47,9 +47,9 @@ class MPlayerController extends Controller
 
     public function playVideo($uri)
     {
-        $this->stackFile->add($uri);
+        $this->playlistByDir->add($uri);
         $this->player->playVideo($uri);
-        $this->stackFile->save();
+        $this->playlistByDir->save();
     }
 
     public function playNextVideo($uri)
@@ -164,7 +164,7 @@ class MPlayerController extends Controller
             'hue',
             'saturation',
         ]);
-        $r['last_file'] = $this->stackFile->getData();
+        $r['last_file'] = $this->playlistByDir->getData();
         return response()->json($r);
     }
 }
