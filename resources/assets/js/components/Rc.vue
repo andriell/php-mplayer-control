@@ -51,13 +51,19 @@
                     </div>
                     <div class="row rc-last-play" v-if="isLastFile">
                         <template v-for="(item, itemId) in lastFile">
-                            <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 rc-last-play-name">
-                                {{ item.name }}
-                            </div>
-                            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 rc-last-play-buttons">
-                                <button type="button" class="btn btn-default" v-on:click="playVideo(item.uri)"><span class="glyphicon glyphicon-play"></span></button>
-                                <button type="button" class="btn btn-default" v-on:click="playNextVideo(item.uri)"><span class="glyphicon glyphicon-step-forward"></span></button>
-                                <button type="button" class="btn btn-default" v-on:click="rmVideo(item.uri)"><span class="glyphicon glyphicon glyphicon-remove"></span></button>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="dropdown">
+                                    <button class="btn btn-link dropdown-toggle rc-last-play-name" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        {{ item.name }}
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                        <li><a v-on:click="playPrevVideo(item.uri)"><span class="glyphicon glyphicon-step-backward"></span> Предыдущий</a></li>
+                                        <li><a v-on:click="playVideo(item.uri)"><span class="glyphicon glyphicon-play"></span> Воспроизвести</a></li>
+                                        <li><a v-on:click="playNextVideo(item.uri)"><span class="glyphicon glyphicon-step-forward"></span> Следующий</a></li>
+                                        <li><a v-on:click="rmVideo(item.uri)"><span class="glyphicon glyphicon glyphicon-remove"></span> Удалить</a></li>
+                                    </ul>
+                                </div>
                             </div>
                         </template>
                     </div>
@@ -119,6 +125,13 @@
                 },
                 playVideo: function (uri) {
                     jQuery.ajax('/player-play-video/' + uri, {
+                        success: function (data) {
+                            localData.show();
+                        }
+                    });
+                },
+                playPrevVideo: function (uri) {
+                    jQuery.ajax('/player-play-prev-video/' + uri, {
                         success: function (data) {
                             localData.show();
                         }

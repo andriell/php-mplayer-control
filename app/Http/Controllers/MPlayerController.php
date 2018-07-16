@@ -52,6 +52,23 @@ class MPlayerController extends Controller
         $this->playlistByDir->save();
     }
 
+    public function playPrevVideo($uri)
+    {
+        $fileName = basename($this->fs->realPath($uri));
+        $baseUri = substr($uri, 0, strlen($uri) - strlen($fileName));
+        $list = $this->fs->readDir($baseUri, ['type' => ['movie']], ['name']);
+        $prevUri = false;
+        foreach ($list['items'] as $row) {
+            if ($row['name'] == $fileName) {
+                break;
+            }
+            $prevUri = $row['name'];
+        }
+        if ($prevUri) {
+            $this->playVideo($baseUri . $prevUri);
+        }
+    }
+
     public function playNextVideo($uri)
     {
         $fileName = basename($this->fs->realPath($uri));
