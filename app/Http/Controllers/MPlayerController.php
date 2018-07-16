@@ -69,6 +69,12 @@ class MPlayerController extends Controller
         }
     }
 
+    public function rmVideo($uri)
+    {
+        $this->playlistByDir->rm($uri);
+        $this->playlistByDir->save();
+    }
+
     public function pause()
     {
         $this->player->pause();

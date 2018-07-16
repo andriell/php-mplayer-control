@@ -36,7 +36,7 @@ class PlaylistByDir
 
     private function parseUri($uri) {
         $uri = $this->fs->normalizeUri($uri);
-        $i = strrpos($uri, '\\');
+        $i = strrpos($uri, '/');
         $r = ['dir' => '/', 'name' => $uri];
         if ($i !== false) {
             $r['name'] = substr($uri, $i + 1);
