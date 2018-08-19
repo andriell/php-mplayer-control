@@ -11,7 +11,7 @@
 Для установки минимального десктопа, без которого не будет работать Mplayer необходимо:
 1. Установить CentOS-7 - Minimal
 2. yum groupinstall "X11"
-3. yum install gnome-classic-session gnome-terminal nautilus-open-terminal control-center liberation-mono-fonts
+3. yum install gnome-classic-session gnome-terminal nautilus-open-terminal control-center liberation-mono-fonts urw-fonts
 4. unlink /etc/systemd/system/default.target
 5. ln -sf /lib/systemd/system/graphical.target /etc/systemd/system/default.target
 6. reboot
