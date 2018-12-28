@@ -45,17 +45,18 @@
 1. nano /etc/nginx/nginx.conf
 2. Удаляем коментарии из секции Settings for a TLS enabled server.
 3. mkdir /etc/pki/nginx/
-   mkdir /etc/pki/nginx/private/
-4. cd /etc/pki/nginx/
-5. openssl genrsa -out server.key 2048
-6. openssl req -new -sha256 -key private.key -out server.crt
-7. mv server.key private/server.key
-8. chown nginx:nginx /etc/pki/nginx/
-   chown nginx:nginx /etc/pki/nginx/*
-   
-nano /etc/php-fpm.d/www.conf
-listen = /run/php-fpm/www.sock
-listen.acl_users = nginx
+4. mkdir /etc/pki/nginx/private/
+5. cd /etc/pki/nginx/
+6. openssl genrsa -out server.key 2048
+7. openssl req -new -sha256 -key server.key -out server.crt
+8. mv server.key private/server.key
+9. chown nginx:nginx /etc/pki/nginx/
+10. chown nginx:nginx /etc/pki/nginx/* -R
+11. nano /etc/php-fpm.d/www.conf
+
+    listen = /run/php-fpm/www.sock
+
+    listen.acl_users = nginx
 
 
 ### Установка торрент клиента Transmission
