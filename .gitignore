@@ -8,6 +8,8 @@
 artisan.bat
 composer.bat
 composer.phar
+deploy_servers.php
+deployer.phar
 phpunit.phar
 Homestead.json
 Homestead.yaml

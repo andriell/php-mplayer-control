@@ -63,7 +63,7 @@ server {
     listen       80 default_server;
     listen       [::]:80 default_server;
     server_name  _;
-    root         /srv/www/nas/public;
+    root         /srv/www/mediacenter/current/public;
     index  index.php index.html index.htm;
     
     # Load configuration files for the default server block.
@@ -90,8 +90,8 @@ server {
 4. chown mediacenter:mediacenter /var/lib/nginx -R
 5. chown mediacenter:mediacenter /var/log/nginx -R
 6. chown mediacenter:mediacenter /usr/share/nginx -R
-7. mkdir /srv/www/nas/public -p
-6. chown mediacenter:mediacenter /srv/www/nas -R
+7. mkdir /srv/www/mediacenter/current/public -p
+6. chown mediacenter:mediacenter /srv/www/mediacenter -R
 
 
 ### Настраиваем PHP
@@ -111,6 +111,15 @@ listen.acl_groups = mediacenter
 4. chown mediacenter:mediacenter /var/lib/php -R
 5. systemctl start php-fpm
 6. systemctl start nginx
+
+### Перенести код
+1. yum install git
+2. yum install npm
+3. su - mediacenter
+4. cd /srv/www/mediacenter/current
+5. git clone https://github.com/andriell/php-mplayer-control .
+6. npm install
+7. npm run production
 
 ### Устанавливаем медиаплеер
 1. yum -y install http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm
