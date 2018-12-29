@@ -12,8 +12,8 @@ set('writable_chmod_mode', '0777');
 set('repository', 'https://github.com/andriell/php-mplayer-control');
 set('composer_options', '{{composer_action}} --verbose --prefer-dist --no-progress --no-interaction --optimize-autoloader');
 
-add('writable_dirs', [
-    'config/local',
+add('shared_files', [
+    'config/local/users.php'
 ]);
 
 after('deploy:failed', 'deploy:unlock');
