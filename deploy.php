@@ -15,6 +15,9 @@ set('composer_options', '{{composer_action}} --verbose --prefer-dist --no-progre
 add('shared_files', [
     'config/local/users.php'
 ]);
+add('shared_dirs', [
+    'node_modules'
+]);
 
 after('deploy:failed', 'deploy:unlock');
 
