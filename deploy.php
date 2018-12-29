@@ -30,6 +30,6 @@ task('npm:build', function () {
     run('cd {{release_path}} && npm install');
     run('cd {{release_path}} && npm run production');
 });
-after('deploy:writable', 'npm:build');
+after('deploy:vendors', 'npm:build');
 
 include('deploy_servers.php');
