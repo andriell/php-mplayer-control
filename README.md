@@ -113,8 +113,8 @@ listen.acl_groups = mediacenter
 6. systemctl start nginx
 
 ### Перенести код
-1. yum install git
-2. yum install npm
+1. yum install git npm
+2. npm install --global gulp
 3. su - mediacenter
 4. cd /srv/www/mediacenter/current
 5. git clone https://github.com/andriell/php-mplayer-control .
