@@ -14,9 +14,14 @@ set('composer_options', '{{composer_action}} --verbose --prefer-dist --no-progre
 
 after('deploy:failed', 'deploy:unlock');
 
+after('deploy:release', 'deploy:release_path');
+task('deploy:release_path', function () {
+    writeln('Release path: {{release_path}}');
+});
+
 task('npm:build', function () {
-    run('npm install');
-    run('npm run production');
+    run('cd {{release_path}} && npm install');
+    run('cd {{release_path}} && npm run production');
 });
 after('deploy:writable', 'npm:build');
 
