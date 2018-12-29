@@ -12,7 +12,7 @@ window.appData = {
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./decorator');
+window.decorator = require('./decorator');
 require('./bootstrap');
 
 require('jquery-lazyload');
