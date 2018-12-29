@@ -41,23 +41,91 @@
 10. systemctl enable php-fpm
 11. systemctl enable nginx
 
-### Настраиваем nginx
+### Создаем нового пользователя - mediacenter
+1. adduser mediacenter
+2. passwd mediacenter
+3. su - mediacenter
+4. cd ~
+5. mkdir .ssh
+6. chmod 0700 .ssh
+7. cd .ssh/
+8. echo 'ssh-rsa AAAAB3N... Xw== rsa-key-20180214' >> authorized_keys
+9. chmod 0600 authorized_keys
+
+
+### Настраиваем Nginx
+1. systemctl stop nginx
+2. nano /etc/nginx/nginx.conf
+
+
+    user mediacenter mediacenter;
+    ***
+    server {
+        listen       80 default_server;
+        listen       [::]:80 default_server;
+        server_name  _;
+        root         /srv/www/nas/public;
+        index  index.php index.html index.htm;
+        
+        # Load configuration files for the default server block.
+        include /etc/nginx/default.d/*.conf;
+        
+        location / {
+            try_files $uri $uri/ /index.php?$args;
+        }
+        
+        location ~ \.php$ {
+            try_files $uri =404;
+            fastcgi_index  index.php;
+            fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+            fastcgi_pass unix:/run/php-fpm/www.sock;
+            include fastcgi_params;
+        }
+        
+        location ~ /\.(ht|svn|git|idea) {
+        deny all;
+        }
+    }
+3. chown mediacenter:mediacenter /etc/pki/nginx -R
+4. chown mediacenter:mediacenter /var/lib/nginx -R
+5. chown mediacenter:mediacenter /var/log/nginx -R
+6. chown mediacenter:mediacenter /usr/share/nginx -R
+7. mkdir /srv/www/nas/public -p
+6. chown mediacenter:mediacenter /srv/www/nas -R
+
+
+### Настраиваем PHP
+1. systemctl stop php-fpm
+2. nano /etc/php-fpm.d/www.conf
+
+
+    user = mediacenter
+    group = mediacenter
+    listen = /run/php-fpm/www.sock
+    listen.owner = mediacenter
+    listen.group = mediacenter
+    listen.mode = 0777
+    listen.acl_users = mediacenter
+    listen.acl_groups = mediacenter
+    
+3. chown mediacenter:mediacenter /var/log/php-fpm -R
+4. chown mediacenter:mediacenter /var/lib/php -R
+5. systemctl start php-fpm
+6. systemctl start nginx
+
+### Устанавливаем медиаплеер
+1. yum -y install http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm
+2. yum install mplayer eom xdotool
+
+### Настраиваем HTTPS в Nginx (Не обязательно)
 1. nano /etc/nginx/nginx.conf
 2. Удаляем коментарии из секции Settings for a TLS enabled server.
-3. mkdir /etc/pki/nginx/
-4. mkdir /etc/pki/nginx/private/
-5. cd /etc/pki/nginx/
-6. openssl genrsa -out server.key 2048
-7. openssl req -new -sha256 -key server.key -out server.crt
-8. mv server.key private/server.key
-9. chown nginx:nginx /etc/pki/nginx/
-10. chown nginx:nginx /etc/pki/nginx/* -R
-11. nano /etc/php-fpm.d/www.conf
-
-    listen = /run/php-fpm/www.sock
-
-    listen.acl_users = nginx
-
+3. mkdir /etc/pki/nginx/private/ -p
+4. cd /etc/pki/nginx/
+5. openssl genrsa -out server.key 2048
+6. openssl req -new -sha256 -key server.key -out server.crt
+7. mv server.key private/server.key
+8. chown mediacenter:mediacenter /etc/pki/nginx -R
 
 ### Установка торрент клиента Transmission
 1. yum install transmission-cli transmission-daemon
@@ -74,10 +142,6 @@
     "rpc-whitelist": "0.0.0.0",
 5. systemctl start transmission-daemon.service
 6. systemctl enable transmission-daemon.service
-
-### Устанавливаем медиаплеер
-1. yum -y install http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm
-2. yum install mplayer eom xdotool
 
 ### Установка samba
 1. yum install samba
