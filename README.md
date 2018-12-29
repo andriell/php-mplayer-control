@@ -56,36 +56,36 @@
 ### Настраиваем Nginx
 1. systemctl stop nginx
 2. nano /etc/nginx/nginx.conf
-
-
-    user mediacenter mediacenter;
-    ***
-    server {
-        listen       80 default_server;
-        listen       [::]:80 default_server;
-        server_name  _;
-        root         /srv/www/nas/public;
-        index  index.php index.html index.htm;
-        
-        # Load configuration files for the default server block.
-        include /etc/nginx/default.d/*.conf;
-        
-        location / {
-            try_files $uri $uri/ /index.php?$args;
-        }
-        
-        location ~ \.php$ {
-            try_files $uri =404;
-            fastcgi_index  index.php;
-            fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
-            fastcgi_pass unix:/run/php-fpm/www.sock;
-            include fastcgi_params;
-        }
-        
-        location ~ /\.(ht|svn|git|idea) {
-        deny all;
-        }
+```
+user mediacenter mediacenter;
+***
+server {
+    listen       80 default_server;
+    listen       [::]:80 default_server;
+    server_name  _;
+    root         /srv/www/nas/public;
+    index  index.php index.html index.htm;
+    
+    # Load configuration files for the default server block.
+    include /etc/nginx/default.d/*.conf;
+    
+    location / {
+        try_files $uri $uri/ /index.php?$args;
     }
+    
+    location ~ \.php$ {
+        try_files $uri =404;
+        fastcgi_index  index.php;
+        fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+        fastcgi_pass unix:/run/php-fpm/www.sock;
+        include fastcgi_params;
+    }
+    
+    location ~ /\.(ht|svn|git|idea) {
+    deny all;
+    }
+}
+```
 3. chown mediacenter:mediacenter /etc/pki/nginx -R
 4. chown mediacenter:mediacenter /var/lib/nginx -R
 5. chown mediacenter:mediacenter /var/log/nginx -R
@@ -97,17 +97,16 @@
 ### Настраиваем PHP
 1. systemctl stop php-fpm
 2. nano /etc/php-fpm.d/www.conf
-
-
-    user = mediacenter
-    group = mediacenter
-    listen = /run/php-fpm/www.sock
-    listen.owner = mediacenter
-    listen.group = mediacenter
-    listen.mode = 0777
-    listen.acl_users = mediacenter
-    listen.acl_groups = mediacenter
-    
+```
+user = mediacenter
+group = mediacenter
+listen = /run/php-fpm/www.sock
+listen.owner = mediacenter
+listen.group = mediacenter
+listen.mode = 0777
+listen.acl_users = mediacenter
+listen.acl_groups = mediacenter
+```
 3. chown mediacenter:mediacenter /var/log/php-fpm -R
 4. chown mediacenter:mediacenter /var/lib/php -R
 5. systemctl start php-fpm
@@ -133,13 +132,16 @@
     nano /usr/lib/systemd/system/transmission-daemon.service
     Заменить User=newuser
 3. systemctl start transmission-daemon.service
+
    systemctl stop transmission-daemon.service
 4. nano /home/newuser/.config/transmission-daemon/settings.json
-    "rpc-enabled": true,
-    "rpc-password": "mypassword",
-    "rpc-username": "mysuperlogin",
-    "rpc-whitelist-enabled": false,
-    "rpc-whitelist": "0.0.0.0",
+```
+"rpc-enabled": true,
+"rpc-password": "mypassword",
+"rpc-username": "mysuperlogin",
+"rpc-whitelist-enabled": false,
+"rpc-whitelist": "0.0.0.0",
+```
 5. systemctl start transmission-daemon.service
 6. systemctl enable transmission-daemon.service
 
@@ -149,6 +151,7 @@
 3. cp /etc/samba/smb.conf /etc/samba/smb.conf.bak
 4. nano /etc/samba/smb.conf
 5. Добавляем системного пользователя в samba
+
    smbpasswd -a user
 6. systemctl restart smb.service
 7. systemctl enable smb.service
