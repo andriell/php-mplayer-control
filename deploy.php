@@ -23,7 +23,7 @@ after('deploy:failed', 'deploy:unlock');
 
 after('deploy:release', 'deploy:release_path');
 task('deploy:release_path', function () {
-    writeln('Release path: {{release_path}}');
+    writeln('Release path: ' . get('release_path'));
 });
 
 task('npm:build', function () {
