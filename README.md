@@ -112,7 +112,7 @@ listen.acl_groups = mediacenter
 5. systemctl start php-fpm
 6. systemctl start nginx
 
-### Перенести код
+### Перенос кода
 1. yum install git npm
 2. npm install --global gulp
 3. su - mediacenter
