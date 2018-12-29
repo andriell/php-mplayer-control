@@ -26,10 +26,19 @@ task('deploy:release_path', function () {
     writeln('Release path: ' . get('release_path'));
 });
 
-task('npm:build', function () {
+task('npm:install', function () {
     run('cd {{release_path}} && npm install');
-    run('cd {{release_path}} && npm run production');
 });
-after('deploy:vendors', 'npm:build');
+after('deploy:vendors', 'npm:install');
+
+task('npm:build', function () {
+    $stage = input()->getArgument('stage');
+    if ($stage == 'prod') {
+        run('cd {{release_path}} && npm run production');
+    } elseif ($stage == 'dev') {
+        run('cd {{release_path}} && npm run development');
+    }
+});
+after('npm:install', 'npm:build');
 
 include('deploy_servers.php');
