@@ -2,7 +2,7 @@
  * Created by Андрей on 04.05.2017.
  */
 
-module.decorator = {
+module.exports = {
     size: function (size, precision) {
         precision = typeof precision !== 'undefined' ? precision : 2;
         precision = Math.pow(10, precision);
