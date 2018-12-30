@@ -23,13 +23,12 @@ add('shared_dirs', [
 after('deploy:failed', 'deploy:unlock');
 
 // deploy:release
-after('deploy:release', 'deploy:release_path');
 task('deploy:release_path', function () {
     writeln('Release path: ' . get('release_path'));
 });
+after('deploy:release', 'deploy:release_path');
 
 // deploy:shared
-after('deploy:shared', 'deploy:shared:my');
 task('deploy:shared:my', function () {
     $stage = input()->getArgument('stage');
     if ($stage == 'prod') {
@@ -38,10 +37,9 @@ task('deploy:shared:my', function () {
         run('ln -s {{release_path}}/shell/mplayer_run_dev.sh {{release_path}}/shell/mplayer_run.sh');
     }
 });
+after('deploy:shared', 'deploy:shared:my');
 
 // deploy:vendors
-after('deploy:vendors', 'npm:install');
-after('npm:install', 'npm:build');
 task('npm:install', function () {
     run('cd {{release_path}} && npm install');
 });
@@ -53,5 +51,7 @@ task('npm:build', function () {
         run('cd {{release_path}} && npm run development');
     }
 });
+after('deploy:vendors', 'npm:install');
+after('npm:install', 'npm:build');
 
 include('deploy_servers.php');
