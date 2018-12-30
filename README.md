@@ -153,22 +153,24 @@ upload_max_filesize = 128M
 
 ### Установка торрент клиента Transmission
 1. yum install transmission-cli transmission-daemon
-2. Что бы изменить пользователя от которого будет работать transmission
-    nano /usr/lib/systemd/system/transmission-daemon.service
-    Заменить User=newuser
-3. systemctl start transmission-daemon.service
-
-   systemctl stop transmission-daemon.service
-4. nano /home/newuser/.config/transmission-daemon/settings.json
+2. nano /usr/lib/systemd/system/transmission-daemon.service
 ```
+User=mediacenter
+```
+3. systemctl start transmission-daemon.service
+4. systemctl stop transmission-daemon.service
+5. nano /home/mediacenter/.config/transmission-daemon/settings.json
+```
+"download-dir": "/home/data/Downloads",
+"incomplete-dir": "/home/data/Downloads",
 "rpc-enabled": true,
-"rpc-password": "mypassword",
-"rpc-username": "mysuperlogin",
+"rpc-username": "transmission",
+"rpc-password": "password",
 "rpc-whitelist-enabled": false,
 "rpc-whitelist": "0.0.0.0",
 ```
-5. systemctl start transmission-daemon.service
-6. systemctl enable transmission-daemon.service
+6. systemctl start transmission-daemon.service
+7. systemctl enable transmission-daemon.service
 
 ### Установка samba
 1. yum install samba
