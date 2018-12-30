@@ -127,7 +127,7 @@ class FileSystem
         $r['type'] = 'file';
         $nameDot = strrpos($name, '.');
         if ($nameDot !== false) {
-            $r['ext'] = strtolower(substr($realPathFile, $nameDot + 1));
+            $r['ext'] = strtolower(substr($name, $nameDot + 1));
         }
         $r['size'] = $this->override->filesize($realPathFile);
         if (isset($filter['size>']) && $r['size'] < $filter['size>']) {
