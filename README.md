@@ -123,9 +123,10 @@ listen.acl_groups = mediacenter
 8. php artisan key:generate
 9. php artisan config:clear
 10. cp config/local/users_example.php config/local/users.php
-11. Изменить пароль в config/local/users.php
-12. mkdir /home/data/Downloads -p
-13. chown mediacenter:mediacenter /home/data -R
+11. ln -s shell/mplayer_run_dev.sh shell/mplayer_run.sh
+12. Изменить пароль в config/local/users.php
+13. mkdir /home/data/Downloads -p
+14. chown mediacenter:mediacenter /home/data -R
 
 ### Устанавливаем медиаплеер
 1. yum -y install http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm

@@ -19,18 +19,32 @@ add('shared_dirs', [
     'node_modules'
 ]);
 
+// deploy:failed
 after('deploy:failed', 'deploy:unlock');
 
+// deploy:release
 after('deploy:release', 'deploy:release_path');
 task('deploy:release_path', function () {
     writeln('Release path: ' . get('release_path'));
 });
 
+// deploy:shared
+after('deploy:shared', 'deploy:shared:my');
+task('deploy:shared:my', function () {
+    $stage = input()->getArgument('stage');
+    if ($stage == 'prod') {
+        run('ln -s {{release_path}}/shell/mplayer_run_prod.sh {{release_path}}/shell/mplayer_run.sh');
+    } elseif ($stage == 'dev') {
+        run('ln -s {{release_path}}/shell/mplayer_run_dev.sh {{release_path}}/shell/mplayer_run.sh');
+    }
+});
+
+// deploy:vendors
+after('deploy:vendors', 'npm:install');
+after('npm:install', 'npm:build');
 task('npm:install', function () {
     run('cd {{release_path}} && npm install');
 });
-after('deploy:vendors', 'npm:install');
-
 task('npm:build', function () {
     $stage = input()->getArgument('stage');
     if ($stage == 'prod') {
@@ -39,6 +53,5 @@ task('npm:build', function () {
         run('cd {{release_path}} && npm run development');
     }
 });
-after('npm:install', 'npm:build');
 
 include('deploy_servers.php');

@@ -1,6 +1,7 @@
 /node_modules
 /public/hot
 /public/storage
+/shell/mplayer_run.sh
 /storage/*.key
 /storage/*.json
 /vendor
