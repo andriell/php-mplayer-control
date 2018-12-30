@@ -8,7 +8,7 @@
             </a>
 
             <template v-if="item">
-                <img class="img-responsive" :src="'/dir-img-1024x768/' + item.uri + '?sync=' + sync + '&action=' + action" alt="...">
+                <img class="img-responsive" :src="'/dir-img/1024x768/' + item.uri + '?sync=' + sync + '&action=' + action" alt="...">
             </template>
 
             <a class="right carousel-control" v-on:click="right()">

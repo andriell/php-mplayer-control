@@ -90,7 +90,7 @@ class DirController extends Controller
             $fileName = substr($uri, 0, $m) . substr($uri, $p);
             $imgData = $this->image->resize($fileName, [100, 100, true]);
             if ($imgData) {
-                $filePath = public_path($this->fs->normalizeUri('/dir-img-100x100/' . $uri));
+                $filePath = public_path($this->fs->normalizeUri('/dir-img/100x100/' . $uri));
                 $dir = dirname($filePath);
                 if (!file_exists($dir)) {
                     try {

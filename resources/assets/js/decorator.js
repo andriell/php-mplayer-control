@@ -44,7 +44,7 @@ module.exports = {
     },
     filePreview: function(uri, date) {
         var p = uri.lastIndexOf('.');
-        return '/dir-img-100x100/' + uri.substring(0, p) + '-' + date + uri.substring(p, uri.length);
+        return '/dir-img/100x100/' + uri.substring(0, p) + '-' + date + uri.substring(p, uri.length);
     },
     torrentStatus: function (status) {
         if (status == 0) {

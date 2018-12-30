@@ -30,8 +30,8 @@ Route::post('/torrent-update/{id}', 'TorrentController@update')->where(['id' => 
 
 Route::get('/dir/{uri?}', 'DirController@index')->name('dir')->where(['uri' => '[\s\S]+']);
 Route::get('/dir-list/{uri?}', 'DirController@getList')->where(['uri' => '[\s\S]+']);
-Route::get('/dir-img-100x100/{uri}', 'DirController@img100x100')->where(['uri' => '[\s\S]+']);
-Route::get('/dir-img-1024x768/{uri}', 'DirController@img1024x768')->where(['uri' => '[\s\S]+']);
+Route::get('/dir-img/100x100/{uri}', 'DirController@img100x100')->where(['uri' => '[\s\S]+']);
+Route::get('/dir-img/1024x768/{uri}', 'DirController@img1024x768')->where(['uri' => '[\s\S]+']);
 Route::get('/dir-download/{uri}', 'DirController@download')->where(['uri' => '[\s\S]+']);
 Route::post('/dir-upload/{uri?}', 'DirController@upload')->where(['uri' => '[\s\S]+']);
 Route::get('/dir-only-dir/{uri?}', 'DirController@onlyDir')->where(['uri' => '[\s\S]+']);
