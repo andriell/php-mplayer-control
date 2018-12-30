@@ -3,6 +3,12 @@
  */
 
 module.exports = {
+    ext: function (str) {
+        if (str === false) {
+            return '';
+        }
+        return str;
+    },
     size: function (size, precision) {
         precision = typeof precision !== 'undefined' ? precision : 2;
         precision = Math.pow(10, precision);

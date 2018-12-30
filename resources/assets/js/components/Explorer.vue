@@ -44,7 +44,7 @@
                             </template>
                             <template v-else-if="item.type == 'movie'">
                                 <div class="explorer-img-box">
-                                    <span class="ext">{{ item.ext }}</span>
+                                    <span class="ext">{{ f.ext(item.ext) }}</span>
                                     <img src="/img/file_movie.png"><br>
                                 </div>
                                 <a>
@@ -55,7 +55,7 @@
                             </template>
                             <template v-else-if="item.type == 'text'">
                                 <div class="explorer-img-box">
-                                    <span class="ext">{{ item.ext }}</span>
+                                    <span class="ext">{{ f.ext(item.ext) }}</span>
                                     <img src="/img/file_txt.png"><br>
                                 </div>
                                 <a>
@@ -66,7 +66,7 @@
                             </template>
                             <template v-else>
                                 <div class="explorer-img-box">
-                                    <span class="ext">{{ item.ext }}</span>
+                                    <span class="ext">{{ f.ext(item.ext) }}</span>
                                     <img src="/img/file0.png"><br>
                                 </div>
                                 <a>
