@@ -13,10 +13,11 @@ set('repository', 'https://github.com/andriell/php-mplayer-control');
 set('composer_options', '{{composer_action}} --verbose --prefer-dist --no-progress --no-interaction --optimize-autoloader');
 
 add('shared_files', [
-    'config/local/users.php'
+    'config/local/users.php',
 ]);
 add('shared_dirs', [
-    'node_modules'
+    'node_modules',
+    'public/dir-img',
 ]);
 
 // deploy:failed
