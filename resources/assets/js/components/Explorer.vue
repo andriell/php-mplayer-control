@@ -84,7 +84,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         Объектов: {{itemsChecked.length}}
-                        <button type="button" class="btn btn-default btn-xs pull-right" v-on:click="unchecked()"><span class="glyphicon glyphicon-refresh"></span> Обновить</button>
+                        <button type="button" class="btn btn-default btn-xs pull-right" v-on:click="reload()"><span class="glyphicon glyphicon-refresh"></span> Обновить</button>
                         <button type="button" class="btn btn-default btn-xs pull-right" v-on:click="checkeAll()"><span class="glyphicon glyphicon-ok-circle"></span> Все</button>
                     </div>
                     <div class="panel-body">
@@ -203,7 +203,6 @@
                 },
                 unchecked: function() {
                     localData.itemsChecked = [];
-                    localData.reload();
                 },
                 editorTxt: function (uri) {
                     window.appData.editorTxt.show(uri);
