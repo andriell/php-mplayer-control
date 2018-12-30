@@ -59,30 +59,34 @@
 ```
 user mediacenter mediacenter;
 ***
-server {
-    listen       80 default_server;
-    listen       [::]:80 default_server;
-    server_name  _;
-    root         /srv/www/mediacenter/current/public;
-    index  index.php index.html index.htm;
-    
-    # Load configuration files for the default server block.
-    include /etc/nginx/default.d/*.conf;
-    
-    location / {
-        try_files $uri $uri/ /index.php?$args;
-    }
-    
-    location ~ \.php$ {
-        try_files $uri =404;
-        fastcgi_index  index.php;
-        fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
-        fastcgi_pass unix:/run/php-fpm/www.sock;
-        include fastcgi_params;
-    }
-    
-    location ~ /\.(ht|svn|git|idea) {
-    deny all;
+http {
+    client_max_body_size 128m;
+    ***
+    server {
+        listen       80 default_server;
+        listen       [::]:80 default_server;
+        server_name  _;
+        root         /srv/www/mediacenter/current/public;
+        index  index.php index.html index.htm;
+        
+        # Load configuration files for the default server block.
+        include /etc/nginx/default.d/*.conf;
+        
+        location / {
+            try_files $uri $uri/ /index.php?$args;
+        }
+        
+        location ~ \.php$ {
+            try_files $uri =404;
+            fastcgi_index  index.php;
+            fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+            fastcgi_pass unix:/run/php-fpm/www.sock;
+            include fastcgi_params;
+        }
+        
+        location ~ /\.(ht|svn|git|idea) {
+        deny all;
+        }
     }
 }
 ```
@@ -107,10 +111,15 @@ listen.mode = 0777
 listen.acl_users = mediacenter
 listen.acl_groups = mediacenter
 ```
-3. chown mediacenter:mediacenter /var/log/php-fpm -R
-4. chown mediacenter:mediacenter /var/lib/php -R
-5. systemctl start php-fpm
-6. systemctl start nginx
+3. nano /etc/php.ini
+```
+post_max_size = 128M
+upload_max_filesize = 128M
+```
+4. chown mediacenter:mediacenter /var/log/php-fpm -R
+5. chown mediacenter:mediacenter /var/lib/php -R
+6. systemctl start php-fpm
+7. systemctl start nginx
 
 ### Перенос кода
 1. yum install git npm
