@@ -19,6 +19,9 @@ add('shared_dirs', [
     'node_modules',
     'public/dir-img',
 ]);
+add('writable_dirs', [
+    'public/dir-img',
+]);
 
 // deploy:failed
 after('deploy:failed', 'deploy:unlock');
