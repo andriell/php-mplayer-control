@@ -141,6 +141,17 @@ upload_max_filesize = 128M
 1. yum -y install http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm
 2. yum install mplayer eom xdotool
 
+Можно выбрать video output чтобы увеличить производительность или сделать доступными настройки цветности
+Список доступных vo
+
+    mplayer -vo help
+
+использовать один из них
+
+    player -vo gl
+
+Это нужно делать в файле shell/mplayer_run.sh
+
 ### Настраиваем HTTPS в Nginx (Не обязательно)
 1. nano /etc/nginx/nginx.conf
 2. Удаляем коментарии из секции Settings for a TLS enabled server.
