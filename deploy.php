@@ -55,7 +55,7 @@ task('npm:build', function () {
         run('cd {{release_path}} && npm run development');
     }
 });
-after('deploy:vendors', 'npm:install');
+//after('deploy:vendors', 'npm:install');
 after('npm:install', 'npm:build');
 
 include('deploy_servers.php');

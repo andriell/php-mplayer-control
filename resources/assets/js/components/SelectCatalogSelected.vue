@@ -10,11 +10,10 @@
             var localData = window.appData.selectCatalogSelected = {
                 selected: '',
                 val: function () {
-                    return localData
+                    return localData.selected;
                 }
             };
             return localData;
         }
     }
 </script>
-
