@@ -7,7 +7,7 @@
                     <h4 class="modal-title" id="myModalLabel">Переместить</h4>
                 </div>
                 <div class="modal-body">
-                    <select_dir></select_dir>
+                    <select_catalog></select_catalog>
                     <div class="form-group">Элементов: {{items.length}}</div>
                     <div class="form-group">Переместить в: <template v-if="selectedUri()">{{ selectedUri() }}</template></div>
                     <div class="form-group">{{status}}</div>

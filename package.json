@@ -9,7 +9,7 @@
     "prod": "npm run production",
     "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
   },
-  "devDependencies": {
+  "dependencies": {
     "axios": "^0.15.3",
     "bootstrap-sass": "^3.3.7",
     "cross-env": "^3.2.3",
@@ -20,9 +20,7 @@
     "vue-template-compiler": "^2.3.0",
     "jquery-lazyload": "^1.9.7",
     "fuelux": "^3.15.12",
-    "bootstrap-fileinput": "^4.3.8"
-  },
-  "dependencies": {
+    "bootstrap-fileinput": "^4.3.8",
     "popper.js": "^1.14.6"
   }
 }
