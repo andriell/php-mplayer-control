@@ -292,12 +292,10 @@
             return localData;
         },
         mounted() {
-            jQuery('#app-search').search().on('searched.fu.search', function (evt, data) {
-                window.appData.explorer.search = data;
+            jQuery('#app-search').on('submit', function () {
+                window.appData.explorer.search = $(this).find('[name="search"]').val();
                 window.appData.explorer.reload();
-            }).on('cleared.fu.search', function() {
-                window.appData.explorer.search = '';
-                window.appData.explorer.reload();
+                return false;
             });
         },
         watch: {

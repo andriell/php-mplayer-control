@@ -70,15 +70,17 @@
                     <ul class="nav navbar-nav navbar-right">
                         @if (isset($search))
                             <li>
-                                <div id="app-search" class="search input-group" role="search">
-                                    <input type="search" class="form-control" placeholder="Поиск"/>
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-default" type="button">
-                                            <span class="glyphicon glyphicon-search"></span>
-                                            <span class="sr-only">Search</span>
-                                        </button>
-                                    </span>
-                                </div>
+                                <form id="app-search">
+                                    <div class="search input-group" role="search">
+                                        <input name="search" type="search" class="form-control" placeholder="Поиск"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="submit">
+                                                <span class="glyphicon glyphicon-search"></span>
+                                                <span class="sr-only">Search</span>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </form>
                             </li>
                         @endif
 
