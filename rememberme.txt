@@ -4,6 +4,12 @@ npm run watch
 npm run dev
 npm run production
 
+Можно выбрать video output чтобы увеличить производительность ли сделать доступными настройки цветности
+Список доступных vo
+mplayer -vo help
+использовать один из них
+player -vo gl
+
 sudo service nginx restart
 sudo service php7.0-fpm restart
 - or -
