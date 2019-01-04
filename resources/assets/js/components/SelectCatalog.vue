@@ -9,7 +9,7 @@
         </div>
         <div v-if="isOpen" class="select-catalog-second">
             <template v-for="item in items">
-                <select_catalog v-bind:name="item"  v-bind:uri="uri + item + '/'"></select_catalog>
+                <select_catalog v-bind:name="item"  v-bind:uri="uri + '/' + item"></select_catalog>
             </template>
         </div>
     </div>
@@ -51,7 +51,7 @@
             },
             'uri': {
                 type: String,
-                default: '/'
+                default: ''
             }
         }
     }
