@@ -1,12 +1,12 @@
 // Fonts
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+//@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
 // Variables
 @import "variables";
 // Bootstrap
-@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
-@import "../../../node_modules/bootstrap-fileinput/css/fileinput";
+@import '~bootstrap-sass/assets/stylesheets/bootstrap';
+@import "~bootstrap-fileinput/css/fileinput";
 @import "switch";
-@import "../../../node_modules/fuelux/dist/css/fuelux.min.css";
+@import "~fuelux/dist/css/fuelux.min.css";
 
 $navH: 50px;
 $tap: 5px;

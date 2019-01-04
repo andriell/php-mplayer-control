@@ -12,6 +12,7 @@ composer.bat
 composer.phar
 deploy_servers.php
 deployer.phar
+npm-debug.log
 phpunit.phar
 Homestead.json
 Homestead.yaml
