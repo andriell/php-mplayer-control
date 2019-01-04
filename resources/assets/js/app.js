@@ -18,8 +18,8 @@ require('./bootstrap');
 //require('jquery-lazyload');
 //require('fuelux/js/tree.js');
 //require('fuelux/js/search.js');
-//require('bootstrap-fileinput');
-//require('bootstrap-fileinput/js/locales/ru.js');
+require('bootstrap-fileinput');
+require('bootstrap-fileinput/js/locales/ru.js');
 
 window.Vue = require('vue');
 
