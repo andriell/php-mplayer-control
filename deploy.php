@@ -16,7 +16,7 @@ add('shared_files', [
     'config/local/users.php',
 ]);
 add('shared_dirs', [
-    'node_modules',
+    //'node_modules',
     'public/dir-img',
 ]);
 add('writable_dirs', [
