@@ -7,9 +7,11 @@
                     <h4 class="modal-title" id="myModalLabel">Переместить</h4>
                 </div>
                 <div class="modal-body">
-                    <select_catalog></select_catalog>
+                    <div class="panel panel-default">
+                        <div class="panel-body"><select_catalog></select_catalog></div>
+                    </div>
                     <div class="form-group">Элементов: {{items.length}}</div>
-                    <div class="form-group">Переместить в: <template v-if="selectedUri()">{{ selectedUri() }}</template></div>
+                    <div class="form-group">Переместить в: <select_catalog_selected></select_catalog_selected></div>
                     <div class="form-group">{{status}}</div>
                 </div>
                 <div class="modal-footer">
@@ -32,10 +34,10 @@
                 status: '',
                 run: false,
                 selectedUri: function () {
-                    if (typeof window.appData.selectDir != 'object') {
+                    if (typeof window.appData.selectCatalogSelected != 'object') {
                         return false;
                     }
-                    return window.appData.selectDir.selectedUri;
+                    return window.appData.selectCatalogSelected.val();
                 },
                 available: function() {
                     return !localData.run && localData.selectedUri() !== false && localData.items.length > 0 && localData.selectedUri() != localData.currentDir;

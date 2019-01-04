@@ -28,8 +28,9 @@ window.Vue = require('vue');
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-// Vue.component('select_dir', require('./components/SelectDir.vue'));
+//Vue.component('select_dir', require('./components/SelectDir.vue'));
 Vue.component('select_catalog', require('./components/SelectCatalog.vue'));
+Vue.component('select_catalog_selected', require('./components/SelectCatalogSelected.vue'));
 Vue.component('explorer', require('./components/Explorer.vue'));
 Vue.component('rc', require('./components/Rc.vue'));
 Vue.component('rename', require('./components/Rename.vue'));
