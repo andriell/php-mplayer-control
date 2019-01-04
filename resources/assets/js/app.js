@@ -15,7 +15,7 @@ window.appData = {
 window.decorator = require('./decorator');
 require('./bootstrap');
 
-//require('jquery-lazyload');
+require('jquery-lazyload');
 //require('fuelux/js/tree.js');
 //require('fuelux/js/search.js');
 require('bootstrap-fileinput');
